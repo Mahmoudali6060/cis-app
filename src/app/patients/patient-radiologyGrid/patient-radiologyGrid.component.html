@@ -1,0 +1,33 @@
+﻿
+
+<div class="inner-addon left-addon">
+    <i class="glyphicon glyphicon-search"></i>
+    <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+</div>
+<p-dataTable [value]="allRadiologies | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <p-column styleClass="text-center width50">
+        <template let-noteRadiology="rowData" pTemplate="body">
+            <input type="checkbox" [checked] ="noteRadiology.isSelected"
+                   (change)="updateSelectedRadiology(noteRadiology.radiologyTestId, $event)" />
+        </template>
+    </p-column>
+    <p-column field="radTestCode" [header]="'RadiologyCode' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
+    <p-column field="radTestName" [header]="'RadiologyName' | translate" [sortable]="true"></p-column>
+    <p-column [header]="'Quantity' | translate" styleClass="text-center width70">
+        <template let-noteRadiology="rowData" pTemplate="body">
+            <input type="number" min="0" id="txtQuantity" name="txtQuantity" [(ngModel)]='noteRadiology.quantity' class="form-control" />
+        </template>
+    </p-column>
+    <p-column [header]="'DiagnoseName' | translate">
+        <template let-noteRadiology="rowData" pTemplate="body">
+            <select class="form-control" name="ddlDiagnosis" [(ngModel)]='noteRadiology.diagnoseId' >
+                <option *ngFor="let obj of diagnosis| translateObjects" [value]="obj.id">{{obj.name}}</option>
+            </select>
+        </template>
+    </p-column>
+    <p-column [header]="'Remarks' | translate">
+        <template let-noteRadiology="rowData" pTemplate="body">
+            <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteRadiology.description'></textarea>
+        </template>
+    </p-column>
+</p-dataTable>

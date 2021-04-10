@@ -1,0 +1,217 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row">
+    <shared-tabs [activeTabIndex]="3"></shared-tabs>
+</div>
+<div class="padding10">
+
+    <div class="row well">
+        <div class="row">
+            <div class="col-md-8">
+                <div>
+                    <label class="labelSucess labelSize btn label-success">
+                        {{ 'UnifiedMRN' | translate}} : {{selectedPatient ? selectedPatient.unifiedMRN : ''}}
+                    </label>
+                    <label class="labelSucess labelSize btn label-pink">
+                        {{ 'ClinicMRN' | translate}} : {{selectedPatient ? selectedPatient.clinicMRN : ''}}
+                    </label>
+                </div>
+                <h3 class="h3Deco">
+                    <!--{{ 'MRF' | translate}}--> {{selectedPatient ? selectedPatient.name : ''}}
+                </h3>
+                <p class="forum-sub-title">
+                    <span class="h4Deco">
+                            <strong>
+                                {{ 'AlertMessage' | translate}}:
+                            </strong>
+                            {{selectedPatient ? selectedPatient.alertMessage : ''}}
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <div class="forum-meta">
+                    <div class="forum-meta-info">
+                        <ul style="list-style-type:none;">
+                            <li>
+                                <label class="labelStyle"><strong>{{ 'Gender' | translate}}:</strong>&nbsp; {{selectedPatient ? selectedPatient.gender : ''}}</label>
+                            </li>
+                            <li>
+                                <label class="labelStyle"><strong>{{ 'Age' | translate}}: </strong>&nbsp;{{selectedPatient ? selectedPatient.age : ''}}</label>
+                            </li>
+                            <li>
+                                <label class="labelStyle"><strong> {{ 'Company' | translate}}: </strong>&nbsp;{{selectedPatient && selectedPatient.activeInsurance ? selectedPatient.activeInsurance.companyName : ''}}</label>
+                            </li>
+                            <li>
+                                <label class="labelStyle"><strong>{{ 'PolicyName' | translate}}: </strong>&nbsp;{{selectedPatient && selectedPatient.activeInsurance ? selectedPatient.activeInsurance.policyName : ''}}</label>
+                            </li>
+                            <li>
+                                <label class="labelStyle"><strong>{{ 'ExpirationDate' | translate}}: </strong>&nbsp;{{selectedPatient && selectedPatient.activeInsurance ? selectedPatient.activeInsurance.endDateString : ''}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row text-right">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pateitnAttachments" disabled="{{ enableAttachmentBtn ? '' :'disabled'}}">{{ 'Attachments' | translate}}</button>
+        <button type="button" class="btn btn-success" (click)="addNewAppointment()" disabled="{{ enableNewAppointmentBtn ? '' :'disabled'}}">{{ 'NewAppointment' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="openAddNewNote()" disabled="{{ enableNewNoteBtn ? '' :'disabled'}}">{{ 'NewNote' | translate}}</button>
+    </div>
+    <br />
+    <br /><br />
+    <div id="navtab" class="row well">
+        <div class="tabbable-panel">
+            <div class="tabbable-line">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#snapshot" data-toggle="tab" aria-expanded="true">{{ 'Snapshot' | translate}}</a></li>
+                    <li><a href="#oldNotes" data-toggle="tab" aria-expanded="true">{{ 'AllNotes' | translate}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="snapshot">
+                <patient-snapshot [patientId]="selectedPatientId" [patientDOB]="selectedPatient.birthDate"></patient-snapshot>
+            </div>
+            <div class="tab-pane fade" id="oldNotes">
+                <patient-notes [divisionId]="divisionId" [getMrf]="getMrf" #patientNotesComp></patient-notes>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pateitnAttachments" class="modal fade" role="dialog">
+    <div class="modal-dialog fullWidth">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'PatientAttachments' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <documents (onModelUpdated)="updateModel($event)" [parentId]="selectedPatientId" [title]="Attachement" [parentType]='parentType' [showDocumentDetails]="showDocumentDetails" [btnUploadText]="btnUploadText" [fileType]="fileType" [fileNameTxt]='fileNameTxt' [fileNameUploadTxt]='fileNameUploadTxt'></documents>
+            </div>
+            <!--<div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>-->
+        </div>
+
+    </div>
+</div>
+
+<button type="button" #btnAddNewNote class="btn btn-primary" data-toggle="modal" data-target="#noteEditingfromAddNewNote" style="display:none"></button>
+<div id="noteEditingfromAddNewNote" class="modal fade" role="dialog">
+    <div class="modal-dialog fullWidth">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ClinicalNoteDetailsPatient' | translate}}: {{selectedPatient ? selectedPatient.name : ''}}</h4>
+            </div>
+            <div class="modal-body">
+                <patient-clinical-note (onNewNoteSaved)="getPatientMrf($event)"
+                                       [selectedAppointmentId]="defaultAppointmentId"
+                                       [noteId]="noteId"
+                                       [allowEditing]="true"
+                                       #newClinicalNoteComp></patient-clinical-note>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" data-toggle="modal" data-target="#appointmentModal" style="display:none" #appointmentModalButton></button>
+<div id="appointmentModal" #appointmentModal class="modal fade" role="dialog" data-backdrop="static">
+    <form *ngIf="active" class="form-horizontal" name="appointmentDetailsFrm" #appointmentDetailsFrm="ngForm">
+        <div class="modal-dialog width75percent">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ 'AppointmentDetails' | translate}} - {{doctorName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="showProgress">
+                        <loading></loading>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            {{ 'Date' | translate}}
+                        </label>
+                        <div class="col-md-4">
+                            <p-calendar [(ngModel)]="selectedDate"
+                                        [monthNavigator]="true"
+                                        [yearNavigator]="true"
+                                        dateFormat="dd/mm/yy"
+                                        showIcon="true" required="true"
+                                        [ngModelOptions]="{standalone: true}"
+                                        yearRange="2000:2050"
+                                        (onSelect)="onDateSelect($event)"></p-calendar>
+                        </div>
+                        <label class="control-label col-md-2">
+                            {{ 'Time ' | translate}}
+                        </label>
+                        <div class="col-md-4">
+                            <select class="form-control" id="ddlTime" name="ddlTime"
+                                    [(ngModel)]="selectedTimeSlot" #ddlTime="ngModel" required>
+                                <option *ngFor="let itm of timeSlotsList | translateObjects" [value]="itm.name">{{itm.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            {{ 'Class' | translate}}
+                        </label>
+                        <div class="col-md-4">
+                            <table>
+                                <tr>
+                                    <td *ngFor="let item of appointmentClassesList | translateObjects">
+                                        <input type="radio" name="appClass"
+                                               (click)="selectAppointmentClass(item.id)"
+                                               [value]="item.id" [checked]="item.id == appointmentModel.appointmentClassId" /> {{item.name}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <label class="control-label col-md-2">
+                            {{ 'VisitType' | translate}}
+                        </label>
+                        <div class="col-md-4">
+                            <select class="form-control" id="ddlVisitType" name="ddlVisitType" required
+                                    [(ngModel)]="appointmentModel.visitTypeId" #ddlVisitType="ngModel">
+                                <option *ngFor="let itm of visitTypesList | translateObjects" [value]="itm.id">{{itm.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                            {{ 'Description' | translate}}
+                        </label>
+                        <div class="col-md-4">
+                            <textarea id="txtRemarks" name="txtRemarks" class="form-control" [(ngModel)]="appointmentModel.description"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" (click)="saveOrUpdateAppointment()" [disabled]="!appointmentDetailsFrm.form.valid || !enableNewAppointmentBtn">{{ 'Save' | translate}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" #btnClostAppointmentModal>{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

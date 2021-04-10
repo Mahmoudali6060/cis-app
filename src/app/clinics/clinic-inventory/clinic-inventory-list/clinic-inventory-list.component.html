@@ -1,0 +1,90 @@
+﻿<!--<button data-toggle="collapse" data-target="#SearchForInventoryItem">Search...</button>
+<div id="SearchForInventoryItem" class="collapse row">-->
+<div class="col-lg-offset-10">
+    <print-page [section]='inventoriesListDiv'></print-page>
+   
+</div>
+<br />
+
+<div style="background-color: #f6f7f9 !important;" class="row well">
+    <div class="inner-addon left-addon">
+        <i class="glyphicon glyphicon-search"></i>
+        <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
+    </div>
+    <br />
+
+    <!--<div class="col-md-2">
+
+    </div>-->
+    <div class="col-md-3">
+        <input class="checHeight col-md-1" type="checkbox" id="activeItem" name="activeItem" #activeItem (change)="getAllActiveProducts(activeItem)" />
+        <label class="txtStyle col-md-9">{{'ShowActiveItems' | translate }}</label>
+    </div>
+    <div class="col-md-3">
+        <input type="checkbox" class="checHeight col-md-1" id="quantityIsNull" name="quantityIsNull" #quantityIsNull (change)="getAlluantityNulls(quantityIsNull)" />
+        <label class="txtStyle col-md-9">{{'ShowNullQuantity' | translate}}</label>
+    </div>
+    <!--</div>-->
+    <!--<div class="ui-widget-header searchWidget">
+        <i class="fa fa-search searchIcon"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search...">
+    </div>-->
+
+    <p-dataTable [value]="clinicInventoriesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="code" [header]="'ItemCode' | translate" [sortable]="true"></p-column>
+        <p-column field="name" [header]="'ItemName' | translate" [sortable]="true"></p-column>
+        <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
+        <p-column field="orderInQuantity" [header]="'OrderIn' | translate" [sortable]="true"></p-column>
+        <p-column field="orderOutQuantity" [header]="'OrderOut' | translate" [sortable]="true"></p-column>
+        <p-column field="minLevel" [header]="'MinLevel' | translate" [sortable]="true"></p-column>
+        <p-column field="maxLevel" [header]="'MaxLevel' | translate" [sortable]="true"></p-column>
+        <p-column field="minNet" [header]="'MinNet' | translate" [sortable]="true"></p-column>
+        <p-column field="maxNet" [header]="'MaxNet' | translate" [sortable]="true"></p-column>
+        <!--<p-column field="unitName" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
+        <p-column [header]="'Unit' | translate">
+            <template let-product="rowData" pTemplate="body">
+                <label *ngIf="product.unitType === 'NumbersUnit'">{{ product.unitName | translate}}</label>
+                <label *ngIf="product.unitType == 'HeightsUnit' || product.unitType == 'WeightsUnit' || product.unitType == 'VolumesUnit'">
+                    {{ product.unitName}}
+                </label>
+
+            </template>
+        </p-column>
+        <p-column field="lastPurchasingPrice" [header]="'LastPurchasePrice' | translate" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>
+
+<div id="InventoriesPrintingArea" class="row hidden">
+    <table class="table table-responsive table-bordered table-hover table-striped">
+        <thead class="alert alert-info">
+            <tr>
+                <th>{{ 'ItemCode' | translate}}</th>
+                <th>{{ 'ItemName' | translate}}</th>
+                <th>{{ 'OnhandQuantity' | translate}}</th>
+                <th>{{ 'OrderIn' | translate}}</th>
+                <th>{{ 'OrderOut' | translate}}</th>
+                <th>{{ 'MinLevel' | translate}}</th>
+                <th>{{ 'MaxLevel' | translate}}</th>
+                <th>{{ 'MinNet' | translate}}</th>
+                <th>{{ 'MaxNet' | translate}}</th>
+                <th>{{ 'Unit' | translate}}</th>
+                <th>{{ 'LastPurchasePrice' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of clinicInventoriesList | translateObjects  : null : null : lstToTranslated">
+                <td>{{item.code}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.onHandQuantity}}</td>
+                <td>{{item.orderInQuantity}}</td>
+                <td>{{item.orderOutQuantity}}</td>
+                <td>{{item.minLevel}}</td>
+                <td>{{item.maxLevel}}</td>
+                <td>{{item.minNet}}</td>
+                <td>{{item.maxNet}}</td>
+                <td>{{item.unitName}}</td>
+                <td>{{item.lastPurchasingPrice}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

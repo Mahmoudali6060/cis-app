@@ -1,0 +1,191 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <div class="col-md-2 nopadding">
+        <clinic-tab [isInventorySelected]='selectInventoryTab' *ngIf="isClinicAdmin"></clinic-tab>
+        <shared-tabs [isInventorySelected]='selectInventoryTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    </div>
+</div>
+
+    <div class="row nopadding">
+
+        <div class="col-md-offset-9">
+            <button class="btn btn-primary" data-toggle="collapse" data-target="#SearchForDoctorRequests">{{ 'Search' | translate}}</button>
+            <print-page [section]='inventoriesListDiv'></print-page>
+        </div>
+        <br />
+
+             <div id="SearchForDoctorRequests" class="collapse fa-border well">
+                 <div class="padding5 marginTop35">
+                     <div class="row form-horizontal">
+                         <div class="form-group">
+                             <label for="ddlsDoctorsList" class="col-md-2 control-label">{{ 'DoctorName' | translate}}</label>
+                             <div class="col-md-3">
+                                 <select name="ddlsDoctorsList" [(ngModel)]='searchCriteria.doctorID' class="form-control" #ddlsDoctorsList>
+                                     <option value="0" selected>{{ 'Select' | translate}}</option>
+                                     <option *ngFor="let item of doctorsList | translateObjects" [value]="item.id">{{item.name}}</option>
+                                 </select>
+                             </div>
+                             <label class="col-md-1 control-label">{{ 'Status' | translate}}</label>
+                             <div class="col-md-6">
+                                 <table>
+                                     <tr>
+                                         <td *ngFor="let item of requestStatusList">
+                                             <input type="radio" name="requestStatus" (click)="selectRequestStatus(item.value)"
+                                                    value={{item.value}}
+                                                    [checked]="item.value == defaultRequestStatus">&nbsp;{{item.text| translate}}
+                                             &nbsp;&nbsp;
+                                         </td>
+                                         <td>
+                                             <input type="radio" name="requestStatus" #radioAnyStatus (click)="selectRequestStatus(radioAnyStatus.value)"
+                                                    value="All">&nbsp;{{'All'| translate}}
+                                             &nbsp;&nbsp;
+                                         </td>
+                                     </tr>
+                                 </table>
+                             </div>
+                         </div>
+                         <div class="form-group">
+                             <label for="txtName" class="col-md-2 control-label">{{ 'Date' | translate}}</label>
+                             <div class="col-md-3">
+                                 <select id="ddlDateFilters" name="ddlDateFilters" (change)="selectDateFilter(ddlDateFilters.value)" class="form-control" #ddlDateFilters>
+                                     <option>{{ 'Select' | translate}}</option>
+                                     <option *ngFor="let item of dateFiltersList | translateObjects" [value]="item.value">{{item.text| translate}}</option>
+                                 </select>
+                             </div>
+                         </div>
+                         <div class="form-group" *ngIf="isDurationVisible">
+                             <label for="txtDuration" class="col-md-2 control-label">{{durationLabel}}</label>
+                             <div class="col-md-4">
+                                 <input type="text" class="form-control" [(ngModel)]='searchCriteria.duration' />
+                             </div>
+                         </div>
+                         <div class="form-group" *ngIf="isPeriodOfTimeVisible">
+                             <label for="txtName" class="col-md-2 control-label">{{ 'From' | translate}}</label>
+                             <div class="col-md-4">
+                                 <p-calendar [(ngModel)]="searchCriteria.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                             showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                             </div>
+                             <label for="txtName" class="col-md-2 control-label">{{ 'To' | translate}}</label>
+                             <div class="col-md-4">
+                                 <p-calendar [(ngModel)]="searchCriteria.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                             showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                             </div>
+                         </div>
+                         <div class="form-group">
+                             <div class="col-md-4 col-md-offset-2">
+                                 <button type="button" class="btn btn-primary" (click)="getDoctorRequests()">{{ 'Search' | translate}}</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+
+
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input #gb class="inputSearch" type="text" pInputText size="50" [placeholder]="'Search' | translate">
+            </div>
+
+
+
+            <p-dataTable [value]="doctorsRequestsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="creationDateString" [header]="'RequestDate' | translate" [sortable]="true"></p-column>
+                <p-column field="inventoryCode" [header]="'ItemCode' | translate" [sortable]="true"></p-column>
+                <p-column field="itemName" [header]="'ItemName' | translate" [sortable]="true"></p-column>
+                <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
+                <p-column field="suppliedQuantity" [header]="'SuppliedQuantity' | translate" [sortable]="true"></p-column>
+                <!--<p-column field="unitName" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
+                <p-column [header]="'Unit' | translate">
+                    <template let-product="rowData" pTemplate="body">
+                        <label *ngIf="product.unitType === 'NumbersUnit'">{{ product.unitName | translate}}</label>
+                        <label *ngIf="product.unitType == 'HeightsUnit' || product.unitType == 'WeightsUnit' || product.unitType == 'VolumesUnit'">
+                            {{ product.unitName}}
+                        </label>
+
+                    </template>
+                </p-column>
+                <p-column field="doctorName" [header]="'Doctor' | translate" [sortable]="true"></p-column>
+                <p-column field="departmentName" [header]="'Department' | translate" [sortable]="true"></p-column>
+                <p-column field="inventoryRequestStatus" [header]="'Status' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'Action' | translate" styleClass="text-center width70">
+                    <template let-item="rowData" pTemplate="body">
+                        <a class="pointer underLinelinkText" style="color:blue;" (click)="passInventoryRequestId(item.id)" *ngIf="!item.isSuppliedRequest" data-toggle="modal" data-target="#supplyDoctorInventoryRequests" [class.disabled]="!enableSupplyBtn && !isClinicAdmin ? true : null">{{ 'Supply' | translate}}</a>
+                        <a class="pointer" *ngIf="item.isSuppliedRequest" style="color:#808080;" [class.disabled]="!enableSupplyBtn && !isClinicAdmin ? true : null">{{ 'Supplied' | translate}}</a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+
+        <div id="incomingRequestsPrintingArea" class="row hidden">
+            <table class="table table-responsive table-bordered table-hover table-striped">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th>{{ 'RequestDate' | translate}}</th>
+                        <th>{{ 'ItemCode' | translate}}</th>
+                        <th>{{ 'ItemName' | translate}}</th>
+                        <th>{{ 'Quantity' | translate}}</th>
+                        <th>{{ 'suppliedQuantity' | translate}}</th>
+                        <th>{{ 'Unit' | translate}}</th>
+                        <th>{{ 'Doctor' | translate}}</th>
+                        <th>{{ 'Department' | translate}}</th>
+                        <th>{{ 'Status' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of doctorsRequestsList | translateObjects  : null : null : lstToTranslated">
+                        <td>{{item.creationDateString}}</td>
+                        <td>{{item.inventoryCode}}</td>
+                        <td>{{item.itemName}}</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.suppliedQuantity}}</td>
+                        <td>{{item.unitName}}</td>
+                        <td>{{item.doctorName}}</td>
+                        <td>{{item.departmentName}}</td>
+                        <td>{{item.inventoryRequestStatus}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div id="supplyDoctorInventoryRequests" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">{{ 'SupplyDoctorInventoryRequests' | translate}}</h4>
+                </div>
+                <form  class="form-horizontal" name="servicegroupForm" #servicegroupForm="ngForm">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="suppliedQuantity" class="control-label col-md-2">{{ 'Quantity' | translate}}</label>
+                            <div class="col-md-4">
+                                <input class="form-control" id="suppliedQuantity" name="suppliedQuantity" [(ngModel)]='supplidObject.suppliedQuantity' #suppliedQuantity="ngModel" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="remark" class="control-label col-md-2">{{ 'Remark' | translate}}</label>
+                            <div class="col-md-4">
+                                <textarea class="form-control" id="remark" name="remark" [(ngModel)]='supplidObject.description' #remark="ngModel"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" (click)="calculateOrderOut()" data-dismiss="modal">{{ 'Supply' | translate}}</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

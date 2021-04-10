@@ -1,0 +1,104 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+        <shared-tabs [activeTabIndex]="4"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="row NBbreadcrumb">
+                    <a>{{ 'DoctorProfile' | translate}}</a> &nbsp;/
+                    {{ 'RequestDetails' | translate}}
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+        <div class="row well">
+            
+            <div class="row nopadding">
+
+                <div class="col-md-5 nopadding">
+                    <div class="inner-addon left-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input [placeholder]="'SearchByNameorCode' | translate" class="inputSearch  form-control" [(ngModel)]="filterString" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        <form novalidate *ngIf="active" class="formClear form-horizontal" name="inventoryRequestForm" (ngSubmit)="onSubmit()" #inventoryRequestForm="ngForm">
+
+            <div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
+
+                <div class="row well">
+                    <!--<p-tree [value]="items" selectionMode="single" [(selection)]="selectedFiles"></p-tree>-->
+                    <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedGroup" (onNodeSelect)="nodeSelect($event)" #tree>
+                        <template let-node pTemplate="Medical">
+                            {{node.label}}
+                            &nbsp; &nbsp;
+                        </template>
+                        <template let-node pTemplate="NonMedical">
+                            {{node.label}}
+                            &nbsp; &nbsp;
+                        </template>
+                        <template let-node pTemplate="Product">
+                            <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                            &nbsp;
+                           {{node.label}}
+                        </template>
+                        <template let-node pTemplate="ProductsGroup">
+                            <span class="nav-icon {{ isSelectedGroupNode ? 'bg-danger' : '' }}"><i class="fa fa-cubes"></i></span>
+                            &nbsp; 
+                            {{node.label}}
+                        </template>
+                    </p-tree>
+                </div>
+                </div>
+
+               <div class="row well" >
+                   <div class="form-group">
+                       <label for="inventoryCode" class="control-label col-md-2">{{ 'InventoryCode' | translate}}</label>
+                       <div class="col-md-2">
+                           <input id="inventoryCode" name="inventoryCode" class="form-control" [(ngModel)]='inventoryRequestObject.inventoryCode' #inventoryCode="ngModel" required readonly />
+
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="unit" class="control-label col-md-2">{{ 'Unit' | translate}}</label>
+                       <div class="col-md-4">
+                           <input id="inventoryName" name="inventoryName" class="form-control" [(ngModel)]='inventoryRequestObject.unitName' #inventoryName="ngModel" required readonly />
+
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="quantity" class="control-label col-md-2">{{ 'Quantity' | translate}}</label>
+                       <div class="col-md-2">
+                           <input type="number" id="quantity" name="quantity" class="form-control" [(ngModel)]='inventoryRequestObject.quantity' #quantity="ngModel" required />
+                           <div [hidden]="quantity.valid || quantity.pristine" class="alert alert-danger">
+                               {{ 'RequiredField' | translate}}
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="form-group">
+                       <label for="remark" class="control-label col-md-2">{{ 'Remarks' | translate}} </label>
+                       <div class="col-md-6">
+                           <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='inventoryRequestObject.description' #txtRemarks="ngModel"></textarea>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <div class="col-md-4 col-md-offset-2">
+                           <button class="btn btn-primary" [disabled]="!inventoryRequestForm.valid || !enableFormButtons">{{ 'Save' | translate}}</button>
+                           <button class="btn btn-primary" (click)="clear()" disabled="{{ enableFormButtons ? '' :'disabled'}}">{{ 'New' | translate}}</button>
+                           <button class="btn btn-primary" routerLink="/doctor/requests/1" disabled="{{ enableFormButtons ? '' :'disabled'}}">{{ 'Back' | translate}}</button>
+                       </div>
+                   </div>
+
+               </div>
+</form>
+    </div>
+</div>
+

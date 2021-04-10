@@ -1,0 +1,24 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<button *ngIf="departmentDrugs.length" class="btn btn-primary text-right" (click)="SaveNoteDrugs()">{{'Save' | translate}}</button>
+<br />
+<br />
+<div class="row" *ngIf="departmentDrugs.length">
+    <ul class="nav nav-tabs">
+        <li *ngFor="let drugGroup of departmentDrugs; let i=index" class="{{i === 0 ? 'active' : ''}}"><a href="#divDrugsGroup{{drugGroup.data}}" data-toggle="tab" aria-expanded="true">{{ selectedLang === 'ar' ?  drugGroup.label : drugGroup.labelTranslation }}</a></li>
+    </ul>
+    <div class="tab-content">
+        <div *ngFor="let drugGroup of departmentDrugs; let j=index" class="tab-pane fade {{j === 0 ? 'active in' : ''}}" id="divDrugsGroup{{drugGroup.data}}">
+            <patient-medicationsGrid [drugs]="drugGroup.children"
+                                  [noteDrugs]="noteDrugsList"
+                                  [diagnosis]="noteDiagnosis"
+                                  [drugDosageUnits]="drugDosageUnitsList"
+                                  [drugFrequencies]="drugFrequenciesList"
+                                  [durationUnits]="durationUnitsList"
+                                  [masterList]="masterNoteDrugsList"
+                                  [noteId]="noteId"></patient-medicationsGrid>
+        </div>
+    </div>
+</div>

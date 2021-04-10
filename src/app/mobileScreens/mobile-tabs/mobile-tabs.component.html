@@ -1,0 +1,43 @@
+﻿
+
+<div class="left-aside desktop-view">
+    <div class="aside-branding">
+        <a>
+            <img src="Images/App-Logo.png" title="Logo" class="appLogo" />
+        </a>
+        <a routerLink="/home" class="large-logo">
+            <span style="color:white;">&nbsp;&nbsp;CIS</span>
+        </a><span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
+        <span class="aside-close waves-effect" onclick="closeLeftBar();"><i class="fa fa-times"></i></span>
+    </div>
+    <div class="left-navigation">
+        <ul class="list-accordion padding5">
+            <li>
+                <a class="{{ isSearchSelected ? 'selectednavbaritem active' : '' }}" routerLink="/homeSearch"> Search</a>
+            </li>
+            <li>
+                <a class="{{ isRegisterSelected ? 'selectednavbaritem active' : '' }}" routerLink="/patientRegister"> Register</a>
+            </li>
+            <li>
+                <a class="{{ isProfileSelected ? 'selectednavbaritem active' : '' }}" routerLink="/updatePatientProfile"> Profile</a>
+            </li>
+            <li>
+                <a class="{{ isInsuranceSelected ? 'selectednavbaritem active' : '' }}" routerLink="/updateInsuranceDetails"> Insurance Details</a>
+            </li>
+            <li>
+                <a class="{{ isAppointmentsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/patientAppointments"> Appointments</a>
+            </li>
+            <li>
+                <a class="{{ isFeedbackSelected ? 'selectednavbaritem active' : '' }}" routerLink="/feedback"> Feedback & Complaints</a>
+            </li>
+            <li>
+                <a class="{{ isMedicalCalcSelected ? 'selectednavbaritem active' : '' }}" routerLink="/medicalCalculator"> Medical Calculator</a>
+            </li>
+            <li>
+                <a class="{{ isNewsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/news"> News</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

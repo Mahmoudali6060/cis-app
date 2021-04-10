@@ -1,0 +1,57 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="page-breadcrumb-wrap">
+                <div class="page-breadcrumb-info">
+                    <ul class="list-page-breadcrumb">
+                        <li>
+                            {{ 'AllNotifications' | translate}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+        </div>
+    </div>
+</div>
+
+<div class="padding5">
+    <div class="row ">
+        <div class="col-md-4 col-sm-5">
+
+        </div>
+        <div class="col-md-8 col-sm-7 text-right nopadding">
+            <button type="submit" class="btn btn-primary" (click)="markAllAsRead()">{{ 'MarkAllAsRead' | translate}}</button>
+        </div>
+    </div>
+
+    <div class="padding2"></div>
+    <table class="table table-responsive table-hover">
+        <thead class="alert alert-info">
+            <tr>
+                <th></th>
+                <th>{{ 'Notifications' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let notification of notificationsList; let i=index" [ngClass]="{read : !notification.isRead}">
+                <td style="width:15px;">
+                    <span class="{{notification.isRead ? 'hidden' : '' }}">
+                        <input type="radio" name="rdIsRead{{i}}" [checked]="notification.isRead"
+                               (click)="markAsRead(notification.id)" title="Mark as Read" />
+                    </span>
+                </td>
+                <td>
+                    <span class="{{ notification.isRead ? '' : 'bolder' }}">
+                        {{notification.name}}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

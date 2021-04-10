@@ -1,0 +1,55 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<!--<receptionist-tabs [activeTabIndex]="4"></receptionist-tabs>-->
+<div class="row">
+    <shared-tabs [activeTabIndex]="10"></shared-tabs>
+</div>
+<div class="row">
+    <div class="row nopadding">
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                {{'PatientFile' | translate }}
+            </div>
+        </div>
+        <div class="row well">
+            <div class="tabbable-panel">
+                <div class="tabbable-line">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#account" data-toggle="tab" aria-expanded="true">{{ 'Account' | translate}}</a></li>
+                        <li *ngIf="isUpdateMode() && hasEditPermission"><a href="#basicInfo" data-toggle="tab" aria-expanded="true">{{ 'BasicData' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode() || !hasEditPermission"><a class="dimmedLink">{{ 'BasicData' | translate}}</a></li>
+                        <li *ngIf="isUpdateMode()&& hasEditPermission"><a href="#patientAddress" data-toggle="tab" aria-expanded="true">{{ 'PatientAddress' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode() || !hasEditPermission"><a class="dimmedLink">{{ 'PatientAddress' | translate}}</a></li>
+                        <li *ngIf="isUpdateMode() && hasDefinePatientPolicy"><a href="#patientInsurance" data-toggle="tab" aria-expanded="true">{{ 'PatientInsurance' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode()  || !hasDefinePatientPolicy"><a class="dimmedLink">{{ 'PatientInsurance' | translate}}</a></li>
+
+                        <li *ngIf="isUpdateMode() && hasPatientAttachmentFile"><a href="#attachment" data-toggle="tab" aria-expanded="true">{{ 'Attachment' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode() || !hasPatientAttachmentFile"><a class="dimmedLink">{{ 'Attachment' | translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="patientFileTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="account">
+                    <patient-account [patientAccountToSave]="model" [title]="account" (onModelUpdated)="updateModel($event)"></patient-account>
+                </div>
+                <div class="tab-pane fade" id="basicInfo">
+                    <patient-personal [patientId]="patientId" [title]="basicData" [model]="model" (onModelUpdated)="updateModel($event)"></patient-personal>
+                </div>
+                <div class="tab-pane fade" id="patientAddress">
+                    <patient-address [model]="model" [patientId]="patientId" [title]="address" (onModelUpdated)="updateModel($event)"></patient-address>
+                </div>
+                <div class="tab-pane fade" id="patientInsurance">
+                    <patient-insurance [patientId]="patientId" [title]="insurance" [patientModel]="model" (onModelUpdated)="updateModel($event)"></patient-insurance>
+                </div>
+                <div class="tab-pane fade" id="attachment">
+                    <!-- <documents (onModelUpdated)="updateModel($event)" [showDocumentDetails]="showDocumentDetails" [btnUploadText]="btnUploadText" [parentId]="patientAttachementId"  [patientId]="patientAttachementId" [title]="Attachement" [fileType]="fileType" [fileNameTxt]='fileNameTxt' [fileNameUploadTxt]='fileNameUploadTxt' [parentType]='type' ></documents>-->
+                    <documents (onModelUpdated)="updateModel($event)" [parentId]="selectedPatientId" [title]="Attachement" [parentType]='parentType' [showDocumentDetails]="showDocumentDetails" [btnUploadText]="btnUploadText" [fileType]="fileType" [fileNameTxt]='fileNameTxt' [fileNameUploadTxt]='fileNameUploadTxt'></documents>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

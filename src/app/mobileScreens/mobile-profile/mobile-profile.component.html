@@ -1,0 +1,190 @@
+﻿<div class="row">
+
+    <mobile-tabs [isProfileSelected]="selectProfile"></mobile-tabs>
+
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                    <!--<a href="#">System Admin</a>-->
+                                </li>
+                                <li class="active-page">  Patient Profile</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+
+        <form  class="form-horizontal" name="userRegistrationForm" #userRegistrationForm="ngForm">
+            <div class="form-group">
+                <div class="text-center">
+                    <button class="btn btn-primary" [disabled]="!userRegistrationForm.form.valid">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtPhone" class="col-md-2 control-label">MRN</label>
+                <div class="col-md-10">
+                    <input type="tel" value="12345" class="form-control" name="txtMRN" id="txtMRN" required disabled readonly>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtFirstName" class="col-md-2 control-label"> First Name (Ar)</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" name="txtFirstName" id="txtFirstNameAr" [(ngModel)]='user.firstName' #txtFirstNameAr="ngModel" required>
+                    <!--<div [hidden]="txtFirstNameAr.valid || txtFirstNameAr.pristine" class="alert alert-danger">
+                    Required field
+                </div>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtLastName" class="col-md-2 control-label"> Last Name (Ar)</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" name="txtLastNameAr" id="txtLastNameAr" [(ngModel)]='user.lastName' #txtLastNameAr="ngModel" required>
+                    <!--<div [hidden]="txtLastNameAr.valid || txtLastNameAr.pristine" class="alert alert-danger">
+                    Required field
+                </div>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtFirstName" class="col-md-2 control-label"> First Name (En)</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" name="txtFirstNameEn" id="txtFirstNameEn" [(ngModel)]='user.firstNameTranslation' #txtFirstNameEn="ngModel" required>
+                    <!--<div [hidden]="txtFirstNameEn.valid || txtFirstNameEn.pristine" class="alert alert-danger">
+                    Required field
+                </div>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtLastName" class="col-md-2 control-label"> Last Name (En)</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" name="txtLastNameEn" id="txtLastNameEn" [(ngModel)]='user.lastNameTranslation' #txtLastNameEn="ngModel" required>
+                    <!--<div [hidden]="txtLastNameEn.valid || txtLastNameEn.pristine" class="alert alert-danger">
+                    Required field
+                </div>-->
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtEmail" class="col-md-2 control-label">Gender</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlGenders" name="ddlGenders" [(ngModel)]="user.gender" #ddlGenders="ngModel">
+                        <option>---- Select ----</option>
+                        <option *ngFor="let itm of gendersList" [value]="itm.value">{{itm.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtPhone" class="col-md-2 control-label">Mobile</label>
+                <div class="col-md-10">
+                    <input type="tel" value="+20100457954" class="form-control" name="txtMobile" id="txtMobile"  pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required disabled readonly >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ddlNationality" class="col-md-2 control-label">Nationality</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlNationalities" name="ddlNationalities" [(ngModel)]="user.nationalityId" #ddlNationalities="ngModel">
+                        <option>---- select ----</option>
+                        <option *ngFor="let itm of nationalitiesList" [value]="itm.id">{{itm.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtEmail" class="col-md-2 control-label">Email</label>
+                <div class="col-md-10">
+                    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" id="txtEmail" name="txtEmail"
+                           [(ngModel)]='user.email' #txtEmail="ngModel" required>
+                    <!--<div [hidden]="txtEmail.valid || txtEmail.pristine" class="alert alert-danger">
+                    Required field
+                </div>-->
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="ddlCountry" class="control-label col-md-2">Country</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlCountry" name="ddlCountry" [(ngModel)]="user.countryId" #d #ddlCountry="ngModel" (change)="fillRegions(d.value)" required>
+                        <option *ngFor="let country of countries" [value]="country.id">{{country.name}}</option>
+                    </select>
+                    <div [hidden]="ddlCountry.valid || ddlCountry.pristine" class="alert alert-danger">
+                        Country is required
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlRegion" class="control-label col-md-2">Region</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="user.regionId" #ddlRegion="ngModel" #r (change)="fillCities(r.value)" required>
+                        <option *ngFor="let region of filteredRegions" [value]="region.id">{{region.name}}</option>
+                    </select>
+                    <div [hidden]="ddlRegion.valid || ddlRegion.pristine" class="alert alert-danger">
+                        Region is required
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlCity" class="control-label col-md-2">City</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlCity" name="ddlCity" [(ngModel)]="user.cityId" #ddlCity="ngModel" #c (change)="fillLocations(c.value)" required>
+                        <option *ngFor="let city of filteredCities" [value]="city.id">{{city.name}}</option>
+                    </select>
+                    <div [hidden]="ddlCity.valid || ddlCity.pristine" class="alert alert-danger">
+                        City is required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ddlLocation" class="control-label col-md-2">Location</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlLocation" name="ddlLocation" [(ngModel)]="user.locationId" #ddlLocation="ngModel" required>
+                        <option *ngFor="let location of filteredLocations" [value]="location.id">{{location.name}}</option>
+                    </select>
+                    <div [hidden]="ddlLocation.valid || ddlLocation.pristine" class="alert alert-danger">
+                        City is required
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="txtStreetName" class="control-label col-md-2">Street</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="txtStreetName" name="txtStreetName" #txtStreetName="ngModel" [(ngModel)]="user.street">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtPostalCode" class="control-label col-md-2">Postal Code</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="txtPostalCode" name="txtPostalCode" #txtPostalCode="ngModel" [(ngModel)]="user.postalcode">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtBuildingNo" class="control-label col-md-2">Building</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="txtBuildingNo" name="txtBuildingNo" #txtBuildingNo="ngModel" [(ngModel)]="user.buildingNo">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="text-center">
+                    <button class="btn btn-primary" [disabled]="!userRegistrationForm.form.valid">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </form>
+
+</div>
+</div>

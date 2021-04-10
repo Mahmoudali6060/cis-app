@@ -1,0 +1,149 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="padding5">
+    <h4 class="h4Deco">
+        {{ 'CurrentSubscription' | translate}}
+    </h4>
+    <hr />
+
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtCurrentStartDate">{{ 'StartDate' | translate}}</label>
+            <div class="col-md-2">
+                <input id="txtCurrentStartDate" name="txtCurrentStartDate" class="form-control" disabled [(ngModel)]='currentSubscription.startDateString' />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtCurrentEndDate">{{ 'EndDate' | translate}}</label>
+            <div class="col-md-2">
+                <input id="txtCurrentEndDate" name="txtCurrentEndDate" class="form-control" disabled [(ngModel)]='currentSubscription.endDateString' />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtCurrentNumberOfUsers">{{ 'NoOfUsers' | translate}}</label>
+            <div class="col-md-2">
+                <input id="txtCurrentNumberOfUsers" name="txtCurrentNumberOfUsers" class="form-control" disabled [(ngModel)]='currentSubscription.numberOfUsers' />
+            </div>
+            <div class="col-md-4">
+                <button type="button"  disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"  class="btn btn-primary" data-toggle="modal" data-target="#newSubscription">{{ 'Renew' | translate}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <h4 class="h4Deco">
+           {{ 'SubscriptionHistory' | translate}}
+            <hr />
+        </h4>
+    </div>
+    <div class="padding2"></div>
+
+    <div class="inner-addon left-addon">
+        <i class="glyphicon glyphicon-search"></i>
+        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+    </div>
+    <p-dataTable [value]="subscriptionsList" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="startDateString"   [header]="'StartDate' | translate" [sortable]="true"></p-column>
+        <p-column field="endDateString"  [header]="'EndDate' | translate" [sortable]="true"></p-column>
+        <p-column field="numberOfUsers"   [header]="'NoOfUsers' | translate" [sortable]="true"></p-column>
+        <p-column [header]="'Current' | translate"  styleClass="text-center width70">
+            <template let-item="rowData" pTemplate="body">
+                <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="item.isCurrent" disabled />
+            </template>
+        </p-column>
+        <p-column field="creationDateString" header="Creation Date" [sortable]="true"></p-column>
+    </p-dataTable>
+
+
+    <table id="print-section" class="hidden">
+        <thead class="alert alert-info">
+            <tr>
+                <th>{{ 'StartDate' | translate}}</th>
+                <th>{{ 'EndDate' | translate}}</th>
+                <th>{{ 'NoOfUsers' | translate}}</th>
+                <th>{{ 'Current' | translate}}</th>
+                <th>{{ 'Current' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of subscriptionsList">
+                <td>{{item.startDateString}}</td>
+                <td>{{item.endDateString}}</td>
+                <td>{{item.numberOfUsers}}</td>
+                <td>
+                    <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="item.isCurrent" disabled />
+                </td>
+
+                <td>{{item.creationDateString}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div id="newSubscription" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'Subscription' | translate}}</h4>
+            </div>
+            <form *ngIf="active" class="form-horizontal" name="renewForm" (ngSubmit)="onSubmit()" #renewForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtStartDate" class="control-label col-md-2">{{ 'StartDate' | translate}}</label>
+                        <div class="col-md-7">
+                            <p-calendar [(ngModel)]="newSubscription.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                        showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <!--<input type="date" id="txtStartDate" name="txtStartDate" class="form-control"
+                                    [(ngModel)]='newSubscription.startDate' #txtStartDate="ngModel" required />
+                            <div [hidden]="txtStartDate.valid || txtStartDate.pristine" class="alert alert-danger">
+                                Start date is requied
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtEndDate" class="control-label col-md-2"> {{ 'EndDate' | translate}}</label>
+                        <div class="col-md-7">
+                            <p-calendar [(ngModel)]="newSubscription.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                        showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <!--<input type="date" id="txtEndDate" name="txtEndDate" class="form-control"
+                            [(ngModel)]='newSubscription.endDate' #txtEndDate="ngModel" required />-->
+                            <!--<div [hidden]="txtEndDate.valid || txtEndDate.pristine" class="alert alert-danger">
+                                End date is requied
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="txtRemainingBalance">{{ 'NoOfUsers' | translate}}</label>
+                        <div class="col-md-4">
+                            <input type="number" id="txtNoUsers" name="txtNoUsers" class="form-control" min="0"
+                                   [(ngModel)]='newSubscription.numberOfUsers' #txtNoUsers="ngModel" required />
+                            <div [hidden]="txtNoUsers.valid || txtNoUsers.pristine" class="alert alert-danger">
+                               {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"
+                            [disabled]="!renewForm.form.valid || !enableMyAccountBtn">
+                        {{ 'Add' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary"
+                             disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                            data-dismiss="modal" #btnSubscriptionModalClose>
+                        {{ 'Cancel' | translate}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

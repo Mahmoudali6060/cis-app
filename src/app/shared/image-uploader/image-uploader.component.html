@@ -1,0 +1,38 @@
+﻿<div class="nopadding text-center" *ngIf="showProgress">
+    <img src="Images/load.gif" />
+</div>
+<div *ngIf="!data">
+    <input type="file" class="form-control" accept="image/*" #fileInput (change)="addFile()">
+    <span>{{ 'ImageSize' | translate}}</span>
+</div>
+<br />
+<div *ngIf="data" class="row nopadding">
+    <div class="col-md-10 nopadding">
+        <img class="img-responsive" [src]="'data:image/JPG;base64,' + data" />
+    </div>
+    <div class="col-md-2 nopadding">
+        <img src="assets/avatars/delete.ico" [style.width.px]='30' data-toggle="modal" data-target="#myModal" class="pointer" />
+    </div>
+</div>
+
+  <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'DeleteConfirmation' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ 'AreYouSureDelete' | translate}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="deleteImage(imageId)" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

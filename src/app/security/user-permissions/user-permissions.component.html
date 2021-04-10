@@ -1,0 +1,206 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <div class="well">
+            <div class="row">
+                <div class="col-md-12 nopadding">
+                    <div class="well">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="search" [placeholder]="'Search' | translate" class="inputSearch form-control" [(ngModel)]='userListfilterString' />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table table-responsive table-bordered">
+                    <thead class="alert alert-info">
+                        <tr>
+                            <th class="col-md-9" style="color:#c492ef;" colspan="2">{{ 'Users' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let usr of usersList | filterByName:userListfilterString" class="{{(usr.id == selectedUserId) ? 'success' : ''}}">
+                        <td class="col-md-9"><a (click)="editUser(usr.id)" class="pointer">{{selectedLang === 'ar' ?  usr.name : usr.nameTranslation}}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-8 divBorders">
+        <form *ngIf="active" class="form-horizontal"
+              name="userPermissionsForms"
+              (ngSubmit)="onSubmit()" #userPermissionsForms="ngForm">
+            <fieldset>
+                <div class="form-group text-center">
+                    <button class="btn btn-primary" [disabled]="!isUserSelected || !isClinicAdmin">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#resetConfirmation" [disabled]="!isUserSelected || !isClinicAdmin">{{ 'ResetPassword' | translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="clear()" disabled="{{ isClinicAdmin ? '' :'disabled'}}">Clear</button>
+                </div>
+                <div class="form-group">
+                    <h4 class="h4Deco"> {{ 'UserInfo' | translate}}</h4>
+                    <label for="txtName" class="control-label col-md-2">{{ 'Name' | translate}}</label>
+                    <div class="col-md-4 nopadding">
+                        <input type="text" class="form-control" name="txtName" id="txtName" [(ngModel)]='model.name' disabled />
+                    </div>
+                    <label for="txtUserType" class="control-label col-md-2">{{ 'Type' | translate}}</label>
+                    <div class="col-md-4 nopadding">
+                        <input type="text" class="form-control" name="txtUserType" id="txtUserType"
+                               [(ngModel)]='model.typeName' disabled />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtEmail" class="control-label col-md-2">{{ 'Email' | translate}}</label>
+                    <div class="col-md-4 nopadding">
+                        <input type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" class="form-control" name="txtEmail" id="txtEmail" [(ngModel)]='model.email' />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h3 class="h3Deco">{{ 'MemberOfGroups' | translate}}</h3>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-5 nopadding">
+                            <h4 class="h4Deco">{{ 'AllGroups' | translate}}</h4>
+
+                        </div>
+                        <div class="col-md-5 nopadding col-md-offset-1">
+                            <h4 class="h4Deco">{{ 'SelectedGroups' | translate}}</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="checkboxListContainer col-md-5 nopadding">
+                            <div class="inner-addon left-addon">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <input type="search"  [placeholder]="'Search' | translate"
+                                       class="inputSearch form-control" name="txtUserGroupSearch" id="txtUserGroupSearch" [(ngModel)]='userGroupfilterString' />                            </div>
+                           
+                            <div class="checkboxListScrollArea">
+                                <table>
+                                    <tr *ngFor="let grp of userGroupsList  | filterByName:userGroupfilterString">
+                                        <td>
+                                            <input type="checkbox" name="chkBoxUser" value="{{grp.id}}"
+                                                   [checked]="selectedGroupsIDs.indexOf(grp.id) >= 0"
+                                                   (change)="updateSelectedGroups(grp.id, $event)"
+                                                   [disabled]="isAdminGroupSelected && grp.isAdmin" />
+                                            <!--{{grp.name}}-->
+                                            {{selectedLang === 'ar' ?  grp.name : grp.nameTranslation}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="checkboxListView col-md-5 col-md-offset-1 nopadding">
+                            <table class="table table-responsive table-hover table-striped">
+                                <tr *ngFor="let grp of model.securityGroups">
+                                    <td>
+                                        <!--{{grp.name}}-->
+                                        {{selectedLang === 'ar' ?  grp.name : grp.nameTranslation}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h4 class="h4Deco">{{ 'Permissions' | translate}}</h4>
+                    <hr />
+                    <div class="col-md-12">
+                        <p-dataTable [value]="permissionsList" selectionMode="single"
+                                     [paginator]="false" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]"
+                                     [responsive]="true" reorderableColumns="true" [globalFilter]="gb"
+                                     rowGroupMode="subheader" groupField="categoryFriendlyName"
+                                     expandableRowGroups="true" [sortableRowGroup]="false">
+                            <template pTemplate="rowgroupheader" let-rowData>
+                                {{rowData['categoryFriendlyName']}}
+                            </template>
+                            <!--<p-column field="categoryFriendlyName" header="Permission Category" [sortable]="true"></p-column>-->
+                            <p-column field="name" [header]="'Permissions' | translate" [sortable]="false"></p-column>
+                            <p-column [header]="'FullControl' | translate"  styleClass="text-center width70">
+                                <template let-permission="rowData" pTemplate="body">
+                                    <input type="checkbox" name="chkFullControl"
+                                           [disabled]="!permission.isFullControlAvailable"
+                                           [checked]="isPermissionChecked(permission.id,'fullControl', permission.isFullControlAvailable)"
+                                           (change)="updateSelectedPermissions(permission.id,'fullControl', $event)" />
+                                </template>
+                            </p-column>
+                            <p-column [header]="'View' | translate" styleClass="text-center width50">
+                                <template let-permission="rowData" pTemplate="body">
+                                    <input type="checkbox" name="chkView"
+                                           [disabled]="!permission.isViewAvailable"
+                                           [checked]="isPermissionChecked(permission.id,'view', permission.isViewAvailable)"
+                                           (change)="updateSelectedPermissions(permission.id,'view', $event)" />
+                                </template>
+                            </p-column>
+                            <p-column  [header]="'Add' | translate" styleClass="text-center width50">
+                                <template let-permission="rowData" pTemplate="body">
+                                    <input type="checkbox" name="chkAdd"
+                                           [disabled]="!permission.isAddAvailable"
+                                           [checked]="isPermissionChecked(permission.id,'add', permission.isAddAvailable)"
+                                           (change)="updateSelectedPermissions(permission.id,'add', $event)" />
+                                </template>
+                            </p-column>
+                            <p-column  [header]="'Edit' | translate" styleClass="text-center width50">
+                                <template let-permission="rowData" pTemplate="body">
+                                    <input type="checkbox" name="chkEdit"
+                                           [disabled]="!permission.isEditAvailable"
+                                           [checked]="isPermissionChecked(permission.id,'edit', permission.isEditAvailable)"
+                                           (change)="updateSelectedPermissions(permission.id,'edit', $event)" />
+                                </template>
+                            </p-column>
+                            <p-column  [header]="'ActivateDeactivate' | translate" styleClass="text-center width80">
+                                <template let-permission="rowData" pTemplate="body">
+                                    <input type="checkbox" name="chkActivate"
+                                           [disabled]="!permission.isActivateAvailable"
+                                           [checked]="isPermissionChecked(permission.id,'activate', permission.isActivateAvailable)"
+                                           (change)="updateSelectedPermissions(permission.id,'activate', $event)" />
+                                </template>
+                            </p-column>
+                            <p-column [header]="'Allow' | translate" styleClass="text-center width50">
+                                <template let-permission="rowData" pTemplate="body">
+                                    <input type="checkbox" name="chkAllow"
+                                           [disabled]="!permission.isAllowAvailable"
+                                           [checked]="isPermissionChecked(permission.id,'allow', permission.isAllowAvailable)"
+                                           (change)="updateSelectedPermissions(permission.id,'allow', $event)" />
+                                </template>
+                            </p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+        <div id="resetConfirmation" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{ 'ResetPasswordConfirmation' | translate}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ 'ResetPasswordQues' | translate}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#resetOwnerPasswordModal" (click)="close()">{{ 'Yes' | translate}}</button>
+                        <!--<button type="button" class="btn btn-danger" (click)="resetUserPassword()" data-dismiss="modal">{{ 'Yes' | translate}}</button>-->
+                        <button type="button" #btnCloseReconfirm class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="resetOwnerPasswordModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <reset-password [userId]="model.id" [enableMyAccountBtn]="enable"></reset-password>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

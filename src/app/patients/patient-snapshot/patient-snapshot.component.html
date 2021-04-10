@@ -1,0 +1,70 @@
+﻿<div class="row">
+    <div class="col-md-2 nopadding">
+        <ul id="nav" class="list-group" >
+            <!--<li class="{{ isNotesSelected ? 'active' : '' }}">
+                <a (click)="setSelectedTab('Notes')" class="pointer">Notes</a>
+            </li>-->
+            <li class="{{ isDiagnosisSelected ? 'selectednavbaritem active' : '' }} pointer list-group-item">
+                <a  (click)="setSelectedTab('Diagnosis')" class="aStyle" >
+                  <span class="nav-label spanActive">&nbsp;{{ 'Diagnosis' | translate}}</span>
+                </a>
+            </li>
+            <li class="{{ isMedicationSelected ? 'selectednavbaritem active' : '' }} pointer list-group-item" >
+                <a (click)="setSelectedTab('Medication')"  class="aStyle"  >
+                    <span class="nav-icon"><!--<i class="fa fa-glass"></i>--></span><span class="nav-label">&nbsp;{{ 'Medication' | translate}}</span>
+                </a>
+            </li>
+            <li class="{{ isSurgeriesSelected ? 'selectednavbaritem active' : '' }} pointer list-group-item">
+                <a  (click)="setSelectedTab('Surgeries')"   class="aStyle" >
+                    <span class="nav-icon"><!--<i class="fa fa-scissors"></i>--></span><span class="nav-label">&nbsp;{{ 'PastSurgeries' | translate}}</span>
+                </a>
+            </li>
+            <li class="{{ isAllergiesSelected ? 'selectednavbaritem active' : '' }} pointer list-group-item">
+        <a  (click)="setSelectedTab('Allergies')"  class="aStyle"  >
+            <span class="nav-icon"><!--<i class="ico-lab-flask"></i>--></span><span class="nav-label">&nbsp;{{ 'DrugAllergies' | translate}}</span>
+                </a>
+            </li>
+            <!--<li class="{{ isServicesSelected ? 'active' : '' }}">
+                <a (click)="setSelectedTab('Services')" class="pointer">Services</a>
+            </li>-->
+            <!--<li class="{{ isLaboratorySelected ? 'active' : '' }}">
+                <a (click)="setSelectedTab('Laboratory')" class="pointer">Lab Tests</a>
+            </li>-->
+            <!--<li class="{{ isRadiologySelected ? 'active' : '' }}">
+                <a (click)="setSelectedTab('Radiology')" class="pointer">Radiology Tests</a>
+            </li>-->
+        </ul>
+    </div>
+    <div class="col-md-10 nopadding">
+        <!--<div class="NBbreadcrumb">
+            <a>{{ 'Snapshot' | translate}}</a> &nbsp;/
+            {{headerText}}
+        </div>-->
+        <div id="notes" *ngIf="isNotesSelected">
+            <br />
+            <h3> {{ 'PatientClinicalNotes' | translate}}</h3>
+        </div>
+        <div id="diagnosis" *ngIf="isDiagnosisSelected">
+            <patient-diagnosis [allowEditing]="false" [patientId]="patientId"></patient-diagnosis>
+        </div>
+        <div id="medication" *ngIf="isMedicationSelected">
+            <patient-medication [allowEditing]="false" [patientId]="patientId"></patient-medication>
+        </div>
+        <div id="surgeries" *ngIf="isSurgeriesSelected">
+            <patient-surgeries [patientId]="patientId" [patientDOB] ="patientDOB" [allServices]="allServices" [enable]="enable"></patient-surgeries>
+        </div>
+        <div id="allergies" *ngIf="isAllergiesSelected">
+            <patient-allergies [patientId]="patientId" [enable]="enable"></patient-allergies>
+        </div>
+        <div id="services" *ngIf="isServicesSelected">
+            <!--<patient-services></patient-services>-->
+        </div>
+        <div id="laboratory" *ngIf="isLaboratorySelected">
+            <patient-laboratory></patient-laboratory>
+        </div>
+        <div id="radiology" *ngIf="isRadiologySelected">
+            <patient-radiology></patient-radiology>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,45 @@
+﻿<div class="left-aside desktop-view">
+    <div class="aside-branding">
+        <a>
+            <!--<img src="Images/logo.png" height="60" width="60" />-->
+            <img src="Images/App-Logo.png" title="Logo" class="appLogo" />
+        </a>
+        <!--<a routerLink="/home" class="large-logo">
+            <span style="color:white;">&nbsp;&nbsp;CIS</span>
+
+        </a>-->
+        <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
+        <span class="aside-close waves-effect" onclick="closeLeftBar();"><i class="fa fa-times"></i></span>
+    </div>
+    <div class="left-navigation">
+        <ul class="list-accordion padding5">
+            <!--<li>
+                <a class="{{ (activeTabIndex == 0) ? 'active' : '' }}" routerLink="doctorAccount/{{doctorId}}">My Account</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 1) ? 'active' : '' }}" routerLink="doctorBasic/{{doctorId}}">My Personal Info</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 2) ? 'active' : '' }}" routerLink="doctorAddress/{{doctorId}}">Address & Communications</a>
+            </li>-->
+            <li>
+                <a class="{{ (activeTabIndex == 3) ? 'active' : '' }}" routerLink="/insurance/companies">{{ 'InsuranceCompanies' | translate }} </a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 10) ? 'active' : '' }}" routerLink="/insurance/companyTransactions">{{'CompanyTransactions' | translate}}</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 4) ? 'active' : '' }}" routerLink="/insurance/coverageDetails">{{'CoverageDetail' | translate}}</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 6) ? 'active' : '' }}" routerLink="/insurance/invoice/generate">{{'GenerateInvoices' | translate}}</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 7) ? 'active' : '' }}" routerLink="/insurance/invoice">{{'Invoices' | translate}}</a>
+            </li>            
+            <!--<li>
+                <a class="{{ (activeTabIndex == 9) ? 'active' : '' }}" routerLink="/insurance/reports/1">{{'Reports' | translate}}</a>
+            </li>-->
+        </ul>
+    </div>
+</div>

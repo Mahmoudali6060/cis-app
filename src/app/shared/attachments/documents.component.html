@@ -1,0 +1,85 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
+
+
+    <div class="row " style="display:none;">
+        &nbsp;
+        <button #DeletePatientAttachement type="button" class="btn btn-primary" data-toggle="modal" data-target="#DeletePatientAttachementPopup">{{ 'DeletePatientAttachement' | translate}} </button>
+
+    </div>
+
+<div class="row well ">
+    <div class="col-md-offset-10">
+        <button type="button" *ngIf="showDocumentDetails" (click)="ShowDocumentsDetails()" data-toggle="modal" data-target="#patientAttachementPopup" class="btn btn-primary">{{ btnUploadText | translate }}</button>
+    </div>
+</div>
+
+    <div class="padding2"></div>
+    <div class="row well" style="background-color: #f6f7f9 !important;">
+        <div class="inner-addon left-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            <input #gb class="inputSearch" type="text" pInputText size="40" [placeholder]="'Search' | translate">
+        </div>
+        <br />
+        <p-dataTable [value]="attachmentsList" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="nameWithoutExtension" [header]="fileNameTxt | translate" [sortable]="true"></p-column>
+            <p-column field="type" *ngIf="fileType" [header]="'Type' | translate" [sortable]="true"></p-column>
+            <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
+            <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate" [sortable]="true"></p-column>
+            <p-column [header]="'Download' | translate" styleClass="text-center width75" *ngIf="allowEditing">
+                <template let-patient="rowData" pTemplate="body">
+                    <i (click)="downloadFile(patient.id)" class="fa fa-download fa-2x remIcon"></i>
+
+                </template>
+            </p-column>
+            <p-column [header]="'Edit' | translate" styleClass="text-center width75" *ngIf="allowEditing">
+                <template let-patient="rowData" pTemplate="body">
+                    <i (click)="editAttachment(patient.id)" class="editIconStyle fa fa-pencil fa-2x"></i>
+
+                </template>
+            </p-column>
+            <p-column [header]="'Delete' | translate" styleClass="text-center width75" *ngIf="allowEditing">
+                <template let-patient="rowData" pTemplate="body">
+                    <i (click)="deletePatientAttachment(patient.id)" class="glyphicon glyphicon-remove remIcon"></i>
+
+                </template>
+            </p-column>
+
+
+
+        </p-dataTable>
+    </div>
+
+</div>
+<div id="divTable" class="padding5" *ngIf="isDetailsVisible">
+    <document-details [parentType]="parentType" [isTemplateExist]="isTemplateExist" [fileType]="fileType" [fileNameTxt]='fileNameTxt' [fileNameUploadTxt]='fileNameUploadTxt' [attachementId]="patientAttachementId" [parentId]="parentId" [showSelectedTemplates]="showSelectedTemplates" [model]="model" [title]="Attachment" (onBack)="hideDetails($event)" (onAttachementSaved)="loadAttachementFiles()" [allowEditing]='allowEditing'></document-details>
+</div>
+
+<!--<button type="button" data-toggle="modal" data-target="#patientAttachementPopup" #btnOpenEditAttachmentPopup class="hidden"></button>-->
+
+
+
+<button type="button" class="hidden" #btnOpenDeleteAttachementPopup data-toggle="modal" data-target="#openDeleteAttachementPopup"></button>
+
+<div id="openDeleteAttachementPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'DeleteConfirmation' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ 'AreYouSureDelete' | translate}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="deleteAttachment()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

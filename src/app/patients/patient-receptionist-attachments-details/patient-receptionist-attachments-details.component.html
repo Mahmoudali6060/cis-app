@@ -1,0 +1,26 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <div class="col-md-2 nopadding">
+        <patient-receptionist-tabs [activeTabIndex]="4"></patient-receptionist-tabs>
+    </div>
+    <div class="col-md-10 nopadding">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <span class="heaersitemap">
+                {{ 'PatientFileAttachments' | translate}}
+            </span>
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+        </div>
+        <br />
+        <div class="row">
+            <document-details  [parentType]='type' ></document-details>
+        </div>
+    </div>
+</div>
+
+
+

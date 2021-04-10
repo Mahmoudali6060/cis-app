@@ -1,0 +1,61 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+
+    <systemAdmins-tabs [isDashboardSelected]="selectDashboardTab"></systemAdmins-tabs>
+
+    <div class="row nopadding">
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                {{ 'Dashboard' | translate}}
+            </div>
+        </div>
+        <div class="row well">
+            <div class="row ">
+                <div class="widget-box transparent col-md-8">
+                    <div class="">
+                        <h3 class="h3Deco">
+                            {{ 'Clinics' | translate}}&nbsp;&nbsp;
+                            <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" routerLink="/systemAdmin/clinicDetails/new">{{ 'New' | translate}}</button>
+                        </h3>
+                    </div>
+
+                    <table class="tableRow well table table-responsive ">
+                        <tr>
+                            <td class="noBorder">{{ 'Active' | translate }}&nbsp;&nbsp;&nbsp; <span class="tableSpan label label-success">{{model.activeClinics}}</span></td>
+                            <td class="noBorder">{{ 'NotActive' | translate}}&nbsp;&nbsp;&nbsp; <span class="tableSpan label label-danger">{{model.notActiveClinics}}</span></td>
+                            <td class="noBorder">{{ 'Total' | translate}}&nbsp;&nbsp;&nbsp; <span class="tableSpan label label-primary">{{model.totalClinics}}</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="row ">
+                <div class="widget-box transparent col-md-8">
+                    <div>
+                        <h3 class="h3Deco">
+                            {{ 'Vendors' | translate}}&nbsp;&nbsp;
+                            <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" routerLink="/systemAdmin/vendorDetails/new">{{ 'New' | translate}}</button>
+                        </h3>
+                    </div>
+                    <table class="tableRow well table table-responsive ">
+                        <tr>
+                            <td class="noBorder">{{ 'Active' | translate }}&nbsp;&nbsp;&nbsp; <span class="tableSpan label label-success">{{model.activeVendors}}</span></td>
+                            <td class="noBorder">{{ 'NotActive' | translate}}&nbsp;&nbsp;&nbsp; <span class="tableSpan label label-danger">{{model.notActiveVendors}}</span></td>
+                            <td class="noBorder">{{ 'Total' | translate}}&nbsp;&nbsp;&nbsp; <span class="tableSpan label label-primary">{{model.totalVendors}}</span></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

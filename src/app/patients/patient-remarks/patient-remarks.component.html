@@ -1,0 +1,10 @@
+﻿
+<div class="align-reverse">
+    <button class="btn btn-primary" (click)="saveNoteRemark()">{{ 'Save' | translate}}</button>
+    <button class="btn btn-primary">{{ 'Cancel' | translate}}</button>
+</div>
+
+<p-editor [(ngModel)]="clinicNote.description" [style]="{'height':'320px'}" >
+</p-editor>
+
+

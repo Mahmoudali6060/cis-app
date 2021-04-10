@@ -1,0 +1,180 @@
+﻿<!--Topbar Start Here -->
+<header class="top-bar">
+    <div class="container-fluid navbar navbar-default navbar-fixed-top ">
+        <div class="row">
+
+            <div class="col-md-3 col-sm-3 col-xs-3">
+                <div class="clearfix top-bar-action">
+                    &nbsp;&nbsp;
+                    <span class="pointer" style="color:white;font-size:18px;" onclick="showLeftBar();"><i class="fa fa-bars "></i></span>
+                    <!--<span class="rightbar-action waves-effect"><i class="fa fa-bars"></i></span>-->
+                    &nbsp;&nbsp;
+                    <img src="Images/App-Logo.png" title="Logo" class="appLogo" />
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-2">
+                <div class="notification-nav">
+
+                    <ul class="nav navbar-nav nav-header" *ngIf="showPateintLinks">
+                        <li><a class="pointer">{{ 'MyAppointments' | translate}}</a></li>
+                        <li><a class="pointer">{{ 'MyRecords' | translate}}</a></li>
+                        <li><a class="pointer">{{ 'MyPayments' | translate}}</a></li>
+                    </ul>
+
+                    <!--<ul class="nav navbar-nav nav-header" *ngIf="showNurseLinks">
+                        <li><a class="pointer" routerLink="/nurse/appointments/1">{{ 'MyAppointments' | translate}}</a></li>
+                    </ul>-->
+                    <!--<ul *ngIf="showDoctorLinks">
+                        <li><a class="pointer mainMenuItem" routerLink="/doctor/appointments">{{ 'MyAppointments' | translate}}</a></li>
+                    </ul>-->
+
+
+                    <ul class="clearfix">
+                        <!--<li class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="hide-small-device waves-effect"><i class="fa fa-envelope"></i><span class="alert-bubble">15</span></a>
+                            <div role="menu" class="dropdown-menu message-dropdown msg-lists fadeInUp hide-small-device">
+                                <div class="message-wrap">
+                                    <h4>You have 15 new messages</h4>
+                                    <ul class="clearfix">
+                                        <li class="clearfix">
+                                            <a href="#" class="message-thumb">
+                                                <img src="images/avatar/adellecharles.jpg" alt="image">
+                                            </a><a href="#" class="message-intro"><span class="message-meta">Adellecharles </span>Nunc aliquam dolor... <span class="message-time">today at 10:20 pm</span></a>
+                                        </li>
+                                        <li class="clearfix">
+                                            <a href="#" class="message-thumb">
+                                                <img src="images/avatar/allisongrayce.jpg" alt="image">
+                                            </a><a href="#" class="message-intro"><span class="message-meta">Allisongrayce </span>In hac habitasse ... <span class="message-time">today at 8:29 pm</span></a>
+                                        </li>
+                                    </ul>
+                                    <a class="btn btn-primary btn-block notification-btn clearfix waves-effect" href="#"><span>View All</span></a>
+                                </div>
+                            </div>
+                        </li>-->
+                        <!--<li class="dropdown" *ngIf="showPurchaseManagerLinks">
+                            <a href="#" data-toggle="dropdown" class="hide-small-device waves-effect "><i class="fa fa-bell"></i><span class="alert-bubble">10</span></a>
+                            <div role="menu" class="dropdown-menu notification-dropdown fadeInUp noty-lists hide-small-device">
+                                <div class="notification-wrap">
+                                    <h4>You have 2 new notifications</h4>
+                                    <ul>
+                                        <li>
+                                            <a href="#" class="clearfix"><span class="ni w-green"><i class="fa fa-bullhorn"></i></span><span class="notification-message"> Quantity of item A decreased to 2 <span class="notification-time clearfix">3 Min Ago</span></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="clearfix"><span class="ni w-orange"><i class="fa fa-bullhorn"></i></span><span class="notification-message"> Quantity of item B decreased to 5 <span class="notification-time clearfix">1 Hours Ago</span></span></a>
+                                        </li>
+                                    </ul>
+                                    <a class="btn btn-primary btn-block notification-btn clearfix waves-effect" href="#"><span>View All</span></a>
+                                </div>
+                            </div>
+                        </li>-->
+
+                        <li class="dropdown" *ngIf="showDoctorLinks || showDoctorInventoryRequests">
+                            <a href="#" data-toggle="dropdown" class="hide-small-device waves-effect "><i class="fa fa-bell"></i><span class="alert-bubble">{{unReadNotificationsNo}}</span></a>
+                            <div role="menu" class="dropdown-menu notification-dropdown fadeInUp noty-lists hide-small-device">
+                                <div class="notification-wrap">
+                                    <h4> {{ 'Youhave' | translate}}{{unReadNotificationsNo}} {{ 'newnotifications' | translate}}</h4>
+                                    <ul *ngFor="let notification of notifications">
+                                        <li>
+                                            <a (click)="openNotification(notification)" class="clearfix pointer"><span class="ni w-green"><i class="fa fa-bullhorn"></i></span><span class="notification-message">  {{notification.name}} <span class="notification-time clearfix"></span></span></a>
+                                        </li>
+                                        <!--<li>
+                                            <a href="#" class="clearfix"><span class="ni w-orange"><i class="fa fa-bullhorn"></i></span><span class="notification-message">  Ahmed Hisham - Arrived 03:10 <span class="notification-time clearfix"></span></span></a>
+                                        </li>-->
+                                    </ul>
+                                    <a class="btn btn-primary btn-block notification-btn clearfix waves-effect" routerLink="/shared/allNotifications"><span>{{ 'ViewAll' | translate}}</span></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--<div class="pull-left mobile-search">
+                    <span class="waves-effect search-btn">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </div>-->
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-7 menuDirection">
+                <div class="">
+                    <div class="user-nav">
+                        <ul>
+                            <li *ngIf="showUserName" class="dropdown">
+                                <a data-toggle="dropdown" href="#" class="clearfix dropdown-toggle waves-effect waves-block waves-classic">
+                                    <span class="user-thumb">
+                                        <span style="color:white;text-decoration: none!important;">{{userName}} </span>&nbsp;&nbsp;
+                                        <img src="{{profileImagePath}}" alt="image">
+                                    </span>
+                                </a>
+                                <ul role="menu" class="dropdown-menu fadeInUp">
+                                    <li>
+                                        <a routerLink="{{accountUrl}}">
+                                            <span class="navBarStyle user-nav-label">{{ 'MyAccount' | translate}}</span>
+                                            <span class="user-nav-icon">
+                                                <i class="navBarIconStyle fa fa-briefcase"></i>
+                                            </span>
+
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="pointer" data-toggle="modal" data-target="#changePasswordForUsers">
+                                            <span class="navBarStyle user-nav-label">{{ 'ChangePassword' | translate}}</span>
+                                            <span class="user-nav-icon">
+                                                <i class="navBarIconStyle glyphicon glyphicon-lock"></i>
+                                            </span>
+
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a (click)="logOut()" class="pointer">
+                                            <span class="navBarStyle user-nav-label"> {{ 'LogOut' | translate}} </span>
+                                            <span class="user-nav-icon">
+                                                <i class="navBarIconStyle ace-icon fa fa-power-off"></i>
+                                            </span>
+
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--<li *ngIf="showLogin">
+                                <a routerLink="/login" class="mainMenuItem">{{ 'Login' | translate}}</a>
+                            </li>-->
+                        </ul>
+                    </div>
+                    
+                    <div class="" >
+                        <!--<span class="waves-effect search-btn">
+                            <span *ngIf="showLanguage">
+                                <a (click)="changeLanguage()" class="pointer">
+                                    <span class="glyphicon glyphicon-globe"></span>
+                                </a>
+                            </span>
+                        </span>-->
+
+                        <span class="navBarLanLabel">English</span>
+                        <label class="switch">
+                            <input type="checkbox" checked (change)="changeLanguage()">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="navBarLanLabel">عربي</span>
+
+                    </div>
+                    <!--<span class="rightbar-action waves-effect"><i class="fa fa-bars"></i></span>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div id="changePasswordForUsers" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <change-password [userId]="userId" [userType]="userType"></change-password>
+        </div>
+    </div>
+</div>
+
+
+

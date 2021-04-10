@@ -1,0 +1,43 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+
+    <clinic-tab [isEMRWizardSelected]='selectEMRWizardTab'></clinic-tab>
+
+    <div class="row nopadding">
+        <div class="NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'EMRWizard' | translate}}
+        </div>
+
+        <div>
+            <form novalidate class="form-horizontal" name="EMRWizardForm" #EMRWizardForm="ngForm">
+
+            <div class="row well">
+                <div class="col-md-6 col-md-offset-8">
+                    <button type="button" class="btn btn-primary" (click)="saveEmrWizard()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="returnToDefaultOrder()">{{ 'Cancel' | translate}}</button>
+                </div>
+            </div>
+            <br />
+
+            <div class="row well">
+                <div class="col-md-10 col-md-offset-1">
+                    <p-orderList [value]="wizardItems" [listStyle]="{'height':'300px'}" [responsive]="true" [header]="'EMRWizardItems' | translate">
+                        <template let-item pTemplate="default">
+                            <div class="ui-helper-clearfix">
+                     <div style="font-size:14px;margin:10px 5px 0 0">{{item  | translate}}</div>
+                            </div>
+                        </template>
+                    </p-orderList>
+
+                </div>
+            </div>
+        </form>
+        </div>
+
+    </div>
+</div>
+

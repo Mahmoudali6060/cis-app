@@ -1,0 +1,80 @@
+﻿
+<div class="row">
+    <!--<div class="col-md-2 nopadding">
+        <ul class="nav nav-pills nav-stacked alert alert-info padding5 pointer">
+            <li [ngClass]="{'active': selected == 1}" (click)="setObjectType('Country' , 1 , 'الدول')">
+                  <a> الدول</a>
+              </li>
+            <li [ngClass]="{'active': selected == 2}" (click)="setObjectType('Region' , 2 , 'المناطق')">
+                <a> المناطق</a>
+            </li>
+            <li [ngClass]="{'active': selected == 3}" (click)="setObjectType('City' , 3 , 'المدن')">
+                <a> المدن</a>
+            </li>
+            <li [ngClass]="{'active': selected == 4}" (click)="setObjectType('Nationality' , 4 , 'الجنسية')">
+                <a> الجنسية</a>
+            </li>
+            <li [ngClass]="{'active': selected == 5}" (click)="setObjectType('Religion' , 5 , 'الديانة')">
+                <a> الديانة</a>
+            </li>
+            <li [ngClass]="{'active': selected == 6}" (click)="setObjectType('MaritalStatus' , 6 , 'الحالة الإجتماعية')">
+                <a> الحالة الإجتماعية</a>
+            </li>
+            <li [ngClass]="{'active': selected == 8}" (click)="setObjectType('AttachmentType' , 8 , 'نوع المرفق')">
+                <a> نوع المرفق</a>
+            </li>
+            <li [ngClass]="{'active': selected == 9}" (click)="setObjectType('VendorCategory' , 9 , 'فئة المورد')">
+                <a> فئة المورد</a>
+            </li>
+
+            <li [ngClass]="{'active': selected == 10}" (click)="setObjectType('PhysicalResource' , 10 , 'الموارد المادية')">
+                <a> الموارد المادية</a>
+            </li>
+            <li [ngClass]="{'active': selected == 11}" (click)="setObjectType('HumanResourceType' , 11 , 'نوع الموارد البشرية')">
+                <a> نوع الموارد البشرية</a>
+            </li>
+            <li [ngClass]="{'active': selected == 12}" (click)="setObjectType('EducationLevel' , 12 , 'مستوي التعليم')">
+                <a> مستوي التعليم</a>
+            </li>
+            <li [ngClass]="{'active': selected == 13}" (click)="setObjectType('VolumeUnit' , 13 , 'وحدة الحجم')">
+                <a> وحدة الحجم</a>
+            </li>
+            <li [ngClass]="{'active': selected == 14}" (click)="setObjectType('HeightUnit' , 14 , 'وحدة الطول')">
+                <a> وحدة الطول</a>
+            </li>
+            <li [ngClass]="{'active': selected == 15}" (click)="setObjectType('WeightUnit' , 15 , 'وحدة الوزن')">
+                <a> وحدة الوزن</a>
+            </li>
+
+            <li [ngClass]="{'active': selected == 16}" (click)="setObjectType('DrugUnit' , 16 , 'وحدة الدواء')">
+                <a> وحدة الدواء</a>
+            </li>
+            <li [ngClass]="{'active': selected == 17}" (click)="setObjectType('DrugFrequency' , 17 , 'تكرارية الدواء')">
+                <a> تكرارية الدواء</a>
+            </li>
+        </ul>
+    </div>-->
+
+    <!--<div class="col-md-2 nopadding">
+        <systemAdmins-tabs [isDemoghraphicsSelected]="selectDempghraphicTab"></systemAdmins-tabs>
+    </div>-->
+
+    <select id="ddlObjects" name="ddlObjects" class="form-control" (change)="setObjectType(dd.value , dd.text)" #dd >
+        <option value="Country" selected>{{ 'Countries' | translate}}</option>
+        <option value="Region">{{ 'Regions' | translate}}</option>
+        <option value="City">{{ 'Cities' | translate}}</option>
+        <option value="Nationality">{{ 'Nationality' | translate}}</option>
+    </select>
+
+
+    <basic-data *ngIf="isOther" [objectType]='objectType' [title]="title"></basic-data>
+    <region *ngIf="isRegion" [objectType]='objectType' [title]="title"></region>
+    <city *ngIf="isCity" [objectType]='objectType' [title]="title"></city>
+    <drug-unit *ngIf="isDrugUnit" [objectType]='objectType' [title]="title"></drug-unit>
+    <div class="row" *ngIf="underConstruction" >
+        <h4>
+           &nbsp;&nbsp; {{ 'UnderConstruction' | translate}}
+        </h4>
+    </div>
+</div>
+

@@ -1,0 +1,22 @@
+﻿
+
+<ul class="nav nav-pills nav-stacked alert alert-info padding5">
+    <li class="{{ (activeTabIndex == 0) ? 'active' : '' }}">
+        <a routerLink="/patientAccount/{{patientId}}">{{ 'Account' | translate}}
+</a>
+    </li>
+    <li class="{{ (activeTabIndex == 1) ? 'active' : '' }}">
+        <a routerLink="/patientPersonal/{{patientId}}">{{ 'BasicData' | translate}}</a>
+    </li>
+    <li class="{{ (activeTabIndex == 2) ? 'active' : '' }}">
+        <a routerLink="/patientAddress/{{patientId}}"> {{ 'AddressContact' | translate}} </a>
+    </li>
+    <li class="{{ (activeTabIndex == 3) ? 'active' : '' }}">
+        <a routerLink="/patientInsurance/{{patientId}}"> {{ 'InsuranceData' | translate}}</a>
+    </li>
+    <li class="{{ (activeTabIndex == 4) ? 'active' : '' }}">
+        <a routerLink="/patient/attachments/{{patientId}}">{{ 'Attachments' | translate}} </a>
+    </li>
+
+</ul>
+

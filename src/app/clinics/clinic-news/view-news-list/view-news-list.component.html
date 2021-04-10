@@ -1,0 +1,60 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row">
+    <clinic-tab [isNewsSelected]='selectNewsTab'></clinic-tab>
+    <div class="row nopadding">
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'News' | translate}}
+        </div>
+
+        <div class="row well">
+            <div class="padding5" *ngIf="!isDetailsVisible">
+                <div class="col-md-offset-10">
+                    <button class="btn btn-primary" (click)="addNewClinicNews()" disabled="{{ isClinicAdmin ? '' :'disabled'}}">
+                        {{ 'Addnews' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+            </div>
+            <p-dataTable [value]="clinicNewsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="creationDateString" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
+                <p-column field="name" [header]="'Title' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'image' | translate" styleClass="text-center">
+                    <template let-clinicNews="rowData" pTemplate="body">
+                        <img *ngIf="clinicNews.imageData" [src]="getNewsImage(clinicNews.imageData)"
+                             width="100" height="100" style="cursor: default;">
+                    </template>
+                </p-column>
+                <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
+                <p-column field="modificationDateString" [header]="'LastModificationDate' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'Active' | translate" styleClass="text-center">
+                    <template let-clinicNews="rowData" pTemplate="body">
+                        <input id="chkIsActiveInGrid" name="chkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                               type="checkbox" [checked]="clinicNews.isActive"
+                               (click)="changeClinicNewsActivationState(clinicNews.id, $event)" />
+                        <span class="lbl"></span>
+                    </template>
+                </p-column>
+                <p-column [header]="'Edit' | translate" styleClass="text-center">
+                    <template let-clinicNews="rowData" pTemplate="body">
+                        <a class="pointer" (click)="showNewsDetails(clinicNews.id)">
+                            <i class="fa fa-pencil fa-2x"  style="color: #32bea6;"></i>
+                        </a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+        <div class="padding5" *ngIf="isDetailsVisible">
+            <clinic-add-news [selectedClinicNewsId]="selectedClinicNewsId" (onBack)="hideDetails($event)"></clinic-add-news>
+        </div>
+    </div>
+</div>

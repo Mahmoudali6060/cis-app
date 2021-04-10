@@ -1,0 +1,76 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <div class="row nopadding">
+        <form *ngIf="active" class="form-horizontal" name="patientAccountForm" #patientAccountForm="ngForm">
+            <div class="form-group" (ngSubmit)="onSubmit()">
+                <label for="firstNameTxt" class="control-label col-md-2">{{ 'FirstName' | translate}}</label>
+                <div class="col-md-4">
+                    <input id="firstNameTxt" name="firstNameTxt" class="form-control" [(ngModel)]='patientAccountToSave.firstName' #firstNameTxt="ngModel" required />
+                    <div [hidden]="firstNameTxt.valid || firstNameTxt.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="middleTxt" class="control-label col-md-2">{{ 'MiddleName' | translate}}</label>
+                <div class="col-md-4">
+                    <input id="middleTxt" name="middleTxt" class="form-control" [(ngModel)]='patientAccountToSave.middleName' #middleTxt="ngModel" required />
+                    <div [hidden]="middleTxt.valid || middleTxt.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="lastNameTxt" class="control-label col-md-2">{{ 'LastName' | translate}}</label>
+                <div class="col-md-4">
+                    <input id="lastNameTxt" name="lastNameTxt" class="form-control" [(ngModel)]='patientAccountToSave.lastName' #lastNameTxt="ngModel" required />
+                    <div [hidden]="lastNameTxt.valid || lastNameTxt.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="mobileNumberTxt" class="control-label col-md-2">{{ 'MobileNumber' | translate}}</label>
+                <div class="col-md-4">
+                    <input id="mobileNumberTxt" type="text" name="mobileNumberTxt" class="form-control" [(ngModel)]='patientAccountToSave.reachInfo.mobile' #mobileNumberTxt="ngModel" required pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" />
+                    <div [hidden]="mobileNumberTxt.valid || mobileNumberTxt.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <date-hijri-gregorian [birthDateInfo]="patientAccountToSave"  (onNewDateSaved)="intializePatientBirthDate($event)" ></date-hijri-gregorian>
+
+            <div class="form-group">
+                <label for="rbGender" class="control-label col-md-2">{{ 'Gender' | translate}}</label>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="radio" id="rbGender" (change)="patientAccountToSave.gender ='1'" value="1" name="rbGender" [checked]="isPatientMale()" required />{{ 'Male' | translate}}
+                            </td>
+                            <td>
+                                <input type="radio" (change)="patientAccountToSave.gender ='2'" [checked]="isPatientFemale()" id="rbGender" value="2" name="rbGender" />{{ 'Female' | translate}}
+                            </td>
+                        </tr>
+
+                    </table>
+                    <!--<div [hidden]="rbGender.valid || rbGender.pristine" class="alert alert-danger">
+                        Gender is required
+                    </div>-->
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <button type="submit" class="btn btn-primary" (click)="savePatientAccount()" [disabled]="!patientAccountForm.valid">{{ 'Save' | translate}}</button>
+                    <button class="btn btn-primary" (click)="navigateToPackages()">{{ 'Back' | translate}}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

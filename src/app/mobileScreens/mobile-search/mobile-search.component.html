@@ -1,0 +1,322 @@
+﻿<div class="row">
+
+    <mobile-tabs [isSearchSelected]="selectSearchTab"></mobile-tabs>
+
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                    <!--<a href="#">System Admin</a>-->
+                                </li>
+                                <li class="active-page"> Search for Doctor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-success">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Search By Clinic
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Clinic</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlInsuranceCompany" name="ddlInsuranceCompany" >
+                                    <option>---- Select ----</option>
+                                    <option>Clinic1</option>
+                                    <option>Clinic2</option>
+                                    <option>Clinic3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Department</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlInsuranceCompany" name="ddlInsuranceCompany" >
+                                    <option>---- Select ----</option>
+                                    <option>Department1</option>
+                                    <option>Department2</option>
+                                    <option>Department3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Division</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlInsuranceCompany" name="ddlInsuranceCompany" >
+                                    <option>---- Select ----</option>
+                                    <option>Division1</option>
+                                    <option>Division2</option>
+                                    <option>Division3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-danger" (click)="search()"><i class="glyphicon glyphicon-search"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-success">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Search by Speciality
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Speciality</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlInsuranceCompany" name="ddlInsuranceCompany" >
+                                    <option>---- Select ----</option>
+                                    <option>Dermatology (Skin)</option>
+                                    <option>Dentistry (Teeth)</option>
+                                    <option>Ear, Nose, and Throat</option>
+                                    <option>General Practice</option>
+                                    <option>General Surgery</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-danger" (click)="search()"><i class="glyphicon glyphicon-search"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-success">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            Search By Location
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="ddlCountry" class="control-label col-md-2">Country</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlCountry" name="ddlCountry" >
+                                    <option>---- Select ----</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlRegion" class="control-label col-md-2">Region</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlRegion" name="ddlRegion" >
+                                    <option>---- Select ----</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlCity" class="control-label col-md-2">City</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlCity" name="ddlCity" >
+                                    <option>---- Select ----</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ddlLocation" class="control-label col-md-2">Location</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlLocation" name="ddlLocation" >
+                                    <option>---- Select ----</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Clinic</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlInsuranceCompany" name="ddlInsuranceCompany" >
+                                    <option>---- Select ----</option>
+                                    <option>Clinic1</option>
+                                    <option>Clinic2</option>
+                                    <option>Clinic3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Department</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlInsuranceCompany" name="ddlInsuranceCompany" >
+                                    <option>---- Select ----</option>
+                                    <option>Department1</option>
+                                    <option>Department2</option>
+                                    <option>Department3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Division</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlInsuranceCompany" name="ddlInsuranceCompany" >
+                                    <option>---- Select ----</option>
+                                    <option>Division1</option>
+                                    <option>Division2</option>
+                                    <option>Division3</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-danger" (click)="search()"><i class="glyphicon glyphicon-search"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-success">
+                <div class="panel-heading" role="tab" id="headingThree">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Search By Doctor
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="ddlInsuranceCompany" class="col-md-2 control-label">Doctor Name</label>
+                            <div class="col-md-10">
+                                <input class="form-control" />
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-danger" (click)="search()"><i class="glyphicon glyphicon-search"></i> Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="results" *ngIf="displayResults">
+            <h3>Results</h3>
+
+            <div style="float:right;">
+                Sort By 
+                <select  id="ddlInsuranceCompany" name="ddlInsuranceCompany">
+                    <option>Alphabetically</option>
+                    <option>Nearest</option>
+                </select>
+
+            </div>
+            <div class="w-user-list">
+                <div class="w-user-list-item">
+                    <div class="w-user-thumbnail">
+                        <a href="#">
+                            <img src="images/avatar/allisongrayce.jpg" alt="user">
+                        </a>
+                    </div>
+                    <div class="w-user-info">
+                        <ul>
+                            <li>
+                                <span><a href="#">Jean J. Thomas </a></span>
+                            </li>
+                            <li>
+                                <span>General Practice</span>
+                            </li>
+                            <li>
+                                <span>Clinic2</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-user-action">
+                        <button class="btn btn-danger" routerLink="/booking">Book</button>
+                    </div>
+                </div>
+                <div class="w-user-list-item">
+                    <div class="w-user-thumbnail">
+                        <a href="#">
+                            <img src="images/avatar/bobbyjkane.jpg" alt="user">
+                        </a>
+                    </div>
+                    <div class="w-user-info">
+                        <ul>
+                            <li>
+                               <span><a href="#">Michael H. Russell </a></span>
+                            </li>
+                            <li>
+                                <span>General Practice</span>
+                            </li>
+                            <li>
+                                <span>Clinic1</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-user-action">
+                        <button class="btn btn-danger" routerLink="/booking">Book</button>
+                    </div>
+                </div>
+                <div class="w-user-list-item">
+                    <div class="w-user-thumbnail">
+                        <a href="#">
+                            <img src="images/avatar/coreyweb.jpg" alt="user">
+                        </a>
+                    </div>
+                    <div class="w-user-info">
+                        <ul>
+                            <li>
+                                <span><a href="#">Tyler B. Falcon </a></span>
+                            </li>
+                            <li>
+                               <span>Dermatology (Skin)</span>
+                            </li>
+                            <li>
+                                <span>Clinic1</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-user-action">
+                        <button class="btn btn-danger" routerLink="/booking">Book</button>
+                    </div>
+                </div>
+                <div class="w-user-list-item">
+                    <div class="w-user-thumbnail">
+                        <a href="#">
+                            <img src="images/avatar/chexee.jpg" alt="user">
+                        </a>
+                    </div>
+                    <div class="w-user-info">
+                        <ul>
+                            <li>
+                                <span><a href="#">Felicia J. Elliott </a></span>
+                            </li>
+                            <li>
+                                <span>Dermatology (Skin)</span>
+                            </li>
+                            <li>
+                                <span>Clinic2</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="w-user-action">
+                        <button class="btn btn-danger" routerLink="/booking">Book</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <button class="btn btn-primary">Load More...</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,31 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+
+<div class="row">
+    <!-- <div class="col-md-2 nopadding">
+         <patient-receptionist-tabs [activeTabIndex]="2"></patient-receptionist-tabs>
+     </div>-->
+    <div class="row nopadding">
+        <form novalidate *ngIf="active" class="form-horizontal" name="addressForm" (ngSubmit)="onSubmit()" #addressForm="ngForm">
+            <div class="form-group">
+                <label for="txtRemarks" class="control-label col-md-2">{{ 'PatientName' | translate}} </label>
+                <label for="txtRemarks" class="control-label col-md-2">{{model.name}} </label>
+                <label for="txtRemarks" class="control-label col-md-2">{{ 'ClinicMRN' | translate}} </label>
+                <label for="txtRemarks" class="control-label col-md-2">{{model.clinicMRN}} </label>
+            </div>
+            <div class="form-group">
+                <address [reachInfo]="model.reachInfo"></address>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <button type="submit" class="btn btn-primary" [disabled]="!addressForm.form.valid">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="navigateToPackages()">{{ 'Back' | translate}}</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+

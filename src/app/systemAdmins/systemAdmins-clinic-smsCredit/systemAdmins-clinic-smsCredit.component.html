@@ -1,0 +1,103 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="padding5">
+
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtRemainingBalance">{{ 'RemiaingCredit' | translate}}</label>
+            <div class="col-md-2">
+                <input id="txtRemainingBalance" name="txtRemainingBalance"
+                       class="form-control" [(ngModel)]='currentCredit.remaining' disabled />
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#newSMSCredit">
+                   {{ 'AddCredit' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <h4 class="h4Deco">
+            {{ 'SMSCreditHistory' | translate}}
+        </h4>
+        <hr />
+    </div>
+    <div class="padding2"></div>
+  
+    <div class="inner-addon left-addon">
+        <i class="glyphicon glyphicon-search"></i>
+        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+    </div>
+    <p-dataTable [value]="smsCreditsList" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="credit"  [header]="'Credit' | translate" [sortable]="true"></p-column>
+        <p-column field="previousRemaining"  [header]="'PreviousRemaining' | translate" [sortable]="true"></p-column>
+        <p-column field="rechargeDateString"  [header]="'RechargeDate' | translate" [sortable]="true"></p-column>
+    </p-dataTable>
+
+    <table id="print-section" class="hidden">
+        <thead class="alert alert-info">
+            <tr>
+                <th>{{ 'Credit' | translate}}</th>
+                <th>{{ 'PreviousRemaining' | translate}}</th>
+                <th>{{ 'RechargeDate' | translate}}</th>
+                <!--<th>Creation Date</th>-->
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of smsCreditsList">
+                <td>{{item.credit}}</td>
+                <td>{{item.previousRemaining}}</td>
+                <td>{{item.rechargeDateString}}</td>
+            {{item.creationDateString}}
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div id="newSMSCredit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'AddCredit' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="smsCreditForm" (ngSubmit)="onSubmit()" #smsCreditForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtCredit" class="control-label col-md-3"> {{ 'Credit' | translate}}</label>
+                        <div class="col-md-4">
+                            <input type="number" id="txtCredit" name="txtCredit" class="form-control" [(ngModel)]='newCredit.credit' #txtCredit="ngModel" required />
+                            <div [hidden]="txtCredit.valid || txtCredit.pristine" class="alert alert-danger">
+                      {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDate" class="control-label col-md-3">{{ 'RechargeDate' | translate}}</label>
+                        <div class="col-md-4">
+                            <input id="txtDate" name="txtDate" class="form-control" [(ngModel)]='todayDate' disabled />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary"
+                            [disabled]="!smsCreditForm.form.valid || !enableMyAccountBtn">
+                        {{ 'Add' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                            data-dismiss="modal" #btnSmsCreditModalClose>
+                        {{ 'Cancel' | translate}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

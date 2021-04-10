@@ -1,0 +1,29 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="padding5">
+    <h3 class="text-center">
+        {{divisonName}} - {{ 'Appointments' | translate}} - {{ 'Today' | translate}}: {{today}}
+    </h3>
+    <div class="div-dividion-calendar">
+        <table class="table table-responsive table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-1"></th>
+                    <th *ngFor="let doctr of doctorsList">
+                    {{lang == 'ar' ? doctr.name : doctr.nameTranslation}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let slot of dayTimeSlotsList">
+                    <td class="col-md-1">{{slot.amPmName}}</td>
+                    <td *ngFor="let doctr of doctorsList" class="{{getClassName(doctr, slot.name)}}">
+                        {{getAppointmentTitle(doctr, slot.name)}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

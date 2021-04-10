@@ -1,0 +1,175 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row nopadding">
+    <div class="padding5">
+        <div class="row">
+            <form novalidate class="form-horizontal" *ngIf="active" name="locationform" (ngSubmit)="onSubmit()" #locationform="ngForm">
+                <div class="form-group">
+                    <label for="ddlCountry" class="control-label col-md-2 col-sm-2">{{ 'Country' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <select class="form-control" id="ddlCountry" name="ddlCountry" [(ngModel)]="model.countryId" #ddlCountry="ngModel" #d (change)="fillRegions(d.value)" required>
+                            <option class="emptyOption" value="" selected></option>
+                            <option *ngFor="let item of countriesList | translateObjects" [value]="item.id">{{item.name}}</option>
+                        </select>
+                        <div [hidden]="ddlCountry.valid || ddlCountry.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+
+                    <label for="ddlRegion" class="control-label col-md-2 col-sm-2">{{ 'Region' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="model.regionId" #ddlRegion="ngModel" #r (change)="fillcities(r.value)" required>
+                            <option class="emptyOption" value="" selected></option>
+                            <option *ngFor="let region of regionsList | translateObjects" [value]="region.id">{{region.name}}</option>
+                        </select>
+                        <div [hidden]="ddlRegion.valid || ddlRegion.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ddlCity" class="control-label col-md-2 col-sm-2">{{ 'City' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <select class="form-control" id="ddlCity" name="ddlCity" [(ngModel)]="model.cityId" #ddlCity="ngModel" required>
+                            <option class="emptyOption" value="" selected></option>
+                            <option *ngFor="let city of citiesList | translateObjects" [value]="city.id">{{city.name}}</option>
+                        </select>
+                        <div [hidden]="ddlCity.valid || ddlCity.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                    <label class="control-label col-md-2 col-sm-2" for="txtName">{{ 'LocatioName_ar' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <input type="text" id="txtArabicName" name="txtArabicName" class="form-control" [(ngModel)]='model.name' #txtArabicName="ngModel" required />
+                        <div [hidden]="txtArabicName.valid || txtArabicName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2" for="txtEnglishName">{{ 'LocatioName_en' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control" [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
+                        <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+
+                    <label class="control-label col-md-2 col-sm-2" for="txtArabicDescription">{{ 'Description' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control" [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="ChkIsActive">{{ 'Active' | translate}}</label>
+                    <div class="col-md-4">
+                        <label>
+                            <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
+                            <span class="lbl"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary" [disabled]="!locationform.form.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+                    </div>
+                </div>
+
+                <div class="floatBtn">
+                    <print-page [section]='toPrintDiv'></print-page>
+                </div>
+            </form>
+        </div>
+        <br />
+        <div class="ui-widget-header searchWidget">
+            <i class="fa fa-search searchIcon"></i>
+            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+        </div>
+        <p-dataTable [value]="allObjects | translateObjects  : null : null : lstToTranslated" sortField="countryName" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="name" [header]="'LocatioName_ar' | translate" [sortable]="true"></p-column>
+            <p-column field="nameTranslation" [header]="'LocatioName_en' | translate" [sortable]="true"></p-column>
+            <p-column field="cityName" [header]="'City' | translate" [sortable]="true"></p-column>
+            <p-column field="regionName" [header]="'Region' | translate" [sortable]="true"></p-column>
+            <p-column field="countryName" [header]="'Country' | translate" [sortable]="true"></p-column>
+            <p-column [header]="'Active' | translate" styleClass="text-center width70">
+                <template let-item="rowData" pTemplate="body">
+                    <label>
+                        <input id="ChkIsActiveInGrid"  disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+            </p-column>
+            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
+                <template let-item="rowData" pTemplate="body">
+                    <a [class.disabled]="!enableMyAccountBtn ? true : null" ><i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" style="color: #32bea6;"></i></a>
+                </template>
+            </p-column>
+            <!--<p-column [header]="'Delete' | translate" styleClass="text-center width50">
+                <template let-item="rowData" pTemplate="body">
+                    <a data-toggle="modal" [class.disabled]="!enableMyAccountBtn ? true : null"  data-target="#deleteConfirmation" class="pointer" (click)="selectItemToDelete(item.id)">
+                        <img src="Images/DeleteRed.png" />
+                    </a>
+                </template>
+            </p-column>-->
+        </p-dataTable>
+
+        <div id="print-section" class="hidden">
+            <table class="table table-responsive table-hover">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th>{{ 'LocatioName_ar' | translate}}</th>
+                        <th>{{ 'LocatioName_en' | translate}}</th>
+                        <th>{{ 'City' | translate}}</th>
+                        <th>{{ 'Region' | translate}}</th>
+                        <th>{{ 'Country' | translate}}</th>
+                        <th>{{ 'Active' | translate}}</th>
+                        <th>{{ 'Edit' | translate}}</th>
+                        <th>{{ 'Delete' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of allObjects">
+                        <td>{{item.name}}</td>
+                        <td>{{item.nameTranslation}}</td>
+                        <td>{{item.cityName}}</td>
+                        <td>{{item.regionName}}</td>
+                        <td>{{item.countryName}}</td>
+                        <td>
+                            <img *ngIf="item.isActive" src="Images/ok-24.jpg" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- delete Modal 
+        <div id="deleteConfirmation" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{ 'ConfirmDelete' | translate}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ 'AreYouSureDelete' | translate}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"  class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        -->
+    </div>
+</div>
+
+
+
+

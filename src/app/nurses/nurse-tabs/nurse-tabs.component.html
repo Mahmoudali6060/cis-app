@@ -1,0 +1,24 @@
+﻿
+
+<ul class="nav nav-pills nav-stacked alert alert-info padding5">
+    <li class="{{ (activeTabIndex == 0) ? 'active' : '' }}">
+        <a routerLink="/nurse/account/{{doctorId}}">{{ 'MyAccount' | translate}}</a>
+    </li>
+    <li class="{{ (activeTabIndex == 1) ? 'active' : '' }}">
+        <a routerLink="/nurse/basic/{{doctorId}}">{{ 'PersonalData' | translate}}</a>
+    </li>
+    <li class="{{ (activeTabIndex == 2) ? 'active' : '' }}">
+        <a routerLink="/nurse/address/{{doctorId}}">{{ 'AddressandContact' | translate}}</a>
+    </li>
+    <li class="{{ (activeTabIndex == 3) ? 'active' : '' }}">
+        <a routerLink="/nurse/appointments/1">{{ 'MyAppointments' | translate}}</a>
+    </li>
+    <li class="{{ (activeTabIndex == 4) ? 'active' : '' }}">
+        <a routerLink="/nurse/requests/1">{{ 'InventoryRequests' | translate}}</a>
+    </li>
+    <li class="{{ (activeTabIndex == 5) ? 'active' : '' }}">
+        <a routerLink="/nurse/reports/1">{{ 'Reports' | translate}}</a>
+    </li>
+
+</ul>
+

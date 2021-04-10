@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base href="/Cis/">
+    <title>Clinic Information System</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+    <link rel="stylesheet" href="css/animate.css" type="text/css">
+    <link rel="stylesheet" href="css/waves.css" type="text/css">
+    <link rel="stylesheet" href="css/layout.css" type="text/css">
+    <link rel="stylesheet" href="css/components.css" type="text/css">
+    <link rel="stylesheet" href="css/plugins.css" type="text/css">
+    <link rel="stylesheet" href="css/common-styles.css" type="text/css">
+    <link rel="stylesheet" href="css/pages.css" type="text/css">
+    <link rel="stylesheet" href="css/responsive.css" type="text/css">
+    <link rel="stylesheet" href="css/updatedAce.css" id="main-ace-style" />
+
+    <link rel="stylesheet" href="css/matmix-iconfont.css" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,500italic" rel="stylesheet"
+        type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet"
+        type="text/css">
+
+
+
+    <link href="css/omega/theme.css" rel="stylesheet" />
+    <link href="css/fullcalendar.min.css" rel="stylesheet" />
+    <link href="css/primeng.min.css" rel="stylesheet" />
+    <link href="css/quill.snow.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/Styles-ltr.css" type="text/css">
+
+    <link href="css/app-style.css" rel="stylesheet" />
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="signalr/hubs"></script>
+
+
+    <script src="Scripts/moment.min.js"></script>
+    <script src="Scripts/fullcalendar.min.js"></script>
+    <script src="Scripts/quill.min.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.js"></script>
+
+    <!--<script src="Scripts/bootstrap.min.js"></script>-->
+    <!-- 1. Load libraries -->
+    <!-- Polyfill(s) for older browsers -->
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <!-- 2. Configure SystemJS -->
+    <script src="systemjs.config.js"></script>
+    <script>
+        System.import('app').catch(function (err) { console.error(err); });
+    </script>
+
+
+    <!-- GMap -->
+    <script type="text/javascript"
+        src="http://maps.google.com/maps/api/js?key=AIzaSyBXj7FPto_q0Cg1HM_kDYSAnvT4ZQumm0E&libraries=places" async
+        defer></script>
+
+    <!-- Facebook Accountkit -->
+    <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
+    <script type="text/javascript">
+        AccountKit_OnInteractive = function () {
+            AccountKit.init(
+                {
+                    appId: 1159907397464566,
+                    state: 'CIS.Horizonssoftware.com',
+                    version: 'v1.1',
+                    debug: true
+                }
+            );
+        };
+    </script>
+</head>
+
+<body style="padding-right:0px!important;">
+    <root-app>
+        <div class="text-center">
+            <br />
+            <br />
+            <img src="Images/loading-large.gif" />
+
+        </div>
+    </root-app>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/jRespond.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.noty.js"></script>
+    <script src="js/jquery.nouislider.js"></script>
+
+    <script type="text/javascript">
+
+        function showLeftBar() {
+
+            if (jQuery('#pagecont').hasClass('list-menu-view')) {
+                jQuery('#pagecont').removeClass('list-menu-view');
+                jQuery('#pagecont').addClass('hide-list-menu');
+            } else {
+                jQuery('#pagecont').removeClass('hide-list-menu');
+                jQuery('#pagecont').addClass('list-menu-view');
+            }
+
+        }
+
+        function closeLeftBar() {
+            jQuery('#pagecont').removeClass('hide-list-menu');
+            jQuery('#pagecont').addClass('list-menu-view');
+
+
+        }
+
+        function hideLeftBar() {
+            // event.preventDefault();
+            jQuery('#pagecont').removeClass('list-menu-view');
+            jQuery('#pagecont').addClass('hide-list-menu');
+        }
+
+        function applyVerticalMenuStyle(element) {
+            // get child element and change arrow shape
+            jQuery(element).find('.menuarrow').toggleClass("glyphicon-chevron-down");
+            jQuery(element).find('.menuarrow').toggleClass("glyphicon-chevron-right");
+            //apply style on the sub list 
+            jQuery(element).next().toggleClass("expandedAccordion");//, 100, "swing");
+        }
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row well">
+    <div class="row text-right nopadding">
+        <button disabled="{{ enableCopyPolicyBtn ? '' :'disabled'}}" type="button" class="btn btn-primary"
+                (click)="displayPolicyDetailsPopupForNew()">
+            {{ 'New' | translate}}
+        </button>
+    </div>
+
+</div>
+<div class="row">
+
+    <div class="padding2"></div>
+    <div  class="row well" style="background-color: #f6f7f9 !important;">
+        <div class="inner-addon left-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            <input #gb type="text" pInputText size="50" class="inputSearch" placeholder="Search...">
+        </div>
+
+        <p-dataTable [value]="policiesList | translateObjects : 'name' : 'nameTranslation':null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="name" [header]="'PolicyName' | translate" [sortable]="true"></p-column>
+            <p-column field="code" [header]="'Code' | translate" [sortable]="true"></p-column>
+            <p-column field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
+            <p-column field="endDateString" [header]="'EndDate' | translate" [sortable]="true"></p-column>
+            <p-column [header]="'Active' | translate" styleClass="text-center width70">
+                <template let-policy="rowData" pTemplate="body">
+                    <label>
+                        <input id="ChkIsActiveInGrid" disabled="{{ enableUpdatePolicyBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                               type="checkbox" [checked]="policy.isActive"
+                               (click)="changeActivation(policy.id , $event)" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+            </p-column>
+            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
+                <template let-policy="rowData" pTemplate="body">
+                    <a [class.disabled]="!enableViewPolicyDetailsBtn? true : null">
+                        <i class="fa fa-pencil fa-2x" (click)="displayPolicyDetailsPopup(policy.id)" style="color: #32bea6;"></i>
+                    </a>
+
+                </template>
+            </p-column>
+            <p-column [header]="'Copy' | translate" styleClass="text-center width50">
+                <template let-policy="rowData" pTemplate="body">
+                    <a [class.disabled]="!enableCopyPolicyBtn ? true : null"> <img src="Images/copy-24.png" class="pointer" (click)="displayCopyPolicyPopup(policy.id)" /></a>
+                </template>
+            </p-column>
+        </p-dataTable>
+    </div>
+</div>
+<div class="row " style="display:none;">
+    <button #btnDisplayPolicyDetailsPopup type="button" class="btn btn-primary" data-toggle="modal" data-target="#policyDetailsPopup"></button>
+    <button #btnDisplayPolicyCopyPopup type="button" class="btn btn-primary" data-toggle="modal" data-target="#policyCopyPopup"></button>
+</div>
+<!-- Policy Details Modal -->
+<div id="policyDetailsPopup" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog width75percent">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'PolicyDetails' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <insurance-policy-details [companyId]="companyId"
+                                          [companyName]="companyName"
+                                          [policyId]="selectedPolicyId"
+                                          [policyPatients]="policyPatients"
+                                          (onPolicyAdded)="handlePolicyAdded($event)"
+                                          (onPolicyUpdated)="handlePolicyUpdated($event)"></insurance-policy-details>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="policyCopyPopup" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog halfWidth">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'PolicyCopy' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" *ngIf="active" name="policyCopyForm" (ngSubmit)="copyPolicy()" #policyCopyForm="ngForm">
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">{{ 'Code' | translate}}</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtCode" name="txtCode" [(ngModel)]='policyCopyModel.code' #txtCode="ngModel" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">{{ 'ArabicName' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" id="txtArabicName" name="txtArabicName" [(ngModel)]='policyCopyModel.name' #txtArabicName="ngModel" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">{{ 'EnglishName' | translate}}</label>
+                        <div class="col-md-8">
+                            <input type="text" id="txtEnglishName" name="txtEnglishName" [(ngModel)]='policyCopyModel.nameTranslation' #txtEnglishName="ngModel" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <br />
+                        <button type="submit" class="btn btn-primary" [disabled]="!policyCopyForm.valid || !enableCopyPolicyBtn">{{ 'Copy' | translate}}</button>
+                        <button type="button" disabled="{{ enableCopyPolicyBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" #btnClosePolicyCopyPopup>{{ 'Cancel' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

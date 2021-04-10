@@ -1,0 +1,33 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <label for="ddlCountry" class="control-label col-md-2">{{ 'State' | translate}}</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ddlCountry" name="ddlCountry" [(ngModel)]="location.countryId" #d #ddlCountry="ngModel" (change)="fillRegions(d.value)" required>
+                <option *ngFor="let country of countriesList" [value]="country.id">{{country.name}}</option>
+            </select>
+        </div>
+        <div [hidden]="ddlCountry.valid || ddlCountry.pristine" class="alert alert-danger">
+            {{ 'RequiredField' | translate}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ddlRegion" class="control-label col-md-2">{{ 'Region' | translate}}</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="location.regionId" #ddlCity="ngModel" #r (change)="fillCities(r.value)">
+                <option *ngFor="let region of filteredRegionsList" [value]="region.id">{{region.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ddlCity" class="control-label col-md-2">{{ 'City' | translate}}</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ddlCity" name="ddlCity" [(ngModel)]="location.cityId" #ddlCity="ngModel"  >
+                <option *ngFor="let city of filteredCitiesList" [value]="city.id">{{city.name}}</option>
+            </select>
+        </div>
+    </div>
+</div>

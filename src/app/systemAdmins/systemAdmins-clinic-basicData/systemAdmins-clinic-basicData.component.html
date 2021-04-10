@@ -1,0 +1,199 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<form novalidate class="form-horizontal" *ngIf="active" name="clinicBasicForm" (ngSubmit)="onSubmit()" #clinicBasicForm="ngForm">
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtClinicNameAr">{{ 'NameArabic' | translate}}</label>
+        <div class="col-md-4">
+            <input id="txtClinicNameAr" name="txtClinicNameAr"
+                   [(ngModel)]='model.name' #txtClinicNameAr="ngModel" class="form-control" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtClinicNameEn">{{ 'NameEnglish' | translate}}</label>
+        <div class="col-md-4">
+            <input id="txtClinicNameEn" name="txtClinicNameEn" class="form-control"
+                   [(ngModel)]='model.nameTranslation' #txtClinicNameEn="ngModel" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="ddlClinicLevel">{{ 'ClinicLevel' | translate}}</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ddlClinicLevel" name="ddlClinicLevel" [(ngModel)]="model.clinicLevelId" #ddlClinicLevel="ngModel">
+                <option *ngFor="let item of clinicLevelsList" [value]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fileImage" class="control-label col-md-2">{{ 'Logo' | translate}}</label>
+        <div class="col-md-4">
+            <image-uploader [(imageId)]="model.imageId" [(imageData)]="model.imageData" (change)="imageChanged($event);"></image-uploader>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="chkIsActive">{{ 'Active' | translate}}</label>
+        <div class="col-md-4">
+            <label>
+                <input type="checkbox" class="ace ace-switch ace-switch-6"
+                       id="chkIsActive" name="chkIsActive"
+                       [(ngModel)]="model.isActive" #chkIsActive="ngModel" />
+                <span class="lbl"></span>
+            </label>
+        </div>
+    </div>
+
+
+    <h4 class="h4Deco">
+        {{'OwnerInforamtion' | translate}}
+    </h4>
+    <hr />
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtOwnerFirstName">{{ 'FirstName' | translate}}</label>
+        <div class="col-md-3">
+            <input id="txtOwnerFirstName" name="txtOwnerFirstName" class="form-control"
+                   [(ngModel)]='model.owner.firstName' #txtOwnerName="ngModel" required />
+        </div>
+        <label class="control-label col-md-2" for="txtOwnerLastName">{{ 'LastName' | translate}}</label>
+        <div class="col-md-3">
+            <input id="txtOwnerLastName" name="txtOwnerLastName" class="form-control"
+                   [(ngModel)]='model.owner.lastName' #txtOwnerLastName="ngModel" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtOwnerPhone">{{ 'Mobile' | translate}}</label>
+        <div class="col-md-3">
+            <input type="tel" id="txtOwnerPhone" name="txtOwnerPhone" class="form-control"
+                   [(ngModel)]='model.owner.reachInfo.mobile' #txtOwnerPhone="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required />
+            <div [hidden]="txtOwnerPhone.valid || txtOwnerPhone.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+        <label class="control-label col-md-2" for="txtOwnerEmail">{{ 'Email' | translate}}</label>
+        <div class="col-md-3">
+            <input  type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" id="txtOwnerEmail" name="txtOwnerEmail" class="form-control"
+                   [(ngModel)]='model.owner.email' #txtOwnerEmail="ngModel" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="txtPassword" class="control-label col-md-2">  {{ 'Password' | translate}}</label>
+        <div class="col-md-3">
+            <div *ngIf="model.id==0">
+                <input type="password" id="txtOwnerPassword" name="txtOwnerPassword" class="form-control"
+                       pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                       [(ngModel)]='model.owner.password' #txtOwnerPassword="ngModel" required />
+                <div [hidden]="txtOwnerPassword.valid || txtOwnerPassword.pristine" class="alert alert-danger">
+                    {{ 'InvalidPassword' | translate}}
+                </div>
+            </div>
+
+            <a class="pointer" [class.disabled]="!enableMyAccountBtn ? true : null" *ngIf="model.id>0" data-toggle="modal" data-target="#resetOwnerPasswordModal">{{ 'ResetPassword' | translate}}</a>
+        </div>
+        <label *ngIf="model.id==0" for="txtPasswordConfirm" class="control-label col-md-2"> {{ 'ConfirmPassword' | translate}} </label>
+        <div class="col-md-3" *ngIf="model.id==0">
+            <input type="password" id="txtOwnerPasswordConfirm" name="txtOwnerPasswordConfirm"
+                   pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                   [(ngModel)]='model.ownerPasswordConfirm' #txtOwnerPasswordConfirm="ngModel" class="form-control" required />
+            <div [hidden]="txtOwnerPasswordConfirm.valid || txtOwnerPasswordConfirm.pristine" class="alert alert-danger">
+                {{ 'InvalidPassword' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="chkIsAdmin">{{ 'IsAdmin' | translate}}</label>
+        <div class="col-md-3">
+            <label>
+                <input type="checkbox" class="ace ace-switch ace-switch-6"
+                       id="chkIsAdmin" name="chkIsAdmin"
+                       [(ngModel)]="model.ownerIsAdmin" #chkIsAdmin="ngModel"
+                       (change)="ownerIsAdminChanged" />
+                <span class="lbl"></span>
+            </label>
+        </div>
+    </div>
+    <div *ngIf="!model.ownerIsAdmin">
+        <h4  class="h4Deco">
+        {{ 'AdminInformation' | translate}}
+        </h4>
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtAdminFirstName">{{ 'FirstName' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtAdminFirstName" name="txtAdminFirstName" class="form-control"
+                       [(ngModel)]='model.admin.firstName' #txtAdminFirstName="ngModel" required />
+            </div>
+            <label class="control-label col-md-2" for="txtAdminLastName">{{ 'LastName' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtAdminLastName" name="txtAdminLastName" class="form-control"
+                       [(ngModel)]='model.admin.lastName' #txtAdminLastName="ngModel" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtAdminPhone">{{ 'Mobile' | translate}}</label>
+            <div class="col-md-3">
+                <input type="tel" id="txtAdminPhone" name="txtAdminPhone" class="form-control"
+                       [(ngModel)]='model.admin.reachInfo.mobile' #txtAdminPhone="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required />
+                <div [hidden]="txtAdminPhone.valid || txtAdminPhone.pristine" class="alert alert-danger">
+                   {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+            <label class="control-label col-md-2" for="txtAdminEmail">{{ 'Email' | translate}}</label>
+            <div class="col-md-3">
+                <input  type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" id="txtAdminEmail" name="txtAdminEmail" class="form-control"
+                       [(ngModel)]='model.admin.email' #txtAdminEmail="ngModel" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label for="txtAdminPassword" class="control-label col-md-2"> {{ 'Password' | translate}} </label>
+            <div class="col-md-3">
+                <div *ngIf="model.adminId==null">
+                    <input type="password" id="txtAdminPassword" name="txtAdminPassword" class="form-control"
+                           pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                           [(ngModel)]='model.admin.password' #txtAdminPassword="ngModel" required />
+                    <div [hidden]="txtAdminPassword.valid || txtAdminPassword.pristine" class="alert alert-danger">
+                        {{ 'InvalidPassword' | translate}}
+                    </div>
+                </div>
+                <a class="pointer" *ngIf="model.adminId>0" data-toggle="modal" data-target="#resetAdminPasswordModal">{{ 'ResetPassword' | translate}}</a>
+            </div>
+            <label *ngIf="model.adminId==null" for="txtAdminPasswordConfirm" class="control-label col-md-2"> {{ 'ConfirmPassword' | translate}} </label>
+            <div class="col-md-3" *ngIf="model.adminId==null">
+                <input type="password" id="txtAdminPasswordConfirm" name="txtAdminPasswordConfirm"
+                       pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                       class="form-control" [(ngModel)]="model.adminPasswordConfirm" #txtAdminPasswordConfirm="ngModel" required />
+                <div [hidden]="txtAdminPasswordConfirm.valid || txtAdminPasswordConfirm.pristine" class="alert alert-danger">
+                    {{ 'InvalidPassword' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <button class="btn btn-primary" [disabled]="!clinicBasicForm.valid|| !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+            <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" routerLink="/systemAdmin/clinics">{{ 'Back' | translate}}</button>
+        </div>
+    </div>
+</form>
+
+<div id="resetOwnerPasswordModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <reset-password [enableMyAccountBtn]='enableMyAccountBtn' [userId]="model.ownerId"></reset-password>
+        </div>
+    </div>
+</div>
+
+<div id="resetAdminPasswordModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <reset-password [enableMyAccountBtn]='enableMyAccountBtn' [userId]="model.adminId"></reset-password>
+        </div>
+    </div>
+</div>

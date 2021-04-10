@@ -1,0 +1,108 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+
+<clinic-tab [isAppointmentsSelected]='selectAppointmentsTab' *ngIf="isClinicAdmin"></clinic-tab>
+<shared-tabs [isAppointmentsSelected]='selectAppointmentsTab' *ngIf="!isClinicAdmin"></shared-tabs>
+<div class="row nopadding">
+    <div class="NBbreadcrumb">
+        <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+        {{ 'AppointmentMaster' | translate}}
+    </div>
+    <div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
+        <!--<h4>Select Doctor</h4>-->
+        <div class="nopadding treeBorder" style="height:180px;">
+            <!--<p-tree [value]="items" selectionMode="single" [(selection)]="selectedFiles"></p-tree>-->
+            <p-tree [value]="organizationStructure | translateObjects  : null : null : lstToTranslated " selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)">
+                <template let-node pTemplate="Medical">
+                    {{node.label}}
+                </template>
+                <template let-node pTemplate="ClinicDepartment">
+                    {{node.label}}
+                </template>
+                <template let-node pTemplate="ClinicDivision">
+                    {{node.label}}
+                </template>
+                <template let-node pTemplate="SecurityUser">
+                    <span class="glyphicon glyphicon-user"></span> {{node.label}}
+                </template>
+            </p-tree>
+        </div>
+        <h4 class="h4Deco">{{ 'DoctorSchedules' | translate}}</h4>
+        <div class="row text-right">
+            <button type="button" class="btn btn-primary" *ngIf="isDoctorSelected" (click)="showDetails('new')" disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'NewSchedule' | translate}}</button>
+        </div>
+        <br />
+        <div>&nbsp;</div>
+        <div class="row">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input #gb class="inputSearch" type="text" pInputText size="50" [placeholder]="'Search' | translate">
+            </div>
+
+            <p-dataTable [value]="appointmentsList | translateObjects  : 'fullName' : 'fullNameTranslation' : null " selectionMode="single"
+                         [paginator]="false" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]"
+                         [responsive]="true" reorderableColumns="true" [globalFilter]="gb"
+                         rowGroupMode="subheader" groupField="fullName"
+                         expandableRowGroups="true" [sortableRowGroup]="false">
+                <template pTemplate="rowgroupheader" let-rowData>
+                    {{rowData['fullName']}}
+                </template>
+                <!--<p-column field="categoryFriendlyName" header="Permission Category" [sortable]="true"></p-column>-->
+                <!--<p-column field="name" header="Permission" [sortable]="false"></p-column>-->
+
+                <p-column field="startDateString" [header]="'StartDate' | translate" styleClass="text-center width50"></p-column>
+                <p-column field="endDateString" [header]="'EndDate' | translate" styleClass="text-center width50"></p-column>
+                <p-column field="slotDuration" [header]="'SlotDuration' | translate" styleClass="text-center width50"></p-column>
+                <p-column field="description" [header]="'Remarks' | translate" styleClass="text-center width50"></p-column>
+                <p-column [header]="'Active' | translate" styleClass="text-center width50">
+                    <template let-appointment="rowData" pTemplate="body">
+                        <label>
+                            <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                   type="checkbox" [checked]="appointment.isActive" (click)="changeActivation(appointment.id , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
+                            <span class="lbl"></span>
+                        </label>
+                    </template>
+                </p-column>
+                <p-column [header]="'Edit' | translate" styleClass="text-center width50">
+                    <template let-appointment="rowData" pTemplate="body">
+                        <a class="pointer" (click)="showDetails(appointment.id)" [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                            <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
+                        </a>
+                    </template>
+                </p-column>
+                <p-column [header]="'Delete' | translate" styleClass="text-center width70">
+                    <template let-appointment="rowData" pTemplate="body">
+                        <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer"
+                           (click)="selectAppointmentScheduleToDelete(appointment.id)" [class.disabled]="!enableDeleteBtn && !isClinicAdmin ? true : null">
+                            <i class="glyphicon glyphicon-remove iconAd"></i>
+                        </a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+    <div id="divDetails" class="padding5" *ngIf="isDetailsVisible">
+        <clinic-appointment-details (onBack)="hideDetails()" [slotDurations]="slotDurations" [appointmentIdValue]="appointmentId" [daysList]="daysList" [doctorIdValue]="doctorId" [clinicIdValue]="clinicId" [doctorNameValue]="doctorName" [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"></clinic-appointment-details>
+    </div>
+</div>
+<div id="deleteAppointmentSchedule" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"> {{ 'ConfirmDelete' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ 'AreYouSureDelete' | translate}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>

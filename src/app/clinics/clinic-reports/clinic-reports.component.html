@@ -1,0 +1,79 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row well">
+
+    <clinic-tab [isReportsSelected]='selectReportsTab'></clinic-tab>
+    <div class="row nopadding">
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'Reports' | translate}}
+        </div>
+
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('ResourcesRevenueDetailsReport')" class="linkColorForReport pointer">
+                    {{ 'ResourcesRevenueDetailsReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+        </div>
+        <br /> <br />
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('PatientsVisitsInPeriodReport')" class="linkColorForReport pointer">
+                    {{ 'PatientsVisitsInPeriodReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+
+        </div>
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('UpcomingAppointmentsReport')" class="linkColorForReport pointer">
+                    {{ 'UpcomingAppointmentsReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+
+
+        </div>
+        <br /> <br />
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('PatientTransactionsHistoryReport')" class="linkColorForReport pointer">
+                    {{ 'PatientTransactionsHistoryReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+
+        </div>
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('ResourceCollectionDetailsReport')" class="linkColorForReport pointer">
+                    {{ 'ResourceCollectionDetailsReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+
+        </div>
+        <br /><br />
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('CashierReport')" class="linkColorForReport pointer">
+                    {{ 'CashierReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+        </div>
+
+    </div>
+</div>
+

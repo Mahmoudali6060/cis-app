@@ -1,0 +1,110 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-horizontal well">
+            <div class="form-group">
+                <label for="ddlCountry" class="control-label col-md-2">{{ 'Country' | translate}}</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlCountry" name="ddlCountry" [(ngModel)]="reachInfo.countryId" #d #ddlCountry="ngModel" (change)="fillRegions(d.value)" required>
+                        <option class="emptyOption" value="" selected></option>
+                        <option *ngFor="let country of countries | translateObjects" [value]="country.id">{{country.name}}</option>
+                    </select>
+                    <div [hidden]="ddlCountry.valid || ddlCountry.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlRegion" class="control-label col-md-2">{{ 'Region' | translate}}</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="reachInfo.regionId" #ddlRegion="ngModel" #r (change)="fillCities(r.value)" required>
+                        <option class="emptyOption" value="" selected></option>
+                        <option *ngFor="let region of filteredRegions | translateObjects" [value]="region.id">{{region.name}}</option>
+                    </select>
+                    <div [hidden]="ddlRegion.valid || ddlRegion.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlCity" class="control-label col-md-2">{{ 'City' | translate}}</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlCity" name="ddlCity" [(ngModel)]="reachInfo.cityId" #ddlCity="ngModel" #c (change)="fillLocations(c.value)" required>
+                        <option class="emptyOption" value="" selected></option>
+                        <option *ngFor="let city of filteredCities | translateObjects" [value]="city.id">{{city.name}}</option>
+                    </select>
+                    <div [hidden]="ddlCity.valid || ddlCity.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="ddlLocation" class="control-label col-md-2">{{ 'Location' | translate}}</label>
+                <div class="col-md-10">
+                    <select class="form-control" id="ddlLocation" name="ddlLocation" [(ngModel)]="reachInfo.locationId" #ddlLocation="ngModel">
+                        <option class="emptyOption" value="" selected></option>
+                        <option *ngFor="let location of filteredLocations | translateObjects" [value]="location.id">{{location.name}}</option>
+                    </select>
+                    <!--<div [hidden]="ddlLocation.valid || ddlLocation.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>-->
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="txtStreetName" class="control-label col-md-2">{{ 'StreetName' | translate}}</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" id="txtStreetName" name="txtStreetName" #txtStreetName="ngModel" [(ngModel)]="reachInfo.street">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtPostalCode" class="control-label col-md-2">{{ 'PostalCode' | translate}}</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="txtPostalCode" name="txtPostalCode" #txtPostalCode="ngModel" [(ngModel)]="reachInfo.postalcode">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtHomePhone" class="control-label col-md-2">{{ 'HomePhone' | translate}} </label>
+                <div class="col-md-4">
+                    <input type="tel" class="form-control" id="txtHomePhone" name="txtHomePhone" #txtHomePhone="ngModel" [(ngModel)]="reachInfo.homePhone">
+                </div>
+                <label for="txtWorkPhone" class="control-label col-md-2">{{ 'WorkPhone' | translate}} </label>
+                <div class="col-md-4">
+                    <input type="tel" class="form-control" id="txtWorkPhone" name="txtWorkPhone" #txtWorkPhone="ngModel" [(ngModel)]="reachInfo.workPhone">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="txtMobile" class="control-label col-md-2">{{ 'Mobile' | translate}} </label>
+                <div class="col-md-4">
+                    <input type="tel" class="form-control" id="txtMobile" name="txtMobile" #txtMobile="ngModel" [(ngModel)]="reachInfo.mobile">
+                </div>
+                <label for="txtFax" class="control-label col-md-2">{{ 'Fax' | translate}}</label>
+                <div class="col-md-4">
+                    <input type="tel" class="form-control" id="txtFax" name="txtFax" #txtFax="ngModel" [(ngModel)]="reachInfo.fax">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtEmail" class="control-label col-md-2">{{ 'Email' | translate}} </label>
+                <div class="col-md-10">
+                    <input type="email" class="form-control" id="txtEmail" name="txtEmail" #txtEmail="ngModel" [(ngModel)]="reachInfo.email">
+                </div>
+            </div>
+            <ng-content></ng-content>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="well">
+            <div id="divMap" style="width:100%;height:400px;"></div>
+            <img src="Images/refresh-48.png" [style.width.px]='40' class="pointer" (click)="refreshingMap()" title="Refresh Map" />
+            <img src="Images/deleteMarker-48.png" [style.width.px]='32' *ngIf="markers.length" class="pointer" (click)="removeMarker()" title="Delete marker from map" />
+        </div>
+    </div>
+
+</div>

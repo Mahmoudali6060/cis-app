@@ -1,0 +1,68 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="page-breadcrumb-wrap">
+                <div class="page-breadcrumb-info">
+                    <ul class="list-page-breadcrumb">
+                        <li>
+                            <a >Receptionist Profile</a>
+                        </li>
+                        <li class="active-page"> Doctors</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+        </div>
+    </div>
+</div>
+
+<div class="padding5">
+
+    <div class="row">
+        <div class="col-md-4 nopadding">
+            <input type="text" placeholder="بحث..." class="form-control" [(ngModel)]='filterString' />
+        </div>
+        <div class="col-md-8 text-left nopadding">
+            <button type="button" class="btn btn-primary" routerLink="/doctorAccount/1">جديد</button>
+        </div>
+    </div>
+    <div class="padding2"></div>
+
+    <table class="table table-responsive table-hover">
+        <thead class="alert alert-info">
+            <tr>
+                <th>الاسم</th>
+                <th>رقم الهوية</th>
+                <th>رقم جواز السفر</th>
+                <th>تاريخ الميلاد</th>
+                <th>الجنس</th>
+                <th>التخصص</th>
+                <th>الدرجة العلمية</th>
+                <th>تعديل</th>
+                <th>عرض</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vol of volunteersList | filterByName:filterString">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a (click)="editVolunteer(vol.id)" class="pointer">تعديل</a>
+                </td>
+                <td>
+                    <a routerLink="/volunteerProfile/{{vol.id}}">عرض</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

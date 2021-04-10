@@ -1,0 +1,40 @@
+﻿<div class="nopadding text-center" *ngIf="showProgress">
+    <img src="Images/load.gif" />
+</div>
+<div *ngIf="!hasFile">
+    <input type="file" class="form-control" #fileInput (change)="addFile()">
+    <span> {{ 'FileSize2' | translate}}</span>
+</div>
+
+<div *ngIf="hasFile" class="row nopadding">
+    <div class="col-md-10 nopadding">
+        <a (click)="downloadFile(attachment.id)" style="display: inline-block; padding: 0; cursor:pointer">
+            <i class="fa fa-file{{attachment.fileType === 'file' ? '' : '-'+attachment.fileType}}-o bigger-130 light-orange cursorPointer"></i>
+            <span>{{attachment.name}} </span>
+        </a>
+        &nbsp;
+        <img src="images/DeleteRed.png" data-toggle="modal" data-target="#myModal" class="pointer" />
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'DeleteConfirmation' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ 'AreYouSureDelete' | translate}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-danger" (click)="deleteFile(attachment.id)" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

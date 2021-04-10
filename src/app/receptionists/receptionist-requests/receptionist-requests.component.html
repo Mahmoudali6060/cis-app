@@ -1,0 +1,81 @@
+﻿<div class="row">
+        <shared-tabs [activeTabIndex]="11"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row ">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'ReceptionistProfile' | translate}}</a> &nbsp;/
+                    {{ 'GuestPatientRequests' | translate}}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+            </div>
+
+            <p-dataTable [value]="patientRequestList " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="name" [header]="'PatientName' | translate" [sortable]="true"></p-column>
+                <p-column field="birthDateString" [header]="'BirthDate' | translate" [sortable]="true"></p-column>
+                <p-column field="mobileNumber" [header]="'Mobile' | translate" [sortable]="true"></p-column>
+                <p-column field="gender" [header]="'Gender' | translate" [sortable]="true"></p-column>
+                <p-column field="dateTimeString" [header]="'AppointmentDate' | translate" [sortable]="true"></p-column>
+                <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true" styleClass="text-danger"></p-column>
+                <p-column field="time" [header]="'AppointmentTime' | translate" [sortable]="true"></p-column>
+                <p-column field="visitTypeName" [header]="'Type' | translate" [sortable]="true"></p-column>
+                <p-column field="appointmentClassName" [header]="'Class' | translate" [sortable]="true"></p-column>
+                <p-column field="status" [header]="'Status' | translate" [sortable]="true" styleClass="text-danger"></p-column>
+                <p-column [header]="'Confirm' | translate" styleClass="text-center width70">
+                    <template let-request="rowData" pTemplate="body">
+                        <a class="pointer" (click)="confirmPatientRequest(request.id)" [class.disabled]="!enableConfirmLink ? true : null">
+                            <img src="Images/ok-24.jpg" />
+                        </a>
+                    </template>
+                </p-column>
+                <p-column [header]="'Cancel' | translate" styleClass="text-center width70">
+                    <template let-request="rowData" pTemplate="body">
+                        <a class="pointer" #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup"
+                           (click)="selectRequestToBeCanceled(request.id)" [class.disabled]="!enableCancelLink ? true : null">
+                            <img src="Images/cancel-24.png" />
+                        </a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>
+<div id="ServicesGroupPopup" #ServicesGroupPopup class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!-- Services group Modal -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="close()">&times;</button>
+                <h4 class="modal-title"> {{ 'CancelPatientRequest' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="servicegroupForm" #servicegroupForm="ngForm">
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="txtGroupRemark" class="control-label col-md-3">{{ 'CancelationReason' | translate}}</label>
+                            <div class="col-md-6">
+                                <textarea id="txtGroupRemark" name="txtGroupRemark" class="form-control" [(ngModel)]='model.cancelationReason' #txtGroupRemark="ngModel" required></textarea>
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelPatientRequest()" [disabled]="!servicegroupForm.valid">{{ 'Save' | translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelServiceGroup()">{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

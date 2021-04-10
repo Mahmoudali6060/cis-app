@@ -1,0 +1,156 @@
+﻿
+<div class="row padding5">
+    <form novalidate class="form-horizontal" *ngIf="active" name="basicDataForm" (ngSubmit)="onSubmit()" #basicDataForm="ngForm">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2 col-sm-offset-2 nopadding">
+                <button type="submit" class="btn btn-primary" [disabled]="!basicDataForm.form.valid || !enableAddCompanyBasicBtn ">{{ 'Save' | translate}}</button>
+                <button type="button" disabled="{{ enableAddCompanyBasicBtn ? '' :'disabled'}}" class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+                <button type="button" class="btn btn-primary" disabled="{{ enableViewCompanyDetails ? '' :'disabled'}}" routerLink="/insurance/companies">{{ 'Back' | translate}}</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2" for="txtName">{{ 'ArabicName' | translate}}</label>
+            <div class="col-md-4 col-sm-4">
+                <input type="text" id="txtArabicName" name="txtArabicName" class="form-control" [(ngModel)]='model.name' #txtArabicName="ngModel" required />
+                <div [hidden]="txtArabicName.valid || txtArabicName.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+            <label class="control-label col-md-2 col-sm-2" for="txtEnglishName">{{ 'EnglishName' | translate}}</label>
+            <div class="col-md-4 col-sm-4">
+                <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control" [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
+                <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2" for="txtTaxId">{{ 'TaxId' | translate}}</label>
+            <div class="col-md-4 col-sm-4">
+                <input type="text" id="txtTaxId" name="txtTaxId" class="form-control" [(ngModel)]='model.taxid' #txtTaxId="ngModel" required />
+                <div [hidden]="txtTaxId.valid || txtTaxId.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+            <label class="control-label col-md-2 col-sm-2" for="txtAddress">{{ 'Address' | translate}}</label>
+            <div class="col-md-4 col-sm-4">
+                <input type="text" id="txtAddress" name="txtAddress" class="form-control" [(ngModel)]='model.address' #txtAddress="ngModel" required />
+                <div [hidden]="txtAddress.valid || txtAddress.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2" for="txtLastModificationDate">{{ 'LastModificationDate' | translate}}</label>
+            <div class="col-md-4 col-sm-4">
+                <input type="text" id="txtLastModificationDate" name="txtLastModificationDate" class="form-control"  value="{{model.lastModificationDate === '' ?  '' : model.lastModificationDate | date:'dd/MM/yyyy' }}"  disabled />
+            </div>
+            <label class="control-label col-md-2 col-sm-2" for="txtLastModifierUser">{{ 'LastModifierUser' | translate}}</label>
+            <div class="col-md-4 col-sm-4">
+                <input type="text" id="txtLastModifierUser" name="txtLastModifierUser" class="form-control" [(ngModel)]='model.lastModifierName' #txtLastModifierUser="ngModel" disabled />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2 col-sm-2" for="txtDescription">{{ 'Description' | translate}} </label>
+            <div class="col-md-4 col-sm-4">
+                <textarea type="text" id="txtDescription" name="txtDescription" class="form-control" [(ngModel)]='model.description' #txtDescription="ngModel"></textarea>
+            </div>
+            <label class="control-label col-md-2" for="ChkIsActive">{{ 'Active' | translate}} </label>
+            <div class="col-md-4">
+                <label>
+                    <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
+                    <span class="lbl"></span>
+                </label>
+            </div>
+        </div>
+
+        <h4>
+           {{ 'FirstContact' | translate }}
+        </h4>
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtOwnerFirstName">{{ 'ArabicName' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtFirstContactName" name="txtFirstContactName" class="form-control"
+                       [(ngModel)]='firstContact.name' #txtFirstContactName="ngModel" required />
+            </div>
+            <label class="control-label col-md-2" for="txtFirstContactNameTranslation">{{ 'EnglishName' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtFirstContactNameTranslation" name="txtFirstContactNameTranslation" class="form-control"
+                       [(ngModel)]='firstContact.nameTranslation' #txtFirstContactNameTranslation="ngModel" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtFirstContactPhone">{{ 'Mobile' | translate}}</label>
+            <div class="col-md-3">
+                <input type="tel" id="txtFirstContactPhone" name="txtFirstContactPhone" class="form-control"
+                       [(ngModel)]='firstContact.mobile' #txtFirstContactPhone="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required />
+                <div [hidden]="txtFirstContactPhone.valid || txtFirstContactPhone.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+            <label class="control-label col-md-2" for="txtFirstContactFax">{{ 'Fax' | translate}}</label>
+            <div class="col-md-3">
+                <input type="tel" id="txtFirstContactFax" name="txtFirstContactFax" class="form-control"
+                       [(ngModel)]='firstContact.fax' #txtFirstContactFax="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtFirstContactEmail">{{ 'Email' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtFirstContactEmail" name="txtFirstContactEmail" class="form-control"
+                       [(ngModel)]='firstContact.email' #txtFirstContactEmail="ngModel" required />
+            </div>
+        </div>
+
+        <h4>
+            {{ 'SecondContact' | translate }}
+        </h4>
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtSecondContactName">{{ 'ArabicName' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtSecondContactName" name="txtSecondContactName" class="form-control"
+                       [(ngModel)]='secondContact.name' #txtSecondContactName="ngModel" required />
+            </div>
+            <label class="control-label col-md-2" for="txtSecondContactNameTranslation">{{ 'EnglishName' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtSecondContactNameTranslation" name="txtSecondContactNameTranslation" class="form-control"
+                       [(ngModel)]='secondContact.nameTranslation' #txtSecondContactNameTranslation="ngModel" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtSecondContactPhone">{{ 'Mobile' | translate}}</label>
+            <div class="col-md-3">
+                <input type="tel" id="txtSecondContactPhone" name="txtSecondContactPhone" class="form-control"
+                       [(ngModel)]='secondContact.mobile' #txtSecondContactPhone="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required />
+                <div [hidden]="txtSecondContactPhone.valid || txtSecondContactPhone.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+            <label class="control-label col-md-2" for="txtSecondContactFax">{{ 'Fax' | translate}}</label>
+            <div class="col-md-3">
+                <input type="tel" id="txtSecondContactFax" name="txtSecondContactFax" class="form-control"
+                       [(ngModel)]='secondContact.fax' #txtSecondContactFax="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="txtSecondContactEmail">{{ 'Email' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtSecondContactEmail" name="txtSecondContactEmail" class="form-control"
+                       [(ngModel)]='secondContact.email' #txtSecondContactEmail="ngModel" required />
+            </div>
+        </div>
+
+        <div class="col-md-4 col-md-offset-2 col-sm-offset-2 nopadding">
+            <button type="submit" class="btn btn-primary" [disabled]="!basicDataForm.form.valid || !enableAddCompanyBasicBtn ">{{ 'Save' | translate}}</button>
+            <button type="button" disabled="{{ enableAddCompanyBasicBtn ? '' :'disabled'}}" class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+            <button type="button" class="btn btn-primary" disabled="{{ enableViewCompanyDetails ? '' :'disabled'}}"  routerLink="/insurance/companies">{{ 'Back' | translate}}</button>
+        </div>
+
+    </form>
+</div>

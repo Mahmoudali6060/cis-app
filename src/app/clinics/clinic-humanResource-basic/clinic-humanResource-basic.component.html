@@ -1,0 +1,153 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+
+<form *ngIf="active" class="form-horizontal" name="userRegistrationForm" #userRegistrationForm="ngForm">
+
+    <div class="form-group">
+        <label for="txtDepartment" class="col-md-2 control-label"> {{ 'Department' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtDepartment" id="txtDepartment" [(ngModel)]='departmentName' #txtDepartment="ngModel" disabled>
+        </div>
+        <label for="txtDivision" class="col-md-2 control-label"> {{ 'Division' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtDivision" id="txtDivision" [(ngModel)]='divisionName' #txtDivision="ngModel" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtFirstName" class="col-md-2 control-label"> {{ 'FirstName_ar' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtFirstName" id="txtFirstNameAr" [(ngModel)]='user.firstName' #txtFirstNameAr="ngModel" required>
+            <div [hidden]="txtFirstNameAr.valid || txtFirstNameAr.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+        <label for="txtLastName" class="col-md-2 control-label"> {{ 'LastName_ar' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtLastNameAr" id="txtLastNameAr" [(ngModel)]='user.lastName' #txtLastNameAr="ngModel" required>
+            <div [hidden]="txtLastNameAr.valid || txtLastNameAr.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtFirstName" class="col-md-2 control-label"> {{ 'FirstName_en' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtFirstNameEn" id="txtFirstNameEn" [(ngModel)]='user.firstNameTranslation' #txtFirstNameEn="ngModel" required>
+            <div [hidden]="txtFirstNameEn.valid || txtFirstNameEn.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+        <label for="txtLastName" class="col-md-2 control-label"> {{ 'LastName_en' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="txtLastNameEn" id="txtLastNameEn" [(ngModel)]='user.lastNameTranslation' #txtLastNameEn="ngModel" required>
+            <div [hidden]="txtLastNameEn.valid || txtLastNameEn.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ddlUserTypes" class="col-md-2 control-label">{{ 'Type' | translate}}</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ddlUserTypes" name="ddlUserTypes" [(ngModel)]="user.humanResourceTypeId" #ddlUserTypes="ngModel" required>
+                <option *ngFor="let itm of userTypesList  | translateObjects" [value]="itm.id">{{itm.name}}</option>
+            </select>
+            <div [hidden]="ddlUserTypes.valid || ddlUserTypes.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+        <label for="ddlGenders" class="col-md-2 control-label">{{ 'Gender' | translate}}</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ddlGenders" name="ddlGenders" [(ngModel)]="user.gender" #ddlGenders="ngModel">
+                <option *ngFor="let itm of gendersList" [value]="itm.value">{{itm.text| translate}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtPhone" class="col-md-2 control-label">{{ 'Mobile' | translate}}</label>
+        <div class="col-md-4">
+            <input type="tel" class="form-control" name="txtMobile" id="txtMobile" [(ngModel)]='user.reachInfo.mobile' #txtMobile="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required>
+            <div [hidden]="txtMobile.valid || txtMobile.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+        <label for="ddlNationality" class="col-md-2 control-label">{{ 'Nationality' | translate}}</label>
+        <div class="col-md-4">
+            <select class="form-control" id="ddlNationalities" name="ddlNationalities" [(ngModel)]="user.nationalityId" #ddlNationalities="ngModel">
+                <option *ngFor="let itm of nationalitiesList | translateObjects" [value]="itm.id">{{itm.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <!--pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"-->
+        <label for="txtEmail" class="col-md-2 control-label">{{ 'Email' | translate}}</label>
+        <div class="col-md-10">
+            <input type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" class="form-control" id="txtEmail" name="txtEmail"
+                   [(ngModel)]='user.email' #txtEmail="ngModel" required>
+            <div [hidden]="txtEmail.valid || txtEmail.pristine" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+    </div>
+    <!--<div class="form-group" *ngIf="user.id == 0">
+        <label for="txtPassword" class="col-md-2 control-label">Password</label>
+        <div class="col-md-10">
+            <input type="password" class="form-control"
+                    pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                    name="txtPassword" id="txtPassword"
+                    [(ngModel)]='user.password'
+                   #txtPassword="ngModel" required>
+            <div [hidden]="txtPassword.valid || txtPassword.pristine" class="alert alert-danger">
+                Required field
+            </div>
+        </div>
+    </div>
+    <div class="form-group" *ngIf="user.id == 0">
+        <label for="txtConfirmPassword" class="col-md-2 control-label">Confirm Password</label>
+        <div class="col-md-10">
+            <input type="password" class="form-control"
+                   pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                   name="txtConfirmPassword" id="txtConfirmPassword"
+                   [(ngModel)]='user.confirmPassword' #txtConfirmPassword="ngModel" required>
+            <div [hidden]="txtConfirmPassword.valid || txtConfirmPassword.pristine" class="alert alert-danger">
+                Required field
+            </div>
+        </div>
+    </div>-->
+    <div class="form-group">
+        <label for="chkActive" class="col-md-2 control-label">{{ 'Active' | translate}}</label>
+        <div class="col-md-1">
+            <input type="checkbox" name="chkActive" id="chkActive" [(ngModel)]='user.isActive'>
+        </div>
+        <label for="chkRevenuGenerator" class="col-md-3 control-label">{{ 'RevenueGenerator' | translate}}</label>
+        <div class="col-md-1">
+            <input type="checkbox" name="chkRevenuGenerator" id="chkRevenuGenerator" [(ngModel)]='user.isRevenueGenerator' [checked]="!isNonMedicalDepartment" [disabled]="isNonMedicalDepartment">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="chkHoD" class="col-md-2 control-label"> {{ 'HoD' | translate}}</label>
+        <div class="col-md-1">
+            <input type="checkbox" name="chkHoD" id="chkHoD" [(ngModel)]='user.isDepartmentHead'>
+        </div>
+        <label for="txtLastName" class="col-md-3 control-label"> {{ 'PurchaseManager' | translate}}</label>
+        <div class="col-md-1">
+            <input type="checkbox" name="chkPurchaseMgr" id="chkPurchaseMgr" [(ngModel)]='user.isPurchaseManger'>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtEmail" class="col-md-2 control-label">{{ 'Remark' | translate}}</label>
+        <div class="col-md-10">
+            <textarea name="txtRemark" class="form-control" [(ngModel)]='user.description'></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="text-center">
+            <button class="btn btn-primary" (click)="saveHumanResource()" [disabled]="!userRegistrationForm.form.valid ||(!enableSaveBtn && !isClinicAdmin)">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+        </div>
+    </div>
+
+</form>
+
+

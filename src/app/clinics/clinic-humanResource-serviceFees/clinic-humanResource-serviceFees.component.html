@@ -1,0 +1,67 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <form *ngIf="active" class="form-horizontal" name="serviceFeesForm" #serviceFeesForm="ngForm">
+        <div class="form-group">
+            <label for="txtNameTranslation" class="control-label col-md-3"> {{ 'Services' | translate}}</label>
+            <div class="col-md-9">
+                <input name="txtSearchServices" [placeholder]="'SearchByNameorCode' | translate" class="form-control" [(ngModel)]="filterString" />
+                <div class="nopadding treeBorder" style="height:180px;">
+                    <p-tree [value]="servicesTree | translateObjects  : null : null : lstToBeTranslated | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedNode">
+                        <template let-node pTemplate="ServiceGroup">
+                            <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                            &nbsp;
+                            {{node.label}}
+                        </template>
+                        <template let-node pTemplate="Service">
+                            <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                            &nbsp;
+                            {{node.label}}
+                        </template>
+                    </p-tree>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtClinicalFee" class="control-label col-md-3">{{ 'ClinicalFee' | translate}}</label>
+            <div class="col-md-3">
+                <input type="number" min="0" id="txtClinicalFee" name="txtClinicalFee" class="form-control" [(ngModel)]='serviceFeeModel.clinicFee' #txtFee="ngModel" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtResourceFee" class="control-label col-md-3">{{ 'ResourceFee' | translate}}</label>
+            <div class="col-md-3">
+                <input type="number" min="0" id="txtResourceFee" name="txtResourceFee" class="form-control" [(ngModel)]='serviceFeeModel.resourceFee' #txtTimeSlot="ngModel" required />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-8 col-md-offset-3">
+                <button class="btn btn-primary" [disabled]="!serviceFeesForm.form.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="saveServiceFees()">{{ 'Save' | translate}}</button>
+                <button type="button" class="btn btn-primary" (click)="clear()" disabled="{{ enableSaveBtn || isClinicAdmin? '' :'disabled'}}">{{ 'New' | translate}}</button>
+            </div>
+        </div>
+        <div class="row">
+            <p-dataTable [value]="userServiceFees | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10"
+                         [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true"
+                         reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="serviceCode" [header]="'ServiceCode' | translate" [sortable]="true"></p-column>
+                <p-column field="serviceName" [header]="'ServiceName' | translate" [sortable]="true"></p-column>
+                <p-column field="clinicFee" [header]="'ClinicalFee' | translate" [sortable]="true"></p-column>
+                <p-column field="resourceFee" [header]="'ResourceFee' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'Edit' | translate" styleClass="text-center width50">
+                    <template let-item="rowData" pTemplate="body">
+                        <a [class.disabled]="!enableSaveBtn && !isClinicAdmin ? true : null">
+
+                            <i class="fa fa-pencil fa-2x" (click)="editServiceFee(item.id)" title="Edit Fees" style="color: #32bea6;"></i>
+
+                        </a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+
+        </div>
+
+    </form>
+</div>

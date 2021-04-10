@@ -1,0 +1,82 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<form novalidate *ngIf="active" class="form-horizontal" name="organizationForm" (ngSubmit)="onSubmit()" #organizationForm="ngForm">
+    <div class="form-group">
+        <label for="txtName" class="control-label col-md-2">{{ 'DiagnoseName' | translate}}</label>
+        <div class="col-md-6">
+ <a class="pointer" (click)="getAllDiagnoseGroupsForTreeView(true)" *ngIf="getAllDiagnosis">{{ 'GetAll' | translate}}</a>
+            <a class="pointer" (click)="getClinicDepartmentDiagnoseGroupsForTreeView()" *ngIf="!getAllDiagnosis">{{ 'GetSpecific' | translate}}</a>
+            <div class="nopadding treeBorder" >
+                <div class="row nopadding">
+                    <input [placeholder]="'SearchNameOrCode' | translate" class="form-control" [(ngModel)]="filterString" name="txtFilterString" #txtFilterString="ngModel" />
+                </div>
+                <p-tree [value]="diagnosisTreeDataSourceItems | filterbynameorcode:filterString : leafType | translateObjects  : 'label' : 'labelTranslation' : null"
+                         [(selection)]="selectedDiagnoseNode"  selectionMode="single" (onNodeSelect)="treeNodeSelected($event)">
+                    
+                    <template let-node pTemplate="ClinicDepartmentDiagnosisGroup">
+                        <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+                     <template let-node pTemplate="DiagnosisGroup">
+                         <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                         &nbsp; 
+                         {{node.label}}
+                    </template>
+                    <template let-node pTemplate="Diagnose">
+                        <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+
+                </p-tree>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="txtName" class="control-label col-md-2">{{ 'DiagnoseCode' | translate}}</label>
+        <div class="col-md-2">
+            <input name="txtDiagnoseCode" class="form-control" disabled
+                   [(ngModel)]='toSaveClinicNoteDiagnose.diagnoseCode' #txtDiagnoseCode="ngModel"  />
+        </div>
+        <div class="col-md-4">
+            <div *ngIf="!toSaveClinicNoteDiagnose.diagnoseCode || toSaveClinicNoteDiagnose.diagnoseCode ==''" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="rbClinicNoteDiagnoseStatus" class="control-label col-md-2">{{ 'Status' | translate}}</label>
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <td>
+                        <input type="radio" name="clinicNoteDiagnoseStatus"
+                               (change)="toSaveClinicNoteDiagnose.status ='1'"
+                               [checked]="isClinicNoteDiagnoseConfirmed()" required />{{ 'Confirmed' | translate}}
+                    </td>
+                    <td>
+                        <input type="radio" name="clinicNoteDiagnoseStatus"
+                               (change)="toSaveClinicNoteDiagnose.status ='2'"
+                               [checked]="isClinicNoteDiagnoseSuspected()"/>{{ 'Suspicious' | translate}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtName" class="control-label col-md-2">{{ 'Description' | translate}} </label>
+        <div class="col-md-6">
+            <textarea class="form-control" name="txtRemarks"
+                      [(ngModel)]='toSaveClinicNoteDiagnose.description' #txtRemarks="ngModel"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <button class="btn btn-primary">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="goBack()">{{ 'Back' | translate}}</button>
+        </div>
+    </div>
+</form>

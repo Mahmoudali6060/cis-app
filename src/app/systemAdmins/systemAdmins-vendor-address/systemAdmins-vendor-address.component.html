@@ -1,0 +1,27 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <form class="form-horizontal" name="VendorAddressForm" (ngSubmit)="onSubmit()" #VendorAddressForm="ngForm">
+        
+        <br />
+        <div class="form-group">
+            <address  [reachInfo]="vendorModel.reachInfo">
+                <div class="form-group">
+                    <button type="submit" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                            class="btn btn-primary">
+                        {{ 'Save' | translate}}
+                    </button>
+                    <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" routerLink="/systemAdmin/vendors">
+                        {{ 'Back' | translate}}
+                    </button>
+
+                </div>
+
+            </address>
+        </div>
+    </form>
+</div>
+

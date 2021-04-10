@@ -1,0 +1,92 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+
+    <systemAdmins-tabs [isSettingsSelected]="selectSettingsTab"></systemAdmins-tabs>
+
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row ">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                    {{ 'Settings' | translate}}
+                </div>
+            </div>
+        </div>
+
+        <div class="row well">
+            <form novalidate *ngIf="active" (ngSubmit)="onSubmit()" class="form-horizontal" name="systemSettingForm" #systemSettingForm="ngForm">
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="txtEmail">{{ 'Language' | translate}}</label>
+                    <div class="col-md-4">
+                        <table>
+                            <tr>
+                                <td *ngFor="let item of languagesList">
+                                    <input type="radio" name="rbLanguage" (click)="selectLanguage(item.value)"
+                                           value={{item.value}}
+                                           [checked]="item.value == model.language">{{item.text| translate}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <h2 class="h2Bold">
+                    {{ 'SMSConfiguration' | translate}}
+                </h2>
+                <hr />
+                <div class="form-group">
+                    <label for="txtSMSURL" class="control-label col-md-2">{{ 'SMSServiceURL' | translate}}</label>
+                    <div class="col-md-6">
+                        <input id="txtSMSURL" [placeholder]="'SMSServiceURL' | translate" name="txtSMSURL" class="form-control" [(ngModel)]='model.smsUrl' #txtSMSURL="ngModel" required />
+                        <div [hidden]="txtSMSURL.valid || txtSMSURL.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtUserName" class="control-label col-md-2"> {{ 'UserName' | translate}}</label>
+                    <div class="col-md-6">
+                        <input id="txtUserName" [placeholder]="'UserName' | translate" name="txtUserName" class="form-control" [(ngModel)]='model.smsUserName' #txtUserName="ngModel" required />
+                        <div [hidden]="txtUserName.valid || txtUserName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword" class="control-label col-md-2"> {{ 'Password' | translate}}</label>
+                    <div class="col-md-6">
+                        <input type="password" [placeholder]="'Password' | translate" id="txtPassword" name="txtPassword" class="form-control" [(ngModel)]='model.smsPassword' #txtPassword="ngModel" required />
+                        <div [hidden]="txtPassword.valid || txtPassword.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtPassword" class="control-label col-md-2">{{ 'SenderName' | translate}}</label>
+                    <div class="col-md-6">
+                        <input id="txtSenderName" [placeholder]="'SenderName' | translate" name="txtSenderName" class="form-control" [(ngModel)]='model.smsSenderName' #txtSenderName="ngModel" required />
+                        <div [hidden]="txtSenderName.valid || txtSenderName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary" [disabled]="!systemSettingForm.form.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                                class="btn btn-primary" (click)="cancel()">
+                            {{ 'Cancel' | translate}}
+                        </button>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+</div>

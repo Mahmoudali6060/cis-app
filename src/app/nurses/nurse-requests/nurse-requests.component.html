@@ -1,0 +1,97 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <div class="col-md-2 nopadding">
+        <nurse-tabs [activeTabIndex]="4"></nurse-tabs>
+    </div>
+    <div class="col-md-10 nopadding">
+        <div class="breadcrumbs" id="breadcrumbs">
+            <span class="heaersitemap">
+                Nurse Profile > Inventory Requests
+            </span>
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+        </div>
+        <br />
+        <div class="padding5">
+            <div class="row">
+                <div class="col-md-4 nopadding">
+                    <input type="text" placeholder="Search..." class="form-control" [(ngModel)]='filterString' />
+                </div>
+                <div class="col-md-8 align-reverse nopadding">
+                    <button type="button" class="btn btn-primary">New Request</button>
+                </div>
+            </div>
+            <div class="padding2"></div>
+
+            <table class="table table-responsive table-hover">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th>Inventry Code</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Status</th>
+                        <th>Order Date</th>
+                        <th>Order Ref No</th>
+                        <th class="text-center">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>001122</td>
+                        <td>صنف 1</td>
+                        <td>5</td>
+                        <td>زجاجة</td>
+                        <td class="btn-warning">مطلوب</td>
+                        <td>30/12/2016</td>
+                        <td>5122</td>
+                        <td class="text-center">
+                            <a class="pointer">
+                                <img src="Images/delete-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>115522</td>
+                        <td>صنف 2</td>
+                        <td>7</td>
+                        <td>زجاجة</td>
+                        <td class="btn-warning">مطلوب</td>
+                        <td>29/12/2016</td>
+                        <td>5113</td>
+                        <td class="text-center">
+                            <a class="pointer">
+                                <img src="Images/delete-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>226699</td>
+                        <td>صنف 3</td>
+                        <td>9</td>
+                        <td>حبة</td>
+                        <td class="btn-success">تم الاستلام</td>
+                        <td>28/12/2016</td>
+                        <td>5108</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>334488</td>
+                        <td>صنف 4</td>
+                        <td>2</td>
+                        <td>قطعة</td>
+                        <td class="btn-success">تم الاستلام</td>
+                        <td>27/12/2016</td>
+                        <td>5104</td>
+                        <td></td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

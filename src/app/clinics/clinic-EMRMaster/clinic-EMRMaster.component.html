@@ -1,0 +1,74 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+
+    <clinic-tab [isEMRMasterSelected]='selectEMRMasterTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isEMRMasterSelected]='selectEMRMasterTab' *ngIf="!isClinicAdmin"></shared-tabs>
+
+    <div class="row nopadding">
+        <div class="NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'EMRMaster' | translate}}
+        </div>
+
+       <div class="well">
+           <form class="form-horizontal">
+               <div class="form-group">
+                   <label for="ddlMedicalDepartments" class="col-md-2"> {{ 'Department' | translate}}</label>
+                   <div class="col-md-6">
+                       <select class="form-control" id="ddlMedicalDepartments" name="ddlMedicalDepartments" #d (change)="fillDepartmentDivisions(d.value)">
+                           <option [value]="null">{{ 'Select' | translate}}</option>
+                           <option *ngFor="let department of medicalDepartments  | translateObjects " [value]="department.id">{{department.name}}</option>
+                       </select>
+                   </div>
+               </div>
+               <div class="form-group">
+                   <label for="ddlDivisions" class="col-md-2"> {{ 'Division' | translate}}</label>
+                   <div class="col-md-6">
+                       <select class="form-control" id="ddlDivisions" name="ddlDivisions" #ddlDivisions (change)="getSelectedDivision(ddlDivisions.value)">
+                           <option [value]="null">{{ 'Select' | translate}}</option>
+                           <option *ngFor="let division of lstDepartmentDivisions  | translateObjects " [value]="division.id">{{division.name}}</option>
+                       </select>
+                   </div>
+               </div>
+           </form>
+
+           <div class="row">
+               <div class="row">
+                   <ul class="nav nav-pills tabStyle">
+                       <li class="active"><a href="#diagnosis" data-toggle="pill" aria-expanded="true" [class.disabled]="!enabletabs && !isClinicAdmin ? true : null">{{ 'Diagnosis' | translate}}</a></li>
+                       <li><a href="#drugs" data-toggle="pill" class="btnColor" aria-expanded="true" [class.disabled]="!enabletabs && !isClinicAdmin ? true : null">{{ 'Drugs' | translate}}</a></li>
+                       <li><a href="#services" data-toggle="pill" aria-expanded="true" [class.disabled]="!enabletabs && !isClinicAdmin ? true : null">{{ 'Services' | translate}}</a></li>
+                       <li><a href="#laboratoryTests" data-toggle="pill" aria-expanded="true" [class.disabled]="!enabletabs && !isClinicAdmin ? true : null">{{ 'LaboratoryTests' | translate}}</a></li>
+                       <li><a href="#radiologyTests" data-toggle="pill" aria-expanded="true" [class.disabled]="!enabletabs && !isClinicAdmin ? true : null">{{ 'RadiologyTests' | translate}}</a></li>
+                       <li><a href="#servicePackages" data-toggle="pill" aria-expanded="true" [class.disabled]="!enabletabs && !isClinicAdmin ? true : null">{{ 'ServicePackage' | translate}}</a></li>
+                   </ul>
+               </div>
+               <div id="myTabContent" class="tab-content">
+                   <div class="tab-pane fade active in" id="diagnosis">
+                       <clinic-EMRMaster-diagnosis [division]="selectedDivision" [isClinicAdmin]="isClinicAdmin" [enableEditBtn]="enableEditBtn" [enableAddRootBtn]="enableAddRootBtn" [enableActivateBtn]="enableActivateBtn"></clinic-EMRMaster-diagnosis>
+                   </div>
+                   <div class="tab-pane fade" id="drugs">
+                       <clinic-EMRMaster-drugs [division]="selectedDivision" [isClinicAdmin]="isClinicAdmin" [enableEditBtn]="enableEditBtn" [enableAddRootBtn]="enableAddRootBtn" [enableActivateBtn]="enableActivateBtn"></clinic-EMRMaster-drugs>
+                   </div>
+                   <div class="tab-pane fade" id="services">
+                       <clinic-EMRMaster-services [division]="selectedDivision" [isClinicAdmin]="isClinicAdmin" [enableEditBtn]="enableEditBtn" [enableAddRootBtn]="enableAddRootBtn" [enableActivateBtn]="enableActivateBtn"></clinic-EMRMaster-services>
+                   </div>
+                   <div class="tab-pane fade" id="laboratoryTests">
+                       <clinic-EMRMaster-laboratoryTests [division]="selectedDivision" [isClinicAdmin]="isClinicAdmin" [enableEditBtn]="enableEditBtn" [enableAddRootBtn]="enableAddRootBtn" [enableActivateBtn]="enableActivateBtn"></clinic-EMRMaster-laboratoryTests>
+                   </div>
+                   <div class="tab-pane fade" id="radiologyTests">
+                       <clinic-EMRMaster-radiologyTests [division]="selectedDivision" [isClinicAdmin]="isClinicAdmin" [enableEditBtn]="enableEditBtn" [enableAddRootBtn]="enableAddRootBtn" [enableActivateBtn]="enableActivateBtn"></clinic-EMRMaster-radiologyTests>
+                   </div>
+                   <div class="tab-pane fade" id="servicePackages">
+                       <clinic-EMRMaster-servicePackages [division]="selectedDivision" [isClinicAdmin]="isClinicAdmin" [enableEditBtn]="enableEditBtn" [enableAddRootBtn]="enableAddRootBtn" [enableActivateBtn]="enableActivateBtn"></clinic-EMRMaster-servicePackages>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+    </div>
+</div>
+

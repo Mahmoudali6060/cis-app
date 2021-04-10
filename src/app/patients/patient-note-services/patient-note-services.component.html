@@ -1,0 +1,67 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<button *ngIf="departmentServices.length || departmentServicePackages.length" class="btn btn-primary text-right" (click)="SaveNoteServices()">{{'Save' | translate}}</button>
+<br />
+<!--<div class="row">
+    <div class="col-sm-offset-2 col-md-8">
+       <table>
+            <tr>
+                <td *ngFor="let item of rbSelections; let idx = index">
+                    <input type="radio" name="radiogroup" [value]="item.value"
+                           [checked]="item.value == selectedAction" #i (change)="onSelectionChange(i.value)">{{item.text| translate}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>-->
+
+            <div class="row">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#servicesPanel11" data-toggle="tab" aria-expanded="true">{{ 'Services' | translate}}</a></li>
+                    <li><a href="#serviceGroupPanel11" data-toggle="tab" aria-expanded="true">{{ 'ServicePackage' | translate}}</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="servicesPanel11">
+                            <ul class="nav nav-tabs">
+                                <li *ngFor="let serviceGroup of departmentServices; let i=index" class="{{i === 0 ? 'active' : ''}}"><a href="#divServicesGroup{{serviceGroup.data}}" data-toggle="tab" aria-expanded="true">{{ selectedLang === 'ar' ?  serviceGroup.label : serviceGroup.labelTranslation }}</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div *ngFor="let serviceGroup of departmentServices; let j=index" class="tab-pane fade {{j === 0 ? 'active in' : ''}}" id="divServicesGroup{{serviceGroup.data}}">
+                                    <patient-servicesGrid [services]="serviceGroup.children"
+                                                          [noteServices]="noteServicesList"
+                                                          [diagnosis]="noteDiagnosis"
+                                                          [masterList]="masterNoteServicesList"
+                                                          [noteId]="noteId"></patient-servicesGrid>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="tab-pane fade" id="serviceGroupPanel11">
+                        <div class="row" >
+                            <ul class="nav nav-tabs">
+                                <li *ngFor="let servicePackageGroup of departmentServicePackages; let i=index" class="{{i === 0 ? 'active' : ''}}"><a href="#divServicePackagesGroup{{servicePackageGroup.data}}" data-toggle="tab" aria-expanded="true">{{ selectedLang === 'ar' ?  servicePackageGroup.label : servicePackageGroup.labelTranslation }}</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div *ngFor="let servicePackageGroup of departmentServicePackages; let j=index" class="tab-pane fade {{j === 0 ? 'active in' : ''}}" id="divServicePackagesGroup{{servicePackageGroup.data}}">
+                                    <patient-servicePackages-grid [packages]="servicePackageGroup.children"
+                                                                  [notePackages]="noteServicesList"
+                                                                  [diagnosis]="noteDiagnosis"
+                                                                  [masterList]="masterNoteServicesList"
+                                                                  [noteId]="noteId"></patient-servicePackages-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+

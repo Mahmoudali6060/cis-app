@@ -1,0 +1,109 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+        <shared-tabs [activeTabIndex]="1"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                    <a>{{ 'DoctorProfile' | translate}}</a>
+                                </li>
+                                <li class="active-page">{{ 'PersonalData' | translate}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+        <form novalidate *ngIf="active" class="form-horizontal" name="organizationForm" (ngSubmit)="onSubmit()" #organizationForm="ngForm">
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <button class="btn btn-primary" [disabled]="!organizationForm.form.valid">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="clear()">{{ 'Cancel' | translate}}</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtName" class="control-label col-md-2"> {{ 'IdNumber' | translate}}</label>
+                <div class="col-md-4">
+                    <input id="txtName" name="txtName" class="form-control" [(ngModel)]='model.name' #txtName="ngModel" required />
+                    <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtName" class="control-label col-md-2">{{ 'PassportNumber' | translate}}</label>
+                <div class="col-md-4">
+                    <input id="txtName" name="txtName" class="form-control" [(ngModel)]='model.name' #txtName="ngModel" required />
+                    <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtName" class="control-label col-md-2">{{ 'BirthDate' | translate}}</label>
+                <div class="col-md-2">
+                    <input type="date" min="1900" id="txtEstablishmentYear" name="txtEstablishmentYear" #txtEstablishmentYear="ngModel" class="form-control" [(ngModel)]="model.establishmentYear" />
+                    <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="rbGender" class="control-label col-md-2">{{ 'Gender' | translate}}</label>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <td >
+                                <input type="radio" name="gender" />{{ 'Male' | translate}}
+                            </td>
+                            <td>
+                                <input type="radio" name="gender" />{{ 'Female' | translate}}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="ddlClassification">{{ 'Speciality' | translate}}</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="ddlClassification" name="ddlClassification" [(ngModel)]="model.classificationId" #ddlClassification="ngModel" disabled>
+                        <option *ngFor="let ele of classifications" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2" for="ddlClassification">{{ 'Qualification' | translate}}</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="ddlClassification" name="ddlClassification" [(ngModel)]="model.classificationId" #ddlClassification="ngModel" disabled>
+                        <option *ngFor="let ele of classifications" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fileImage" class="control-label col-md-2">{{ 'Photo' | translate}}</label>
+                <div class="col-md-4">
+                    <image-uploader [(imageId)]="model.imageId" [(imageData)]="model.imageData" (change)="imageChanged($event);"  ></image-uploader>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <button class="btn btn-primary" [disabled]="!organizationForm.form.valid">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="clear()">{{ 'Cancel' | translate}}</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+

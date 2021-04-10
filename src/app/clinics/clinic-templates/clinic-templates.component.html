@@ -1,0 +1,15 @@
+﻿
+<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+    <clinic-tab [isTemplatesSelected]='isTemplatesSelected'></clinic-tab>
+    <div class="row nopadding">
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'Templates' | translate}}
+        </div>
+    </div>
+
+
+
+<documents (onModelUpdated)="updateModel($event)" [btnUploadText]="btnUploadText" [parentId]="selectedClinicId" [title]="Template" [fileNameUploadTxt]="fileNameUploadTxt" [showDocumentDetails]="showDocumentDetails"[fileType]="fileType" [parentType]="type" [fileNameTxt]="fileNameTxt"></documents>

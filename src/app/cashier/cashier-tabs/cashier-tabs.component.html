@@ -1,0 +1,27 @@
+﻿<div class="left-aside desktop-view">
+    <div class="aside-branding">
+        <a>
+            <!--<img src="Images/logo.png" height="60" width="60" />-->
+            <img src="Images/App-Logo.png" title="Logo" class="appLogo" />
+        </a>
+        <!--<a routerLink="/home" class="large-logo">
+            <span style="color:white;">&nbsp;&nbsp;CIS</span>
+        </a>-->
+        <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
+        <span class="aside-close waves-effect" onclick="closeLeftBar();"><i class="fa fa-times"></i></span>
+    </div>
+    <div class="left-navigation">
+        <ul class="list-accordion padding5">
+           
+            <li>
+                <a class="{{ (activeTabIndex == 3) ? 'selectednavbaritem active' : '' }}" routerLink="/cashier/claims">{{ 'Claims' | translate}}</a>
+            </li>          
+            <li>
+                <a class="{{ (activeTabIndex == 5) ? 'selectednavbaritem active' : '' }}" routerLink="/cashier/patientTransactions">{{ 'PatientTransactions' | translate}}</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 6) ? 'selectednavbaritem active' : '' }}" routerLink="/cashier/reports/1">{{ 'Reports' | translate}}</a>
+            </li>
+        </ul>
+    </div>
+</div>

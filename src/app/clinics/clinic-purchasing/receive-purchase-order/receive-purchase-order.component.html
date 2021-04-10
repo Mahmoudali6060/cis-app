@@ -1,0 +1,82 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isPurchasingSelected]='selectPurchasingTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isPurchasingSelected]='selectPurchasingTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                    {{ 'Clinic' | translate}}
+                                </li>
+                                <li class="active-page">{{ 'PurchaseOrders' | translate}} > {{ 'ReceivePurchaseOrder' | translate}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <label class="control-label col-md-2">{{ 'RerNo' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.refNo}}</label>
+        </div>
+        <div class="row">
+            <label class="control-label col-md-2">{{ 'OrderDate' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.dateString}}</label>
+        </div>
+        <div class="row">
+            <label class="control-label col-md-2">{{ 'Vendor' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.vendorName}}</label>
+        </div>
+        <br />
+        <form *ngIf="active" class="form-horizontal" name="orderForm" #orderForm="ngForm" (ngSubmit)="onSubmit()">
+            
+            <div class="row text-right">
+                    <button class="btn btn-primary" *ngIf="!isClosed" disabled="{{ enableReceiveLink || isClinicAdmin ? '' :'disabled'}}">{{ 'Receive' | translate}}</button>
+                <button class="btn btn-primary" (click)="navigateToOrderdetails()">{{ 'Back' | translate}}</button>
+            </div>
+            <br />
+            <br />
+             <div class="form-group">
+                 <div class="ui-widget-header searchWidget">
+                     <i class="fa fa-search searchIcon"></i>
+                     <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+                 </div>
+               <p-dataTable [value]="itemsList | translateObjects  : null : null : lstToTranslated" selectionMode="none"
+                             [paginator]="true" rows="10"
+                             [rowsPerPageOptions]="[5,10,20,30,40,50,100]"
+                             [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                    <p-column field="productName" [header]="'Item' | translate" [sortable]="false"></p-column>
+                    <p-column field="productCode" [header]="'Code' | translate" [sortable]="false"></p-column>
+                    <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
+                    <p-column field="unit" [header]="'Unit' | translate" [sortable]="false"></p-column>
+                    <p-column field="purchasingPrice" [header]="'Price' | translate" [sortable]="false"></p-column>
+                    <p-column field="net" [header]="'Net' | translate" [sortable]="false"></p-column>
+                    <p-column field="orderedQuantity" [header]="'OrderdQuant' | translate" [sortable]="false"></p-column>
+                    <p-column [header]="'ReceivedQuantity' | translate">
+                        <template let-purchaseItem="rowData" pTemplate="body">
+                            <input type="number" class="form-control" name="txtReceivedQuantity{{purchaseItem.id}}" [(ngModel)]="purchaseItem.receivedQuantity" />
+                        </template>
+                    </p-column>
+                    <p-column [header]="'Remark' | translate">
+                        <template let-purchaseItem="rowData" pTemplate="body">
+                            <textarea class="form-control" name="txtRemark{{purchaseItem.id}}" [(ngModel)]="purchaseItem.description"></textarea>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+
+        </form>
+    </div>
+</div>
+

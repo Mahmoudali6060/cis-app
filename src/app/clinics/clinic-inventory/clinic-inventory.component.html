@@ -1,0 +1,57 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isInventorySelected]='selectInventoryTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isInventorySelected]='selectInventoryTab' *ngIf="!isClinicAdmin"></shared-tabs>
+
+    <div class="row ">
+        <div class="row " style="padding:2px;">
+            <div class="NBbreadcrumb">
+                <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                {{ 'Inventory' | translate}}
+            </div>
+
+        </div>
+        
+
+        <div class="row well">
+            <div class="row">
+                <div class="tabbable-panel">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs">
+                            <li style="margin-right: 0px !important;" class="active col-md-2 nopadding"><a href="#ClinicInventoryList" data-toggle="tab" aria-expanded="true">{{ 'InventoryList' | translate}}</a></li>
+                            <li style="margin-right: 0px !important;"  class="col-md-2 nopadding"><a href="#ClinicInventoryAddQuantity" data-toggle="tab" aria-expanded="true" [class.disabled]="!enableAddQntTab && !isClinicAdmin ? true : null">{{ 'AddQuantity' | translate}}</a></li>
+                            <li style="margin-right: 0px !important;"  class="col-md-2 nopadding"><a href="#ClinicInventoryAdjustQuantity" data-toggle="tab" aria-expanded="true" [class.disabled]="!enableAdjustTab && !isClinicAdmin ? true : null">{{ 'AdjustQuantity' | translate}}</a></li>
+                            <li style="margin-right: 0px !important;" class="col-md-3 nopadding"><a href="#ClinicInventoryAdjustmentHistory" data-toggle="tab" aria-expanded="true" [class.disabled]="!enableAdjustmentHistoryTab && !isClinicAdmin ? true : null">{{ 'AdjustmentHistory' | translate}}</a></li>
+                            <li  style="margin-right: 0px !important;" class="col-md-3 nopadding"><a href="#DoctorInventoryRequest" data-toggle="tab" aria-expanded="true" [class.disabled]="!enableDoctorRequestsTab && !isClinicAdmin ? true : null">{{ 'ViewDoctorInventoryRequests' | translate}}</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div id="myTabContent" class="tab-content">
+                <div id="ClinicInventoryList" class="tab-pane fade active in">
+                    <clinic-inventory-list [getUpdatedProduct]="getUpdatedProduct" [updateAfterAdjust]="updateAfterAdjust" (onAmountUpdatedAfterAdjust)="updateAmountAfterAdjust($event)"></clinic-inventory-list>
+                </div>
+                <div id="ClinicInventoryAddQuantity" class="tab-pane fade">
+                    <clinic-inventory-add-quantity [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"></clinic-inventory-add-quantity>
+                </div>
+                <div id="ClinicInventoryAdjustQuantity" class="tab-pane fade">
+                    <clinic-inventory-adjust-quantity (onAmountUpdated)="updateAmount($event)"></clinic-inventory-adjust-quantity>
+                </div>
+                <div id="ClinicInventoryAdjustmentHistory" class="tab-pane fade">
+                    <clinic-inventory-adjustment-history [updates]="updates"></clinic-inventory-adjustment-history>
+                </div>
+                <div id="DoctorInventoryRequest" class="tab-pane fade">
+                    <doctor-inventory-requests (onProductSupplied)="updateProductsList($event)"></doctor-inventory-requests>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+﻿
+<div class="inner-addon left-addon">
+    <i class="glyphicon glyphicon-search"></i>
+    <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+</div>
+<p-dataTable [value]="allDiagnosis | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <p-column styleClass="text-center width50">
+        <template let-noteDiagnose="rowData" pTemplate="body">
+            <input type="checkbox" [checked] ="noteDiagnose.isSelected"
+                   (change)="updateSelectedDiagnose(noteDiagnose.diagnoseId, $event)" />
+        </template>
+    </p-column>
+    <p-column field="diagnoseCode" [header]="'DiagnoseCode' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
+    <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
+    <p-column  [header]="'Status' | translate">
+        <template let-noteDiagnose="rowData" pTemplate="body">
+            <select class="form-control" name="ddlDiagnosisStatuses" [(ngModel)]='noteDiagnose.status'>
+                <option *ngFor="let obj of diagnosisStatuses" [value]="obj.value">{{obj.text | translate}}</option>
+            </select>
+        </template>
+    </p-column>
+
+    <p-column [header]="'Remarks' | translate">
+        <template let-noteDiagnose="rowData" pTemplate="body">
+            <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteDiagnose.description'></textarea>
+        </template>
+    </p-column>
+</p-dataTable>

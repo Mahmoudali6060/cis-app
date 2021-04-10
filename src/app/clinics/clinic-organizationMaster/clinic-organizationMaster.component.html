@@ -1,0 +1,372 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isOrgMasterSelected]='selectOrganizationMasterTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isOrgMasterSelected]='selectOrganizationMasterTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    <div class="row nopadding">
+        
+        <div class="row">
+            <div class="row " style="padding:13px;">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+                    {{ 'OrganizationStructure' | translate}}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row  " style="display:none;">
+            &nbsp;
+            <button #AddMedicalDepartment type="button" class="btn btn-primary" data-toggle="modal" data-target="#MedicalDepartmentPopup">{{ 'AddMedicalDepartment' | translate}}</button>
+            <button #AddNonMedicalDepartment type="button" class="btn btn-primary" data-toggle="modal" data-target="#NonMedicalDepartmentPopup">{{ 'AddNonMedicalDepartment' | translate}}</button>
+            <button #AddDivision type="button" class="btn btn-primary" data-toggle="modal" data-target="#DivisionPopup">{{ 'AddDivision' | translate}}</button>
+            <button #AddPhysicalResource type="button" class="btn btn-primary" data-toggle="modal" data-target="#PhysicalResourcePopup">{{ 'AddPhysicalResource' | translate}}</button>
+            <button #AddHumanResource type="button" class="btn btn-primary" data-toggle="modal" data-target="#humanResourcePopup">{{ 'AddHumanResource' | translate}}</button>
+        </div>
+        <div class="row well">
+            <button type="button" class="btn btn-primary" (click)="expandAll()">{{ 'ExpandAll' | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="collapseAll()">{{ 'CollapseAll' | translate}}</button>
+        </div>
+       
+
+        <br />
+        <div class="row well">
+            <p-tree [value]="organizationStructure" selectionMode="single" [(selection)]="selectedFile2">
+                <template let-node pTemplate="Medical">
+                    {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                    &nbsp; &nbsp;
+                    <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
+                        <img src="images/addImage.png" (click)="displayPopup(node)" />
+                    </a>
+                </template>
+                <template let-node pTemplate="NonMedical">
+                    {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                    &nbsp; &nbsp;
+                    <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
+                        <img src="images/addImage.png" (click)="displayPopup(node)" />
+                    </a>
+                </template>
+                <template let-node pTemplate="ClinicDepartment">
+                    {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                    <span *ngIf="node.parent.type != 'Medical' ">
+                        &nbsp; &nbsp;
+                        <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
+                            <img src="images/addImage.png" (click)="displayPopup(node)" title="Add Division" />
+                        </a>
+                        <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                            <i class="fa fa-pencil fa-2x" (click)="editDepartment(node)" title="Edit Department" style="color: #32bea6;"></i>
+
+                        </a>
+                    </span>
+                    <label>
+                        <input id="ChkIsActiveDepartment" name="ChkIsActiveDepartment" class="ace ace-switch ace-switch-6" type="checkbox"
+                               [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+                <template let-node pTemplate="ClinicDivision">
+                    {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                    &nbsp; &nbsp;
+                    <span *ngIf="node.parent.parent.type != 'Medical' ">
+                        <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                            <i class="fa fa-pencil fa-2x"(click)="editDivision(node)" title="Edit Division"  style="color: #32bea6;"></i>
+
+                        </a>
+                    </span>
+                    <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
+                        <img src="images/addImage.png" (click)="displayPhysicalResourcePopup(node)" title="Add Physical Resouce" />
+                    </a>
+                    <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
+                        <img src="images/add-user.png" (click)="addNewHumanResource(node)" title="Add Human Resouce" />
+                    </a>
+                    <label>
+                        <input id="ChkIsActiveDivision" name="ChkIsActiveDivision" class="ace ace-switch ace-switch-6" type="checkbox"
+                               [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+                <template let-node pTemplate="PhysicalResource">
+                    <span class="glyphicon glyphicon-hdd"></span>
+                    {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                    &nbsp; &nbsp;
+                    <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                        <i class="fa fa-pencil fa-2x" (click)="editPhysicalResource(node)" title="Edit Physical Resource"  style="color: #32bea6;"></i>
+
+                    </a>
+                    <label>
+                        <input id="ChkIsActivePhysicalResource" name="ChkIsActivePhysicalResource" class="ace ace-switch ace-switch-6" type="checkbox"
+                               [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+                <template let-node pTemplate="SecurityUser">
+                    <span class="glyphicon glyphicon-user"></span>
+                    {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+
+                    &nbsp; &nbsp;
+                    <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                        <!--<img src="images/Pencil-icon.png" />-->
+                        <i class="fa fa-pencil fa-2x"  (click)="editHumanResource(node)" title="Edit Human Resource" style="color: #32bea6;"></i>
+                    </a>
+                    <!--<img src="images/resetPassword.png" (click)="openResetPasswordModal(node)" title="Reset Password" />-->
+                    <label>
+                        <input id="chkIsActiveHumanResource" name="chkIsActiveHumanResource" class="ace ace-switch ace-switch-6" type="checkbox"
+                               [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+            </p-tree>
+        </div>
+        
+
+    </div>
+</div>
+
+
+<!-- MedicalDepartment Modal -->
+<div id="MedicalDepartmentPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'AddMedicalDepartment' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="nopadding " style="max-height:250px;min-height: 150px; overflow: auto;border: 1px solid grey;">
+                    <p-tree [value]="departments | translateObjects  : null : null : lstToTranslated" selectionMode="checkbox" [(selection)]="selectedDepartmentsandDivisions">
+                    </p-tree>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="SaveDepartmentsandDivisions()" disabled="{{ enableSaveBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'Save' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Non Medical department Modal -->
+<div id="NonMedicalDepartmentPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'NonMedicalDepartment' | translate}}</h4>
+            </div>
+            <form *ngIf="active" class="form-horizontal" name="nonMedicalDepartmentForm" #nonMedicalDepartmentForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtDepartmentCode" class="control-label col-md-3"> {{ 'Code' | translate}}</label>
+                        <div class="col-md-3">
+                            <input id="txtDepartmentCode" name="txtDepartmentCode" class="form-control" [(ngModel)]='model.code' #txtDepartmentCode="ngModel" required />
+                            <div [hidden]="txtDepartmentCode.valid || txtDepartmentCode.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDepartmentName" class="control-label col-md-3"> {{ 'ArabicName' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtDepartmentName" name="txtDepartmentName" class="form-control" [(ngModel)]='model.name' #txtDepartmentName="ngModel" required />
+                            <div [hidden]="txtDepartmentName.valid || txtDepartmentName.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDepartmentNameTranslation" class="control-label col-md-3"> {{ 'EnglishName' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtDepartmentNameTranslation" name="txtDepartmentNameTranslation" class="form-control" [(ngModel)]='model.nameTranslation' #txtDepartmentNameTranslation="ngModel" required />
+                            <div [hidden]="txtDepartmentNameTranslation.valid || txtDepartmentNameTranslation.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtDepartmentRemark" class="control-label col-md-3"> {{ 'Remark' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea id="txtDepartmentRemark" name="txtDepartmentRemark" class="form-control" [(ngModel)]='model.description' #txtDepartmentRemark="ngModel"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!nonMedicalDepartmentForm.form.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="saveNonMedicalDepartment()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- division Modal -->
+<div id="DivisionPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'Division' | translate}}</h4>
+            </div>
+            <form *ngIf="active" class="form-horizontal" name="divisionForm" #divisionForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtDivisionCode" class="control-label col-md-3"> {{ 'Code' | translate}}</label>
+                        <div class="col-md-3">
+                            <input id="txtDivisionCode" name="txtDivisionCode" class="form-control" [(ngModel)]='model.code' #txtDivisionCode="ngModel" required />
+                            <div [hidden]="txtDivisionCode.valid || txtDivisionCode.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDepartmentName" class="control-label col-md-3"> {{ 'Department' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtDepartmentName" name="txtDepartmentName" class="form-control" [(ngModel)]='model.departmentName' #txtDepartmentName="ngModel" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDivisionName" class="control-label col-md-3"> {{ 'ArabicName' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtDivisionName" name="txtDivisionName" class="form-control" [(ngModel)]='model.name' #txtDivisionName="ngModel" required />
+                            <div [hidden]="txtDivisionName.valid || txtDivisionName.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDivisionNameTranslation" class="control-label col-md-3"> {{ 'EnglishName' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtDivisionNameTranslation" name="txtDivisionNameTranslation" class="form-control" [(ngModel)]='model.nameTranslation' #txtDivisionNameTranslation="ngModel" required />
+                            <div [hidden]="txtDivisionNameTranslation.valid || txtDivisionNameTranslation.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDivisionRemark" class="control-label col-md-3">{{ 'Remark' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea id="txtDivisionRemark" name="txtDivisionRemark" class="form-control" [(ngModel)]='model.description' #txtDivisionRemark="ngModel"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!divisionForm.form.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="saveNonMedicalDivision()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Physical Resource Modal -->
+<div id="PhysicalResourcePopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'PhysicalResource' | translate}}</h4>
+            </div>
+            <form *ngIf="active" class="form-horizontal" name="physicalResourceForm" #physicalResourceForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtDepartmentName" class="control-label col-md-3"> {{ 'Department' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtDepartmentName" name="txtDepartmentName" class="form-control" [(ngModel)]='model.departmentName' #txtDepartmentName="ngModel" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtDivisionName" class="control-label col-md-3"> {{ 'Division' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtDivisionName" name="txtDivisionName" class="form-control" [(ngModel)]='model.divisionName' #txtDivisionName="ngModel" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-3"> {{ 'ArabicName' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtPhysicalResourceName" name="txtPhysicalResourceName" class="form-control" [(ngModel)]='model.name' #txtPhysicalResourceName="ngModel" required />
+                            <div [hidden]="txtPhysicalResourceName.valid || txtPhysicalResourceName.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPhysicalResouceNameTranslation" class="control-label col-md-3"> {{ 'EnglishName' | translate}}</label>
+                        <div class="col-md-6">
+                            <input id="txtPhysicalResouceNameTranslation" name="txtPhysicalResouceNameTranslation" class="form-control" [(ngModel)]='model.nameTranslation' #txtPhysicalResouceNameTranslation="ngModel" required />
+                            <div [hidden]="txtPhysicalResouceNameTranslation.valid || txtPhysicalResouceNameTranslation.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ddlTypes" class="control-label col-md-3">{{ 'Type' | translate}}</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="ddlTypes" name="ddlTypes" [(ngModel)]="model.physicalResourceTypeId" #ddlTypes="ngModel">
+                                <option>{{ 'Select' | translate}}</option>
+                                <option *ngFor="let resourceType of PhysicalResourceTypes | translateObjects" [value]="resourceType.id">{{resourceType.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPhysicalStartDate" class="control-label col-md-3"> {{ 'StartDate' | translate}}</label>
+                        <div class="col-md-4">
+                            <p-calendar [(ngModel)]="model.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                        showIcon="true" required="false" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPhysicalEndDate" class="control-label col-md-3"> {{ 'EndDate' | translate}}</label>
+                        <div class="col-md-4">
+                            <p-calendar [(ngModel)]="model.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                        showIcon="true" required="false" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtPhysicalRemark" class="control-label col-md-3"> {{ 'Remark' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea id="txtPhysicalRemark" name="txtPhysicalRemark" class="form-control" [(ngModel)]='model.description' #txtPhysicalRemark="ngModel"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!physicalResourceForm.form.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="savePhysicalResource()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Human Resource Modal -->
+<div id="humanResourcePopup" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog width75percent">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'HumanResource' | translate}} &nbsp; {{SelectedPersonName}}</h4>
+            </div>
+            <div class="modal-body">
+                <clinic-humanResource [selectedNode]="selectedNode"
+                                      [isEditMode]="isEditMode" [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                      (onModelUpdated)="updateModel($event)"></clinic-humanResource>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<button type="button" data-toggle="modal" class="hidden" data-target="#resetPasswordModal" id="btnResetPassword" #btnResetPassword></button>
+<div id="resetPasswordModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <reset-password [userId]="userIdToResetPassword"></reset-password>
+        </div>
+    </div>
+</div>-->

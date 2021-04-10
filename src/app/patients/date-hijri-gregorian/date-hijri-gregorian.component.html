@@ -1,0 +1,57 @@
+﻿    
+
+            <div class="form-group">
+                <label for="birthDate" class="control-label col-md-2">{{ 'BirthDate' | translate}} </label>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="radio" id="rbBirthDate" #hagri [checked]="isHagri()" (click)="selectDiseredDate(hagri.value)" value="hagri" name="rbBirthDate" required  />{{ 'Hijri' | translate}}
+                            </td>
+                            <td>
+                                <input type="radio" #gregorian [checked]="isGregorian()"  (click)="selectDiseredDate(gregorian.value)"  id="rbBirthDate" value="gregorian" name="rbBirthDate" />{{ 'Gregorian' | translate}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+           <div class="form-group">
+                <label  class="control-label col-md-2"></label>
+
+                <div class="col-md-2">
+                    <table>
+                        <tr>
+
+                           
+                            <td>
+                                <label for="ddlDays" class="control-label col-md-2"> </label>
+                            </td>
+                            <td>
+                                <select id="ddlDays" name="ddlDays" #ddlDays (change)="isDateChanged(ddlDays.value,ddlDays.id)" [(ngModel)]='birthDateInfo.dayValue'>
+                                    <option   *ngFor="let item of selctedDaysType"  [value]="item" selected>{{item}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label for="ddlMonths" class="control-label col-md-2"> </label>
+                            </td>
+                            <td>
+                                <select id="ddlMonths"  #ddlMonths name="ddlMonths" (change)="isDateChanged(ddlMonths.value,ddlMonths.id)"  [(ngModel)]='birthDateInfo.monthValue'  >
+                                    <option *ngFor="let item of selctedMonthsType "  [value]="item" selected>{{item| translate}}</option>
+                                </select> 
+                            </td>
+                            <td>
+                                <label for="ddlYears" class="control-label col-md-2"> </label>
+                            </td>
+                            <td>
+                                <select id="ddlYears" #ddlYears name="ddlYears" (change)="isDateChanged(ddlYears.value,ddlYears.id)"  [(ngModel)]='birthDateInfo.yearValue'    >
+                                    <option *ngFor="let item of selctedYearsType " [value]="item" selected>{{item }}</option>
+                                </select> 
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            
+  
+

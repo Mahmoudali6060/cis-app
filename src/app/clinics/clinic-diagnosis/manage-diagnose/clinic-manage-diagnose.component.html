@@ -1,0 +1,59 @@
+﻿<form *ngIf="active" class="form-horizontal" name="manageDiagnoseForm" #manageDiagnoseForm="ngForm">
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-3"> {{ 'ParentGroup' | translate}}</label>
+            <div class="col-md-6">
+                {{selectedParentGroupName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDiagnoseCode" class="control-label col-md-3"> {{ 'Code' | translate}}</label>
+            <div class="col-md-4">
+                <input id="txtDiagnoseCode" name="txtDiagnoseCode" class="form-control" [(ngModel)]='selectedDiagnose.code' #txtDiagnoseCode="ngModel" required />
+                <div [hidden]="txtDiagnoseCode.valid || txtDiagnoseCode.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-3">{{ 'ArabicName' | translate}}</label>
+            <div class="col-md-9">
+                <input id="txtName" name="txtName" class="form-control" [(ngModel)]='selectedDiagnose.name' #txtName="ngModel" required />
+                <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                   {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtNameTranslation" class="control-label col-md-3"> {{ 'EnglishName' | translate}}</label>
+            <div class="col-md-9">
+                <input id="txtNameTranslation" name="txtNameTranslation" class="form-control" [(ngModel)]='selectedDiagnose.nameTranslation' #txtNameTranslation="ngModel" required />
+                <div [hidden]="txtNameTranslation.valid || txtNameTranslation.pristine" class="alert alert-danger">
+                  {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>        
+        <div class="form-group">
+            <label for="txtDiagnoseInfective" class="control-label col-md-3">{{ 'Infective' | translate}} </label>
+            <div class="col-md-3">
+                <label>
+                    <input id="ChkIsInfective" name="ChkIsInfective" class="ace ace-switch ace-switch-6"
+                           type="checkbox" [(ngModel)]='selectedDiagnose.infective' #ChkIsInfective="ngModel" />
+                    <span class="lbl"></span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDiagnoseRemark" class="control-label col-md-3"> {{ 'Remark' | translate}}</label>
+            <div class="col-md-9">
+                <textarea id="txtDiagnoseRemark" name="txtDiagnoseRemark" class="form-control" [(ngModel)]='selectedDiagnose.description'></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="text-center">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!manageDiagnoseForm.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="saveDiagnosis()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelDiagnose()">{{ 'Cancel' | translate}}</button>
+        </div>
+    </div>
+</form>

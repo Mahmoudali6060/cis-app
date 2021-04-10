@@ -1,0 +1,151 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="nopadding">
+    <div class="padding5">
+        <div class="row">
+            <form novalidate class="form-horizontal" *ngIf="active" name="basicDataForm" (ngSubmit)="onSubmit()" #basicDataForm="ngForm">
+                
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2" for="txtName">{{ 'ArabicName' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <input type="text" id="txtArabicName" name="txtArabicName" class="form-control" [(ngModel)]='model.name' #txtArabicName="ngModel" required />
+                        <div [hidden]="txtArabicName.valid || txtArabicName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                    <label class="control-label col-md-2 col-sm-2" for="txtEnglishName">{{ 'EnglishName' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control" [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
+                        <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2" for="txtSerialNumber">{{ 'SerialNumber' | translate}}</label>
+                    <div class="col-md-4 col-sm-4">
+                        <input type="text" id="txtSerialNumber" name="txtSerialNumber" class="form-control" [(ngModel)]='model.serialNumber' #txtSerialNumber="ngModel" required />
+                        <div [hidden]="txtSerialNumber.valid || txtSerialNumber.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                    <label class="control-label col-md-2 col-sm-2" for="txtCreationDate">{{ 'CreationDate' | translate}}</label>
+                    <div class="col-md-2 col-sm-3">
+                        <input type="date" id="txtCreationDate" name="txtCreationDate" class="form-control" [(ngModel)]='model.creationDate' #txtCreationDate="ngModel" required />
+                        <div [hidden]="txtCreationDate.valid || txtCreationDate.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2" for="txtArabicDescription">{{ 'Description' | translate}} </label>
+                    <div class="col-md-4 col-sm-4">
+                        <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control" [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
+                    </div>
+                    <label class="control-label col-md-2" for="ChkIsActive">{{ 'Active' | translate}}</label>
+                    <div class="col-md-4">
+                        <label>
+                            <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
+                            <span class="lbl"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary" [disabled]="!basicDataForm.form.valid  || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+                    <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+ class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+                </div>
+                <br /><br />
+                <div class="floatBtn">
+                    <print-page [section]='toPrintDiv'></print-page>
+                </div>
+            </form>
+
+        </div>
+        <br />
+        <div class="ui-widget-header searchWidget">
+            <i class="fa fa-search searchIcon"></i>
+            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+        </div>
+        <p-dataTable [value]="allObjects" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="name" [header]="'Unit_ar' | translate" [sortable]="true"></p-column>
+            <p-column field="nameTranslation" [header]="'Unit_en' | translate" [sortable]="true"></p-column>
+            <p-column field="serialNumber" [header]="'SerialNumber' | translate" [sortable]="true"></p-column>
+            <p-column field="creationDate" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
+            <p-column field="lastModificationDate" [header]="'ModificationDate' | translate" [sortable]="true"></p-column>
+            <p-column [header]="'Active' | translate" styleClass="text-center width70">
+                <template let-item="rowData" pTemplate="body">
+                    <label>
+                        <input id="ChkIsActiveInGrid" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox"
+                               [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+            </p-column>
+            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
+                <template let-item="rowData" pTemplate="body">
+                    <a [class.disabled]="!enableMyAccountBtn ? true : null" > <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" style="color: #32bea6;"></i></a>
+                </template>
+            </p-column>
+            <!--<p-column [header]="'Delete' | translate" styleClass="text-center width50">
+                <template let-item="rowData" pTemplate="body">
+                    <a [class.disabled]="!enableMyAccountBtn ? true : null" data-toggle="modal" data-target="#deleteConfirmation" class="pointer" (click)="selectItemToDelete(item.id)">
+                        <img src="Images/DeleteRed.png" />
+                    </a>
+                </template>
+            </p-column>-->
+        </p-dataTable>
+
+        <div id="print-section" class="hidden">
+            <table class="table table-responsive table-hover">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th>{{ 'Unit_ar' | translate}}</th>
+                        <th>{{ 'Unit_en' | translate}}</th>
+                        <th>{{ 'SerialNumber' | translate}}</th>
+                        <th>{{ 'CreationDate' | translate}}</th>
+                        <th>{{ 'ModificationDate' | translate}}</th>
+                        <th>{{ 'Active' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of allObjects">
+                        <td>{{item.name}}</td>
+                        <td>{{item.nameTranslation}}</td>
+                        <td>{{item.serialNumber}}</td>
+                        <td>{{item.creationDate}}</td>
+                        <td>{{item.lastModificationDate | date:'yyyy/MM/dd'}}</td>
+                        <td>
+                            <img *ngIf="item.isActive" src="Images/ok-24.jpg" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- delete Modal 
+        <div id="deleteConfirmation" class="modal fade" role="dialog">
+            <div class="modal-dialog">               
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{ 'ConfirmDelete' | translate}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{ 'AreYouSureDelete' | translate}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+ class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+ class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
+    </div>
+</div>
+
+

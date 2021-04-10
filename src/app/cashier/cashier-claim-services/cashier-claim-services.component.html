@@ -1,0 +1,523 @@
+﻿<div class="row">
+
+    <div *ngIf="showPrintButton">
+        <print-page *ngIf="allCharges.length" [section]='patientChargesDiv'></print-page>
+    </div>
+
+    <div class="row well" style="background-color: #f6f7f9 !important;">
+     
+        <div class="inner-addon left-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+        </div>
+        <p-dataTable [value]="allCharges | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <!--<p-column field="serviceCode" [header]="'ServiceCode' | translate" [sortable]="true" styleClass="text-center width65"></p-column>-->
+            <p-column field="serviceName" [header]="'Name' | translate" [sortable]="true"></p-column>
+            <p-column field="diagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
+            <p-column *ngIf="displayColumnDate" field="claimDate" [header]="'Date' | translate" [sortable]="true" styleClass="text-center"></p-column>
+            <p-column field="quantity" [header]="'QuantityShortform' | translate" [sortable]="true" styleClass="text-center width40 nopadding"></p-column>
+            <p-column field="unitPrice" [header]="'UnitPrice' | translate" [sortable]="true" styleClass="text-center width50 nopadding"></p-column>
+            <p-column field="netPriceWithoutDiscount" [header]="'TotalPrice' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+            <p-column [header]="'CoverageType' | translate" styleClass="text-center width70 nopadding">
+                <template let-item="rowData" pTemplate="body">
+                    <img *ngIf="!isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" class="{{item.isCoverageTypeClickable ? 'pointer' : ''}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" (click)="openMarkSatisfiedModal(item)" />
+                    <img *ngIf="isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
+                </template>
+            </p-column>
+            <!--<p-column field="companyShareString" [header]="'CompanyShare' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
+            <p-column field="patientShareString" [header]="'PatientShare' | translate" [sortable]="true" styleClass="text-center width70"></p-column>-->
+
+            <p-column field="insuranceCompanyNetPriceWithoutVAT" [header]="'PPPShare' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+            <p-column field="companyDiscountAmount" [header]="'CompanyDiscount' | translate" [sortable]="true" styleClass="text-center width50 nopadding"></p-column>
+            <p-column field="vatAmountForCompany" [header]="'PPPVatAmout' | translate" [sortable]="true" styleClass="text-center width50 nopadding"></p-column>
+            <p-column field="insuranceCompanyNetPrice" [header]="'PPPNetAmount' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+
+            <p-column field="patientShareAmount" [header]="'PatientShare' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+            <p-column field="vatAmountForPatient" [header]="'PatientVAT' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+            <p-column field="patientDiscountAmount" [header]="'PatientDiscount' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+            <p-column field="actualNetPrice" [header]="'PatientNetAmount' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+
+            <!--<p-column field="netPrice" [header]="'NetPrice' | translate" [sortable]="true" styleClass="text-center width60"></p-column>-->
+
+            <p-column field="patientRemaining" [header]="'Remaining' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
+            <p-column styleClass="text-center width60 nopadding">
+                <template let-item="rowData" pTemplate="body">
+                    <div style="display:block">
+                        <a [class.disabled]="!enablePriceOverrideBtn ? true : null">  <img *ngIf="!isClaimCanceled" src="Images/{{item.overrideIconName}}" class="pointer" title="Override Charge" alt="Override Charge" (click)="openOverrideChargeModal(item)" /></a>
+                        <a [class.disabled]="!enablePriceOverrideBtn ? true : null"> <img *ngIf="isClaimCanceled" src="Images/{{item.overrideIconName}}" title="Override Charge" alt="Override Charge" /></a>
+
+                        <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"> <img *ngIf="!isClaimCanceled" src="Images/{{item.releaseIconName}}" class="pointer" title="Release Charge" alt="Release Charge" (click)="openReleaseChargeModal(item)" /></a>
+                        <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"><img *ngIf="isClaimCanceled" src="Images/{{item.releaseIconName}}" title="Release Charge" alt="Release Charge" /> </a>
+                    </div>
+                </template>
+            </p-column>
+            <p-column [header]="'Pay' | translate" styleClass="text-center width70">
+                <template pTemplate="header">
+                    <button type="button" class="btn btn-primary" (click)="clearPaymentandOpenPopup()" [disabled]="isClaimCanceled || !enablePatientPaymentBtn">{{'Pay' | translate}}</button>
+                </template>
+                <template let-item="rowData" pTemplate="body">
+                    <input *ngIf="!item.patientPaymentId && !item.isSatisfied" type="checkbox" (change)="updateSelectedCharges(item, $event)" [disabled]="isClaimCanceled" />
+                    <!--<a class="underLinelinkText pointer" *ngIf="!item.patientPaymentId" (click)="updateSelectedCharges(item)" [class.disabled]="isClaimCanceled || !enablePatientPaymentBtn">{{'Pay' | translate}}</a>-->
+
+                    <a [class.disabled]="!viewPateintPayment ? true : null" *ngIf="item.patientPaymentId && !isClaimCanceled" data-toggle="modal" data-target="#PayService" class="underLinelinkText pointer" (click)="getPatientPaymentById(item.patientPaymentId)">{{'ViewPayment'| translate}}</a>
+                    <a [class.disabled]="!viewPateintPayment ? true : null" *ngIf="item.patientPaymentId && isClaimCanceled">{{'ViewPayment'| translate}}</a>
+                </template>
+            </p-column>
+        </p-dataTable>
+    </div>
+
+    <div class="row">
+    </div>
+</div>
+
+<div class="hidden">
+    <button type="button" #btnOpenPaymentPopup class="btn btn-primary" data-toggle="modal" data-target="#PayService"></button>
+</div>
+
+<div id="PayService" class="modal fade" role="dialog">
+    <div class="modal-dialog width85percent">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'PatientPayment' | translate}}</h4>
+            </div>
+            <form *ngIf="active" class="form-horizontal" name="savePatientPaymentfrm" #savePatientPaymentfrm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">{{ 'TransactionRefNo' | translate}}</label>
+                        <div class="col-md-4">
+                            <input name="txtReferenceNo" class="form-control" [(ngModel)]='payment.id' #txtReferenceNo="ngModel" disabled />
+                        </div>
+                        <label class="control-label col-md-2">{{ 'NetPrice' | translate}}</label>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" name="txtNetPrice" [(ngModel)]="payment.netPrice" #txtNetPrice="ngModel" required readonly disabled />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">{{ 'Charges' | translate}}</label>
+                        <div class="col-md-4">
+                            <textarea disabled name="txtCharges" class="form-control" [(ngModel)]='payment.chargesAsString' #txtCharges="ngModel" style="height:91px;"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4">{{ 'VATAmount' | translate}}</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" name="txtVATAmount" [(ngModel)]="payment.vatAmountForPatient" #txtVATAmount="ngModel" required readonly disabled />
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0px;">
+                                <label class="control-label col-md-4">{{ 'TotalPrice' | translate}}</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" name="txtTotalPrice" [(ngModel)]="payment.amount" #txtTotalPrice="ngModel" required readonly disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">{{ 'Remarks' | translate}}</label>
+                        <div class="col-md-4">
+                            <textarea [disabled]="!editable" name="txtRemarks" class="form-control" [(ngModel)]='payment.description' #txtRemarks="ngModel" style="height:91px;" ></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-4">{{ 'Paid' | translate}}</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" name="txtPaid" [(ngModel)]="payment.paid" #txtPaid="ngModel" readonly disabled />
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0px;">
+                                <label class="control-label col-md-4">{{ 'Remaining' | translate}}</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control" name="txtRemaining" [(ngModel)]="payment.remaining" #txtRemaining="ngModel" readonly disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label class="control-label col-md-3">{{ 'TransactionDate' | translate}}</label>
+                        <div class="col-md-6" *ngIf="editable">
+                            <input name="txtPaymentDate" class="form-control" [(ngModel)]="paymentDateString" #txtPaymentDate="ngModel" disabled />
+                        </div>
+                        <div class="col-md-6" *ngIf="!editable">
+                            <input name="txtPaymentDate" class="form-control" [(ngModel)]="payment.dateTimeString" #txtPaymentDate="ngModel" disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'TransactionType' | translate}}</label>
+                        <div class="col-md-6">
+                            <select [disabled]="!editable" class="form-control" name="ddlTransactionTypes"
+                                    [(ngModel)]="payment.paymentTypeId" #ddlTransactionTypes="ngModel" required #t (change)="updatePaymentType(t.value)">
+                                <option *ngFor="let type of paymentTypes | translateObjects" [value]="type.id">{{type.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="!isPrePaid">
+                        <label class="control-label col-md-3">{{ 'TransactionMethod' | translate}}</label>
+                        <div class="col-md-6">
+                            <select [disabled]="!editable" class="form-control" name="ddlTransactionMethods" [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
+                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1" *ngIf="!editable">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePaymentMethod">{{ 'Change' | translate}}</button>
+                        </div>
+                    </div>-->
+
+                    <div class="form-group">
+                        <div class="row alert alert-success nopadding paymentTableHeader">
+                            {{'Payments' | translate}}
+                        </div>
+                        <table class="table table-responsive table-hover table-bordered">
+                            <thead class="alert alert-info">
+                                <tr>
+                                    <th class="text-center">{{ 'Amount' | translate}}</th>
+                                    <th class="text-center">{{ 'TransactionType' | translate}}</th>
+                                    <th class="text-center">{{ 'Date' | translate}}</th>
+                                    <th>{{ 'Action' | translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of installmentList; let i=index">
+                                    <td>
+                                        <input [disabled]="item.id > 0" type="number" min="0" pattern="\d+(\.\d{1,2})?" class="form-control" name="txtInstallmentAmount{{i}}{{getControlNumber()}}" [(ngModel)]="item.amount" #txtInstallmentAmount="ngModel" required />
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <select [disabled]="item.id > 0" class="form-control" name="ddlTransactionTypes{{i}}{{getControlNumber()}}" #t (change)="updatePaymentType(i , t.value)"
+                                                        [(ngModel)]="item.paymentTypeId" required>
+                                                    <option class="emptyOption" value="" selected></option>
+                                                    <option *ngFor="let type of paymentTypes | translateObjects" [value]="type.id">{{type.name}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <select [disabled]="item.id > 0" *ngIf="!item.isPrepaid" class="form-control" name="ddlTransactionMethods{{i}}{{getControlNumber()}}"
+                                                        [(ngModel)]="item.paymentMethodId" required>
+                                                    <option class="emptyOption" value="" selected></option>
+                                                    <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        {{item.dateString}}
+                                    </td>
+                                    <td class="text-center">
+                                        <a *ngIf="isNewItem(item)">
+                                            <img src="Images/cancel-24.png" (click)="deleteInstallment(i)" class="pointer" />
+                                        </a>
+                                        <a *ngIf="!isNewItem(item) && (item.paymentType.key != 'PrePaid')" [title]="'ChangeMethod' | translate" data-toggle="modal" data-target="#changePaymentMethod" (click)="getSelectedItem(item)">
+                                            <img src="Images/Payment-Edit.png" class="pointer" />
+                                        </a>
+                                        <a *ngIf="!isNewItem(item)" [title]="'ChangeDate' | translate" data-toggle="modal" data-target="#changePaymentDate" (click)="getSelectedItem(item)">
+                                            <img src="Images/Calendar-Edit.png" class="pointer" />
+                                        </a>
+                                        <a *ngIf="!isNewItem(item)" [title]="'Print' | translate" class="fa fa-print pointer" (click)="openReceiptReport(item.id , 'ReceiptReport')"></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr class="alert alert-info">
+                                    <th colspan="4">
+                                        <div>
+                                            <a class="pointer" (click)="addInstallment()">
+                                                <img src="Images/AddImage.png" /> &nbsp;
+                                                <span style="text-decoration:underline;">
+                                                    {{ 'AddNew' | translate}}
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </th>
+                                </tr>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!savePatientPaymentfrm.form.valid || !validtoSave ||!enablePatientPaymentBtn " (click)="savePatientPayment()">{{ 'Save' | translate}}</button>
+                        <a (click)="openReport('PaymentReport')" class="btn btn-primary" *ngIf="payment.id > 0">
+                            {{ 'Print' | translate}}
+                        </a>
+                        <button type="button" disabled="{{ enablePatientPaymentBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<button type="button" data-toggle="modal" class="hidden" data-target="#overrideChargeModal" id="btnOverrideChargeModal" #btnOverrideChargeModal></button>
+<div id="overrideChargeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'OverrideCharge' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" (ngSubmit)="overrideCharges()" name="overrideChargeForm" #overrideChargeForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'NewAmount' | translate}}</label>
+                        <div class="col-md-4">
+                            <input id="txtIdAmount" name="txtIdAmount" type="number" class="form-control" [(ngModel)]='newOverrideAmount' #txtIdAmount="ngModel" required />
+                            <div [hidden]="txtIdAmount.valid || txtIdAmount.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" [disabled]="!overrideChargeForm.form.valid || !enablePriceOverrideBtn ">{{ 'Save' | translate}}</button>
+                        <button type="button" disabled="{{ enablePriceOverrideBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" id="btnCancelOverrideChargeModal" #btnCancelOverrideChargeModal>{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<button type="button" data-toggle="modal" class="hidden" data-target="#releaseChargeModal" id="btnReleaseChargeModal" #btnReleaseChargeModal></button>
+<div id="releaseChargeModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ReleaseCharge' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" (ngSubmit)="releaseCharge()" name="releaseChargeForm" #releaseChargeForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'Reason' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" id="txtReleaseReason" name="txtReleaseReason" [(ngModel)]='releaseChargeReason' #txtReleaseReason="ngModel" required></textarea>
+                            <div [hidden]="txtReleaseReason.valid || txtReleaseReason.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary" [disabled]="!releaseChargeForm.form.valid || !enableReleaseChargeClaimBtn">{{ 'Save' | translate}}</button>
+                        <button type="button" disabled="{{ enableReleaseChargeClaimBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" id="btnCancelReleaseChargeModal" #btnCancelReleaseChargeModal>{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<button type="button" data-toggle="modal" class="hidden" data-target="#markSatisfiedModal" id="btnMarkSatisfiedModal" #btnMarkSatisfiedModal></button>
+<div id="markSatisfiedModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'MarkSatisfied' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" (ngSubmit)="markSatisfiedCharge()" name="markSatisfiedForm" #markSatisfiedForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'Satisfied' | translate}}</label>
+                        <div class="col-md-8">
+                            <input name="switch-field-1" class="ace ace-switch ace-switch-6"
+                                   type="checkbox" [checked]="isSatisfied"
+                                   (click)="changeSatisfied($event)" />
+                            <span class="lbl"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'Remarks' | translate}}</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" id="txtMarkSatisfiedRemarks" name="txtMarkSatisfiedRemarks"
+                                      [(ngModel)]='satisfiedRemarks' #txtMarkSatisfiedRemarks="ngModel"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="submit" disabled="{{ enableMarkSatisfiedBtn ? '' :'disabled'}}" class="btn btn-primary">{{ 'Save' | translate}}</button>
+                        <button type="button" disabled="{{ enableMarkSatisfiedBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" id="btnCancelMarkSatisfiedModal" #btnCancelMarkSatisfiedModal>{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="changePaymentDate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ChangePaymentDate' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="changePaymentDateForm" #changePaymentDateForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'NewPaymentDate' | translate}}</label>
+                        <div class="col-md-6">
+                            <p-calendar [(ngModel)]="selectedInstallment.date" [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                        showIcon="true" required="false" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'ChangeReason' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea name="txtchangeDateReason" class="form-control" [(ngModel)]='selectedInstallment.changeDateReason' #txtchangeDateReason="ngModel" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!changePaymentDateForm.form.valid" disabled="{{ enablePatientPaymentBtn ? '' :'disabled'}}" (click)="saveInstallment()">{{ 'ConfirmChange' | translate}}</button>
+                        <button type="button" disabled="{{ enablePatientPaymentBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="changePaymentMethod" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ChangePaymentMethod' | translate}} </h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="changePaymentMethodForm" #changePaymentMethodForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3"> {{ 'NewPaymentMethod' | translate}}</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="ddlTransactionMethods" [(ngModel)]="selectedInstallment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
+                                <option class="emptyOption" value="" selected></option>
+                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'ChangeReason' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea name="txtMethodChangeReason" class="form-control" [(ngModel)]='selectedInstallment.changeMethodReason' #txtMethodChangeReason="ngModel" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!changePaymentMethodForm.form.valid || !enablePatientPaymentBtn" (click)="saveInstallment()">{{ 'ConfirmChange' | translate}}</button>
+                        <button type="button" disabled="{{ enablePatientPaymentBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" (click)="getOriginalItem()">{{ 'Ignore' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="patientChargesDiv" class="row hidden">
+    <div class="row text-center">
+        <span class="user-thumb">
+            <img src="{{accountService.profileImagePath}}" alt="image">
+        </span>
+    </div>
+
+    <div class="row">
+        <div class="forum-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <div>
+                        <label class="label label-success">
+                            {{ 'UnifiedMRN' | translate}} : {{passedPatient.unifiedMRN}}
+                        </label>
+                        <label class="label label-pink">
+                            {{ 'ClinicMRN' | translate}} : {{passedPatient.clinicMRN}}
+                        </label>
+                    </div>
+                    <h2 class="forum-title">
+                        {{passedPatient.name}}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="padding5">&nbsp;</div>
+
+    <table class="table table-responsive table-bordered table-striped">
+        <thead class="alert alert-info">
+            <tr class="text-center">
+                <!--<th>{{ 'ServiceCode' | translate}}</th>-->
+                <th>{{ 'Name' | translate}}</th>
+                <th>{{ 'Diagnosis' | translate}}</th>
+                <th>{{ 'QuantityShortform' | translate}}</th>
+                <th>{{ 'UnitPrice' | translate}}</th>
+                <th>{{ 'TotalPrice' | translate}}</th>
+                <th>{{ 'CoverageType' | translate}}</th>
+
+                <th>{{ 'PPPShare' | translate}}</th>
+                <th>{{ 'CompanyDiscount' | translate}}</th>
+                <th>{{ 'PPPVatAmout' | translate}}</th>
+                <th>{{ 'PPPNetAmount' | translate}}</th>
+
+                <th>{{ 'PatientShare' | translate}}</th>
+                <th>{{ 'PatientVAT' | translate}}</th>
+                <th>{{ 'PatientDiscount' | translate}}</th>
+                <th>{{ 'PatientNetAmount' | translate}}</th>
+
+                <th>{{ 'Remaining' | translate}}</th>
+                <th>{{ 'OverrideCharge' | translate}}</th>
+                <th>{{ 'ReleaseCharge' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of allCharges | translateObjects  : null : null : lstToTranslated">
+                <!--<td>{{item.serviceCode}}</td>-->
+                <td>{{item.serviceName}}</td>
+                <td>{{item.diagnoseName}}</td>
+                <td class="text-center">{{item.quantity}}</td>
+                <td class="text-center">{{item.unitPrice}}</td>
+                <td class="text-center">{{item.netPriceWithoutDiscount}}</td>
+                <td class="text-center">
+                    <img *ngIf="!isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" class="{{item.isCoverageTypeClickable ? 'pointer' : ''}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
+                    <img *ngIf="isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
+                </td>
+
+                <td class="text-center">{{item.insuranceCompanyNetPriceWithoutVAT}}</td>
+                <td class="text-center">{{item.companyDiscountAmount}}</td>
+                <td class="text-center">{{item.vatAmountForCompany}}</td>
+                <td class="text-center">{{item.insuranceCompanyNetPrice}}</td>
+
+                <td class="text-center">{{item.patientShareAmount}}</td>
+                <td class="text-center">{{item.vatAmountForPatient}}</td>
+                <td class="text-center">{{item.patientDiscountAmount}}</td>
+                <td class="text-center">{{item.actualNetPrice}}</td>
+
+                <td class="text-center">{{item.patientRemaining}}</td>
+                <td class="text-center">
+                    <img *ngIf="item.isOverridden" src="Images/ok-24.jpg" class="pointer" title="Override Charge" alt="Overriden Charge" />
+                </td>
+                <td class="text-center">
+                    <img *ngIf="item.isReleased" src="Images/ok-24.jpg" class="pointer" title="Release Charge" alt="Released Charge" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

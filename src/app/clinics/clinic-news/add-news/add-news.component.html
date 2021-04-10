@@ -1,0 +1,80 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row">
+    <clinic-tab [isNewsSelected]='selectNewsTab'></clinic-tab>
+    <div class="row nopadding">
+
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'News' | translate}}
+        </div>
+
+        <div class="row well">
+            <form *ngIf="active" class="form-horizontal" name="newsForm" #newsForm="ngForm">
+                <div class="form-group text-center">
+                    <button class="btn btn-primary" (click)="saveClinicNews()" [disabled]="!newsForm.form.valid ||  !isClinicAdmin">{{ 'Save' | translate}}</button>
+                    <button class="btn btn-primary" (click)="goBack()" disabled="{{ isClinicAdmin ? '' :'disabled'}}">{{ 'Back' | translate}}</button>
+                </div>
+                <br />
+                <div class="form-group">
+                    <div class="col-md-4 text-center">
+                        <div class="row">
+                            <img [src]="selectedClinicNews.imageData ? 'data:image/JPG;base64,' + selectedClinicNews.imageData : ''"
+                                 width="100" height="100" style="cursor: default;" #newsImage>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-primary" data-toggle="collapse" data-target="#divUploadNewsImage" disabled="{{ isClinicAdmin ? '' :'disabled'}}"> Upload new image</button>
+                        </div>
+                        <br />
+                        <div id="divUploadNewsImage" class="row collapse">
+                            <input type="file" class="form-control" #fileInput
+                                   accept="image/*" (change)="addFile(fileInput.value)">
+                            <span>{{ 'FileSizeMsg' | translate}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label class="control-label col-md-4">{{ 'Active' | translate}}</label>
+                            <div class="col-md-6">
+                                <label>
+                                    <input id="chkIsActive" name="chkIsActive" class="ace ace-switch ace-switch-6"
+                                           type="checkbox" [(ngModel)]='selectedClinicNews.isActive' #chkIsActive="ngModel" />
+                                    <span class="lbl"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">{{ 'Date' | translate}}</label>
+                            <div class="col-md-6">
+                                <p-calendar [(ngModel)]="selectedClinicNews.creationDate"
+                                            [monthNavigator]="true"
+                                            [yearNavigator]="true"
+                                            dateFormat="dd/mm/yy"
+                                            showIcon="true" required="true"
+                                            [ngModelOptions]="{standalone: true}"
+                                            yearRange="2000:2050"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">{{ 'Title' | translate}}</label>
+                            <div class="col-md-6">
+                                <input id="txtClinicNewsTitle" name="txtClinicNewsTitle" class="form-control"
+                                       [(ngModel)]='selectedClinicNews.name' #txtClinicNewsTitle="ngModel" required />
+                                <div [hidden]="txtClinicNewsTitle.valid || txtClinicNewsTitle.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4">{{ 'Description' | translate}}</label>
+                            <div class="col-md-6">
+                                <textarea id="txtClinicNewsRemark" name="txtClinicNewsRemark" class="form-control"
+                                          [(ngModel)]='selectedClinicNews.description' style="width:100%;height:100px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>    </div>
+</div>

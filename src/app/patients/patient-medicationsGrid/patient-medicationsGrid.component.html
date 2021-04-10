@@ -1,0 +1,75 @@
+﻿
+<div class="inner-addon left-addon">
+    <i class="glyphicon glyphicon-search"></i>
+    <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+</div>
+<p-dataTable [value]="allDrugs | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <p-column styleClass="text-center width50">
+        <template let-noteDrug="rowData" pTemplate="body">
+            <input type="checkbox" [checked] ="noteDrug.isSelected"
+                   (change)="updateSelectedDrug(noteDrug.drugId, $event)" />
+        </template>
+    </p-column>
+    <p-column field="drugName" [header]="'DrugName' | translate" [sortable]="true"></p-column>
+    
+    <p-column [header]="'DosageQuantity' | translate" styleClass="text-center width90">
+        <template let-noteDrug="rowData" pTemplate="body">
+            <div class="row">
+                <input type="number" pattern="^[0-9]\d*$" min="0" name="txtMedicationDosageQuantity" class="form-control"
+                       [(ngModel)]='noteDrug.dosageQuantity' #txtMedicationDosageQuantity="ngModel" />
+            </div>
+            <div class="row" style="padding-top:4px!important;">
+                <select class="form-control" name="ddldrugDosageUnits" [(ngModel)]='noteDrug.dosageUnitId' required>
+                    <option *ngFor="let obj of drugDosageUnits| translateObjects" [value]="obj.id">{{obj.name}}</option>
+                </select>
+            </div>
+        </template>
+    </p-column>
+    <p-column [header]="'Frequency' | translate" styleClass="text-center width100">
+        <template let-noteDrug="rowData" pTemplate="body">
+                <select class="form-control" name="ddldrugFrequencies" [(ngModel)]='noteDrug.frequencyId' required>
+                    <option *ngFor="let obj of drugFrequencies| translateObjects" [value]="obj.id">{{obj.name}}</option>
+                </select>
+        </template>
+    </p-column>
+
+    <p-column [header]="'Duration' | translate" styleClass="width170" [style]="{'overflow':'visible'}">
+        <template let-noteDrug="rowData" pTemplate="body" style="overflow: visible">
+            <div class="row">
+                <div class="col-md-4 nopadding">
+                    <input type="number" pattern="^[0-9]\d*$" min="0" name="txtDuration" class="form-control"
+                           [(ngModel)]='noteDrug.duration' #txtDuration="ngModel" />
+                </div>
+                <div class="col-md-8 nopadding">
+                    <select class="form-control" name="ddldurationUnits" [(ngModel)]='noteDrug.durationUnit' required>
+                        <option *ngFor="let obj of durationUnits| translateObjects" [value]="obj.name">{{obj.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="padding-top:4px!important;"> </div>
+
+                <p-calendar [(ngModel)]="noteDrug.startDate" required="true"
+                            [monthNavigator]="true"
+                            [yearNavigator]="true"
+                            dateFormat="dd/mm/yy"
+                            showIcon="true"
+                            [ngModelOptions]="{standalone: true}"
+                            yearRange="2000:2050"
+                            [inputStyle]="{'width':'125px'}"
+                            [styleClass]="calendarClass"></p-calendar>
+</template>
+    </p-column>
+
+    <p-column [header]="'DiagnoseName' | translate">
+        <template let-noteDrug="rowData" pTemplate="body">
+            <select class="form-control" name="ddlDiagnosis" [(ngModel)]='noteDrug.relatedDiagnoseId' required >
+                <option *ngFor="let obj of diagnosis| translateObjects" [value]="obj.id">{{obj.name}}</option>
+            </select>
+        </template>
+    </p-column>
+    <p-column [header]="'Remarks' | translate">
+        <template let-noteDrug="rowData" pTemplate="body">
+            <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteDrug.description'></textarea>
+        </template>
+    </p-column>
+</p-dataTable>

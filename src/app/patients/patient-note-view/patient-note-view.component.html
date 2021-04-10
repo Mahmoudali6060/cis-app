@@ -1,0 +1,660 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<print-page [section]='PrintNoteDive'></print-page>
+
+<div class="row">
+    <strong>
+        {{ 'CreationDate' | translate}}
+    </strong>
+    : &nbsp;&nbsp;&nbsp;
+    {{model.creationDateString}}
+</div>
+
+<div class="row">
+    <div class="forum-header">
+        <div class="row">
+            <div class="col-md-8">
+                <div>
+                    <label class="label label-success">
+                        {{ 'UnifiedMRN' | translate}} : {{model.patient.unifiedMRN}}
+                    </label>
+                    <label class="label label-pink">
+                        {{ 'ClinicMRN' | translate}} : {{model.patient.clinicMRN}}
+                    </label>
+                </div>
+                <h2 class="forum-title">
+                    {{model.patient.name}}
+                </h2>
+                <p class="forum-sub-title">
+                    <span class="topic-meta">
+                        <em>
+                            <strong>
+                                {{ 'Description' | translate}}:
+                            </strong>
+                            {{model.patient.description}}
+                        </em>
+                    </span>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <div class="forum-meta">
+                    <div class="forum-meta-info">
+                        <ul>
+                            <li>
+                                <label>{{ 'Gender' | translate}}:</label>&nbsp; {{model.patient.gender}}
+                            </li>
+                            <li>
+                                <label>{{ 'Age' | translate}}: </label>&nbsp;{{model.patient.age}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<h4>{{ 'MedicalInsuranceDetails' | translate}}</h4>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'Company' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-2">
+        {{model.patient.activeInsurance.companyName}}
+    </div>
+    <div class="col-md-2">
+        <strong>
+            {{ 'PolicyName' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-2">
+        {{model.patient.activeInsurance.policyName}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'StartDate' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-2">
+        {{model.patient.activeInsurance.startDateString}}
+    </div>
+    <div class="col-md-2">
+        <strong>
+            {{ 'EndDate' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-2">
+        {{model.patient.activeInsurance.endDateString}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'Description' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-6">
+        {{model.patient.activeInsurance.description}}
+    </div>
+</div>
+
+<br />
+<h4>{{ 'ChiefComplaint' | translate}}</h4>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-6">
+        {{model.chiefComplaint.chiefComplaintMain}}
+    </div>
+</div>
+
+<br />
+<h4>{{ 'VitalSigns' | translate}}</h4>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'Weight' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.weightValue}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.weightValueMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'Temprature' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.temperatureTypeValue}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.temperatureTypeMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'Respirationrate' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.respirationRate}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.respirationRateMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'Pulse' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.pulse}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.pulseMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'Height' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.heightvalue}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.heightValueMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'HeadCircumferences' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.headCircumferences}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.headCircumferencesMArk}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'BPSystolic' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.bpSystolic}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.bpSystolicMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'BPDiastolic' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.bpDiastolic}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.bpDiastolicMArk}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'BMI' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.bMI}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.bMIMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'DurationOfIllness' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-1">
+        {{model.chiefComplaint.durationOfIllness}}
+    </div>
+    <div class="col-md-5">
+        {{model.chiefComplaint.durationOfIllnessMark}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <strong>
+            {{ 'SignificantSigns' | translate}}
+        </strong>
+    </div>
+    <div class="col-md-6">
+        {{model.chiefComplaint.significantSigns}}
+    </div>
+</div>
+
+<br />
+<h4>{{ 'Diagnosis' | translate}}</h4>
+<div class="row">
+    <p-dataTable [value]="model.diagnosis | translateObjects  : null : null : lstToTranslatedDiagnosis" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="diagnoseCode" [header]="'DiagnoseCode' | translate" [sortable]="true"></p-column>
+        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
+        <p-column field="dateTimeString" [header]="'Date' | translate" [sortable]="true"></p-column>
+        <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
+        <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
+        <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
+        <p-column field="isCurrent" [header]="'CurrentPast' | translate" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>
+
+<br />
+<h4>{{ 'NewMedication' | translate}}</h4>
+<div class="row">
+    <p-dataTable [value]="model.medications | translateObjects  : null : null : lstToTranslatedMedications" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="drugCode" [header]="'MedicationCode' | translate" [sortable]="true"></p-column>
+        <p-column field="drugName" [header]="'Name' | translate" [sortable]="true"></p-column>
+        <p-column field="dosageQuantity" [header]="'DosageQuantity' | translate" [sortable]="true"></p-column>
+        <p-column field="dosageUnitName" [header]="'DosageUnit' | translate" [sortable]="true"></p-column>
+        <p-column field="frequencyName" [header]="'Frequency' | translate" [sortable]="true"></p-column>
+        <p-column field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
+        <p-column field="duration" [header]="'Duration' | translate" [sortable]="true"></p-column>
+        <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
+        <p-column field="relatedDiagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
+        <p-column field="recorderName" [header]="'RecorderName' | translate" [sortable]="true"></p-column>
+        <p-column field="recordingDateString" [header]="'RecordedDate' | translate" [sortable]="true"></p-column>
+        <!--<p-column field="description" header="Status" [sortable]="true"></p-column>-->
+    </p-dataTable>
+</div>
+
+<br />
+<h4>{{ 'Services' | translate}}</h4>
+<div class="row">
+    <p-dataTable [value]="model.services | translateObjects  : null : null : lstToTranslatedServices " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="serviceCode" [header]="'ServiceCode' | translate" [sortable]="true"></p-column>
+        <p-column field="serviceName" [header]="'ServiceName' | translate" [sortable]="true"></p-column>
+        <p-column field="servicePackageCode" [header]="'PackageCode' | translate" [sortable]="true"></p-column>
+        <p-column field="servicePackageName" [header]="'PackageName' | translate" [sortable]="true"></p-column>
+        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
+        <p-column field="discount" [header]="'Discount' | translate" [sortable]="true"></p-column>
+        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
+        <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>
+
+<br />
+<h4>{{ 'LabTests' | translate}}</h4>
+<div class="row">
+    <p-dataTable [value]="model.labTests | translateObjects  : null : null : lstToTranslatedLabTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="labTestCode" [header]="'TestCode' | translate" [sortable]="true"></p-column>
+        <p-column field="labTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
+        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
+        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
+        <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>
+
+<br />
+<h4>{{ 'RadiologyTests' | translate}}</h4>
+<div class="row">
+    <p-dataTable [value]="model.radiologyTests | translateObjects  : null : null : lstToTranslatedRadiologyTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column field="radTestCode" [header]="'TestCode' | translate" [sortable]="true"></p-column>
+        <p-column field="radTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
+        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
+        <p-column field="diagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
+        <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>
+
+
+<br />
+<h4>{{ 'Remarks' | translate}}</h4>
+<div class="row">
+    <p-editor [ngModel]="model.description" [style]="{'height':'200px'}" readonly="true">
+    </p-editor>
+</div>
+<br />
+
+<div id="PrintArea" class="row hidden">
+    <div class="row">
+        <strong>
+            {{ 'CreationDate' | translate}}
+        </strong>
+        : &nbsp;&nbsp;&nbsp;
+        {{model.creationDateString}}
+    </div>
+
+    <div class="row">
+        <div class="forum-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <div>
+                        <label class="label label-success">
+                            {{ 'UnifiedMRN' | translate}} : {{model.patient.unifiedMRN}}
+                        </label>
+                        <label class="label label-pink">
+                            {{ 'ClinicMRN' | translate}} : {{model.patient.clinicMRN}}
+                        </label>
+                    </div>
+                    <h2 class="forum-title">
+                        {{model.patient.name}}
+                    </h2>
+                    <p class="forum-sub-title">
+                        <span class="topic-meta">
+                            <em>
+                                <strong>
+                                    {{ 'Description' | translate}}:
+                                </strong>
+                                {{model.patient.description}}
+                            </em>
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="forum-meta">
+                        <div class="forum-meta-info">
+                            <ul>
+                                <li>
+                                    <label>{{ 'Gender' | translate}}:</label>&nbsp; {{model.patient.gender}}
+                                </li>
+                                <li>
+                                    <label>{{ 'Age' | translate}}: </label>&nbsp;{{model.patient.age}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <h4>{{ 'MedicalInsuranceDetails' | translate}}</h4>
+    <table  class="table table-condensed" style="border:none;">
+        <tr>
+            <td >
+                <strong>
+                    {{ 'Company' | translate}}
+                </strong>
+            </td>
+            <td >{{model.patient.activeInsurance.companyName}}</td>
+            <td >
+                <strong>
+                    {{ 'PolicyName' | translate}}
+                </strong>
+            </td>
+            <td>{{model.patient.activeInsurance.policyName}}</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    {{ 'StartDate' | translate}}
+                </strong>
+            </td>
+            <td>{{model.patient.activeInsurance.startDateString}}</td>
+            <td>
+                <strong>
+                    {{ 'EndDate' | translate}}
+                </strong>
+            </td>
+            <td>{{model.patient.activeInsurance.endDateString}}</td>
+        </tr>
+        <tr>
+            <td>
+                <strong>
+                    {{ 'Description' | translate}}
+                </strong>
+            </td>
+            <td colspan="3">
+                {{model.patient.activeInsurance.description}}
+            </td>
+        </tr>
+    </table>
+
+    <br />
+    <h4>{{ 'ChiefComplaint' | translate}}</h4>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-6">
+            {{model.chiefComplaint.chiefComplaintMain}}
+        </div>
+    </div>
+
+    <br />
+    <h4>{{ 'VitalSigns' | translate}}</h4>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <td width="30%">{{ 'Weight' | translate}}</td>
+            <td>{{model.chiefComplaint.weightValue}}</td>
+            <td>{{model.chiefComplaint.weightValueMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Temprature' | translate}}</td>
+            <td>{{model.chiefComplaint.temperatureTypeValue}}</td>
+            <td>{{model.chiefComplaint.temperatureTypeMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Respirationrate' | translate}}</td>
+            <td>{{model.chiefComplaint.respirationRate}}</td>
+            <td>{{model.chiefComplaint.respirationRateMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Pulse' | translate}}</td>
+            <td>{{model.chiefComplaint.pulse}}</td>
+            <td>{{model.chiefComplaint.pulseMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Height' | translate}}</td>
+            <td>{{model.chiefComplaint.heightvalue}}</td>
+            <td>{{model.chiefComplaint.heightValueMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'HeadCircumferences' | translate}}</td>
+            <td>{{model.chiefComplaint.headCircumferences}}</td>
+            <td>{{model.chiefComplaint.headCircumferencesMArk}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'BPSystolic' | translate}}</td>
+            <td>{{model.chiefComplaint.bpSystolic}}</td>
+            <td>{{model.chiefComplaint.bpSystolicMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'BPDiastolic' | translate}}</td>
+            <td>{{model.chiefComplaint.bpDiastolic}}</td>
+            <td>{{model.chiefComplaint.bpDiastolicMArk}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'BMI' | translate}}</td>
+            <td>{{model.chiefComplaint.bMI}}</td>
+            <td>{{model.chiefComplaint.bMIMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'DurationOfIllness' | translate}}</td>
+            <td>{{model.chiefComplaint.durationOfIllness}}</td>
+            <td>{{model.chiefComplaint.durationOfIllnessMark}}</td>
+        </tr>
+        <tr>
+            <td>{{ 'SignificantSigns' | translate}}</td>
+            <td colspan="2">{{model.chiefComplaint.significantSigns}}</td>
+        </tr>
+    </table>
+
+    <br />
+    <h4>{{ 'Diagnosis' | translate}}</h4>
+    <div class="row">
+        <table class="table table-responsive table-hover table-bordered table-striped">
+            <thead class="alert alert-info">
+                <tr>
+                    <th>{{'DiagnoseCode' | translate}}</th>
+                    <th>{{'DiagnoseName' | translate}}</th>
+                    <th>{{'Date' | translate}}</th>
+                    <th>{{'Description' | translate}}</th>
+                    <th>{{'DoctorName' | translate}}</th>
+                    <th>{{'Status' | translate}}</th>
+                    <th>{{'CurrentPast' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of model.diagnosis">
+                    <td>{{item.diagnoseCode}}</td>
+                    <td>{{item.diagnoseName}}</td>
+                    <td>{{item.dateTimeString}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.doctorName}}</td>
+                    <td>{{item.status}}</td>
+                    <td>
+                        <img *ngIf="item.isCurrent" src="Images/ok-24.jpg" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+    <h4>{{ 'NewMedication' | translate}}</h4>
+    <div class="row">
+        <table class="table table-responsive table-hover table-bordered table-striped">
+            <thead class="alert alert-info">
+                <tr>
+                    <th>{{'MedicationCode' | translate}}</th>
+                    <th>{{'Name' | translate}}</th>
+                    <th>{{'DosageQuantity' | translate}}</th>
+                    <th>{{'DosageUnit' | translate}}</th>
+                    <th>{{'Frequency' | translate}}</th>
+                    <th>{{'StartDate' | translate}}</th>
+                    <th>{{'Duration' | translate}}</th>
+                    <th>{{'Description' | translate}}</th>
+                    <th>{{'Diagnosis' | translate}}</th>
+                    <th>{{'RecorderName' | translate}}</th>
+                    <th>{{'RecordedDate' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of model.medications">
+                    <td>{{item.drugCode}}</td>
+                    <td>{{item.drugName}}</td>
+                    <td>{{item.dosageQuantity}}</td>
+                    <td>{{item.dosageUnitName}}</td>
+                    <td>{{item.frequencyName}}</td>
+                    <td>{{item.startDateString}}</td>
+                    <td>{{item.duration}}</td>
+                    <td>{{item.description}}</td>
+                    <td>{{item.relatedDiagnoseName}}</td>
+                    <td>{{item.recorderName}}</td>
+                    <td>{{item.recordingDateString}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+    <h4>{{ 'Services' | translate}}</h4>
+    <div class="row">
+        <table class="table table-responsive table-hover table-bordered table-striped">
+            <thead class="alert alert-info">
+                <tr>
+                    <th>{{'ServiceCode' | translate}}</th>
+                    <th>{{'ServiceName' | translate}}</th>
+                    <th>{{'Quantity' | translate}}</th>
+                    <th>{{'Discount' | translate}}</th>
+                    <th>{{'DiagnoseName' | translate}}</th>
+                    <th>{{'Remarks' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of model.services">
+                    <td>{{item.serviceCode}}</td>
+                    <td>{{item.serviceName}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.discount}}</td>
+                    <td>{{item.diagnoseName}}</td>
+                    <td>{{item.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <br />
+    <h4>{{ 'LabTests' | translate}}</h4>
+    <div class="row">
+        <table class="table table-responsive table-hover table-bordered table-striped">
+            <thead class="alert alert-info">
+                <tr>
+                    <th>{{'TestCode' | translate}}</th>
+                    <th>{{'TestName' | translate}}</th>
+                    <th>{{'Quantity' | translate}}</th>
+                    <th>{{'DiagnoseName' | translate}}</th>
+                    <th>{{'Remarks' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of model.labTests">
+                    <td>{{item.labTestCode}}</td>
+                    <td>{{item.labTestName}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.diagnoseName}}</td>
+                    <td>{{item.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+    <h4>{{ 'RadiologyTests' | translate}}</h4>
+    <div class="row">
+        <table class="table table-responsive table-hover table-bordered table-striped">
+            <thead class="alert alert-info">
+                <tr>
+                    <th>{{'TestCode' | translate}}</th>
+                    <th>{{'TestName' | translate}}</th>
+                    <th>{{'Quantity' | translate}}</th>
+                    <th>{{'DiagnoseName' | translate}}</th>
+                    <th>{{'Remarks' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of model.radiologyTests">
+                    <td>{{item.radTestCode}}</td>
+                    <td>{{item.radTestName}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.diagnoseName}}</td>
+                    <td>{{item.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br />
+    <h4>{{ 'Remarks' | translate}}</h4>
+    <div>
+        <p-editor [ngModel]="model.description" [style]="{'height':'500px'}" readonly="true">
+        </p-editor>
+    </div>
+
+</div>

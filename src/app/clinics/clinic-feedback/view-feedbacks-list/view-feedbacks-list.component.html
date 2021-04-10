@@ -1,0 +1,36 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row">
+    <clinic-tab [isFeedbackSelected]='selectFeedbackTab'></clinic-tab>
+    <div class="row nopadding">
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'Feedback' | translate}}
+        </div>
+    <div class="row well" style="background-color: #f6f7f9 !important;">
+        <div class="inner-addon left-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
+        </div>
+
+        <p-dataTable [value]="clinicFeedbacksList | translateObjects  : null : null : lstToTranslated " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="dateString" [header]="'FeedbackDate' | translate" [sortable]="true"></p-column>
+            <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
+            <p-column field="patientMobileNumber" [header]="'Contact' | translate" [sortable]="true"></p-column>
+            <p-column field="message" [header]="'Message' | translate" [sortable]="true"></p-column>
+            <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
+            <p-column field="lastReplyingUserName" [header]="'LastReplyBy' | translate" [sortable]="true"></p-column>
+            <p-column field="lastReplyingDateString" [header]="'LastReplyDate' | translate" [sortable]="true"></p-column>
+            <p-column [header]="'Action' | translate" styleClass="text-center">
+                <template let-feedback="rowData" pTemplate="body">
+                    <a class="pointer" routerLink="/clinic/feedback/replyToFeedback/{{feedback.id}}" [class.disabled]="!isClinicAdmin ? true : null">
+                        <img src="Images/edit-24.png" />
+                    </a>
+                </template>
+            </p-column>
+        </p-dataTable>
+    </div>
+    </div>
+</div>
+

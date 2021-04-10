@@ -1,0 +1,31 @@
+﻿
+<div class="row">
+        <shared-tabs [activeTabIndex]="10"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+                <div class="row " style="padding:13px;">
+                    <div class="NBbreadcrumb">
+                        <a>{{ 'ReceptionistProfile' | translate}}</a> &nbsp;/
+                        {{ 'Patients' | translate}}
+                    </div>
+
+                </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="h3Deco">
+                   {{ 'PatientSearch' | translate}}
+                </h3>
+            </div>
+            <div class="col-md-8 align-reverse padding5">
+                <button type="button" class="btn btn-primary" routerLink="/patient/file/new" disabled="{{ enableNewPatientBtn ? '' :'disabled'}}">{{ 'CreatePatientFile' | translate}}</button>
+            </div>
+        </div>
+        <div class="padding5">
+            <patient-search [showActive] ="showActive" [showEdit] ="showEdit" [showSelect] ="showSelect" [showClose] ="showClose"></patient-search>
+        </div>
+    </div>
+</div>
+
+

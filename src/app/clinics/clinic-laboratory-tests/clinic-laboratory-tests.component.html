@@ -1,0 +1,118 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isLaboratoryTestsSelected]='selectLaboratoryTestsTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isLaboratoryTestsSelected]='selectLaboratoryTestsTab' *ngIf="!isClinicAdmin"></shared-tabs>
+
+    <div class="row ">
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+                {{ 'LaboratoryTests' | translate}}
+            </div>
+
+        </div>
+
+        <div>
+            <div class="row well">
+                <div class="">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LaboratoryTestsAndGroupsPopup" (click)="passParentGroupInfo('')" disabled="{{ enableAddRootBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'AddRootLaboratoryTestsGroup' | translate}}</button>
+                    <button type="button" class="hidden" #btnAddLaboratoryTestsGroup data-toggle="modal" data-target="#LaboratoryTestsAndGroupsPopup"></button>
+                    <button type="button" class="btn btn-primary" (click)="expandAll()">{{ 'ExpandAll' | translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="collapseAll()">{{ 'CollapseAll' | translate}}</button>
+                    <print-page [section]='toPrintDiv'></print-page>
+
+                </div>
+                <br />
+                <div class="row nopadding">
+                    <div class="col-md-5 nopadding">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input [placeholder]="'SearchByNameorCode' | translate" class="inputSearch form-control" [(ngModel)]="filterString" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div id="print-section" class="">
+              <div class="row well">
+                  <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedNode">
+                      <template let-node pTemplate="LaboratoryTest">
+                          <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                          &nbsp;
+                          {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                          &nbsp; &nbsp;
+                          <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                              <i class="fa fa-pencil fa-2x" (click)="displayPopup(node)" style="color: #32bea6;"></i>
+
+                          </a>
+                          <label>
+                              <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                     type="checkbox" [checked]="node.isActive"
+                                     (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
+                              <span class="lbl"></span>
+                          </label>
+                      </template>
+                      <template let-node pTemplate="LaboratoryTestsGroup">
+                          <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                          &nbsp;
+                          {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                          &nbsp; &nbsp;
+                          <a #btnAddLaboratoryTestsGroup data-toggle="modal" data-target="#LaboratoryTestsAndGroupsPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
+                              <img src="images/addImage.png" (click)="passParentGroupInfo(node)" />
+                          </a>
+                          &nbsp; &nbsp;
+                          <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                              <i class="fa fa-pencil fa-2x" (click)="displayPopup(node)" style="color: #32bea6;"></i>
+
+                          </a>
+                          <label>
+                              <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                     type="checkbox" [checked]="node.isActive"
+                                     (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
+                              <span class="lbl"></span>
+                          </label>
+                      </template>
+                  </p-tree>
+              </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Laboratory Tests Modal -->
+<div id="LaboratoryTestsAndGroupsPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" #btnClosePopup data-dismiss="modal" (click)="closeLaboratoryTestsAndGroupsPopup()">&times;</button>
+                <h4 class="modal-title">{{txtHeaderModal}}</h4>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-md-8">
+                    <table>
+                        <tr>
+                            <td *ngFor="let item of rbSelections; let idx = index">
+                                <input type="radio" name="radiogroup" [value]="item.value"
+                                       [checked]="item.value == selectedAction" #checkbox (change)="onCheckboxSelectionChange(checkbox.value)" disabled="{{ enableCheckBox ? '' :'disabled'}}">{{item.text | translate}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="isLaboratoryTestSelected">
+                <clinic-manage-laboratory-test [(selectedLaboratoryTestId)]='toSaveLaboratoryTestId' [(selectedParentGroupId)]='parentLaboratoryTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                         [(selectedParentGroupName)]='parentLaboratoryTestsGroupName' (onLaboratoryTestChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeLaboratoryTestsAndGroupsPopup()"></clinic-manage-laboratory-test>
+            </div>
+            <div *ngIf="isLaboratoryTestsGroupSelected">
+                <clinic-manage-laboratory-tests-group [(selectedLaboratoryTestsGroupId)]='toSaveLaboratoryTestsGroupId' [(selectedParentGroupId)]='parentLaboratoryTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                                [(selectedParentGroupName)]='parentLaboratoryTestsGroupName' (onLaboratoryTestsGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeLaboratoryTestsAndGroupsPopup()"></clinic-manage-laboratory-tests-group>
+            </div>
+        </div>
+    </div>
+</div>
+

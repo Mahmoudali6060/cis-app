@@ -1,0 +1,136 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isPurchasingSelected]='selectPurchasingTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isPurchasingSelected]='selectPurchasingTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    <div class="row nopadding">
+
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'PurchaseOrders' | translate}}
+        </div>
+        <div class="row well">
+            <div class="col-md-offset-8  text-right">
+                <button class="btn btn-primary " routerLink="/clinic/purchasing/createOrder/new/0/0" disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'CreateNewOrder' | translate}}</button>
+                <print-page [section]='purchasingOrderListDiv'></print-page>
+            </div>
+        </div>
+        <br />
+
+         <div   class="row well" style="background-color: #f6f7f9 !important;">
+             <div class="inner-addon left-addon">
+                 <i class="glyphicon glyphicon-search"></i>
+                 <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
+             </div>
+
+             <p-dataTable [value]="ordersList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                 <p-column field="refNo" [header]="'RerNo' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
+                 <p-column field="dateString" [header]="'OrderDate' | translate" [sortable]="true"></p-column>
+                 <p-column field="vendorName" [header]="'Vendor' | translate" [sortable]="true"></p-column>
+                 <p-column field="orderStatus" [header]="'Status' | translate" [sortable]="true"></p-column>
+                 <p-column field="totalPrice" [header]="'Total' | translate" [sortable]="true"></p-column>
+                 <p-column field="description" [header]="'Remark' | translate" [sortable]="true"></p-column>
+                 <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate" [sortable]="true"></p-column>
+                 <p-column field="userName" [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
+                 <p-column [header]="'ViewDetails' | translate" styleClass="text-center">
+                     <template let-order="rowData" pTemplate="body">
+                         <a class="underLinelinkText" (click)="viewOrderDetails(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'ViewDetails' | translate}}</a>
+                     </template>
+                 </p-column>
+                 <p-column [header]="'Edit' | translate" styleClass="text-center width70">
+                     <template let-order="rowData" pTemplate="body">
+                         <!--<a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin || order.orderStatus != 'Prepared'  ? true : null">{{ 'Edit' | translate}}</a>
+                <a href="http://google.com" class="disabled" disabled>Link</a>-->
+                         <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="isClinicAdmin && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
+                         <a class="disabled" *ngIf="isClinicAdmin && order.orderStatus != 'Prepared'" disabled>{{ 'Edit' | translate}}</a>
+                         <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="enableDetailsLink && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
+                         <a class="disabled" *ngIf="enableDetailsLink && order.orderStatus != 'Prepared'" disabled>{{ 'Edit' | translate}}</a>
+                     </template>
+                 </p-column>
+                 <p-column [header]="'ReSend' | translate" styleClass="text-center width70">
+                     <template let-order="rowData" pTemplate="body">
+                         <a class="underLinelinkText" (click)="resend(order)" [class.disabled]="!enableResendLink && !isClinicAdmin ? true : null">{{ 'ReSend' | translate}}</a>
+                     </template>
+                 </p-column>
+                 <p-column [header]="'ReceiveQuantity' | translate" styleClass="text-center width70">
+                     <template let-order="rowData" pTemplate="body">
+                         <!--<a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{order.id}}" [class.disabled]="!enableReceiveLink && !isClinicAdmin ? true : null">{{ 'ReceiveQuantity' | translate}}</a>-->
+                         <a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{order.id}}" *ngIf="isClinicAdmin || enableReceiveLink">{{ 'ReceiveQuantity' | translate}}</a>
+                         <a class="disabled" *ngIf="!isClinicAdmin && !enableReceiveLink" disabled>{{ 'ReceiveQuantity' | translate}}</a>
+                     </template>
+                 </p-column>
+                 <p-column [header]="'CloseOrder' | translate" styleClass="text-center">
+                     <template let-order="rowData" pTemplate="body">
+                         <a class="underLinelinkText" (click)="closeOrder(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Close' | translate}}</a>
+                     </template>
+                 </p-column>
+                 <!--<p-column [header]="'Delete' | translate" styleClass="text-center width70">
+            <template let-order="rowData" pTemplate="body">
+                <a class="underLinelinkText" (click)="selectOrderToDelete(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Delete' | translate}}</a>
+            </template>
+        </p-column>-->
+             </p-dataTable>
+         </div>
+
+        <div id="purchasingOrderListPrintDiv" class="row hidden">
+            <table class="table table-responsive table-bordered table-hover table-striped">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th>{{ 'RerNo' | translate}}</th>
+                        <th>{{ 'OrderDate' | translate}}</th>
+                        <th>{{ 'Vendor' | translate}}</th>
+                        <th>{{ 'Status' | translate}}</th>
+                        <th>{{ 'Total' | translate}}</th>
+                        <th>{{ 'Remark' | translate}}</th>
+                        <th>{{ 'LastModificationDate' | translate}}</th>
+                        <th>{{ 'LastModifierUser' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of ordersList | translateObjects  : null : null : lstToTranslated">
+                        <td>{{item.refNo}}</td>
+                        <td>{{item.dateString}}</td>
+                        <td>{{item.vendorName}}</td>
+                        <td>{{item.orderStatus}}</td>
+                        <td>{{item.totalPrice}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.lastModificationDateString}}</td>
+                        <td>{{item.userName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<button data-toggle="modal" data-target="#confirm" type="button" style="display:none" #btnConfirm></button>
+<!--<div id="confirm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" (click)="clearMsg()">&times;</button>
+                <h4 class="modal-title">{{ 'ItemsListConfirmation' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{itemsMsge}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="useCurrentOrderdQuantity()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="useItemOrderdQuantity()">{{ 'No' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+<p-dialog id="confirme" [header]="'ItemsListConfirmation' | translate" [(visible)]="display" [width]="600" modal="modal" responsive="true" (click)="clearMsg()">
+
+    <div>
+        <p>{{itemsMsge}}</p>
+    </div>
+    <div>
+        <button type="button" class="btn btn-danger" (click)="useCurrentOrderdQuantity()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="useItemOrderdQuantity()">{{ 'No' | translate}}</button>
+    </div>
+</p-dialog>

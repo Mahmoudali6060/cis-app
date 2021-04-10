@@ -1,0 +1,49 @@
+﻿<form *ngIf="active" class="form-horizontal" name="manageRadiologyTestForm" #manageRadiologyTestForm="ngForm">
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-3"> {{ 'ParentGroup' | translate}}</label>
+            <div class="col-md-9">
+                {{selectedParentGroupName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtRadiologyTestCode" class="control-label col-md-3"> {{ 'Code' | translate}}</label>
+            <div class="col-md-3">
+                <input id="txtRadiologyTestCode" name="txtRadiologyTestCode" class="form-control" [(ngModel)]='selectedRadiologyTest.code' #txtRadiologyTestCode="ngModel" required />
+                <div [hidden]="txtRadiologyTestCode.valid || txtRadiologyTestCode.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-3"> {{ 'ArabicName' | translate}}</label>
+            <div class="col-md-9">
+                <input id="txtName" name="txtName" class="form-control" [(ngModel)]='selectedRadiologyTest.name' #txtName="ngModel" required />
+                <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtNameTranslation" class="control-label col-md-3"> {{ 'EnglishName' | translate}}</label>
+            <div class="col-md-9">
+                <input id="txtNameTranslation" name="txtNameTranslation" class="form-control" [(ngModel)]='selectedRadiologyTest.nameTranslation' #txtNameTranslation="ngModel" required />
+                <div [hidden]="txtNameTranslation.valid || txtNameTranslation.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtRadiologyTestRemark" class="control-label col-md-3"> {{ 'Remark' | translate}}</label>
+            <div class="col-md-6">
+                <textarea id="txtRadiologyTestRemark" name="txtRadiologyTestRemark" class="form-control" [(ngModel)]='selectedRadiologyTest.description'></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="text-center">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!manageRadiologyTestForm.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="saveRadiologyTest()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelRadiologyTest()">{{ 'Cancel' | translate}}</button>
+        </div>
+    </div>
+</form>

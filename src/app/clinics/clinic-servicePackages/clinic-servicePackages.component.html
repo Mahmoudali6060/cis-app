@@ -1,0 +1,98 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>ServicePackage
+</div>
+
+<div class="row">
+    <clinic-tab [isServicePackagesSelected]='selectServicePackagesTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isServicePackagesSelected]='selectServicePackagesTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    <div class="row ">
+        <div class="row " >
+            <div class="NBbreadcrumb">
+                <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+                {{ 'ServicePackage' | translate}}
+            </div>
+
+        </div>
+    
+        <div>
+
+            <div class="row well ">
+               <div class="col-md-offset-8">
+                   <print-page [section]='toPrintDiv'></print-page>
+                   <button type="button" class="btn btn-primary" (click)="addServicePackage()" disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'NewPackage' | translate}}</button>
+                   <br />
+               </div>
+            </div>
+          
+            <div class="wellBackOverride row well  ">
+                <div class="inner-addon left-addon ">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+                </div>
+                
+                <br />
+                <p-dataTable [value]="servicePackagesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                    <p-column field="name" [header]="'Name' | translate" [sortable]="true"></p-column>
+                    <!--<p-column field="nameTranslation" [header]="'EnglishName' | translate" [sortable]="true"></p-column>-->
+                    <p-column field="code" [header]="'Code' | translate" [sortable]="true"></p-column>
+                    <p-column field="clinicCharge" [header]="'ClinicCharges' | translate" [sortable]="true"></p-column>
+                    <p-column field="resourceCharge" [header]="'ResourceCharges' | translate" [sortable]="true"></p-column>
+                    <p-column field="totalCost" [header]="'TotalCost' | translate" [sortable]="true"></p-column>
+
+                    <p-column [header]="'Active' | translate" styleClass="text-center width70">
+                        <template let-package="rowData" pTemplate="body">
+                            <label>
+                                <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                       type="checkbox" [checked]="package.isActive"
+                                       (click)="changeActivation(package.id , $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
+                                <span class="lbl"></span>
+                            </label>
+                        </template>
+                    </p-column>
+                    <p-column [header]="'Edit' | translate" styleClass="text-center width50">
+                        <template let-package="rowData" pTemplate="body">
+                            <a class="pointer" (click)="editServicePackage(package.id)" [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                                <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
+                            </a>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+          
+        </div>
+
+        <div id="print-section" class="hidden">
+            <div class="row text-center">
+                <span class="user-thumb">
+                    <img src="{{accountService.profileImagePath}}" alt="image">
+                </span>
+            </div>
+            <table class="table table-responsive table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">{{'Name' | translate}}</th>
+                        <th class="text-center">{{'Code' | translate}}</th>
+                        <th class="text-center">{{'ClinicCharges' | translate}}</th>
+                        <th class="text-center">{{'ResourceCharges' | translate}}</th>
+                        <th class="text-center">{{'TotalCost' | translate}}</th>
+                        <th class="text-center">{{'Active' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of servicePackagesList">
+                        <td>{{ item.name }} </td>
+                        <td class="text-center">{{ item.code }} </td>
+                        <td class="text-center">{{ item.clinicCharge }} </td>
+                        <td class="text-center">{{ item.resourceCharge }} </td>
+                        <td class="text-center">{{ item.totalCost }} </td>
+                        <td class="text-center">
+                            <img *ngIf="item.isActive" src="Images/ok-24.jpg" title="Active" alt="Active" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+

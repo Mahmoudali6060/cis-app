@@ -1,0 +1,112 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <shared-tabs [activeTabIndex]="3"></shared-tabs>
+</div>
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="row NBbreadcrumb">
+            <a>{{ 'DoctorProfile' | translate}}</a> &nbsp;/
+            {{ 'MyAppointments' | translate}}
+        </div>
+        <div class="col-md-5 alert alert-info text-center">
+            <div *ngIf="hasMultiClincs">
+                <select id="ddlObjects" class="form-control" name="ddlObjects" (change)="setClinicId(d.value)" #d>
+                    <option value="">{{ 'Select' | translate}}</option>
+                    <option *ngFor="let obj of clinics" [value]="obj.id">{{obj.name}}</option>
+                </select>
+            </div>
+            <div *ngIf="!hasMultiClincs">
+                {{selectedClinic.name}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="padding5">
+    <div class="row well">
+        <div class="col-md-4  col-md-offset-8 ">
+            <button class="float-right btnMarginLeft btn btn-primary" disabled="{{ !disabled ? '' :'disabled'}}" data-toggle="collapse" data-target="#SearchForPatient">{{ 'Search' | translate}}</button>
+            <button class="btn btn-primary float-right btnMarginRight " (click)="reloadDoctorAppointments()">{{ 'Reload' | translate}}</button>
+        </div>
+    </div>
+    <div class="row">
+       
+        <br />
+        <div id="SearchForPatient" class="collapse fa-border well">
+            <div class="padding5 marginTop35">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <label for="txtMRNRes" class="col-md-2 control-label">{{ 'PatientMRN' | translate}}</label>
+
+                        <div class="col-md-4">
+                            <input type="text" placeholder="MRN" class="form-control" [(ngModel)]='appointmentCriteria.patientClinicMRN' id="txtMRNRes" name="txtMRNRes" on-keyup="returnToDoctorAppointments(v.value)" #v />
+                            <a class="pointer" (click)="showPatientDialog()">{{ 'PatientAdvancedSearch' | translate}}</a>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" (click)="search()" class="btn btn-primary" disabled="{{ !disabled ? '' :'disabled'}}">{{ 'Search' | translate}}</button>
+                            <button type="button" (click)="getPatientMrfByUnifiedMrn()" class="btn btn-primary" disabled="{{ !disabled ? '' :'disabled'}}">{{ 'OpenMRF' | translate}}</button>
+                        </div>
+
+                        <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" resizable="true" width="800" responsive="true" height="auto">
+                            <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
+                        </p-dialog>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="padding2"></div>
+
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+
+            <div class="col-md-5 nopadding">
+                <div class="inner-addon left-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input [placeholder]="'Search' | translate" class="inputSearch form-control" [(ngModel)]="filterString" />
+                </div>
+            </div>
+
+            <p-dataTable [value]="doctorAppointmentsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="serialNumber" header="#" [sortable]="true" styleClass="width50"></p-column>
+                <p-column field="patientClinicMRN" [header]="'MRN' | translate"
+                          [sortable]="true"></p-column>
+                <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
+                <p-column field="dateTimeFormat" [header]="'Time' | translate" [sortable]="true"></p-column>
+                <p-column field="appointmentClassName" [header]="'AppointmentType' | translate" [sortable]="true"></p-column>
+                <!--<p-column field="visitTypeName" [header]="'VisitType' | translate" [sortable]="true"></p-column>-->
+                <p-column field="receptionistRemarks" [header]="'ReceptionistRemarks' | translate" [sortable]="true"></p-column>
+                <p-column field="arrivalTimeString" [header]="'Arrival' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'Seen' | translate" styleClass="text-center">
+                    <template let-appointment="rowData" pTemplate="body">
+                        <button class="btn btn-success" (click)="addSeenTime(appointment)" disabled="{{ !appointment.isSeen ? '' :'disabled'}}">
+                            {{ (appointment.isSeen) ? appointment.seenTimeString : seenString }}
+                        </button>
+                    </template>
+                </p-column>
+                <p-column [header]="'ViewMRF' | translate" styleClass="text-center width50">
+                    <template let-appointment="rowData" pTemplate="body">
+                        <a class="pointer" (click)="!disabled && viewMrf(appointment)" [class.disabled]="disabled ? true : null">
+                            <img src="Images/viewFile-24.png" />
+                        </a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!--<p-dialog [header]="'SearchForPatient' | translate"
+          [(visible)]="display" resizable="true" width="800" responsive="true" height="auto">
+    <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
+</p-dialog>-->

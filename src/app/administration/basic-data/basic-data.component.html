@@ -1,0 +1,162 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="nopadding">
+
+    <div class="row ">
+        <div class="row ">
+            <form novalidate class="form-horizontal" *ngIf="active" name="basicDataForm" (ngSubmit)="onSubmit()" #basicDataForm="ngForm">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="control-label col-md-4 col-sm-4" for="txtName">{{ 'ArabicName' | translate}}</label>
+                            <div class="col-md-8 col-sm-8">
+                                <input type="text" id="txtArabicName" name="txtArabicName" class="form-control" [(ngModel)]='model.name' #txtArabicName="ngModel" required />
+                                <div [hidden]="txtArabicName.valid || txtArabicName.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4" for="txtEnglishName">{{ 'EnglishName' | translate}}</label>
+                            <div class="col-md-8 col-sm-8">
+                                <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control" [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
+                                <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4" for="txtArabicDescription">{{ 'Description' | translate}} </label>
+                            <div class="col-md-8 col-sm-8">
+                                <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control" [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="ChkIsActive">{{ 'Active' | translate}} </label>
+                            <div class="col-md-8">
+                                <label>
+                                    <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
+                                    <span class="lbl"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="isExempted">
+                            <label class="control-label col-md-4" for="ChkIsExemptedFromVAT ">{{ 'ExemptedFromVAT' | translate}} </label>
+                            <div class="col-md-8">
+                                <label>
+                                    <input id="ChkIsExemptedFromVAT" name="ChkIsExemptedFromVAT" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.exemptedFromVAT" #ChkIsExemptedFromVAT="ngModel" />
+                                    <span class="lbl"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4  nopadding">
+                    <button type="submit" class="btn btn-primary" [disabled]="!basicDataForm.form.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" (click)="clear()">{{ 'New' | translate}}</button>
+
+                </div>
+                <br /><br />
+                <div class="floatBtn">
+                    <print-page [section]='toPrintDiv'></print-page>
+
+                </div>
+            </form>
+
+        </div>
+        <br />
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input #gb type="text" pInputText size="50" class="inputSearch" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" [placeholder]="'Search' | translate">
+            </div>
+            <p-dataTable [value]="allObjects" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="name" [header]="'ArabicName' | translate" [sortable]="true"></p-column>
+                <p-column field="nameTranslation" [header]="'EnglishName' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'Active' | translate" styleClass="text-center width70">
+                    <template let-item="rowData" pTemplate="body">
+                        <label>
+                            <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" />
+                            <span class="lbl"></span>
+                        </label>
+
+
+
+                    </template>
+                </p-column>
+                <p-column [header]="'Edit' | translate" styleClass="text-center width50">
+                    <template let-item="rowData" pTemplate="body">
+                        <a [class.disabled]="!enableMyAccountBtn ? true : null">
+                            <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" title="Edit Department" style="color: #32bea6;"></i>
+                        </a>
+
+                    </template>
+                </p-column>
+                <!--<p-column [header]="'Delete' | translate" styleClass="text-center width50">
+                    <template let-item="rowData" pTemplate="body">
+                        <a data-toggle="modal" data-target="#deleteConfirmation" class="pointer" (click)="selectItemToDelete(item.id)" [class.disabled]="!enableMyAccountBtn ? true : null">
+                            <img src="Images/DeleteRed.png" />
+                        </a>
+                    </template>
+                </p-column>-->
+            </p-dataTable>
+
+        </div>
+
+        <div id="print-section" class="hidden">
+            <table class="table table-responsive table-hover">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th>{{ 'ArabicName' | translate}}</th>
+                        <th>{{ 'EnglishName' | translate}}</th>
+                        <th>{{ 'Active' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of allObjects">
+                        <td>{{item.name}}</td>
+                        <td>{{item.nameTranslation}}</td>
+                        <td>
+                            <img *ngIf="item.isActive" src="Images/ok-24.jpg" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- delete Modal
+            <div id="deleteConfirmation" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{ 'ConfirmDelete' | translate}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ 'AreYouSureDelete' | translate}}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                            <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
+    </div>
+</div>
+
+

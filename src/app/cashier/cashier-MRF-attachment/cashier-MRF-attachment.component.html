@@ -1,0 +1,51 @@
+﻿<div class="row">
+    <!--<button class="btn btn-primary" data-toggle="collapse" data-target="#SearchFoClaim">Add Attachement</button>-->
+    <!--<div id="SearchFoClaim" class="collapse">
+    </div>-->
+    <div class="form-group">
+        <label class="control-label col-md-3">{{ 'AttachementName' | translate}}</label>
+        <div class="col-md-6">
+            <input type="file" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3">{{ 'AttachementType' | translate}}</label>
+        <div class="col-md-6">
+            <select class="form-control" id="ddlDateFiltration">
+                <option>{{ 'Select' | translate}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-2 col-lg-offset-10">
+            <button class="btn btn-primary">{{ 'Save' | translate}}</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="search" placeholder="Search..." class="form-control" />
+        </div>
+    </div>
+    <table class="table table-responsive table-hover">
+        <thead class="alert alert-info">
+            <tr>
+                <th>{{ 'AttachementName' | translate}}</th>
+                <th>{{ 'AttachementType' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th><a routerLink="#">تحليل صورة دم كاملة</a></th>
+                <th>تحاليل</th>
+            </tr>
+            <tr>
+                <th><a routerLink="#">تحليل الكولسترول في الدم</a></th>
+                <th>تحاليل</th>
+            </tr>
+            <tr>
+                <th><a routerLink="#">إشاعة علي الظهر</a></th>
+                <th>إشاعة إكس</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

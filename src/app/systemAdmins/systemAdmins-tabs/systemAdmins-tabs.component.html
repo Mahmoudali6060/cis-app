@@ -1,0 +1,66 @@
+﻿
+
+<div class="left-aside desktop-view">
+    <div class="aside-branding">
+        <a>
+            <!--<img src="Images/logo.png" height="60" width="60" />-->
+            <img src="Images/App-Logo.png" title="Logo" class="appLogo" />
+        </a>
+        <!--<a routerLink="/home" class="large-logo">
+            <span style="color:white;">&nbsp;&nbsp;CIS</span>
+        </a>-->
+        <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
+        <span class="aside-close waves-effect" onclick="closeLeftBar();"><i class="fa fa-times"></i></span>
+    </div>
+    <div class="left-navigation">
+        <ul class="list-accordion padding5">
+            <li>
+                <a class="{{ isDashboardSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/dashboard"> 
+                    <span class="nav-icon"><i class="fa fa-line-chart"></i></span><span class="nav-label">{{ 'Dashboard' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isAccountSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/account/{{clinicAdminId}}"> 
+                    <span class="nav-icon"><i class="ico-user"></i></span><span class="nav-label">{{ 'Account' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isClinicsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/clinics"> 
+                    <span class="nav-icon"><i class="fa fa-hospital-o"></i></span><span class="nav-label">{{ 'Clinics' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isVendorsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/vendors"> 
+                    <span class="nav-icon"><i class="fa fa-users"></i></span><span class="nav-label">{{ 'Vendors' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isDepartmentSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/departments"> 
+                    <span class="nav-icon"><i class="ico-flow-tree"></i></span><span class="nav-label">{{ 'Departments' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isDivisionSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/divisions"> 
+                    <span class="nav-icon"><i class="ico-flow-tree"></i></span><span class="nav-label">{{ 'Divisions' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isDemoghraphicsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/basicData">
+                    <span class="nav-icon"><i class="fa fa-cogs"></i></span><span class="nav-label">{{ 'InitialSettings' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isSettingsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/settings"> 
+                    <span class="nav-icon"><i class="fa fa-cog"></i></span><span class="nav-label">{{ 'Settings' | translate}}</span>
+               </a>
+            </li>
+            <li>
+                <a class="{{ isImportExportSelected ? 'selectednavbaritem active' : '' }}" routerLink="/systemAdmin/importExport">
+                    <span class="nav-icon"><i class="fa fa-exchange"></i></span><span class="nav-label">{{ 'ImportExport' | translate}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

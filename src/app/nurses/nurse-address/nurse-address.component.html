@@ -1,0 +1,33 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>NurseProfileAddressContact
+</div>
+
+
+<div class="row">
+    <div class="col-md-2 nopadding">
+        <nurse-tabs [activeTabIndex]="2"></nurse-tabs>
+    </div>
+    <div class="col-md-10 nopadding">
+        <div class="" id="breadcrumbs">
+            <div class="NBbreadcrumb">
+                <a>{{ 'NurseProfileAddressContact' | translate}}</a>
+            </div>
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+        </div>
+        <form novalidate *ngIf="active" class="form-horizontal" name="addressForm" (ngSubmit)="onSubmit()" #addressForm="ngForm">
+               <div class="form-group">
+                <address [reachInfo]="model.address" >
+                    <div class="form-group">
+                            <button type="submit" class="btn btn-primary" [disabled]="!addressForm.form.valid">{{ 'Save' | translate}}</button>
+                            <button type="button" class="btn btn-primary" (click)="clear()">{{ 'Cancel' | translate}}</button>
+                    </div>
+                </address>
+            </div>
+           
+        </form>
+
+</div>
+</div>
+

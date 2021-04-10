@@ -1,0 +1,100 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isPurchasingSelected]='selectPurchasingTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isPurchasingSelected]='selectPurchasingTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    <div class="row nopadding">
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'PurchaseOrders' | translate}}
+        </div>
+        <div class="row well">
+            <form *ngIf="active" class="form-horizontal" name="orderForm" #orderForm="ngForm">
+                <div class="row text-center">
+                    <button class="btn btn-primary" [disabled]="!orderForm.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="createOrder()">{{ 'Save' | translate}}</button>
+                    <button class="btn btn-primary" [disabled]="!orderForm.valid ||(!enableSaveAndSendBtn && !isClinicAdmin)" (click)="createAndSendOrder()">{{ 'SaveandSend' | translate}}</button>
+                    <button class="btn btn-primary" (click)="navigateToOrdersList()">{{ 'Back' | translate}}</button>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="ddlVendors" class="control-label col-md-4"> {{ 'Vendor' | translate}}</label>
+                    <div class="col-md-4">
+                        <select class="form-control" name="ddlVendors" [(ngModel)]="model.vendorId" required>
+                            <option value="">{{ 'Select' | translate}}</option>
+                            <option *ngFor="let vendor of vendorsList | translateObjects" [value]="vendor.id">{{vendor.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="table table-responsive table-hover table-bordered">
+                    <thead class="alert alert-info">
+                        <tr>
+                            <th class="text-center" width="25%">{{ 'Item' | translate}}</th>
+                            <th class="text-center">{{ 'OnhandQuantity' | translate}}</th>
+                            <th class="text-center">{{ 'Unit' | translate}}</th>
+                            <th class="text-center">{{ 'PurchasePrice' | translate}}</th>
+                            <th class="text-center">{{ 'OrderdQuant' | translate}}</th>
+                            <th class="text-center">{{ 'Net' | translate}}</th>
+                            <th class="text-center">{{ 'Remark' | translate}}</th>
+                            <th class="text-center">{{ 'Delete' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of purchaseOrderList; let i=index">
+                            <td width="25%">
+                                <select class="form-control" name="ddlProducts{{i}}{{getControlNumber()}}" [(ngModel)]="order.productId" (change)="setOtherAttribute(p.value,i)" #p required>
+                                    <option *ngFor="let product of productsList | translateObjects" [value]="product.id">{{product.name}}</option>
+                                </select>
+
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" name="txtOnHandQuantity{{i}}{{getControlNumber()}}" [(ngModel)]="order.onHandQuantity" disabled="disabled" />
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" name="txtUnit{{i}}{{getControlNumber()}}" value="{{ order.unit}}" disabled="disabled" />
+                            </td>
+                            <td>
+                                <input type="number" min="1" step="1" class="form-control" name="txtPurchasingPrice{{i}}{{getControlNumber()}}" [(ngModel)]="order.purchasingPrice" on-keyup="calculateNet(i)" />
+                            </td>
+                            <td>
+                                <input type="number" min="1" step="1" class="form-control" name="txtOrderedQuantity{{i}}{{getControlNumber()}}" [(ngModel)]="order.orderedQuantity" on-keyup="calculateNet(i)" title="current is{{order.currentOrderedQuantity}}" />
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" name="txtTotalPrice{{i}}{{getControlNumber()}}" [(ngModel)]="order.net" disabled="disabled" />
+                            </td>
+                            <td>
+                                <textarea class="form-control" name="txtRemark{{i}}{{getControlNumber()}}" [(ngModel)]="order.description"></textarea>
+                            </td>
+                            <td class="text-center">
+                                <a class="pointer"
+                                   (click)="deleteServiceBeneficiary(i,order.id)">
+                                    <img src="Images/DeleteRed.png" />
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="alert alert-info">
+                            <th colspan="9">
+                                <div style="float:left;">
+                                    <a class="pointer" (click)="addPurchaseOrder()">
+                                        <img src="Images/AddImage.png" />
+                                        <span style="text-decoration:underline;">
+                                            {{ 'AddNew' | translate}}
+                                        </span>
+                                    </a>
+                                </div>
+                            </th>
+                        </tr>
+
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+

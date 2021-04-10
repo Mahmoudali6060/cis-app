@@ -1,0 +1,184 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>  
+</div>
+<div class="row">
+    <shared-tabs [activeTabIndex]="21"></shared-tabs>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="NBbreadcrumb">
+                <a>{{ 'InsuranceManager' | translate}}</a> &nbsp;/
+                <a>{{ 'Invoices' | translate}}</a> &nbsp;/
+                {{ 'InvoiceDetails' | translate}}
+            </div>
+        </div>
+    </div>
+    <br />
+    <form class="form-horizontal">
+        <div class="row text-center">
+            <!--<button type="button" class="btn btn-primary" (click)="saveInvoiceDetails()">{{ 'Save' | translate}}</button>-->
+            <button type="button" class="btn btn-primary" disabled="{{ enableViewCompanyDetails ? '' :'disabled'}}" routerLink="/insurance/invoice">{{ 'Back' | translate}}</button>
+            <button type="button" disabled="{{ enableCancelInvioce ? '' :'disabled'}}" clas class="btn btn-primary" *ngIf="!isInvoiceCanceled" data-toggle="modal" data-target="#cancelInvoice">
+                {{ 'CancelInvoice' | translate}}
+            </button>
+            <button type="button" class="btn btn-primary" disabled="{{ enableEndorseInvoicesBtn ? '' :'disabled'}}" (click)="endorseInvoice()">{{ 'EndorseInvoice' | translate}}</button>
+        </div>
+        <h4>{{ 'InvoiceRefNo' | translate}}: {{selectedInvoice.id}}</h4>
+        <div class="alert-warning" *ngIf="isInvoiceCanceled">
+            <div class="row borderBottom">
+                <div class="col-md-3">
+                    <strong>
+                        {{ 'CanceledBy' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-3">
+                    {{(selectedInvoice.canceledBy  | translateObjects  : 'name' : 'nameTranslation' : null).name}}
+                </div>
+                <div class="col-md-3">
+                    <strong>
+                        {{ 'CancellationDate' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-3">
+                    :{{selectedInvoice.cancellationDateString}}
+                </div>
+            </div>
+            <div class="row borderBottom">
+                <div class="col-md-3">
+                    <strong>
+                        {{ 'CancellationReason' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-3">
+                    :{{selectedInvoice.cancellationReason}}
+                </div>
+            </div>
+        </div>
+        <div class="alert-success">
+            <div class="row borderBottom">
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'InvoiceDate' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{selectedInvoice.invoiceDateString}}
+                </div>
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'CreatedBy' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{(selectedInvoice| translateObjects  : 'creatorName' : 'creatorNameTranslation' : null).creatorName}}
+
+
+                </div>
+            </div>
+            <div class="row borderBottom">
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'InvoiceStatus' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{selectedInvoice.status }}
+                </div>
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'CompanyName' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{(selectedInvoice| translateObjects  : 'companyName' : 'companyNameTranslation' : null).companyName}}
+                </div>
+            </div>
+            <div class="row borderBottom">
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'NetAmount' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{selectedInvoice.netAmount}}
+                </div>
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'PrePaidAmount' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{selectedInvoice.totalCredit}}
+                </div>
+            </div>
+            <div class="row borderBottom">
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'LastModificationDate' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{selectedInvoice.lastModificationDateString}}
+                </div>
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'LastModifierUser' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :{{(selectedInvoice| translateObjects  : 'lastModifierName' : 'lastModifierNameTranslation' : null).lastModifierName}}
+                </div>
+            </div>
+            <!--<div class="row borderBottom">
+                <div class="col-md-2">
+                    <strong>
+                        {{ 'Remarks' | translate}}
+                    </strong>
+                </div>
+                <div class="col-md-4">
+                    :<textarea name="txtDiagnoseRemark" class="form-control" [(ngModel)]='selectedInvoice.description'></textarea>
+                </div>
+            </div>-->
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#InvoiceCharges" data-toggle="tab" aria-expanded="true">{{ 'Services' | translate}}</a></li>
+        </ul>
+        <div id="invoiceServicesTabContent" class="tab-content">
+            <div id="InvoiceCharges" class="tab-pane fade active in">
+                <insurance-invoice-services [isInvoiceCanceled]="isInvoiceCanceled"
+                                            [invoiceChargesList]="invoiceChargesList"
+                                            (onAmountUpdated)="updateAmount($event)"></insurance-invoice-services>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="cancelInvoice" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'CancelInvoice' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="cancelInvoiceForm" #cancelInvoiceForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'CancellationReason' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="txtInvoiceCancellationReason"
+                                      [(ngModel)]='selectedInvoice.cancellationReason'></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="confirmInvoiceCancellation()">{{ 'ConfirmCancellation' | translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

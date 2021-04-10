@@ -1,0 +1,22 @@
+﻿<div class="row">
+
+    <systemAdmins-tabs [isDepartmentSelected]='selectDepartmentsTab'></systemAdmins-tabs>
+
+    <div class="row nopadding">
+
+        <div class="page-breadcrumb">
+            <div class="row ">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                    {{ 'Departments' | translate}}
+                </div>
+            </div>
+        </div>
+
+       <div class="row well">
+
+           <basic-data [objectType]='objectType' [title]="title"></basic-data>
+       </div>
+    </div>
+</div>
+

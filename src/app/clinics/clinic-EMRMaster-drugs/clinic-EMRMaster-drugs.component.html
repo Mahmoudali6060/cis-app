@@ -1,0 +1,91 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row nopadding" *ngIf="division">
+    <div class="padding5">
+
+        <div class="hidden">
+            <button #AddEditDrugGroup type="button" class="btn btn-primary" data-toggle="modal" data-target="#DrugsPopup"></button>
+        </div>
+
+        <p-tree [value]="items" selectionMode="single" [(selection)]="selectedItem">
+            <template let-node pTemplate="ClinicDivision">
+                {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                &nbsp; &nbsp;
+                <a [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
+                    <img src="images/addImage.png" (click)="displayPopup(node)" title="Add Division" />
+                </a>
+            </template>
+            <template let-node pTemplate="ClinicDepartmentDrugsGroup">
+                <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                &nbsp; 
+                {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                &nbsp; &nbsp;
+                <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                    <i class="fa fa-pencil fa-2x" (click)="editDrugGroup(node)" title="Edit Drug Group" style="color: #32bea6;"></i>
+
+                </a>
+                <label>
+                    <input id="ChkIsActiveDrugGroup" name="ChkIsActiveDrugGroup" class="ace ace-switch ace-switch-6" type="checkbox"
+                           [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
+                    <span class="lbl"></span>
+                </label>
+            </template>
+            <template let-node pTemplate="Drug">
+                <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                &nbsp;
+                {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+            </template>
+        </p-tree>
+    </div>
+</div>
+
+<!-- Drug Modal -->
+<div id="DrugsPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog width95percent">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'DrugsGroup' | translate}}</h4>
+            </div>
+            <form *ngIf="active" class="form-horizontal" name="departmentDrugsGroupForm" #departmentDrugsGroupForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="txtName" class="control-label col-md-2">{{ 'ArabicName' | translate}}</label>
+                        <div class="col-md-10">
+                            <input id="txtName" name="txtName" class="form-control" [(ngModel)]='model.name' #txtName="ngModel" required />
+                            <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNameTranslation" class="control-label col-md-2">{{ 'EnglishName' | translate}}</label>
+                        <div class="col-md-10">
+                            <input id="txtNameTranslation" name="txtNameTranslation" class="form-control" [(ngModel)]='model.nameTranslation' #txtNameTranslation="ngModel" required />
+                            <div [hidden]="txtNameTranslation.valid || txtNameTranslation.pristine" class="alert alert-danger">
+                                {{ 'RequiredField' | translate}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtNameTranslation" class="control-label col-md-2"> {{ 'Drugs' | translate}}</label>
+                        <div class="col-md-10">
+                            <tree-checkboxList [treeList]="drugsTree"
+                                               [items]="allDrugs"
+                                               [selectedItemsIDs]="selectedDrugsIDs"
+                                               [groupType]="groupType"></tree-checkboxList>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!departmentDrugsGroupForm.form.valid" (click)="saveDrugGroup()">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="clear()">{{ 'Clear' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

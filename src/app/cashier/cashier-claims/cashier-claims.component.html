@@ -1,0 +1,154 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row">
+    <shared-tabs [activeTabIndex]="14"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row ">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'Cashier' | translate}}</a> &nbsp;/
+                    {{ 'Claims' | translate}}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row well">
+            <div class="col-md-4 col-md-offset-8">
+                <div class="float-right btnMarginLeft"><print-page [section]='claimDiv'></print-page></div>
+                <button class="btn btn-primary float-right btnMarginRight  " data-toggle="collapse" data-target="#SearchForPatient">{{ 'Search' | translate}}</button>
+            </div>
+        </div>
+
+        <div id="SearchForPatient" class="collapse fa-border well">
+            <div class="padding5 marginTop35">
+                <div class="row form-horizontal">
+                    <div class="form-group">
+                        <label for="txtMRNRes" class="col-md-2 control-label">{{ 'MRN' | translate}}</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" [(ngModel)]='claimsSearchParameters.patientMRN' id="txtMRNRes" name="txtMRNRes" />
+                            <a class="pointer" (click)="showDialog()">{{ 'PatientAdvancedSearch' | translate}}</a>
+                        </div>
+
+                        <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" resizable="true" width="800" responsive="true" height="auto">
+                            <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
+                        </p-dialog>
+
+                        <label for="txtName" class="col-md-2 control-label">{{ 'DoctorName' | translate}}</label>
+                        <div class="col-md-3">
+                            <!--<input type="text" class="form-control" [(ngModel)]='claimsSearchParameters.doctorName' id="txtDoctorName" name="txtDoctorName" />-->
+                            <select name="ddlsDoctorsList" [(ngModel)]='claimsSearchParameters.doctorId' class="form-control" #ddlsDoctorsList>
+                                <option value="0" selected>{{ 'Select' | translate}}</option>
+                                <option *ngFor="let item of doctorsList | translateObjects" [value]="item.id">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtName" class="col-md-2 control-label">{{ 'Date' | translate}}</label>
+                        <div class="col-md-3">
+                            <select id="ddlDateFilters" name="ddlDateFilters" (change)="selectDateFilter(ddlDateFilters.value)" class="form-control" #ddlDateFilters>
+                                <option>{{ 'Select' | translate}}</option>
+                                <option *ngFor="let item of dateFiltersList | translateObjects" [value]="item.value">{{item.text| translate}}</option>
+                            </select>
+                        </div>
+                        <label for="txtName" class="col-md-2 control-label">{{ 'Status' | translate}}</label>
+                        <div class="col-md-3">
+                            <select id="ddlClaimStatuses" name="ddlClaimStatuses" class="form-control" [(ngModel)]='claimsSearchParameters.claimStatus'>
+                                <option>{{ 'Select' | translate}}</option>
+                                <option *ngFor="let item of claimStatusesList | translateObjects" [value]="item.value">{{item.text| translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isDurationVisible">
+                        <label for="txtDuration" class="col-md-2 control-label">{{durationLabel}}</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" [(ngModel)]='claimsSearchParameters.duration' />
+                        </div>
+                    </div>
+                    <div class="form-group" *ngIf="isPeriodOfTimeVisible">
+                        <label for="txtName" class="col-md-2 control-label">{{ 'From' | translate}}</label>
+                        <div class="col-md-3">
+                            <p-calendar [(ngModel)]="periodStartDate"
+                                        [monthNavigator]="true"
+                                        [yearNavigator]="true"
+                                        dateFormat="dd/mm/yy"
+                                        showIcon="true"
+                                        [ngModelOptions]="{standalone: true}"
+                                        yearRange="2000:2050"></p-calendar>
+                        </div>
+                        <label for="txtName" class="col-md-2 control-label">{{ 'To' | translate}}</label>
+                        <div class="col-md-3">
+                            <p-calendar [(ngModel)]="periodEndDate"
+                                        [monthNavigator]="true"
+                                        [yearNavigator]="true"
+                                        dateFormat="dd/mm/yy"
+                                        showIcon="true"
+                                        [ngModelOptions]="{standalone: true}"
+                                        yearRange="2000:2050"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-md-offset-2">
+                            <button type="button" class="btn btn-primary" [disabled]="!enableSearchForPateintClaim" (click)="searchForClaims()">{{ 'Search' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="padding2"></div>
+
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+            </div>
+            <p-dataTable [value]="claimsList | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="id" [header]="'ClaimRefNo' | translate" [sortable]="true"></p-column>
+                <p-column field="claimDateString" [header]="'ClaimDate' | translate" [sortable]="true"></p-column>
+                <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
+                <p-column field="doctorDivision" [header]="'DoctorSpecialty' | translate" [sortable]="true"></p-column>
+                <p-column field="patientMrn" [header]="'MRN' | translate" [sortable]="true"></p-column>
+                <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'ViewDetails' | translate" styleClass="text-center width100">
+                    <template let-item="rowData" pTemplate="body">
+                        <a [class.disabled]="!enableSearchForPateintClaim ? true : null" class="underLinelinkText" routerLink="/cashier/claimDetails/{{item.id}}">{{ 'ViewDetails' | translate}}</a>
+                    </template>
+                </p-column>
+                <p-column [header]="'Report' | translate" styleClass="text-center width100">
+                    <template let-item="rowData" pTemplate="body">
+                        <a [class.disabled]="!enableSearchForPateintClaim ? true : null" class="fa  fa-file-text-o pointer" (click)="openClaimReport(item.id , 'ClaimDetailsReport')"></a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+
+        <div class="row hidden" id="divPrintedArea">
+            <table class="table table-responsive table-hover table-bordered table-striped">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th>{{ 'ClaimRefNo' | translate}}</th>
+                        <th>{{ 'ClaimDate' | translate}}</th>
+                        <th>{{ 'DoctorName' | translate}}</th>
+                        <th>{{ 'DoctorSpecialty' | translate}}</th>
+                        <th>{{ 'MRN' | translate}}</th>
+                        <th>{{ 'PatientName' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of claimsList | translateObjects  : null : null : lstToTranslated">
+                        <td>{{item.id}}</td>
+                        <td>{{item.claimDateString}}</td>
+                        <td>{{item.doctorName}}</td>
+                        <td>{{item.doctorDivision}}</td>
+                        <td>{{item.patientMrn}}</td>
+                        <td>{{item.patientName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

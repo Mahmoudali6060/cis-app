@@ -1,0 +1,60 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<form novalidate *ngIf="active" class="form-horizontal" name="organizationForm" (ngSubmit)="onSubmit()" #organizationForm="ngForm">
+    <div class="form-group">
+        <label for="txtName" class="control-label col-md-2">{{ 'DrugName' | translate}}</label>
+        <div class="col-md-6">
+            <a class="pointer" (click)="getAllDrugGroupsForTreeView(true,false)" *ngIf="getAllDrugs">{{ 'GetAll' | translate}}</a>
+            <a class="pointer" (click)="getClinicDepartmentDrugGroupsForTreeView()" *ngIf="!getAllDrugs">{{ 'GetSpecific' | translate}}</a>
+            <div class="nopadding treeBorder">
+                <div class="row nopadding">
+                    <input [placeholder]="'SearchNameOrCode' | translate" class="form-control" [(ngModel)]="filterString" name="txtFilterString" #txtFilterString="ngModel" />
+                </div>
+                <p-tree [value]="drugsTreeDataSourceItems | filterbynameorcode:filterString : leafType | translateObjects  : 'label' : 'labelTranslation' : null" selectionMode="single"
+                        [(selection)]="selectedDrugNode" (onNodeSelect)="treeNodeSelected($event)">
+                    <template let-node pTemplate="ClinicDepartmentDrugsGroup">
+                        <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+                    <template let-node pTemplate="DrugsGroup">
+                        <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+                    <template let-node pTemplate="Drug">
+                        <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+                </p-tree>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtDrugCode" class="control-label col-md-2">{{ 'DrugCode' | translate}}</label>
+        <div class="col-md-2">
+            <input id="txtDrugCode" name="txtDrugCode" class="form-control" disabled required
+                   [(ngModel)]='toSaveDrugAllergy.drugCode' #txtDrugCode="ngModel" />
+        </div>
+        <div class="col-md-4">
+            <div *ngIf="!toSaveDrugAllergy.drugCode || toSaveDrugAllergy.drugCode ==''" class="alert alert-danger">
+                {{ 'RequiredField' | translate}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtRemarks" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-6">
+            <textarea class="form-control" id="txtRemarks" name="txtRemarks"
+                      [(ngModel)]='toSaveDrugAllergy.description' #txtRemarks="ngModel"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <button class="btn btn-primary">{{ 'Save' | translate}}</button>
+            <button class="btn btn-primary" type="button" (click)="goBack()">{{ 'Back' | translate}}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,63 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<form class="form-horizontal" *ngIf='active' (ngSubmit)="onSubmit()" #vendorBasicForm="ngForm">
+  
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtVendorNameAr">{{ 'NameArabic' | translate}}</label>
+        <div class="col-md-5">
+            <input id="txtVendorNameAr" name="txtVendorNameAr"
+                   [(ngModel)]='model.name' #txtVendorNameAr="ngModel" class="form-control" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtVendorNameEn">{{ 'NameEnglish' | translate}}</label>
+        <div class="col-md-5">
+            <input id="txtVendorNameEn" name="txtVendorNameEn"
+                   [(ngModel)]='model.nameTranslation' #txtVendorNameEn="ngModel" class="form-control" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtCode">{{ 'Code' | translate}}</label>
+        <div class="col-md-5">
+            <input id="txtVendorCode" name="txtVendorCode"
+                   [(ngModel)]='model.code' #txtVendorCode="ngModel" class="form-control" required />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2" for="txtCode">{{ 'Category' | translate}}</label>
+        <div class="col-md-5">
+            <select class="form-control" id="ddlCategory" name="ddlCategory" [(ngModel)]="model.categoryId" #ddlCategory="ngModel" required >
+                <option *ngFor="let item of vendorCategoriesList | translateObjects" [value]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtEmail" class="control-label col-md-2">{{ 'Email' | translate}} </label>
+        <div class="col-md-5">
+            <input type="email" class="form-control" id="txtEmail" name="txtEmail" #txtEmail="ngModel" [(ngModel)]="model.reachInfo.email" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">{{ 'Active' | translate}}</label>
+        <div class="col-md-5">
+            <label>
+                <input type="checkbox" class="ace ace-switch ace-switch-6"
+                       id="chkIsActive" name="chkIsActive"
+                       [(ngModel)]="model.isActive" #chkIsActive="ngModel" />
+                <span class="lbl"></span>
+            </label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-6 col-md-offset-2">
+            <button class="btn btn-primary" [disabled]="!vendorBasicForm.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+            <button class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" type="button" (click)="clearControl()">{{ 'New' | translate}}</button>
+            <button class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"     type="button" routerLink="/systemAdmin/vendors">{{ 'Back' | translate}}</button>
+        </div>
+    </div>
+</form>

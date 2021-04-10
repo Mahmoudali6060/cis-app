@@ -1,0 +1,111 @@
+﻿<div class="row">
+    <div class="col-md-2 nopadding">
+        <ul class="nav nav-pills nav-stacked alert alert-info padding5">
+            <li class="{{ isVitalSignsSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a (click)="setSelectedTab(start.id)" #start id="0" >
+                    <span class="nav-icon"><i class="fa fa-user-md"></i></span>
+                    <span class="nav-label">
+                        <span *ngIf="isDoctor">
+                            {{ 'ChiefComplaint' | translate}}
+                            & {{ 'VitalSigns' | translate}}
+                        </span>
+                        <span *ngIf="!isDoctor">
+                            {{ 'VitalSigns' | translate}}
+                        </span>
+                    </span>
+
+                </a>
+            </li>
+            <li *ngIf="isDoctor" class="{{ isFirstSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a [ngClass]="{notactive : !hasID}" #first [id]="firstTabValue" tabindex=1 (click)="setSelectedTab(first.id)" >
+                    <span class="nav-icon"><i [class]="firstTabIcon"></i></span><span class="nav-label">&nbsp;{{firstTab| translate}}</span>
+                </a>
+            </li>
+            <li class="{{ isSecondSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a [ngClass]="{notactive : !hasID}" #second [id]="secondTabValue" tabindex=2 (click)="setSelectedTab(second.id)" >
+                    <span class="nav-icon"><i [class]="secondTabIcon"></i></span><span class="nav-label">&nbsp;{{secondTab| translate}}</span>
+                </a>
+            </li>
+            <li class="{{ isThirdSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a [ngClass]="{notactive : !hasID}" #third [id]="thirdTabvalue" tabindex=3 (click)="setSelectedTab(third.id)" >
+                    <span class="nav-icon"><i [class]="thirdTabIcon"></i></span><span class="nav-label">&nbsp;{{thirdTab| translate}}</span>
+                </a>
+            </li>
+            <li *ngIf="isDoctor" class="{{ isFourthSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a [ngClass]="{notactive : !hasID}" [id]="fourthTabValue" #fourth tabindex=4 (click)="setSelectedTab(fourth.id)" >
+                    <span class="nav-icon"><i [class]="fourthTabIcon"></i></span><span class="nav-label">&nbsp;{{fourthTab| translate}}</span>
+                </a>
+            </li>
+            <li *ngIf="isDoctor" class="{{ isFifthSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a [ngClass]="{notactive : !hasID}" #fifth [id]="fifthTabValue" (click)="setSelectedTab(fifth.id)" tabindex=5 >
+                    <span class="nav-icon"><i [class]="fifthTabIcon"></i></span><span class="nav-label">&nbsp;{{fifthTab| translate}}</span>
+                </a>
+            </li>
+            <li *ngIf="isDoctor" class="{{ isSixthSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a [ngClass]="{notactive : !hasID}" #sixth [id]="sixthTabValue" tabindex=6 (click)="setSelectedTab(sixth.id)" >
+                    <span class="nav-icon"><i [class]="sixthTabIcon"></i></span><span class="nav-label">&nbsp;{{sixthTab| translate}}</span>
+                </a>
+            </li>
+            <li *ngIf="isDoctor" class="{{ isSeventhSelected ? 'selectednavbaritem active' : '' }} pointer">
+                <a [ngClass]="{notactive : !hasID}" #seventh [id]="seventhTabvalue" tabindex=7 (click)="setSelectedTab(seventh.id)" >
+                    <span class="nav-icon"><i [class]="seventhTabIcon"></i></span><span class="nav-label">&nbsp;{{seventhTab| translate}}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-10 nopadding">
+        <div class="row">
+            <div class="breadcrumbs col-md-12" id="breadcrumbs">
+                <span class="heaersitemap">
+                    {{ 'Note' | translate}} > {{headerText| translate}}
+                </span>
+                <!--<script type="text/javascript">
+                    try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                </script>-->
+            </div>
+            <!--<div class="col-md-8 breadcrumbs">
+                <div *ngIf="isDoctor">
+                    <button class="btn btn-primary" type="button" (click)="nextTab()" *ngIf="allowEditing" [ngClass]="{notactive : !hasID}"><< {{ 'Next' | translate}}</button>
+                    <button class="btn btn-primary" type="button" (click)="previousTab()" *ngIf="allowEditing" [ngClass]="{notactive : !hasID}">{{ 'Previous' | translate}} >></button>
+                </div>
+            </div>-->
+        </div>
+        <br />
+        <div id="basicInfo" *ngIf="isBasicInfoSelected">
+            <patient-basic></patient-basic>
+        </div>
+        <div id="vitalSigns" *ngIf="isVitalSignsSelected">
+            <patient-vital-signs #patientVitalSignsComp [noteId]="noteId" [passedAppointmentId]="selectedAppointmentId" (onCheifComplaintSaved)="handleCheifComplaintSaved($event)"></patient-vital-signs>
+        </div>
+        <div id="diagnosis" *ngIf="isDiagnosisSelected">
+            <!--<patient-diagnosis [allowEditing]="allowEditing" [usedInClinicNoteDiagnosis]="usedForClinicNote" [clinicNoteId]="noteId"></patient-diagnosis>-->
+            <patient-note-diagnosis [noteId]="noteId" (onDiagnosisSaved)="nextTab()"></patient-note-diagnosis>
+        </div>
+        <div id="medication" *ngIf="isMedicationSelected">
+            <patient-note-medications [noteId]="noteId" (onMedicationSaved)="nextTab()"></patient-note-medications>
+        </div>
+        <div id="services" *ngIf="isServicesSelected">
+            <!--<patient-services [divisionId]="divisionId" [noteId]="noteId" [allowEditing]="allowEditing"></patient-services>-->
+            <patient-note-services [noteId]="noteId" (onServicesSaved)="nextTab()"></patient-note-services>
+        </div>
+        <div id="laboratory" *ngIf="isLaboratorySelected">
+            <!--<patient-laboratory [allowEditing]="allowEditing" [noteId]="noteId"></patient-laboratory>-->
+            <patient-note-laboratory [noteId]="noteId" (onLaboratoriesSaved)="nextTab()"></patient-note-laboratory>
+        </div>
+        <div id="radiology" *ngIf="isRadiologySelected">
+            <!--<patient-radiology [allowEditing]="allowEditing" [noteId]="noteId"></patient-radiology>-->
+            <patient-note-radiology [noteId]="noteId" (onRadiologiesSaved)="nextTab()"></patient-note-radiology>
+
+        </div>
+        <div id="attchments" *ngIf="isAttachmentsSelected">
+            <patient-attachments [allowEditing]="allowEditing"></patient-attachments>
+        </div>
+        <div id="templates" *ngIf="isTemplatesSelected">
+            <patient-templates [allowEditing]="allowEditing" [noteId]="noteId"></patient-templates>
+        </div>
+        <div id="remarks" *ngIf="isRemarksSelected">
+            <patient-remarks [noteId]="noteId"  (onRemarksSaved)="nextTab()"></patient-remarks>
+        </div>
+
+    </div>
+</div>

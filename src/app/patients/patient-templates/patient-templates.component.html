@@ -1,0 +1,19 @@
+﻿
+
+<div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
+    <div class="row">
+        <div class="col-md-4 nopadding">
+
+        </div>
+        <div class="col-md-8 align-reverse nopadding" *ngIf="allowEditing">
+            <button type="button" class="btn btn-primary" (click)="showDetails()">Apply Template</button>
+        </div>
+    </div>
+    <div class="padding2"></div>
+
+
+    <documents (onModelUpdated)="updateModel($event)" [btnUploadText]="btnUploadText" [parentId]="noteId" [title]="Template" [fileNameUploadTxt]="fileNameUploadTxt" [fileType]="fileType" [parentType]="type" [isTemplateExist]="isTemplateExist" [fileNameTxt]="fileNameTxt"></documents>
+</div>
+<div id="divTable" class="padding5" *ngIf="isDetailsVisible">
+    <patient-template-details [noteId]="noteId" (onBack)="hideDetails()"></patient-template-details>
+</div>

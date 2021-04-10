@@ -1,0 +1,40 @@
+﻿<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1 nopadding">
+                <span style="font-weight:bold">
+                   {{ 'Searchfor' | translate}}
+                </span>
+            </div>
+            <div class="col-md-8 nopadding">
+                <input type="radio" name="dirType" value="1" checked /> {{ 'Doctors' | translate}}
+                <input type="radio" name="dirType" value="2" /> {{ 'Clinics' | translate}}                
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1 nopadding">
+                <span style="font-weight:bold">
+                    {{ 'Name' | translate}}
+                </span>
+            </div>
+            <div class="col-md-4 nopadding">
+                <input type="text" class="form-control nopadding" id="txtSearch" />
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary" id="btnSearch">{{ 'Search' | translate}}</button>
+            </div>
+        </div>       
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-4 nopadding">
+                <button class="btn btn-default btn-lg" id="btnAnvancedSearch" routerLink="/advancedSearch" >{{ 'AdvancedSearch' | translate}}</button>                
+                <button *ngIf="showReservation" class="btn btn-default btn-lg" id="btnReserveAppointment">{{ 'BookAppointment' | translate}}</button>                
+            </div>
+        </div>
+    </div>
+</div>
+
+

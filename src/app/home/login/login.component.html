@@ -1,0 +1,82 @@
+﻿<div *ngIf="showProgress">
+    <home-loading></home-loading>
+</div>
+
+<div class="page-container" *ngIf="!accountService.userLoggedIn">
+    <div class="login-branding">
+        <!--<a href="index.html"><img src="images/logo-large.png" alt="logo"></a>-->
+    </div>
+    <div class="row">
+        <div class="loginContainer login-container">
+            <!--<img class="login-img-card" src="images/avatar/jaman-01.jpg" alt="login thumb" />-->
+            <h2 class="loginTitle">{{ 'SignIn' | translate}}</h2>
+
+            <form *ngIf="active" class="form-signin" name="loginForm" (ngSubmit)="onLogin()" #loginForm="ngForm">
+
+                <input type="text" class="inputStyle form-control floatlabel" placeholder="Email Address" name="txtEmail" id="txtEmail" [(ngModel)]='model.userName' #txtEmail="ngModel" required />
+
+                <div [hidden]="txtEmail.valid || txtEmail.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+
+
+                <input type="password" pattern="(?=.*\d)(?=.*[a-z]).{6,}" class="inputStyle form-control floatlabel" placeholder="Password" name="txtPassword" id="txtPassword" [(ngModel)]='model.password' #txtPassword="ngModel" required />
+
+                <div [hidden]="txtPassword.valid || txtPassword.pristine" class="alert alert-danger">
+                    {{ 'PasswordCriteria' | translate}}
+                </div>
+
+                <!--<div id="remember" class="checkbox">
+                <label>
+                    <input type="checkbox" class="switch-mini" /> Remember Me
+                </label>
+            </div>-->
+                <a class="txtDire pointer forgot-password" data-toggle="modal" data-target="#forgetPasswordPopup">
+                    {{ 'ForgetPassword' | translate}}
+                </a>
+                <br />
+                <button type="submit" fullwidth="" nbbutton="" status="success"
+                        class="btn btn-primary btn-block btn-signin"
+                        [disabled]="!loginForm.form.valid">
+                    <i class="ace-icon fa fa-key"></i>
+                    <span class="bigger-110">
+                        {{ ' SignIn ' | translate}}
+                    </span>
+                </button>
+            </form>
+            
+        </div>
+
+    </div>
+    <!--<div class="login-footer">
+        Crafted with<i class="fa fa-heart"></i>by <a href="#">Horizons</a>
+    </div>-->
+</div>
+
+
+<div id="forgetPasswordPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ForgetPassword' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="txtUserEmail" class="col-md-3 col-sm-4 control-label">{{ 'Email' | translate}}</label>
+                        <div class="col-md-9 col-sm-8">
+                            <input type="email" class="form-control" name="txtUserEmail" id="txtUserEmail" [(ngModel)]='userEmail' #txtPassword="ngModel" required>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            <div class="modal-footer">
+                <button type="button" [disabled]="!userEmail" class="btn btn-primary" (click)="sendPasswordToUserEmail()" data-dismiss="modal">{{ 'Send' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

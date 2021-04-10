@@ -1,0 +1,59 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row well">
+    <form novalidate *ngIf="active" class="form-horizontal" name="documentDetailsFrm" #documentDetailsFrm="ngForm">
+        <div class="form-group" *ngIf="showSelectedTemplates">
+            <label for="template" class="control-label col-md-2">{{ 'SelectTemplate' | translate}}</label>
+            <div class="col-md-4">
+                <select class="form-control" #selectTemplate="ngModel" #template id="template" (change)="FillTemplate(template.value)" name="template" [(ngModel)]="model.templateId" required>
+                    <option *ngFor="let item of attachmentsList" [value]="item.id">{{item.nameWithoutExtension}}</option>
+                </select>
+                <div [hidden]="selectTemplate.valid || selectTemplate.pristine" class="alert alert-danger">
+                    {{ 'Select' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-2">{{ fileNameUploadTxt| translate }}</label>
+            <div class="col-md-4">
+                <input type="file" class="form-control" #fileInput (change)="addFile(fileInput.value)" required>
+                <span>{{ 'FileSize' | translate}}</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="fileTxtName" class="control-label col-md-2">{{fileNameTxt| translate}}</label>
+            <div class="col-md-4">
+                <input id="fileTxtName" name="fileTxtName" type="text" [value]="model.name" class="form-control" [(ngModel)]='model.name' #fileTxtName="ngModel" />
+            </div>
+            <!--<div [hidden]="fileTxtName.valid || fileTxtName.pristine" class="alert alert-danger">
+                File Name is required
+            </div>-->
+        </div>
+        <div class="form-group" *ngIf="fileType">
+            <label for="typetxtName" class="control-label col-md-2"> {{ 'Type' | translate}}</label>
+            <div class="col-md-4">
+                <select class="form-control" #typetxtName="ngModel" [(ngModel)]="model.attachmentTypeId" name="typetxtName" id="typetxtName">
+                    <option *ngFor="let item of patientFiles" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="txtGroupRemark" class="control-label col-md-2">{{ 'Remarks' | translate}} </label>
+            <div class="col-md-6">
+                <textarea id="txtGroupRemark" name="txtGroupRemark"  class="remarkStyle form-control" rows="5" [(ngModel)]='model.description' #txtGroupRemark="ngModel"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-2">
+                <button class="btn btn-primary" (click)="onSubmit()" [disabled]="!documentDetailsFrm.form.valid">{{ 'Save' | translate}}</button>
+                <button class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+                <button class="btn btn-primary" *ngIf="allowEditing" type="button" (click)="goBack()">{{ 'Back' | translate}} </button>
+
+            </div>
+        </div>
+    </form>
+</div>
+

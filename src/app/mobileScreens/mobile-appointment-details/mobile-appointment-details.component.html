@@ -1,0 +1,78 @@
+﻿<div class="row">
+
+    <mobile-tabs [isAppointmentsSelected]="selectAppointments"></mobile-tabs>
+
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                    <!--<a href="#">System Admin</a>-->
+                                </li>
+                                <li class="active-page"> Appointment Details</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>
+                2/4/2017 14:10
+            </h3>
+            <span class="bolder">Dr/ Jean J. Thomas </span>
+            <br />
+            <span class="topic-meta">
+                <em>General Practice</em>
+                <br />
+                <span class="bolder">
+                    Clinic1
+                </span>
+                </span>
+            <br />
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle ex-margin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Action <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li>
+                        <a >Confirm</a>
+                    </li>
+                    <li>
+                        <a >Cancel</a>
+                    </li>
+                    <li>
+                        <a routerLink="/booking">Reschedule</a>
+                    </li>
+                    <li>
+                        <a routerLink="/map" >  View on Map</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a routerLink="/patientAppointments">Back</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<button class="btn btn-primary" >Confirm</button>
+            <br />
+            <button class="btn btn-danger">Cancel</button>
+            <br />
+            <button class="btn btn-success">Reschedule</button>
+            <br />
+            <button class="btn btn-primary">View on Map</button>
+            <br />
+            <button class="btn btn-primary">Back</button>-->
+        </div>
+   
+
+    </div>
+</div>

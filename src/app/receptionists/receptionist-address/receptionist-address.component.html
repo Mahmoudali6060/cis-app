@@ -1,0 +1,31 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+
+<div class="row">
+        <shared-tabs [activeTabIndex]="8"></shared-tabs>
+    <div class="row nopadding">
+        <div class="row " style="padding:13px;">
+            <div class="NBbreadcrumb">
+                <a>{{ 'ReceptionistProfile' | translate}}</a> &nbsp;/
+                {{ 'AddressContact' | translate}}
+            </div>
+
+        </div>
+
+          <form novalidate *ngIf="active" class="form-horizontal" name="addressForm" (ngSubmit)="onSubmit()" #addressForm="ngForm">
+            <div class="form-group">
+                <address [reachInfo]="model.address" >
+                    <div class="form-group">
+                            <button type="submit" class="btn btn-primary" [disabled]="!addressForm.form.valid">{{ 'Save' | translate}}</button>
+                            <button type="button" class="btn btn-primary" (click)="clear()">{{ 'Cancel' | translate}}</button>
+                    </div>
+                </address>
+            </div>
+            
+        </form>
+
+</div>
+</div>
+

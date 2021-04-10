@@ -1,0 +1,236 @@
+﻿<div class="row">
+
+    <mobile-tabs [isFeedbackSelected]="selectFeedback"></mobile-tabs>
+
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                    <!--<a href="#">System Admin</a>-->
+                                </li>
+                                <li class="active-page">  Feedback & Complaints</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+        <div class="forum-post-btn text-center">
+            <button class="btn btn-info create-topic " data-toggle="modal" data-target="#feedbackPopup"><i class="ico-add-to-list"></i> Create New</button>
+        </div>
+
+        <!-- feedback Modal -->
+        <div id="feedbackPopup" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Add Feedback & Complaint</h4>
+                    </div>
+                    <div class="modal-body">
+                       
+                        <div class="form-group">
+                            <label for="txtTitle" class="col-md-2 control-label">Title</label>
+                            <div class="col-md-10">
+                                <input id="txtTitle" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ddlRank" class="col-md-2 control-label">Rank</label>
+                            <div class="col-md-10">
+                                <select class="form-control" id="ddlRank" name="ddlRank"  required>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtDescription" class="col-md-2 control-label">Description</label>
+                            <div class="col-md-10">
+                                <textarea id="txtDescription" class="form-control" style="height:120px;" ></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--Topics List-->
+                    <div class="topics-list">
+
+                        <!--Single Topic-->
+                        <div class="topic-container new-ticket">
+                            <div class="corner-ribbon">
+                                <div>
+                                    New
+                                </div>
+                            </div>
+                            <a class="topic-wrap" >
+                                <span class="topic-thumb">
+                                    <img src="images/avatar/amarkdalen.jpg" alt="user">
+                                </span>
+                                <span class="topic-intro">
+                                    <span class="topic-title">Responsive Issues</span>
+                                    <span class="topic-meta">
+                                        <em>Last comment</em> 3 days ago <em>from</em> allisongrayce <em>in</em> Html , Css
+                                    </span>
+                                </span>
+                                <span class="topic-feedback-stat">
+                                    <span class="topic-feedback-wrap">
+                                        <span>
+                                            <i class="fa fa-comments"></i>
+                                        </span>
+                                        <span class="forum-reply-count">
+                                            0
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+
+                        <!--Single Topic-->
+                        <div class="topic-container new-ticket">
+                            <div class="corner-ribbon">
+                                <div>
+                                    New
+                                </div>
+                            </div>
+                            <a class="topic-wrap" >
+                                <span class="topic-thumb">
+                                     <img src="images/avatar/amarkdalen.jpg" alt="user">
+                                </span>
+                                <span class="topic-intro">
+                                    <span class="topic-title">jQuery noconflict issue</span>
+                                    <span class="topic-meta">
+                                        <em>Last comment</em> 3 days ago <em>from</em> allisongrayce <em>in</em> Html , Css
+                                    </span>
+                                </span>
+                                <span class="topic-feedback-stat">
+                                    <span class="topic-feedback-wrap">
+                                        <span>
+                                            <i class="fa fa-comments"></i>
+                                        </span>
+                                        <span class="forum-reply-count">
+                                            0
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        <!--Single Topic-->
+                        <div class="topic-container pending-ticket">
+                            <div class="corner-ribbon">
+                                <div>
+                                    Pending
+                                </div>
+                            </div>
+                            <a class="topic-wrap" >
+                                <span class="topic-thumb">
+                                    <img src="images/avatar/amarkdalen.jpg" alt="user">
+                                </span>
+                                <span class="topic-intro">
+                                    <span class="topic-title">Broken sidenbar issues</span>
+                                    <span class="topic-meta">
+                                        <em>Last comment</em> 3 days ago <em>from</em> allisongrayce <em>in</em> Html , Css
+                                    </span>
+                                </span>
+                                <span class="topic-feedback-stat">
+                                    <span class="topic-feedback-wrap">
+                                        <span>
+                                            <i class="fa fa-comments"></i>
+                                        </span>
+                                        <span class="forum-reply-count">
+                                            30
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+
+                        <!--Single Topic-->
+                        <div class="topic-container pending-ticket">
+                            <div class="corner-ribbon">
+                                <div>
+                                    Pending
+                                </div>
+                            </div>
+                            <a class="topic-wrap">
+                                <span class="topic-thumb">
+                                    <img src="images/avatar/amarkdalen.jpg" alt="user">
+                                </span>
+                                <span class="topic-intro">
+                                    <span class="topic-title">Data export tables</span>
+                                    <span class="topic-meta">
+                                        <em>Last comment</em> 3 days ago <em>from</em> allisongrayce <em>in</em> Html , Css
+                                    </span>
+                                </span>
+                                <span class="topic-feedback-stat">
+                                    <span class="topic-feedback-wrap">
+                                        <span>
+                                            <i class="fa fa-comments"></i>
+                                        </span>
+                                        <span class="forum-reply-count">
+                                            20
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+
+                        <!--Single Topic-->
+                        <div class="topic-container pending-ticket">
+                            <div class="corner-ribbon">
+                                <div>
+                                    Solved
+                                </div>
+                            </div>
+                            <a class="topic-wrap" >
+                                <span class="topic-thumb">
+                                    <img src="images/avatar/amarkdalen.jpg" alt="user">
+                                </span>
+                                <span class="topic-intro">
+                                    <span class="topic-title">Mobile apps support</span>
+                                    <span class="topic-meta">
+                                        <em>Last comment</em> 3 days ago <em>from</em> allisongrayce <em>in</em> Html , Css
+                                    </span>
+                                </span>
+                                <span class="topic-feedback-stat">
+                                    <span class="topic-feedback-wrap">
+                                        <span>
+                                            <i class="fa fa-comments"></i>
+                                        </span>
+                                        <span class="forum-reply-count">
+                                            10
+                                        </span>
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

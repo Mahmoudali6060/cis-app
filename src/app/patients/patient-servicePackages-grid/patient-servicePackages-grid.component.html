@@ -1,0 +1,39 @@
+﻿
+<div>
+    <div class="ui-widget-header searchWidget">
+        <i class="fa fa-search searchIcon"></i>
+        <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+    </div>
+    <p-dataTable [value]="allPackages | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <p-column styleClass="text-center width50">
+            <template let-noteService="rowData" pTemplate="body">
+                <input type="checkbox" [checked]="noteService.isSelected"
+                       (change)="updateSelectedService(noteService.servicePackageId, $event)" />
+            </template>
+        </p-column>
+        <p-column field="servicePackageCode" [header]="'PackageCode' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
+        <p-column field="servicePackageName" [header]="'PackageName' | translate" [sortable]="true"></p-column>
+        <p-column [header]="'Quantity' | translate" styleClass="text-center width70">
+            <template let-noteService="rowData" pTemplate="body">
+                <input type="number" min="0" id="txtQuantity" name="txtQuantity" [(ngModel)]='noteService.quantity' class="form-control" />
+            </template>
+        </p-column>
+        <p-column [header]="'Discount' | translate" styleClass="text-center width70">
+            <template let-noteService="rowData" pTemplate="body">
+                <input type="number" min="0" id="txtDiscount" name="txtDiscount" [(ngModel)]='noteService.discount' class="form-control" />
+            </template>
+        </p-column>
+        <p-column [header]="'DiagnoseName' | translate">
+            <template let-noteService="rowData" pTemplate="body">
+                <select class="form-control" name="ddlDiagnosis" [(ngModel)]='noteService.diagnoseId'>
+                    <option *ngFor="let obj of diagnosis| translateObjects" [value]="obj.id">{{obj.name}}</option>
+                </select>
+            </template>
+        </p-column>
+        <p-column [header]="'Remarks' | translate">
+            <template let-noteService="rowData" pTemplate="body">
+                <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteService.description'></textarea>
+            </template>
+        </p-column>
+    </p-dataTable>
+</div>

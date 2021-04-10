@@ -1,0 +1,304 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row">
+    <!--<shared-tabs [activeTabIndex]="13"></shared-tabs>-->
+    <shared-tabs [activeTabIndex]="14"></shared-tabs>
+    <!--<cashier-tabs [activeTabIndex]="4"></cashier-tabs>-->
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row ">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'Cashier' | translate}}</a> &nbsp;/
+                    <a>{{ 'Claims' | translate}}</a> &nbsp;/
+                    {{ 'ClaimDetail' | translate}}
+                </div>
+
+            </div>
+        </div>
+        <form class="form-horizontal" name="organizationForm" #organizationForm>
+            <div class="row well">
+                <div class="form-group text-center">
+                    <button type="button" class="btn btn-primary" disabled="{{ enableReprocessBtn ? '' :'disabled'}}" (click)="reProcessClaim()">{{ 'ReProcess' | translate}}</button>
+                    <button type="button" disabled="{{ enableCancelClaim ? '' :'disabled'}}" class="btn btn-primary" *ngIf="!isClaimCanceled" data-toggle="modal" data-target="#cancelClaim">
+                        {{ 'CancelClaim' | translate}}
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="openClaimReport()"><i class="fa fa-print"></i>&nbsp;{{ 'Print' | translate}}</button>
+                    <button type="button" class="btn btn-primary" routerLink="/cashier/claims">{{ 'Back' | translate}}</button>
+                </div>
+
+            </div>
+
+            <div>
+                <h4 class="h4Deco">{{ 'ClaimRefNo' | translate}}: {{patientClaim.id}}</h4>
+                <div class="alert-warning" *ngIf="isClaimCanceled">
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'ClaimCanceledBy' | translate}}
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{(patientClaim  | translateObjects  : 'cancelByName' : 'cancelByNameTranslation' : null).cancelByName}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'CancellationDate' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.cancellationDateString}}
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'CancellationReason' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.cancellationReason}}
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-success">
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'ClaimDate' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            <span>{{patientClaim.claimDateString}}</span>
+                            <a data-toggle="modal" [class.disabled]="!enableEditClaimDate ? true : null" data-target="#changeClaimDate" class="pointer underLinelinkText" *ngIf="!isClaimCanceled">{{'Change' | translate}} </a>
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'DoctorName' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{(patientClaim  | translateObjects  : 'doctorName' : 'doctorNameTranslation' : null).doctorName}}
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'MRN' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.patientMrn}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'PatientName' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.patientName}}
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'Age' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.patientAge}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'BirthDate' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.patientBirthDate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="alert-warning">
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'InsuranceCompany' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{(patientClaim  | translateObjects  : 'insuranceCompany' : 'insuranceCompanyTranslation' : null).insuranceCompany}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'InsuranceCardNo' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.insuranceCardNo}}
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'InsurancePolicy' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{(patientClaim  | translateObjects  : 'insurancePolicy' : 'insurancePolicyTranslation' : null).insurancePolicy}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'PolicyEndDate' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.policyEndDate}}
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'ClaimTotalAmount' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.totalAmount}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'ClaimMaxAmount' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.maxAmount}}
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'PatientShare' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.patientShare}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'CompanyShare' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.companyShare}}
+                        </div>
+                    </div>
+                    <div class="row borderBottom">
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'LastModificationDate' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.lastModificationDateString}}
+                        </div>
+                        <div class="col-md-3">
+                            <strong>
+                                {{ 'LastModifierUser' | translate}}:
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            {{patientClaim.modifierName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabbable-panel">
+                <div class="tabbable-line">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#ClaimServices" style="background-color: #f6f7f9 !important;" data-toggle="tab" aria-expanded="true">{{ 'Services' | translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div name="divClaimServices" class="tab-content">
+                <div id="ClaimServices" class="tab-pane fade active in">
+                    <cashier-claim-services [isClaimCanceled]="isClaimCanceled"
+                                            [passedCharges]="patientClaim.charges"
+                                            [passedPatient]="patient"
+                                            (onAmountUpdated)="updateAmount($event)"></cashier-claim-services>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="cancelClaim" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'CancelClaim' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="cancelClaimForm" #cancelClaimForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'CancellationReason' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="txtClaimCancellationReason"
+                                      [(ngModel)]='patientClaim.cancellationReason' required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!cancelClaimForm.valid  ||!enableCancelClaim" (click)="confirmClaimCancellation()">{{ 'ConfirmCancellation' | translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="changeClaimDate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ChangeClaimDate' | translate}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="changeClaimDateForm" #changeClaimDateForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'NewClaimDate' | translate}}</label>
+                        <div class="col-md-6">
+                            <p-calendar [(ngModel)]="patientClaim.claimDate"
+                                        [monthNavigator]="true"
+                                        [yearNavigator]="true"
+                                        dateFormat="dd/mm/yy"
+                                        showTime="showTime"
+                                        showIcon="true" required="true"
+                                        [ngModelOptions]="{standalone: true}"
+                                        yearRange="2000:2050"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'ChangeReason' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="txtClaimDateChangeReason"
+                                      [(ngModel)]='patientClaim.claimDateChangeReason'></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" disabled="{{ enableEditClaimDate ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" (click)="changeClaimDate()">{{ 'ConfirmChange' | translate}}</button>
+                        <button type="button" disabled="{{ enableEditClaimDate ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

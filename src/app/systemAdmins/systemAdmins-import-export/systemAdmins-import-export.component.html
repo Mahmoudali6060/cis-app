@@ -1,0 +1,79 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row"> 
+
+    <systemAdmins-tabs [isImportExportSelected]="selectImportExportTab"></systemAdmins-tabs>
+
+
+    <div class="page-breadcrumb">
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                {{ 'ImportExport' | translate}}
+            </div>
+
+        </div>
+    </div>
+    <div class="row nopadding"> 
+        <div class="row well">
+            <form novalidate class="form-horizontal" *ngIf="active" name="importExportForm" (ngSubmit)="onSubmit()" #importExportForm="ngForm">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-4">
+                        <table>
+                            <tr>
+                                <td *ngFor="let item of rbSelections; let idx = index">
+                                    <input type="radio" name="radiogroup" [value]="item.value"
+                                           [checked]="idx === 0" #i (change)="onSelectionChange(i.value)">{{item.text| translate}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="ddlConfigFiles"> {{txtImportOrExport}}</label>
+                    <div class="col-md-4">
+                        <select class="form-control" id="ddlConfigFiles" name="ddlConfigFiles" [(ngModel)]="model.projectTemplateId" #ddlConfigFiles="ngModel" #v (change)="onChange(v.value)" required>
+                            <option *ngFor="let ele of filesPathList" [value]="ele.filePath">{{ele.fileName}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group nopadding" *ngIf="isFileSelected">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8 nopadding">
+                        <div class="alert alert-warning">
+                            {{ 'Tip' | translate}}{{description}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" *ngIf="isImport && enableMyAccountBtn">
+                    <label for="uploadedFile" class="control-label col-md-2">{{ 'FileImported' | translate}}</label>
+                    <div class="col-md-4">
+                        <!--<input type="file" class="form-control" />-->
+                        <file-uploader (change)="attachmentChanged($event);"></file-uploader>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="isImport">
+                    <label for="txtSheetName" class="control-label col-md-2">{{ 'SheetName' | translate}}</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="txtSheetName" name="txtSheetName" [(ngModel)]='sheetName' #txtSheetName="ngModel" required>
+                        <div [hidden]="txtSheetName.valid || txtSheetName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-md-4 col-sm-3">
+                        <button type="submit" *ngIf="isImport" class="btn btn-primary" [disabled]="!importExportForm.form.valid || !enableMyAccountBtn">{{ 'Import' | translate}}</button>
+                        <button type="submit" *ngIf="!isImport" class="btn btn-primary" [disabled]="!importExportForm.form.valid || !enableMyAccountBtn">{{ 'Export' | translate}}</button>
+                        <a *ngIf="isLogFile" [class.disabled]="!enableMyAccountBtn ? true : null" class="btn btn-primary" (click)="onClick()">{{ 'DownloadLogFile' | translate}}</a>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+

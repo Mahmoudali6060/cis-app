@@ -1,0 +1,249 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+
+
+    <clinic-tab [isAccountSelected]='selectAccountTab'></clinic-tab>
+
+        <div class="row NBbreadcrumb">
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+            {{ 'Account' | translate}}
+        </div>
+
+        <div class="row well" style="padding:15px;">
+
+            <h4>
+                {{ 'CurrentSubscription' | translate}}
+            </h4>
+            <br />
+            <div class="alert alert-secondary">
+                <div class="row">
+                    <div class="form-group">
+                        <span class="control-label col-md-2 font-weight-bold">{{ 'StartDate' | translate}}</span>
+                        <div class="col-md-2">
+                            <span>{{startDateString}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <span class="control-label col-md-2 font-weight-bold">{{ 'EndDate' | translate}}</span>
+                        <div class="col-md-2">
+                            <span>{{endDateString}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <span class="control-label col-md-2 font-weight-bold">{{ 'NoOfUsers' | translate}}</span>
+                        <div class="col-md-2">
+                            <span> {{numberOfUsers}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>
+                {{ 'ClinicInformation' | translate}}
+            </h4>
+            <hr />
+
+            <form novalidate *ngIf="active" class="form-horizontal" name="organizationForm" #organizationForm="ngForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="txtName" class="nopadding"> {{ 'Name' | translate}}</label>
+                        <input id="txtName" name="txtName" class="form-control" [(ngModel)]='clinicModel.name' #txtName="ngModel" required />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="txtLicense" class="nopadding"> {{ 'License' | translate}}</label>
+                        <input id="txtLicense" name="txtLicense" class="form-control" [(ngModel)]='clinicModel.license' #txtLicense="ngModel" required />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="txtTIN" class="nopadding"> {{ 'TIN' | translate}}</label>
+                        <input id="txtTIN" name="txtTIN" class="form-control" [(ngModel)]='clinicModel.tin' #txtTIN="ngModel" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="txtGroupRemark" class="nopadding"> {{ 'Description' | translate}}</label>
+                        <textarea id="txtGroupRemark" name="txtGroupRemark" class="form-control" [(ngModel)]='clinicModel.description' #txtGroupRemark="ngModel"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="fileImage" class="nopadding">{{ 'Logo' | translate}}</label>
+                        <image-uploader [(imageId)]="clinicModel.imageId" [(imageData)]="clinicModel.imageData" (change)="imageChanged($event);"></image-uploader>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="modidfiedPerson" class="nopadding">{{ 'ModifiedBy' | translate}}</label>
+                        <input type="text" class="form-control" name="modidfiedPerson" disabled [(ngModel)]='clinicModel.lastModifierName' />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="dateMod" class="nopadding">{{ 'ModificationDate' | translate}}</label>
+                        <input type="text" [(ngModel)]='clinicModel.lastModificationDateString' name="dateMod" class="form-control" disabled />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <h4> {{ 'OwnerInforamtion' | translate}} </h4>
+                        <hr />
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="nopadding" for="txtOwnerFirstName">{{ 'FirstName' | translate}}</label>
+                        <input id="txtOwnerFirstName" name="txtOwnerFirstName" class="form-control"
+                               [(ngModel)]='clinicModel.owner.firstName' #txtOwnerName="ngModel" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="nopadding" for="txtOwnerLastName">{{ 'LastName' | translate}}</label>
+                        <input id="txtOwnerLastName" name="txtOwnerLastName" class="form-control"
+                               [(ngModel)]='clinicModel.owner.lastName' #txtOwnerLastName="ngModel" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="nopadding" for="txtOwnerPhone">{{ 'Mobile' | translate}}</label>
+                        <input type="tel" id="txtOwnerPhone" name="txtOwnerPhone" class="form-control"
+                               [(ngModel)]='clinicModel.owner.reachInfo.mobile' #txtOwnerPhone="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required />
+                        <div [hidden]="txtOwnerPhone.valid || txtOwnerPhone.pristine" class="alert alert-danger">
+                            {{ 'MobileValidationMsg' | translate}}
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="nopadding" for="txtOwnerEmail">{{ 'Email' | translate}}</label>
+                        <input type="email" id="txtOwnerEmail" name="txtOwnerEmail" class="form-control" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$"
+                               [(ngModel)]='clinicModel.owner.email' #txtOwnerEmail="ngModel" required />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <a class="pointer" data-toggle="modal" data-target="#changePasswordModalAdmin" [class.disabled]="!isClinicAdmin ? true : null">{{ 'ChangePassword' | translate}}</a>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label class="nopadding" for="chkIsAdmin">{{ 'IsAdmin' | translate}}</label>
+                        <label>
+                            <input type="checkbox" class="ace ace-switch ace-switch-6"
+                                   id="chkIsAdmin" name="chkIsActive"
+                                   [(ngModel)]="clinicModel.ownerIsAdmin" #chkIsAdmin="ngModel" />
+                            <span class="lbl"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div *ngIf="!clinicModel.ownerIsAdmin">
+                    <h4>
+                        {{ 'AdminInformation' | translate}}
+                    </h4>
+                    <hr />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="nopadding" for="txtAdminFirstName">{{ 'FirstName' | translate}}</label>
+                            <input id="txtAdminFirstName" name="txtAdminFirstName" class="form-control"
+                                   [(ngModel)]='clinicModel.admin.firstName' #txtAdminFirstName="ngModel" required />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="nopadding" for="txtAdminLastName">{{ 'LastName' | translate}}</label>
+                            <input id="txtAdminLastName" name="txtAdminLastName" class="form-control"
+                                   [(ngModel)]='clinicModel.admin.lastName' #txtAdminLastName="ngModel" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="nopadding" for="txtAdminPhone">{{ 'Mobile' | translate}}</label>
+                            <input type="tel" id="txtAdminPhone" name="txtAdminPhone" class="form-control"
+                                   [(ngModel)]='clinicModel.admin.reachInfo.mobile' #txtAdminPhone="ngModel" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" required />
+                            <div [hidden]="txtAdminPhone.valid || txtAdminPhone.pristine" class="alert alert-danger">
+                                {{ 'MobileValidationMsg' | translate}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label class="nopadding" for="txtAdminEmail">{{ 'Email' | translate}}</label>
+                            <input type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" id="txtAdminEmail" name="txtAdminEmail" class="form-control"
+                                   [(ngModel)]='clinicModel.admin.email' #txtAdminEmail="ngModel" required />
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row" *ngIf="clinicModel.adminId == null">
+                        <div class="form-group col-md-6">
+                            <label for="txtAdminPassword" class="nopadding"> {{ 'Password' | translate}} </label>
+                            <input type="password" id="txtAdminPassword" name="txtAdminPassword" class="form-control"
+                                   pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                                   [(ngModel)]='clinicModel.admin.password' #txtAdminPassword="ngModel" required />
+                            <div [hidden]="txtAdminPassword.valid || txtAdminPassword.pristine" class="alert alert-danger">
+                                {{ 'InvalidPassword' | translate}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="txtAdminPasswordConfirm" class="nopadding"> {{ 'ConfirmPassword' | translate}} </label>
+                            <input type="password" id="txtAdminPasswordConfirm" name="txtAdminPasswordConfirm"
+                                   pattern="(?=.*\d)(?=.*[a-z]).{6,}"
+                                   class="form-control" [(ngModel)]="clinicModel.adminPasswordConfirm" #txtAdminPasswordConfirm="ngModel" required />
+                            <div [hidden]="txtAdminPasswordConfirm.valid || txtAdminPasswordConfirm.pristine" class="alert alert-danger">
+                                {{ 'InvalidPassword' | translate}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row" *ngIf="clinicModel.adminId > 0">
+                        <div class="form-group col-md-12">
+                            <a class="pointer" data-toggle="modal" data-target="#changePasswordModal" [class.disabled]="!isClinicAdmin ? true : null">{{ 'ChangePassword' | translate}}</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-primary" [disabled]="!organizationForm.form.valid || !isClinicAdmin">{{ 'Save' | translate}}</button>
+                        <button type="button" class="btn btn-primary" disabled="{{ isClinicAdmin ? '' :'disabled'}}">{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+
+
+            </form>
+
+            <!-- change password Modal -->
+        </div>
+
+
+
+<div id="changePasswordModalAdmin" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <change-password [userId]="clinicModel.ownerId" [userType]="clinicModel.owner.userType"></change-password>
+        </div>
+    </div>
+</div>
+
+<div id="changePasswordModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <change-password [userId]="clinicModel.adminId" [userType]="adminType"></change-password>
+        </div>
+    </div>
+</div>
+
+

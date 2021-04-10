@@ -1,0 +1,88 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row form-horizontal well">
+    <br />
+    <div class="form-group">
+        <label for="txtName" class="col-md-2 control-label">{{ 'NameOrPartOfName' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" id="txtName" name="txtName"  [placeholder]="'NameOrPartOfName' | translate" [(ngModel)]='searchCriteria.searchableName' #txtName="ngModel" class="form-control nopadding" />
+        </div>
+        <label for="txtMRN" class="col-md-2 control-label">{{ 'MRN' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" id="txtMRN" name="txtMRN" [placeholder]="'MRN' | translate" [(ngModel)]='searchCriteria.clinicMRN' #txtMRN="ngModel" class="form-control nopadding" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtMobile" class="col-md-2 control-label">{{ 'MobileNumber' | translate}}</label>
+        <div class="col-md-4">
+            <input type="text" id="txtMobile" [placeholder]="'MobileNumber' | translate" name="txtMobile" [(ngModel)]='searchCriteria.mobileNumber' #txtMobile="ngModel" class="form-control nopadding" />
+        </div>
+        <label for="txtIdNumber" class="col-md-2 control-label">{{ 'IdNumber' | translate}}</label>
+        <div class="col-md-4">
+            <input id="txtIdNumber" name="txtIdNumber"  [placeholder]="'MobileNumber' | translate" [(ngModel)]='searchCriteria.iDNumber' #txtIdNumber="ngModel" type="text" class="form-control nopadding" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            <button class="btn btn-primary" (click)="getAllPatients()">
+            <i class="fa fa-search"></i>{{ 'Search' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="display=false" *ngIf="showClose">{{ 'Cancel' | translate}}</button>
+
+        </div>
+    </div>
+</div>
+<div class="row well" style="background-color: #f6f7f9 !important;">
+    <h4 class="h4Deco">{{ 'SearchResults' | translate}}</h4>
+    <hr />
+    <div class="row well" style="background-color: #f6f7f9 !important;">
+ 
+        <div class="inner-addon left-addon">
+            <i class="glyphicon glyphicon-search"></i>
+            <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
+        </div>
+        <p-dataTable [value]="matchedPatients" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="clinicMRN" [header]="'MRN' | translate" [sortable]="true"></p-column>
+            <p-column field="name" [header]="'PatientName' | translate" [sortable]="true"></p-column>
+            <p-column [header]="'MobileNumber' | translate" styleClass="text-center">
+                <template let-patient="rowData" pTemplate="body">
+                    <label>
+                        {{patient.reachInfo?.mobile}}
+                    </label>
+                </template>
+            </p-column>
+
+            <p-column field="idNumber" [header]="'IdNumber' | translate" [sortable]="true"></p-column>
+
+
+            <p-column [header]="'IsActive' | translate" styleClass="text-center width70" *ngIf="showActive">
+                <template let-patient="rowData" pTemplate="body">
+                    <label>
+                        <input type="checkbox" class="ace ace-switch ace-switch-6" #patientType [checked]="patient.isActive" id="chkBoxIsActive" name="chkBoxIsActive" [value]="patient.isActive" (click)="changePatientActivation(patientType.value,patient.id, $event)" disabled="{{ enableActivatePatientBtn ? '' :'disabled'}}" />
+                        <span class="lbl"></span>
+                    </label>
+                </template>
+
+
+            </p-column>
+            <!--[class.disabled]="!enableEditPatientBtn ? true : null"-->
+            <p-column [header]="'Edit' | translate" styleClass="text-center width50" *ngIf="showEdit">
+                <template let-patient="rowData" pTemplate="body">
+                    <a class="pointer" routerLink="/patient/file/{{patient.id}}">
+                        <img src="Images/edit-24.png" />
+                    </a>
+                </template>
+            </p-column>
+            <p-column [header]="'SelectPatient' | translate" *ngIf="showSelect" styleClass="text-center width60">
+                <template let-patient="rowData" pTemplate="body">
+                    <img src="Images/if_hand_finger_17529.png" (click)="selectPatientForSearch(patient.id)" width="30" height="30" />
+                </template>
+            </p-column>
+
+
+        </p-dataTable>
+    </div>
+
+
+</div>

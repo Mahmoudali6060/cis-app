@@ -1,0 +1,139 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>             
+
+</div>
+
+<div class="row">
+    <div class="col-md-2 nopadding">
+        <nurse-tabs [activeTabIndex]="3"></nurse-tabs>
+    </div>
+    <div class="col-md-10 nopadding">
+        <div class="" id="breadcrumbs">
+            <div class="NBbreadcrumb">
+                <a>Nurse Profile</a> &nbsp;/
+                My Appointments
+            </div>
+            <script type="text/javascript">
+                try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+            </script>
+        </div>
+        <br />
+        <div class="padding5">
+            <div class="row">
+                <div class="col-md-4 nopadding">
+                    <input type="text" placeholder="Search..." class="form-control" [(ngModel)]='filterString' />
+                </div>
+                <div class="col-md-4"></div>
+                <div class="col-md-3 align-reverse nopadding">
+                    <input type="text" placeholder="Enter MRN" class="form-control" />
+
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+            <div class="padding2"></div>
+
+            <table class="table table-responsive table-hover">
+                <thead class="alert alert-info">
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th class="text-center">{{ 'MRN' | translate}}</th>
+                        <th class="text-center">{{ 'PateintName' | translate}}</th>
+                        <th class="text-center">{{ 'Time' | translate}}</th>
+                        <th class="text-center">{{ 'Slot' | translate}}</th>
+                        <th class="text-center">{{ 'Arrival' | translate}}</th>
+                        <th class="text-center">{{ 'Service' | translate}}</th>
+                        <th class="text-center">{{ 'VisitType' | translate}}</th>
+                        <th class="text-center">{{ 'RecceptionistRemarks' | translate}}</th>
+                        <th class="text-center">{{ 'ViewMRF' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>090585</td>
+                        <td>أحمد محمد علي</td>
+                        <td>3:00 PM</td>
+                        <td>1</td>
+                        <td>2:50</td>
+                        <td>كشف أسنان</td>
+                        <td>أول مرة</td>
+                        <td>-</td>
+                        <td class="text-center">
+                            <a class="pointer" routerLink="/patient/mrf/1">
+                                <img src="Images/viewFile-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>191288</td>
+                        <td>بندر سلطان محمد</td>
+                        <td>3:15 PM</td>
+                        <td>2</td>
+                        <td>3:00</td>
+                        <td>حشو أسنان</td>
+                        <td>زيارة ثانية</td>
+                        <td>-</td>
+                        <td class="text-center">
+                            <a class="pointer" routerLink="/patientMrf/1">
+                                <img src="Images/viewFile-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>090680</td>
+                        <td>كريم محمد علي</td>
+                        <td>3:30 PM</td>
+                        <td>3</td>
+                        <td>3:00</td>
+                        <td>كشف أسنان</td>
+                        <td>أول مرة</td>
+                        <td>-</td>
+                        <td class="text-center">
+                            <a class="pointer" routerLink="/patientMrf/1">
+                                <img src="Images/viewFile-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>100590</td>
+                        <td>سيد محمد أحمد</td>
+                        <td>3:45 PM</td>
+                        <td>4</td>
+                        <td>3:20</td>
+                        <td>كشف أسنان</td>
+                        <td>أول مرة</td>
+                        <td>-</td>
+                        <td class="text-center">
+                            <a class="pointer" routerLink="/patientMrf/1">
+                                <img src="Images/viewFile-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>080880</td>
+                        <td>سنان سلطان علي</td>
+                        <td>4:00 PM</td>
+                        <td>5</td>
+                        <td>3:45</td>
+                        <td>كشف أسنان</td>
+                        <td>أول مرة</td>
+                        <td>-</td>
+                        <td class="text-center">
+                            <a class="pointer" routerLink="/patientMrf/1">
+                                <img src="Images/viewFile-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

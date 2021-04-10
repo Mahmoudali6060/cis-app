@@ -1,0 +1,107 @@
+﻿
+<form novalidate  class="form-horizontal" name="organizationForm" (ngSubmit)="onSubmit()" #organizationForm="ngForm">
+    <div class="form-group">
+        <label for="serialName" class="control-label col-md-3">{{ 'SerialNumber' | translate}}</label>
+        <div class="col-md-3">
+            <input id="serialName" name="serialName" class="form-control" [(ngModel)]='appointmentDetails.id' disabled />
+        </div>
+        <label for="marName" class="control-label col-md-3">{{ 'MRN' | translate}}</label>
+        <div class="col-md-3">
+            <input id="marName" name="marName" [(ngModel)]='appointmentDetails.patientClinicMRN' class="form-control" disabled />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fName" class="control-label col-md-3">{{ 'FirstName' | translate}}</label>
+        <div class="col-md-3">
+            <input id="fName" [(ngModel)]='appointmentDetails.firstName' name="fName" class="form-control" disabled />
+        </div>
+        <label for="lName" class="control-label col-md-3">{{ 'LastName' | translate}}</label>
+        <div class="col-md-3">
+            <input id="lName" [(ngModel)]='appointmentDetails.lastName' name="lName" class="form-control" disabled />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="birthdate" class="control-label col-md-3">{{ 'BirthDate' | translate}}</label>
+        <div class="col-md-3">
+            <input type="date" [(ngModel)]='appointmentDetails.birthDate' id="birthdate" name="birthdate" class="form-control" disabled />
+        </div>
+        <label for="mobileNo" class="control-label col-md-3">{{ 'Mobile' | translate}}</label>
+        <div class="col-md-3">
+            <input id="mobileNo" [(ngModel)]='appointmentDetails.mobile' name="mobileNo" class="form-control" disabled />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="policyNameSt" class="control-label col-md-3">{{ 'PolicyName' | translate}}</label>
+        <div class="col-md-3">
+            <input id="policyName" name="policyName" [(ngModel)]='appointmentDetails.activeInsurance.name' class="form-control" disabled />
+        </div>
+        <label for="expireDate" class="control-label col-md-3">{{ 'ExpirationDate' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]='appointmentDetails.activeInsurance.endDateString' id="expireDate" name="expireDate" class="form-control" disabled />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="policyRemark" class="control-label col-md-3">{{ 'PolicyRemark' | translate}}</label>
+        <div class="col-md-9">
+            <textarea id="policyRemark" [(ngModel)]='appointmentDetails.description' name="policyRemark" class="form-control" disabled></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="appDate" class="control-label col-md-3">{{ 'AppointmentDate' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]='appointmentDetails.dateTime' id="appDate" name="appDate" class="form-control" />
+        </div>
+        <label for="appTime" class="control-label col-md-3">{{ 'Time' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]='appointmentDetails.time' id="appTime" name="appTime" class="form-control" />
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label for="type" class="control-label col-md-3">{{ 'Type' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]='appointmentDetails.visitTypeName' id="type" name="type" class="form-control" />
+        </div>
+        <label for="className" class="control-label col-md-3">{{ 'Class' | translate}}</label>
+        <div class="col-md-3">
+        <input type="text" [(ngModel)]='appointmentDetails.appointmentClassName' id="className" name="className" class="form-control" />
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="flag" class="control-label col-md-3">{{ 'Flag' | translate}}</label>
+        <div class="col-md-3">
+            <input type="checkbox" [(ngModel)]='appointmentDetails.flag' id="flag" name="flag" class="form-control" />
+        </div>
+
+
+    </div>
+    <div class="form-group">
+        <label for="txtdes" class="control-label col-md-3">{{ 'Remarks' | translate}}</label>
+        <div class="col-md-9">
+            <textarea id="txtdes" name="txtdes"  [(ngModel)]='appointmentDetails.description' class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="docName" class="control-label col-md-3">{{ 'DoctorName' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="docName" [(ngModel)]='appointmentDetails.doctorName' disabled />
+        </div>
+        <label for="department" class="control-label col-md-3">{{ 'DepartmentName' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" class="form-control" [(ngModel)]='appointmentDetails.departmentName' disabled name="department" id="department" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="modidfiedPerson" class="control-label col-md-3">{{ 'ModifiedBy' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" class="form-control"  name="modidfiedPerson" disabled [(ngModel)]='appointmentDetails.modifierID' />
+        </div>
+
+        <label for="dateMod" class="control-label col-md-3">{{ 'ModificationDate' | translate}}</label>
+        <div class="col-md-3">
+            <input type="text" [(ngModel)]='appointmentDetails.lastModificationDateString' name="dateMod" class="form-control" disabled />
+        </div>
+    </div>
+</form>

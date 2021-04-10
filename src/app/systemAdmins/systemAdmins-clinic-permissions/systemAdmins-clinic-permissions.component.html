@@ -1,0 +1,25 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<form class="form-horizontal" name="modulesForm" (ngSubmit)="onSubmit()" #modulesForm="ngForm">
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <button type="submit" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary">{{ 'Save' | translate}}</button>
+            <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" routerLink="/systemAdmin/clinics">{{ 'Back' | translate}}</button>
+        </div>
+    </div>
+
+    <table>
+        <tr *ngFor="let item of modulesList">
+            <td>
+                <input type="checkbox" name="chkModules" value="{{item.id}}"
+                       [checked]="selectedModulesIDs.indexOf(item.id) >= 0"
+                       (change)="updateSelectedModules(item.id, $event)" />
+                {{item.name}}
+            </td>
+        </tr>
+    </table>
+
+</form>
+

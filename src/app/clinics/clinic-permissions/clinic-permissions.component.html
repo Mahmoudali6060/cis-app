@@ -1,0 +1,21 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+        <clinic-tab [isPermissionsSelected]='selectPermissionsTab'></clinic-tab>
+    <div class="row nopadding">
+            <div class="row " style="padding:13px;">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+                    {{ 'AccessRights' | translate}}
+                </div>
+
+        </div>
+
+
+        <security></security>
+
+    </div>
+</div>
+

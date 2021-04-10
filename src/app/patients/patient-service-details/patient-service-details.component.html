@@ -1,0 +1,101 @@
+﻿<form novalidate *ngIf="active" class="form-horizontal" name="organizationForm" (ngSubmit)="onSubmit()" #organizationForm="ngForm">
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-md-8">
+            <table>
+                <tr>
+                    <td *ngFor="let item of rbSelections; let idx = index">
+                        <input type="radio" name="radiogroup" [value]="item.value"
+                               [checked]="item.value == selectedAction" #i (change)="onSelectionChange(i.value)">{{item.text| translate}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="form-group" *ngIf="isService">
+        <label for="txtName" class="control-label col-md-2">{{ 'ServiceName' | translate}}</label>
+        <div class="col-md-6">
+            <a class="pointer" (click)="getAllServiceGroupsForTreeView(true)" *ngIf="isAll">{{ 'GetAll' | translate}}</a>
+            <a class="pointer" (click)="getClinicDepartmentServiceGroupsForTreeView()" *ngIf="!isAll">{{ 'GetSpecific' | translate}}</a>
+            <div class="nopadding treeBorder">
+                <div class="row nopadding">
+                    <input [placeholder]="'Search' | translate" class="form-control" [(ngModel)]="filterString" name="txtFilterString" #txtFilterString="ngModel" />
+                </div>
+                <p-tree [value]="services | filterbynameorcode:filterString : leafType  | translateObjects  : 'label' : 'labelTranslation' : null" selectionMode="single" [(selection)]="selectedNode" class="height100" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)" >
+                    <template let-node pTemplate="ClinicDepartmentServicesGroup">
+                        <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+                    <template let-node pTemplate="ServiceGroup">
+                        <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+                    <template let-node pTemplate="Service">
+                        <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                        &nbsp;
+                        {{node.label}}
+                    </template>
+                </p-tree>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" *ngIf="isService">
+        <label for="txtServiceCode" class="control-label col-md-2">{{ 'ServiceCode' | translate}}</label>
+        <div class="col-md-2">
+            <input type="text" id="txtServiceCode" name="txtServiceCode" class="form-control" [(ngModel)]='model.serviceCode' disabled />
+        </div>
+    </div>
+    <div class="form-group" *ngIf="!isService">
+        <label for="ddlServicePackage" class="control-label col-md-2">{{ 'ServicePackage' | translate}}</label>
+        <div class="col-md-4">
+            <select id="ddlServicePackage" class="form-control" name="ddlServicePackage" [(ngModel)]='model.servicePackageId' (change)="getServicePackageCode(v.value)" #v>
+                <option value="">{{ 'Select' | translate}}</option>
+                <option *ngFor="let obj of servicePackages" [value]="obj.id">{{obj.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group" *ngIf="!isService">
+        <label for="txtPackageCode" class="control-label col-md-2">{{ 'PackageCode' | translate}}</label>
+        <div class="col-md-2">
+            <input type="text" id="txtPackageCode" name="txtPackageCode" class="form-control" [(ngModel)]='model.servicePackageCode' disabled />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtQuantity" class="control-label col-md-2">{{ 'Quantity' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number" min="0" id="txtQuantity" name="txtQuantity" [(ngModel)]='model.quantity' class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtDiscount" class="control-label col-md-2">{{ 'Discount' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number" min="0" id="txtDiscount" name="txtDiscount" [(ngModel)]='model.discount' class="form-control" />
+        </div>
+        <div class="col-md-2">
+            %
+        </div>
+        </div>
+    <div class="form-group">
+        <label for="ddlDiagnosis" class="control-label col-md-2">{{ 'Diagnosis' | translate}}</label>
+        <div class="col-md-4">
+            <select id="ddlDiagnosis" class="form-control" name="ddlDiagnosis" [(ngModel)]='model.diagnoseId'>
+                <option value="">{{ 'Select' | translate}}</option>
+                <option *ngFor="let obj of noteDiagnosis" [value]="obj.id">{{obj.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="txtName" class="control-label col-md-2">{{ 'Description' | translate}} </label>
+        <div class="col-md-6">
+            <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='model.description'></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-4 col-md-offset-2">
+            <button class="btn btn-primary" type="submit">{{ 'Save' | translate}}</button>
+            <button class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+            <button class="btn btn-primary" type="button" (click)="goBack()">{{ 'Back' | translate}}</button>
+        </div>
+    </div>
+</form>

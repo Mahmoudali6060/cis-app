@@ -1,0 +1,21 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<button *ngIf="departmentRadiologies.length" class="btn btn-primary text-right" (click)="SaveNoteRadiologies()">{{'Save' | translate}}</button>
+<br />
+<br />
+<div class="row" *ngIf="departmentRadiologies.length">
+    <ul class="nav nav-tabs">
+        <li *ngFor="let radiologyGroup of departmentRadiologies; let i=index" class="{{i === 0 ? 'active' : ''}}"><a href="#divRadiologyGroup{{radiologyGroup.data}}" data-toggle="tab" aria-expanded="true">{{ selectedLang === 'ar' ?  radiologyGroup.label : radiologyGroup.labelTranslation }}</a></li>
+    </ul>
+    <div class="tab-content">
+        <div *ngFor="let radiologyGroup of departmentRadiologies; let j=index" class="tab-pane fade {{j === 0 ? 'active in' : ''}}" id="divRadiologyGroup{{radiologyGroup.data}}">
+            <patient-radiologyGrid [radiologies]="radiologyGroup.children"
+                                  [noteRadiologies]="noteRadiologiesList"
+                                  [diagnosis]="noteDiagnosis"
+                                  [masterList]="masterNoteRadiologiesList"
+                                  [noteId]="noteId"></patient-radiologyGrid>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿
+<div class="left-aside desktop-view">
+    <div class="aside-branding">
+        <a>
+            <!--<img src="Images/logo.png" height="60" width="60" />-->
+            <img src="Images/App-Logo.png" title="Logo" class="appLogo" />
+        </a>
+        <!--<a routerLink="/home" class="large-logo">
+            <span style="color:white;">&nbsp;&nbsp;CIS</span>
+        </a>-->
+        <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
+        <span class="aside-close waves-effect" onclick="closeLeftBar();"><i class="fa fa-times"></i></span>
+    </div>
+    <div class="left-navigation">
+        <ul class="list-accordion padding5">
+            <li>
+                <a class="{{ (activeTabIndex == 0) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/basic/{{patientId}}">البيانات الأساسية</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 1) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/vitalSigns/{{patientId}}">
+                    <span *ngIf="isDoctor">
+                        الشكوى الرئيسة & العلامات الحيوية
+                    </span>
+                    <span>
+                        العلامات الحيوية
+                    </span>
+                </a>
+            </li>
+            <li *ngIf="isDoctor">
+                <a class="{{ (activeTabIndex == 2) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/diagnosis/{{patientId}}">التشخيص</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 3) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/medication/{{patientId}}">الدواء</a>
+            </li>
+            <li *ngIf="isDoctor">
+                <a class="{{ (activeTabIndex == 4) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/surgeries/{{patientId}}">العمليات الجراحية السابقة</a>
+            </li>
+            <li *ngIf="isDoctor">
+                <a class="{{ (activeTabIndex == 5) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/allergies/{{patientId}}">الحساسية من الدواء</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 6) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/services/{{patientId}}">الخدمات</a>
+            </li>
+            <li *ngIf="isDoctor">
+                <a class="{{ (activeTabIndex == 7) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/laboratory/{{patientId}}">الفحوصات المختبرية</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 8) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/radiology/{{patientId}}" *ngIf="isDoctor">فحوصات الأشعة</a>
+            </li>
+            <li>
+                <a class="{{ (activeTabIndex == 9) ? 'selectednavbaritem active' : '' }}" routerLink="/patient/attachments/{{patientId}}">المرفقات </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,206 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="padding5">
+    <div class="row form-horizontal well">
+        <br />
+        <div class="form-group" >
+            <label for="txtMRNRes" class="col-md-2 control-label">{{ 'MRN' | translate}}</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control"   [(ngModel)]='appointmentCriteria.patientClinicMRN' id="txtMRNRes" name="txtMRNRes"/>
+
+            </div>
+            <button type="button" (click)="showDialog()" class="btn btn-primary col-md-2">{{'FindPatient' | translate}}</button>
+
+            <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" resizable="true" width="800" responsive="true" height="auto">
+                <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
+            </p-dialog>
+
+
+
+                <label for="txtName" class="col-md-2 control-label">{{ 'DoctorName' | translate}}</label>
+                <div class="col-md-3">
+                    <!--<input type="text" class="form-control" [(ngModel)]='appointmentCriteria.doctorName' />-->
+                    <select name="ddlsDoctorsList" [(ngModel)]='appointmentCriteria.doctorId' class="form-control" #ddlsDoctorsList>
+                        <option value="0" selected>{{ 'Select' | translate}}</option>
+                        <option *ngFor="let item of doctorsList | translateObjects" [value]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+</div>
+        <div class="form-group">
+            <label for="txtName" class="col-md-2 control-label">{{ 'Date' | translate}}</label>
+            <div class="col-md-2">
+                <select id="oppintmentDate" name="oppintmentDate"  [(ngModel)]='appointmentCriteria.receptionistMethodsSearch'  (change)="selectDate(oppintmentDate.value)" class="form-control" #oppintmentDate>
+                    <option  >{{ 'Select' | translate}} --</option>
+                    <option value="Today">{{ 'Today' | translate}}</option>
+                    <option value="Days">{{ 'Days' | translate}}</option>
+                    <option value="Week">{{ 'Week' | translate}}</option>
+                    <option value="Month">{{ 'Month' | translate}}</option>
+                    <option value="Year">{{ 'Year' | translate}}</option>
+                    <option value="PeriodOfTime">{{ 'PeriodOfTime' | translate}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="todayStatus">
+            <label for="txtName" class="col-md-2 control-label">{{ 'NoOfDays' | translate}}</label>
+            <div class="col-md-3">
+                <input type="number" min="1" title="1" class="form-control" [(ngModel)]='appointmentCriteria.timeDuration'  />
+            </div>
+        </div>
+        <div class="form-group" *ngIf="weekStatus">
+            <label for="txtName" class="col-md-2 control-label"  >{{ 'HowManyWeeks' | translate}}</label>
+            <div class="col-md-3">
+                <input type="number" min="1" title="1" class="form-control" [(ngModel)]='appointmentCriteria.timeDuration'/>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="monthStatus">
+            <label for="txtName" class="col-md-2 control-label" >{{ 'HowManyMonths' | translate}}</label>
+            <div class="col-md-3">
+                <input type="number" min="1" title="1" class="form-control"  [(ngModel)]='appointmentCriteria.timeDuration'/>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="yearStatus">
+            <label for="txtName" class="col-md-2 control-label"  >{{ 'HowManyYears' | translate}}</label>
+            <div class="col-md-3">
+                <input type="number" min="1" title="1" class="form-control" [(ngModel)]='appointmentCriteria.timeDuration'/>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="periodOfTime">
+            <label for="txtName" class="col-md-2 control-label"  >{{ 'From' | translate}}</label>
+            <div class="col-md-3">
+                <p-calendar [(ngModel)]="periodStartDate"
+                            [monthNavigator]="true"
+                            [yearNavigator]="true"
+                            dateFormat="dd/mm/yy"
+                            showIcon="true"
+                            [ngModelOptions]="{standalone: true}"
+                            yearRange="2000:2050"></p-calendar>
+            </div>
+            <label for="txtName" class="col-md-3 control-label"  >{{ 'To' | translate}}</label>
+            <div class="col-md-3">
+                <p-calendar [(ngModel)]="periodEndDate"
+                            [monthNavigator]="true"
+                            [yearNavigator]="true"
+                            dateFormat="dd/mm/yy"
+                            showIcon="true"
+                            [ngModelOptions]="{standalone: true}"
+                            yearRange="2000:2050"></p-calendar>
+            </div>
+        </div>
+        <div class="form-group" *ngIf="pastOrFuture">
+            <label for="ddlUnitType" class="col-md-2 control-label" >{{ 'PastOrFuture' | translate}}</label>
+            <div class="col-md-3">
+                <select class="form-control" required [(ngModel)]='appointmentCriteria.timeStatus' >
+                    <option value="Past">{{ 'Past' | translate}}</option>
+                    <option value="Future">{{ 'Future' | translate}}</option>
+                </select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4 col-md-offset-2">
+                <button type="button" class="btn btn-primary" (click)="GetAllAppointments()">{{ 'Search' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <h4>{{ 'SearchResults' | translate}}</h4>
+        <hr />
+        <print-page [section]='toPrintDiv'></print-page>
+        <div class="ui-widget-header searchWidget">
+            <i class="fa fa-search searchIcon"></i>
+            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+        </div>
+        <p-dataTable [value]="matchedAppontments | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="dateTime" [header]="'AppointmentDate' | translate" [sortable]="true"></p-column>
+            <p-column field="appointmentClassName"  [header]="'Class' | translate" [sortable]="true"></p-column>
+            <p-column field="arrivalTime"   [header]="'ArrivalTime' | translate" [sortable]="true"></p-column>
+            <p-column field="patientClinicMRN" [header]="'PatientMRN' | translate"  [sortable]="true"></p-column>
+            <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
+            <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
+            <p-column field="mobile" [header]="'Mobile' | translate" [sortable]="true"></p-column>
+
+            <p-column field="policyName" [header]="'PolicyName' | translate" [sortable]="true"></p-column>
+            <p-column field="policyEndDate" [header]="'PolicyEndDate' | translate" [sortable]="true"></p-column>
+            <p-column field="lastModifier"  [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
+            <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate"  [sortable]="true"></p-column>
+            <p-column  [header]="'Edit' | translate"  styleClass="text-center width50" >
+                <template let-appointment="rowData" pTemplate="body">
+                    <!--<a class="pointer" data-toggle="modal" #val data-target="#appointmentDetailsModal" (click)="GetId(appointment)" >-->
+                        <a class="pointer"  #val (click)="GetId(appointment)">
+                            <img src="Images/details-24.jpg" />
+                        </a>
+                </template>
+            </p-column>
+
+        </p-dataTable>
+
+    </div>
+</div>
+<div id="appointmentDetailsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog width75percent">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'AppointmentDetails' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <receptionist-appointment-details [appointmentDetails]="appointmentDetails" [AppontmentId]="appointmentId"></receptionist-appointment-details>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <!--<button type="button" class="btn btn-primary">{{ 'Apply' | translate}}</button>
+                    <button type="button" class="btn btn-primary">{{ 'Cancel' | translate}}</button>
+                    <button type="button" class="btn btn-primary">{{ 'Repeat' | translate}}</button>
+                    <button type="button" class="btn btn-primary">{{ 'Reschedule' | translate}}</button>
+                    <button type="button" class="btn btn-primary">{{ 'PatientFile' | translate}}</button>-->
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">{{ 'Close' | translate}}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="matchedAppoitmentsToPrintDiv" class="hidden">
+    <table class="table table-responsive table-hover">
+        <thead class="alert alert-info">
+            <tr>
+                <th>{{ 'AppointmentDate' | translate}}</th>
+                <th>{{ 'Class' | translate}}</th>
+                <th>{{ 'ArrivalTime' | translate}}</th>
+                <th>{{ 'PatientMRN' | translate}}</th>
+                <th>{{ 'DoctorName' | translate}}</th>
+                <th>{{ 'PatientName' | translate}}</th>
+                <th>{{ 'Mobile' | translate}}</th>
+                <th>{{ 'PolicyName' | translate}}</th>
+                <th>{{ 'PolicyEndDate' | translate}}</th>
+                <th>{{ 'LastModifierUser' | translate}}</th>
+                <th>{{ 'LastModificationDate' | translate}}</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of matchedAppontments">
+                <td>{{item.dateTime}}</td>
+                <td>{{item.appointmentClassName}}</td>
+                <td>{{item.arrivalTime}}</td>
+                <td>{{item.patientClinicMRN}}</td>
+                <td>{{ lang == 'ar' ? item.doctorName : item.doctorNameTranslation }}</td>
+                <td>{{item.patientName}}</td>
+                <td>{{item.mobile}}</td>
+
+                <td>{{item.policyName}}</td>
+                <td>{{item.policyEndDate}}</td>
+                <td>{{item.lastModifier}}</td>
+                <td>{{item.lastModificationDateString}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

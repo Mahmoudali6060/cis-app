@@ -1,0 +1,99 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isPurchasingSelected]='selectPurchasingTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isPurchasingSelected]='selectPurchasingTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                    {{ 'Clinic' | translate}}
+                                </li>
+                                <li class="active-page">{{ 'PurchaseOrders' | translate}} > {{ 'PurchaseOrderDetails' | translate}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <label class="control-label col-md-2">{{ 'RerNo' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.refNo}}</label>
+            <label class="control-label col-md-2">{{ 'OrderDate' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.dateString}}</label>
+        </div>
+        <div class="row">
+            <label class="control-label col-md-2">{{ 'Vendor' | translate}}:</label>
+            <label class="control-label col-md-4">{{(model  | translateObjects  : 'vendorName' : 'vendorNameTranslation' : null).vendorName}}</label>
+            <label class="control-label col-md-2">{{ 'Status' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.orderStatus | translate}}</label>
+        </div>
+        <div class="row">
+            <label class="control-label col-md-2">{{ 'Total' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.totalPrice}}</label>
+            <label class="control-label col-md-2">{{ 'Remark' | translate}}:</label>
+            <label class="control-label col-md-4">{{model.description}}</label>
+        </div>
+        <div class="row text-right">
+                <button class="btn btn-primary" *ngIf="!isClosed" (click)="viewOrderDetails(model.id)" disabled="{{ enableReceiveLink || isClinicAdmin ? '' :'disabled'}}">{{ 'ReceiveQuantity' | translate}}</button>
+                <button class="btn btn-primary" *ngIf="!isSent" (click)="checkProductsInItemsList(model.id)" disabled="{{ enableEditBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'EditOrder' | translate}}</button>
+            <button class="btn btn-primary" (click)="navigateToOrdersList()">{{ 'Back' | translate}}</button>
+        </div>
+        <br/>
+        <br />
+        <div class="ui-widget-header searchWidget">
+            <i class="fa fa-search searchIcon"></i>
+            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+        </div>
+        <p-dataTable [value]="itemsList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <p-column field="productName" [header]="'Item' | translate" [sortable]="true"></p-column>
+            <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
+            <!--<p-column field="unit" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
+            <p-column [header]="'Unit' | translate">
+                <template let-item="rowData" pTemplate="body">
+                    <label *ngIf="item.unitType === 'NumbersUnit'">{{ item.unit | translate}}</label>
+                    <label *ngIf="item.unitType == 'HeightsUnit' || item.unitType == 'WeightsUnit' || item.unitType == 'VolumesUnit'">
+                        {{ item.unit}}
+                    </label>
+                </template>
+            </p-column>
+            <p-column field="purchasingPrice" [header]="'PurchasePrice' | translate" [sortable]="true"></p-column>
+            <p-column field="orderedQuantity" [header]="'OrderdQuant' | translate" [sortable]="true"></p-column>
+            <p-column field="net" [header]="'Net' | translate" [sortable]="true"></p-column>
+            <p-column field="description" [header]="'Remark' | translate" [sortable]="true"></p-column>
+            <p-column field="userName" [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
+        </p-dataTable>
+    </div>
+</div>
+<button data-toggle="modal" data-target="#confirm" type="button" style="display:none" #btnConfirm>
+
+</button>
+<div id="confirm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ItemsListConfirmation' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{itemsMsge}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="useCurrentOrderdQuantity()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="useItemOrderdQuantity()">{{ 'No' | translate}}</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,151 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <!--<div class="col-md-2 nopadding">
+         <patient-receptionist-tabs [activeTabIndex]="1"></patient-receptionist-tabs>
+     </div>-->
+    <div class="row nopadding">
+        <form novalidate *ngIf="active" class="form-horizontal" name="patientForm" (ngSubmit)="onSubmit()" #patientForm="ngForm">
+            <div class="form-group">
+                <label for="txtRemarks" class="control-label col-md-2">{{ 'PatientName' | translate}} </label>
+                <label for="txtRemarks" class="control-label col-md-2">{{model.name}} </label>
+                <label for="txtRemarks" class="control-label col-md-2">{{ 'ClinicMRN' | translate}} </label>
+                <label for="txtRemarks" class="control-label col-md-2">{{model.clinicMRN}} </label>
+            </div>
+            <div class="form-group">
+                <label for="txtUnifiedMRN" class="control-label col-md-2">{{ 'UnifiedMRN' | translate}}</label>
+                <div class="col-md-2">
+                    <input id="txtUnifiedMRN" name="txtUnifiedMRN" class="form-control" [(ngModel)]='model.unifiedMRN' disabled />
+                </div>
+                <label for="txtClinicMRN" class="control-label col-md-2">{{ 'ClinicMRN' | translate}}</label>
+                <div class="col-md-2">
+                    <input id="txtClinicMRN" name="txtClinicMRN" class="form-control" [(ngModel)]='model.clinicMRN' #txtClinicMRN="ngModel" />
+                    <div [hidden]="txtClinicMRN.valid || txtClinicMRN.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlBirthCountry" class="control-label col-md-2">{{ 'BirthCountry' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlBirthCountry" name="ddlBirthCountry" [(ngModel)]="model.birthCountryId" #ddlBirthCountry="ngModel" #d (change)="fillRegions(d.value)" >
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of countries | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                    <div [hidden]="ddlBirthCountry.valid || ddlBirthCountry.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+                <label for="ddlBirthState" class="control-label col-md-2">{{ 'BirthState' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlBirthState" name="ddlBirthState" [(ngModel)]="model.birthStateId" #ddlBirthState="ngModel" #r (change)="fillCities(r.value)" >
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of regions | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                    <div [hidden]="ddlBirthState.valid || ddlBirthState.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlBirthCity" class="control-label col-md-2">{{ 'BirthCity' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlBirthCity" name="ddlBirthCity" [(ngModel)]="model.birthCityId" #ddlBirthCity="ngModel" >
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of cities | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                    <div [hidden]="ddlBirthCity.valid || ddlBirthCity.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+                <label for="ddlReligion" class="control-label col-md-2">{{ 'Religion' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlReligion" name="ddlReligion" [(ngModel)]="model.religionId" #ddlReligion="ngModel" required>
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of religions | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                    <div [hidden]="ddlReligion.valid || ddlReligion.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlMainNationality" class="control-label col-md-2">{{ 'MainNationality' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlMainNationality" name="ddlMainNationality" [(ngModel)]="model.mainNationalityId" #ddlMainNationality="ngModel" required>
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of nationalities | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                    <div [hidden]="ddlMainNationality.valid || ddlMainNationality.pristine" class="alert alert-danger">
+                        {{ 'RequiredField' | translate}}
+                    </div>
+                </div>
+                <label for="ddlOtherNationality" class="control-label col-md-2">{{ 'OtherNationality' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlOtherNationality" name="ddlOtherNationality" [(ngModel)]="model.otherNationalityId" #ddlOtherNationality="ngModel">
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of nationalities | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlMaritalStatus" class="control-label col-md-2">{{ 'MaritalStatus' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlMaritalStatus" name="ddlMaritalStatus" [(ngModel)]="model.maritalStatusId" #ddlMaritalStatus="ngModel">
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of maritalStatuses | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                </div>
+                <label for="ddlBloodGroup" class="control-label col-md-2">{{ 'BloodGroup' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlBloodGroup" name="ddlBloodGroup" [(ngModel)]="model.bloodGroupId" #ddlBloodGroup="ngModel">
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of bloodGroups | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlIDType" class="control-label col-md-2">{{ 'IDType' | translate}}</label>
+                <div class="col-md-2">
+                    <select class="form-control" id="ddlIDType" name="ddlIDType" [(ngModel)]="model.idTypeId" #ddlIDType="ngModel">
+                        <option value="">{{ 'Select' | translate}}</option>
+                        <option *ngFor="let ele of idTypes | translateObjects" [value]="ele.id">{{ele.name}}</option>
+                    </select>
+                </div>
+                <label for="txtIDNumber" class="control-label col-md-2">{{ 'IdNumber' | translate}}</label>
+                <div class="col-md-2">
+                    <input type="text" id="txtIdNumber" name="txtIdNumber" class="form-control" [(ngModel)]="model.idNumber" #ddlIDType="ngModel" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtAlertMessage" class="control-label col-md-2">{{ 'AlertMessage' | translate}}</label>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="txtAlertMessage" name="txtAlertMessage" [(ngModel)]="model.alertMessage"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtRemarks" class="control-label col-md-2">{{ 'Remarks' | translate}} </label>
+                <div class="col-md-6">
+                    <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]="model.description"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="fileImage" class="control-label col-md-2">{{ 'Picture' | translate}}</label>
+                <div class="col-md-4">
+                    <image-uploader [(imageId)]="model.imageId" [(imageData)]="model.imageData" (change)="imageChanged($event);"></image-uploader>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <button class="btn btn-primary" [disabled]="!patientForm.form.valid">{{ 'Save' | translate}}</button>
+                    <button class="btn btn-primary" (click)="navigateToPackages()">{{ 'Back' | translate}} </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

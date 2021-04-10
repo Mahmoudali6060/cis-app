@@ -1,0 +1,149 @@
+﻿
+<form novalidate *ngIf="active" class="form-horizontal" name="organizationForm" #organizationForm="ngForm">
+    <div class="form-group">
+        <button type="button" class="btn btn-primary text-right" (click)="SavechiefComplaint()" disabled="{{ enableNewNoteBtn ? '' :'disabled'}}">{{ 'Save' | translate}}</button>
+        <!--<button type="button" class="btn btn-danger" data-dismiss="modal">{{ 'Close' | translate}}</button>-->
+    </div>
+    <div class="form-group" *ngIf="isDoctor">
+        <label for="txtChiefComplaint" class="control-label col-md-2">{{ 'ChiefComplaint' | translate}} </label>
+        <div class="col-md-6">
+            <textarea class="form-control" name="txtChiefComplaint" [(ngModel)]='chiefComplaint.chiefComplaintMain'></textarea>
+        </div>
+    </div>
+    <h4 *ngIf="isDoctor">
+        {{ 'VitalSigns' | translate}}
+    </h4>
+    <hr *ngIf="isDoctor" />
+    <div class="form-group">
+        <label for="txtWeightValue" class="control-label col-md-2">{{ 'Weight' | translate}}</label>
+        <div class="col-md-1">
+            <input type="number" #weightValue (change)="getWeight(weightValue.value)" class="form-control" name="txtWeightValue" [(ngModel)]='chiefComplaint.weightValue' />
+        </div>
+        <div class="col-md-1">
+            <select class="form-control" #weightType name="weightUnitId" (change)="getWeightType(weightType.value)" [(ngModel)]="chiefComplaint.weightUnitId">
+                <option *ngFor="let item of weightList" [value]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+        <label for="weightValueMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text"  class="form-control" name="weightValueMark" [(ngModel)]='chiefComplaint.weightValueMark' />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="temperatureTypeValue" class="control-label col-md-2">{{ 'Temprature' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number" name="temperatureTypeValue" class="form-control" [(ngModel)]='chiefComplaint.temperatureTypeValue' />
+        </div>
+        <label for="temperatureTypeMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text" name="temperatureTypeMark" class="form-control" [(ngModel)]='chiefComplaint.temperatureTypeMark' />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="respirationRate" class="control-label col-md-2">{{ 'Respirationrate' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number"  name="respirationRate" class="form-control" [(ngModel)]='chiefComplaint.respirationRate' />
+        </div>
+        <label for="respirationRateMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text"  name="respirationRateMark" class="form-control" [(ngModel)]='chiefComplaint.respirationRateMark' />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="pulse" class="control-label col-md-2">{{ 'Pulse' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number" name="pulse" class="form-control" [(ngModel)]='chiefComplaint.pulse' />
+        </div>
+        <label for="pulseMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text"  name="pulseMark" class="form-control" [(ngModel)]='chiefComplaint.pulseMark' />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="heightvalue" class="control-label col-md-2">{{ 'Height' | translate}}</label>
+        <div class="col-md-1">
+            <input type="number" #heightValue name="heightvalue" class="form-control" (change)="getHeight(heightValue.value)" [(ngModel)]='chiefComplaint.heightvalue' />
+        </div>
+        <div class="col-md-1">
+            <select class="form-control" name="heightUnitId" [(ngModel)]='chiefComplaint.heightUnitId' #heightType (change)="getHeightType(heightType.value)">
+                <option *ngFor="let item of heightList" [value]="item.id">{{item.name}}</option>
+            </select>
+        </div>
+        <label for="heightValueMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text"  name="heightValueMark" class="form-control" [(ngModel)]='chiefComplaint.heightValueMark' />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="headCircumferences" class="control-label col-md-2">{{ 'HeadCircumferences' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number"  name="headCircumferences" class="form-control" [(ngModel)]='chiefComplaint.headCircumferences' />
+        </div>
+        <label for="headCircumferencesMArk" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text" name="headCircumferencesMArk"  class="form-control" [(ngModel)]='chiefComplaint.headCircumferencesMArk' />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="bpSystolic" class="control-label col-md-2">{{ 'BPSystolic' | translate}} </label>
+        <div class="col-md-2">
+            <input type="number" name="bpSystolic" class="form-control" [(ngModel)]='chiefComplaint.bpSystolic' />
+        </div>
+        <label for="bpSystolicMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text" name="bpSystolicMark" class="form-control" [(ngModel)]='chiefComplaint.bpSystolicMark' />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="bpDiastolic" class="control-label col-md-2">{{ 'BPDiastolic' | translate}} </label>
+        <div class="col-md-2">
+            <input type="number" name="bpDiastolic" class="form-control" [(ngModel)]='chiefComplaint.bpDiastolic' #bpDiastolic />
+        </div>
+        <label for="bpDiastolicMArk" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text"  name="bpDiastolicMArk" class="form-control" [(ngModel)]='chiefComplaint.bpDiastolicMArk' #bpDiastolicMArk />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="bMI" class="control-label col-md-2">{{ 'BMI' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number" name="bMI" class="form-control" [(ngModel)]='chiefComplaint.bmi' #bMI />
+        </div>
+        <label for="bMIMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text" name="bMIMark" class="form-control" [(ngModel)]='chiefComplaint.bmiMark' #bMIMark />
+        </div>
+    </div>
+    <div class="form-group" *ngIf="isDoctor">
+        <label for="durationOfIllness" class="control-label col-md-2">{{ 'DurationOfIllness' | translate}}</label>
+        <div class="col-md-2">
+            <input type="number" name="durationOfIllness" [(ngModel)]='chiefComplaint.durationOfIllness' class="form-control" #durationOfIllness />
+        </div>
+        <label for="durationOfIllnessMark" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-5">
+            <input type="text" name="durationOfIllnessMark" class="form-control" [(ngModel)]='chiefComplaint.durationOfIllnessMark' #durationOfIllnessMark />
+        </div>
+    </div>
+    <div class="form-group" *ngIf="isDoctor">
+        <label for="significantSigns" class="control-label col-md-2">{{ 'SignificantSigns' | translate}}</label>
+        <div class="col-md-6">
+            <textarea class="form-control"  name="significantSigns" [(ngModel)]='chiefComplaint.significantSigns'></textarea>
+        </div>
+    </div>
+    <div class="form-group" *ngIf="isDoctor">
+        <label for="possibleLineManagement" class="control-label col-md-2">{{ 'PossibleLineManagement' | translate}} </label>
+        <div class="col-md-6">
+            <textarea class="form-control"  name="possibleLineManagement" [(ngModel)]='chiefComplaint.possibleLineManagement'></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="description" class="control-label col-md-2">{{ 'Description' | translate}}</label>
+        <div class="col-md-6">
+            <textarea class="form-control" name="description" [(ngModel)]='chiefComplaint.description'></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">   
+    </div>
+
+</form>
+

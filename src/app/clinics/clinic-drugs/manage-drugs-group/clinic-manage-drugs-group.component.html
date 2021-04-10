@@ -1,0 +1,40 @@
+﻿<form *ngIf="active" class="form-horizontal" name="manageDrugsGroupForm" #manageDrugsGroupForm="ngForm">
+    <div class="modal-body">
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-3"> {{ 'ParentGroup' | translate}}</label>
+            <div class="col-md-9">
+                {{selectedParentGroupName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtName" class="control-label col-md-3">{{ 'ArabicName' | translate}}</label>
+            <div class="col-md-9">
+                <input id="txtName" name="txtName" class="form-control" [(ngModel)]='selectedDrugsGroup.name' #txtName="ngModel" required />
+                <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                    {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtNameTranslation" class="control-label col-md-3"> {{ 'EnglishName' | translate}}</label>
+            <div class="col-md-9">
+                <input id="txtNameTranslation" name="txtNameTranslation" class="form-control" [(ngModel)]='selectedDrugsGroup.nameTranslation' #txtNameTranslation="ngModel" required />
+                <div [hidden]="txtNameTranslation.valid || txtNameTranslation.pristine" class="alert alert-danger">
+                   {{ 'RequiredField' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDrugsGroupRemark" class="control-label col-md-3"> {{ 'Remark' | translate}}</label>
+            <div class="col-md-6">
+                <textarea id="txtDrugsGroupRemark" name="txtDrugsGroupRemark" class="form-control" [(ngModel)]='selectedDrugsGroup.description'></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="text-center">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!manageDrugsGroupForm.valid ||(!enableSaveBtn && !isClinicAdmin)" (click)="saveDrugsGroup()">{{ 'Save' | translate}}</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelDrugsGroup()">{{ 'Cancel' | translate}}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,251 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading> 
+</div>
+
+<div class="row">
+    <shared-tabs [activeTabIndex]="19"></shared-tabs>
+
+    <div class="page-breadcrumb">
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'InsuranceManagement' | translate}}</a> &nbsp;/
+                {{ 'CoverageDetail' | translate}}
+            </div>
+
+        </div>
+    </div>
+    
+    
+    <div class="row well">
+        <div class="col-md-4 col-md-offset-11">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#coverageDetailsPopup" disabled="{{viewCoverageDetails ?'':'disabled'}}" (click)="initialize()">{{ 'New' | translate}}</button>
+        </div>
+
+    </div>
+    <div class="padding5">
+
+        <div class="row well">
+            <div class="col-sm-5 offset-md-1">
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label" for="txtName">{{ 'InsuranceCompany' | translate}}</label>
+                    <div class="col-sm-7">
+                        <select class="form-control" id="ddlCompanies" name="ddlCompanies" #d (change)="fillPolicies(d.value)" required>
+                            <option value="">
+                                {{ 'Select' | translate}}
+                            </option>
+                            <option *ngFor="let company of insuranceCompaniesList | translateObjects" [value]="company.id">{{company.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-5 ">
+                <div class="form-group row">
+                    <label class="col-sm-5 control-label" for="ddlPolicies">{{ 'InsurancePolicy' | translate}}</label>
+                    <div class="col-sm-7">
+                        <select class="form-control" id="ddlPolicies" name="ddlPolicies" #p (change)="selectPolicy(p.value)">
+                            <option value="">
+                                {{ 'Select' | translate}}
+                            </option>
+                            <option *ngFor="let policy of filteredPoliciesList | translateObjects" [value]="policy.id">{{policy.name}}</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+            </div>
+           
+            <p-dataTable [value]="coverageDetailsList | translateObjects  : 'name' : 'nameTranslation' : null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <p-column field="name" [header]="'DiagnosisandService' | translate" [sortable]="true"></p-column>
+                <!--<p-column field="maxCoverageAmount" [header]="'MaximumCoverageAmount' | translate" [sortable]="true"></p-column>-->
+                <!--<p-column field="deductibleAmount" [header]="'DeductibleAmount' | translate" [sortable]="true"></p-column>-->
+                <p-column field="deductiblePercentage" [header]="'DeductiblePercentage' | translate" [sortable]="true"></p-column>
+                <p-column field="discountPercentage" [header]="'DiscountPercentage' | translate" [sortable]="true"></p-column>
+                <p-column field="coverageType" [header]="'CoverageType' | translate" [sortable]="true"></p-column>
+                <p-column field="specialPrice" [header]="'SpecialPrice' | translate" [sortable]="true"></p-column>
+                <p-column [header]="'Edit' | translate" styleClass="text-center width60">
+                    <template let-coverage="rowData" pTemplate="body">
+                        <a [class.disabled]="!enableSaveCoverageDetails ? true : null">
+                            <!--<img src="Images/Pencil-icon24.png" data-toggle="modal" data-target="#coverageDetailsPopup"
+                                 (click)="selectCoverageDetails(coverage.id)" />-->
+                            <i class="fa fa-pencil fa-2x" data-toggle="modal" data-target="#coverageDetailsPopup"
+                                 (click)="selectCoverageDetails(coverage.id)" style="color: #32bea6;"></i>
+                        </a>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+
+        <div id="coverageDetailsPopup" class="modal fade" role="dialog">
+            <div class="modal-dialog width75percent">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" #btnCoverageDetailsModalClose  (click)="close()">&times;</button>
+                        <h4 class="h4Deco modal-title">{{ 'CoverageDetail' | translate}}</h4>
+                    </div>
+                    <form *ngIf="active" class="form-horizontal" name="renewForm" (ngSubmit)="saveCoverageDetails()" #renewForm="ngForm">
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="radiogroup" value="Services"
+                                                   [checked]="showServices" #radioServices (change)="onRadioSelectionChanged(radioServices.value)" disabled="{{ !dymptService ? '' :'disabled'}}">{{ 'Services' | translate}}
+                                        </td>
+                                        <td>
+                                            <input type="radio" name="radiogroup" value="Diagnosis"
+                                                   [checked]="!showServices" #radioDiagnosis (change)="onRadioSelectionChanged(radioDiagnosis.value)"  disabled="{{ !dymptDiagnose ? '' :'disabled'}}">{{ 'Diagnosis' | translate}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div id="Services" *ngIf="showServices">
+                                <tree-checkboxList [treeList]="servicesTree"
+                                                   [items]="allServices"
+                                                   [selectedItemsIDs]="selectedServicesIDs"
+                                                   [groupType]="groupType"></tree-checkboxList>
+                            </div>
+
+                            <div id="diagnosis" *ngIf="!showServices">
+                                <tree-checkboxList [treeList]="diagnosisTree"
+                                                   [items]="allDiagnosis"
+                                                   [selectedItemsIDs]="selectedDiagnosisIDs"
+                                                   [groupType]="diagnosisGroup"></tree-checkboxList>
+                            </div>
+
+                                <br />
+                                <div class="form-group">
+                                    <label for="ddlCoverageType" class="control-label col-md-2">{{'CoverageType' | translate }}</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="ddlCoverageType" [(ngModel)]="model.coverageType" #ddlCoverageType="ngModel" #covType (change)="CoverageTypeChanged(covType.value)" required>
+                                            <option *ngFor="let type of coverageTypes | translateObjects" [value]="type.value">{{ type.text | translate}}</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group" *ngIf="isCondition">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
+                                        <input type="radio" name="radiogroup1" value="true"
+                                               [checked]="model.needApproval" #radioApproval (change)="needApprovalChanged(true)">{{'NeedApproval' | translate}}
+                                        <input type="radio" name="radiogroup1" value="false"
+                                               [checked]="!model.needApproval" #radioApproval (change)="needApprovalChanged(false)">{{'Other' | translate}}
+                                        <br />
+                                        <textarea class="form-control" name="txtApprovalDescription" [(ngModel)]="model.description" #txtApprovalDescription="ngModel"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="txtDiscountPercentage" class="control-label col-md-2">{{'DiscountPercentage' | translate}}</label>
+                                    <div class="col-md-4">
+                                        <input type="number" pattern="^[0-9]{1,3}(\.[0-9]{0,2})?$" maxlength="5" class="form-control" name="txtDiscountPercentage" [(ngModel)]="model.discountPercentage" #txtDiscountPercentage="ngModel" />
+                                    </div> %
+                                    <!-- <label for="txtMaxCoverageAmount" class="control-label col-md-2">{{'MaximumCoverageAmount' | translate}}</label>
+             <div class="col-md-4">
+                 <input type="number" maxlength="9" class="form-control" name="txtMaxCoverageAmount" [(ngModel)]="model.maxCoverageAmount" #txtMaxCoverageAmount="ngModel"  />
+             </div>-->
+                                </div>
+                                <div class="form-group">
+                                    <!--<label for="txtDeductibleAmount" class="control-label col-md-2">{{'DeductibleAmount' | translate}}</label>
+            <div class="col-md-4">
+                <input type="number" maxlength="9" class="form-control" name="txtDeductibleAmount" [(ngModel)]="model.deductibleAmount" #txtDeductibleAmount="ngModel"  />
+            </div>-->
+                                    <label for="txtdeductiblePercentage" class="control-label col-md-2">{{'DeductiblePercentage' | translate}}</label>
+                                    <div class="col-md-4">
+                                        <input type="number" pattern="^[0-9]{1,3}(\.[0-9]{0,2})?$" maxlength="5" class="form-control" name="txtdeductiblePercentage" [(ngModel)]="model.deductiblePercentage" #txtdeductiblePercentage="ngModel" />
+                                    </div>
+                                    %
+                                </div>
+                                <div class="form-group" *ngIf="showServices">
+                                    <label for="txtSpecialPrice" class="control-label col-md-2">{{'SpecialPrice' | translate}}</label>
+                                    <div class="col-md-4">
+                                        <input type="number" maxlength="9" class="form-control" name="txtSpecialPrice" [(ngModel)]="model.specialPrice" #txtSpecialPrice="ngModel" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        <div class="modal-footer modelDir" >
+                            <button type="submit" class="btn btn-primary"
+                                    [disabled]="!renewForm.form.valid || !enableSaveCoverageDetails">
+                                {{ 'Save' | translate}}
+                            </button>
+                            <button type="button"  disabled="{{ enableSaveCoverageDetails ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" (click)="close()"
+                                    #btnCoverageDetailsModalClose>
+                                {{ 'Cancel' | translate}}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="copyCoverageDetailPopup" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{ 'CopCoverageDetail' | translate}}</h4>
+                    </div>
+
+                    <form *ngIf="active" class="form-horizontal" name="copyCoverageDetailFrm" (ngSubmit)="copyCoverageDetail()" #copyCoverageDetailFrm="ngForm">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                    <label class="control-label col-md-2" for="txtName">{{ 'InsuranceCompany' | translate}}</label>
+                                <div class="col-md-4 col-sm-4">
+                                    <select class="form-control" id="ddlCompaniesForPopup" name="ddlCompaniesForPopup" [(ngModel)]="copyCoverageModel.companyId" #ddlCompaniesForPopup="ngModel" #companyForPopup (change)="fillPoliciesForPopup(companyForPopup.value)" required>
+                                        <option value="">
+                                            {{ 'Select' | translate}}
+                                        </option>
+                                        <option *ngFor="let company of insuranceCompaniesList | translateObjects" [value]="company.id">{{company.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="control-label col-md-2" for="ddlPoliciesForPopup">{{ 'InsurancePolicy' | translate}}</label>
+                                <div class="col-md-4 col-sm-4">
+                                    <select class="form-control" id="ddlPoliciesForPopup" name="ddlPoliciesForPopup" [(ngModel)]="copyCoverageModel.policyId" required>
+                                        <option value="">
+                                            {{ 'Select' | translate}}
+                                        </option>
+                                        <option *ngFor="let policy of filteredPoliciesListForPopup | translateObjects" [value]="policy.id">{{policy.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary"
+                                    [disabled]="!copyCoverageDetailFrm.form.valid || !enableCopyCoverageDetails" >
+                                {{ 'Save' | translate}}
+                            </button>
+                            <button type="button" disabled="{{ enableCopyCoverageDetails ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal"
+                                    #copyCoverageDetailPopup>
+                                {{ 'Cancel' | translate}}
+                            </button>
+                        </div>
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+            </div>

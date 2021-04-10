@@ -1,0 +1,95 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+<div class="row">
+
+    <systemAdmins-tabs [isAccountSelected]="selectAccountTab"></systemAdmins-tabs>
+
+    <div class="row nopadding">
+
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                {{ 'Account' | translate}}
+            </div>
+
+        </div>
+
+        <div class="row well">
+            <form novalidate *ngIf="active" class="form-horizontal" (ngSubmit)="onSubmit()" name="systemAdminAccountForm" #systemAdminAccountForm="ngForm">
+
+                <div class="form-group">
+                    <label for="txtFirstName" class="control-label col-md-2">{{ 'FirstName' | translate}}</label>
+                    <div class="col-md-4">
+                        <input id="txtName" name="txtName" class="form-control" [(ngModel)]='model.firstName' #txtFirstName="ngModel" required />
+                        <div [hidden]="txtFirstName.valid || txtFirstName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtLastName" class="control-label col-md-2">{{ 'LastName' | translate}}</label>
+                    <div class="col-md-4">
+                        <input id="txtLastName" name="txtLastName" class="form-control" [(ngModel)]='model.lastName' #txtLastName="ngModel" required />
+                        <div [hidden]="txtLastName.valid || txtLastName.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="txtEmail">{{ 'Email' | translate}}</label>
+                    <div class="col-md-4">
+                        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control"
+                               id="txtEmail" name="txtEmail" [(ngModel)]='model.email' #txtEmail="ngModel" required>
+                        <div [hidden]="txtEmail.valid || txtEmail.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-2">{{ 'Password' | translate}}</label>
+                    <div class="col-md-4">
+                        <a class="pointer" data-toggle="modal" [class.disabled]="!enableMyAccountBtn  ? true : null" data-target="#changePasswordModal">{{ 'ChangePassword' | translate}}</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fileImage" class="control-label col-md-2">{{ 'Mobile' | translate}}</label>
+                    <div class="col-md-2">
+                        <select class="form-control" id="txtMobileCode" name="txtMobileCode" [(ngModel)]="model.reachInfo.countryCode" #txtMobileCode="ngModel" #d required>
+                            <option *ngFor="let item of allCountryCodes | translateObjects" [value]="item.code">{{item.name}}</option>
+                        </select>
+
+                        <div [hidden]="txtMobileCode.valid || txtMobileCode.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="tel" id="txtMobileNumber" name="txtMobileNumber"
+                               pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$"
+                               placeholder="Number" [(ngModel)]='model.reachInfo.mobile' #txtMobileNumber="ngModel" required />
+                        <div [hidden]="txtMobileNumber.valid || txtMobileNumber.pristine" class="alert alert-danger">
+                            {{ 'RequiredField' | translate}}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        <button class="btn btn-primary" [disabled]="!systemAdminAccountForm.form.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+                        <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" (click)="getSecurityUserById()">{{ 'Cancel' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- change password Modal -->
+        <div id="changePasswordModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <change-password [enableMyAccountBtn]='enableMyAccountBtn' [userId]="model.id" [userType]="model.userType"></change-password>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

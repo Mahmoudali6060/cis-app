@@ -1,0 +1,45 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+
+    <shared-tabs [activeTabIndex]="16"></shared-tabs>
+    <div class="row nopadding">
+        <div class="page-breadcrumb">
+            <div class="row ">
+                <div class="NBbreadcrumb">
+                    <a>{{ 'Cashier' | translate}}</a> &nbsp;/
+                    {{ 'Reports' | translate}}
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('PatientTransactionsHistoryReport')" class="linkColorForReport pointer">
+                    {{ 'PatientTransactionsHistoryReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+
+        </div>
+
+        <div class="col-md-6">
+            <br />
+            <h4 class="applyReportStyle h4Deco ">
+                <a (click)="openReport('CashierReport')" class="linkColorForReport pointer">
+                    {{ 'CashierReport' | translate}}
+                    <i class="iconReportStyle fa fa-file ml-2"></i>
+                </a>
+            </h4>
+
+        </div>
+
+        
+
+
+    </div>
+</div>
+

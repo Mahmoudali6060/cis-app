@@ -1,0 +1,57 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+        <clinic-tab [isStaffSelected]='selectStaffTab'></clinic-tab>
+    <div class="row nopadding">
+
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="page-breadcrumb-wrap">
+                        <div class="page-breadcrumb-info">
+                            <ul class="list-page-breadcrumb">
+                                <li>
+                                   {{ 'Clinic' | translate}}
+                                </li>
+                                <li class="active-page"> {{ 'Staff' | translate}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-11">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#Doctor" data-toggle="tab" aria-expanded="true">{{ 'Doctors' | translate}}</a></li>
+                    <li><a href="#Nurse" data-toggle="tab" aria-expanded="true">{{ 'Nurses' | translate}}</a></li>
+                    <li><a href="#Receptionist" data-toggle="tab" aria-expanded="true">{{ 'Receptionists' | translate}}</a></li>
+                    <li><a href="#Cashier" data-toggle="tab" aria-expanded="true">{{ 'Cashier' | translate}}</a></li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="Doctor">
+
+                    </div>
+                    <div class="tab-pane fade" id="Nurse">
+
+                    </div>
+                    <div class="tab-pane fade" id="Receptionist">
+
+                    </div>
+
+                    <div class="tab-pane fade" id="Cashier">
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

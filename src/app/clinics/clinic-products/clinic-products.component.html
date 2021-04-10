@@ -1,0 +1,310 @@
+﻿
+<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+    <clinic-tab [isProductsSelected]='selectProductstTab' *ngIf="isClinicAdmin"></clinic-tab>
+    <shared-tabs [isProductsSelected]='selectProductstTab' *ngIf="!isClinicAdmin"></shared-tabs>
+    <div class="row nopadding">
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'Clinic' | translate}}</a> &nbsp;/
+                {{ 'Products' | translate}}
+            </div>
+
+        </div>
+
+
+
+        <div class="">
+            &nbsp;
+            <div class="row well">
+               <div>
+                   <button type="button" class="btn btn-primary" (click)="expandAll()">{{ 'ExpandAll' | translate}}</button>
+                   <button type="button" class="btn btn-primary" (click)="collapseAll()">{{ 'CollapseAll' | translate}}</button>
+                   <print-page [section]='toPrintDiv'></print-page>
+               </div>
+                <br />
+                <div class="row nopadding">
+                    <div class="col-md-5 nopadding">
+                        <div class="inner-addon left-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input [placeholder]="'SearchByNameorCode' | translate" class="inputSearch form-control" [(ngModel)]="filterString" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+
+        <div id="print-section" class="">
+            
+           <div class="row well">
+               <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedGroup" (onSelect)="nodeSelect()" (onNodeSelect)="nodeSelect($event)" #tree>
+                   <template let-node pTemplate="Medical">
+                       {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                       &nbsp; &nbsp;
+                       <a #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
+                           <img src="images/addImage.png" (click)="passInitialServiceGroupValue(node)" />
+                       </a>
+                   </template>
+                   <template let-node pTemplate="NonMedical">
+                       {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                       &nbsp; &nbsp;
+                       <a #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
+                           <img src="images/addImage.png" (click)="passInitialServiceGroupValue(node)" />
+                       </a>
+                   </template>
+                   <template let-node pTemplate="Product">
+                       <span class="nav-icon"><i class="fa fa-cube"></i></span>
+                       &nbsp;
+                       {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                       &nbsp; &nbsp;
+                       <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                           <i class="fa fa-pencil fa-2x"  (click)="displayPopup(node)"  style="color: #32bea6;"></i>
+                       </a>
+                       <label>
+                           <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                  type="checkbox" [checked]="node.isActive"
+                                  (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
+                           <span class="lbl"></span>
+                       </label>
+                   </template>
+                   <template let-node pTemplate="ProductsGroup">
+                       <span class="nav-icon"><i class="fa fa-cubes"></i></span>
+                       &nbsp;
+                       <span class="{{ isSelectedGroupNode ? 'bg-danger' : '' }}">
+                           {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
+                       </span>
+                       &nbsp; &nbsp;
+                       <a #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
+                           <img src="images/addImage.png" (click)="passServiceGroupValue(node)" />
+                       </a>
+                       &nbsp; &nbsp;
+                       <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                           <i class="fa fa-pencil fa-2x" (click)="displayPopup(node)" style="color: #32bea6;"></i>
+
+                       </a>
+                       <label>
+                           <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                  type="checkbox" [checked]="node.isActive"
+                                  (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
+                           <span class="lbl"></span>
+                       </label>
+                   </template>
+               </p-tree>
+
+           </div>
+        </div>
+        {{titl}}
+
+    </div>
+</div>
+
+<!-- Products group Modal -->
+<button type="button" data-toggle="modal" data-target="#ServicesGroupPopup" style="display:none" #btnServicesGroup></button>
+<div id="ServicesGroupPopup" #ServicesGroupPopup [hidden]="hideModal" class="modal fade" role="dialog">
+    <div class="modal-dialog width75percent">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <!-- Products group Modal -->
+            <div class="modal-header">
+                <button type="button" class="close" #btnCloseProductsGroup data-dismiss="modal" *ngIf="isProductGroupSeleced" (click)="close()">&times;</button>
+                <button type="button" #btnCloseProduct class="close" data-dismiss="modal" *ngIf="isProductSeleced" (click)="close()">&times;</button>
+                <h4 class="modal-title">{{txtHeaderModal}}</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="servicegroupForm" #servicegroupForm="ngForm">
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-md-6" *ngIf="!isRoot">
+                        <table>
+                            <tr>
+                                <td *ngFor="let item of rbSelections; let idx = index">
+                                    <input type="radio" name="radiogroup" [value]="item.value"
+                                           [checked]="item.value == selectedAction" #i (change)="onSelectionChange(i.value)">{{item.text| translate}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-offset-3 col-md-6" *ngIf="isRoot">
+                        <table>
+                            <tr>
+                                <td *ngFor="let item of rbSelections; let idx = index">
+                                    <input type="radio" name="radiogroup" [value]="item.value"
+                                           [checked]="item.value == selectedAction" #i (change)="onSelectionChange(i.value)" disabled>{{item.text| translate}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="isProductGroupSeleced">
+                        <div class="form-group">
+                            <label for="txtServiceGroupParentName" class="control-label col-md-3">{{ 'ParentGroup' | translate}}</label>
+                            <div class="col-md-9">
+                                <input id="txtServiceGroupParentName" name="txtServiceGroupParentName" class="form-control" value="{{productGroupParentlabel}}" disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtServiceGroupName" class="control-label col-md-3"> {{ 'ArabicName' | translate}}</label>
+                            <div class="col-md-9">
+                                <input id="txtServiceGroupName" name="txtServiceGroupName" class="form-control" [(ngModel)]='productGroupModel.name' #txtServiceGroupName="ngModel" required />
+                                <div [hidden]="txtServiceGroupName.valid || txtServiceGroupName.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtServiceGroupNameTranslation" class="control-label col-md-3"> {{ 'EnglishName' | translate}}</label>
+                            <div class="col-md-9">
+                                <input id="txtServiceGroupNameTranslation" name="txtServiceGroupNameTranslation" class="form-control" [(ngModel)]='productGroupModel.nameTranslation' #txtServiceGroupNameTranslation="ngModel" required />
+                                <div [hidden]="txtServiceGroupNameTranslation.valid || txtServiceGroupNameTranslation.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="txtRemark" class="control-label col-md-3"> {{ 'Remark' | translate}}</label>
+                            <div class="col-md-6">
+                                <textarea id="txtRemark" name="txtRemark" class="form-control" [(ngModel)]='productGroupModel.description' #txtRemark="ngModel"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isProductSeleced">
+                        <div class="form-group">
+                            <label for="txtServiceParentName" class="control-label col-md-2">{{ 'ParentGroup' | translate}}</label>
+                            <div class="col-md-10">
+                                <input id="txtServiceParentName" name="txtServiceParentName" class="form-control" [ngModel]='productGroupParentlabel' disabled />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtServiceCode" class="control-label col-md-2"> {{ 'Code' | translate}}</label>
+                            <div class="col-md-4">
+                                <input id="txtServiceCode" name="txtServiceCode" class="form-control" [(ngModel)]='model.code' #txtServiceCode="ngModel" required />
+                                <div [hidden]="txtServiceCode.valid || txtServiceCode.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txProductControlled" class="control-label col-md-2"> {{ 'Controlled' | translate}}</label>
+                            <div class="col-md-4">
+                                <label>
+                                    <input id="txProductControlled" name="txProductControlled" class="ace ace-switch ace-switch-6"
+                                           type="checkbox" [(ngModel)]='model.controlled' #txProductControlled="ngModel" />
+                                    <span class="lbl"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtName" class="control-label col-md-2"> {{ 'ArabicName' | translate}}</label>
+                            <div class="col-md-10">
+                                <input id="txtName" name="txtName" class="form-control" [(ngModel)]='model.name' #txtName="ngModel" required />
+                                <div [hidden]="txtName.valid || txtName.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtNameTranslation" class="control-label col-md-2">{{ 'EnglishName' | translate}}</label>
+                            <div class="col-md-10">
+                                <input id="txtNameTranslation" name="txtNameTranslation" class="form-control" [(ngModel)]='model.nameTranslation'
+                                       #txtNameTranslation="ngModel" required />
+                                <div [hidden]="txtNameTranslation.valid || txtNameTranslation.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="minLevel" class="control-label col-md-2"> {{ 'MinLevel' | translate}}</label>
+                            <div class="col-md-2">
+                                <input type="text" required min="1" step="1" pattern="\d+" id="minLevel" name="minLevel" class="form-control" [(ngModel)]='model.minLevel' #minLevel="ngModel" />
+                                <div [hidden]="minLevel.valid || minLevel.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <label for="maxLevel" class="control-label col-md-2"> {{ 'MaxLevel' | translate}}</label>
+                            <div class="col-md-2">
+                                <input type="text" min="1" required step="1" pattern="\d+" id="maxLevel" name="maxLevel" class="form-control" [(ngModel)]='model.maxLevel' #maxLevel="ngModel" />
+                                <div [hidden]="maxLevel.valid || maxLevel.pristine" class="alert alert-danger">
+                                    {{ 'RequiredField' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <label for="expiryDate" class="control-label col-md-2">  {{ 'ExpiryDate' | translate}}</label>
+                            <div class="col-md-4">
+                                <p-calendar [(ngModel)]="model.expiryDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                            showIcon="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            </div>
+
+                            <label for="expiryDate" class="control-label col-md-2"> {{ 'ManufacturingDate' | translate}} </label>
+                            <div class="col-md-4">
+                                <p-calendar [(ngModel)]="model.manufacturingDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
+                                            showIcon="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlUnitType" class="control-label col-md-2">{{ 'Units' | translate}} </label>
+                            <div class="col-md-4">
+                                <select class="form-control" #dMeasureType="ngModel" #ddlUnitType (change)="fillUnits(ddlUnitType.value)" id="ddlUnitType" name="ddlUnitType" [(ngModel)]="model.unitType" required>
+                                    <option *ngFor="let item of unitList  | translateObjects" [value]="item.value">{{item.text| translate}}</option>
+                                </select>
+                                <div [hidden]="dMeasureType.valid || dMeasureType.pristine" class="alert alert-danger">
+                                    {{ 'Select' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="hideUnit">
+                            <label for="ddlMeasureType" class="control-label col-md-2 ">{{ 'MeasuringUnit' | translate}} </label>
+                            <div class="col-md-4">
+
+                                <select class="form-control" #ddlMeasureType="ngModel" [(ngModel)]="measuringId" id="ddlMeasureType" name="ddlMeasureType">
+                                    <option *ngFor="let item of csList  | translateObjects" [value]="item.id">{{item.name}}</option>
+                                </select>
+                                <div [hidden]="ddlMeasureType.valid || ddlMeasureType.pristine" class="alert alert-danger">
+                                    {{ 'Select' | translate}}
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlVendor" class="control-label col-md-2"> {{ 'Vendor' | translate}} </label>
+                            <div class="col-md-4">
+                                <select class="form-control" #ddlVendor="ngModel" [(ngModel)]="model.vendorId" name="ddlVendor" id="ddlVendor">
+                                    <option *ngFor="let item of vendors  | translateObjects" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="prodRemark" class="control-label col-md-2"> {{ 'Remark' | translate}} </label>
+                            <div class="col-md-6">
+                                <textarea id="prodRemark" name="prodRemark" class="form-control" [(ngModel)]='model.description' #prodRemark="ngModel"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveProductGroup()" *ngIf="isProductGroupSeleced" [disabled]="!servicegroupForm.valid  ||(!enableSaveBtn && !isClinicAdmin)">{{ 'Save' | translate}} </button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" *ngIf="isProductGroupSeleced" (click)="cancelProductGroup()">{{ 'Cancel' | translate}} </button>
+                        <button type="button" class="btn btn-primary" (click)="saveProduct()" *ngIf="isProductSeleced" [disabled]="!servicegroupForm.valid  ||(!enableSaveBtn && !isClinicAdmin)">{{ 'Save' | translate}} </button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" *ngIf="isProductSeleced" (click)="cancelProduct()">{{ 'Cancel' | translate}}</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+

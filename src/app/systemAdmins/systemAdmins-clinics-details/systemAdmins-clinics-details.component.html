@@ -1,0 +1,54 @@
+﻿<div *ngIf="showProgress">
+    <loading></loading>
+</div>
+
+<div class="row">
+
+    <systemAdmins-tabs [isClinicsSelected]="selectClinicsTab"></systemAdmins-tabs>
+
+    <div class="row nopadding">
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'SystemAdmin' | translate}}</a> &nbsp;/
+                {{ 'Clinics' | translate}}
+            </div>
+        </div>
+        <div class="row well">
+            <div class="tabbable-panel">
+                <div class="tabbable-line">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#BasicData" data-toggle="tab" aria-expanded="true">{{ 'BasicData' | translate}}</a></li>
+                        <li *ngIf="isUpdateMode()"><a href="#divAddress" data-toggle="tab" aria-expanded="true">{{ 'Address' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode()"><a href="#divAddress" class="dimmedLink">{{ 'Address' | translate}}</a></li>
+                        <li *ngIf="isUpdateMode()"><a href="#Subscription" data-toggle="tab" aria-expanded="true">{{ 'Subscription' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode()"><a href="#Subscription" class="dimmedLink">{{ 'Subscription' | translate}}</a></li>
+                        <li *ngIf="isUpdateMode()"><a href="#SMSCredit" data-toggle="tab" aria-expanded="true">{{ 'SMSCredit' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode()"><a href="#SMSCredit" class="dimmedLink">{{ 'SMSCredit' | translate}}</a></li>
+                        <li *ngIf="isUpdateMode()"><a href="#Permissions" data-toggle="tab" aria-expanded="true">{{ 'Modules' | translate}}</a></li>
+                        <li *ngIf="!isUpdateMode()"><a href="#Permissions" class="dimmedLink">{{ 'Modules' | translate}}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="clinicsDetailsTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="BasicData">
+                    <systemAdmins-clinic-basicData [model]="clinicModel" (onModelUpdated)="updateModel($event)"></systemAdmins-clinic-basicData>
+                </div>
+                <div class="tab-pane fade active in" id="divAddress" #divAddress>
+                    <systemAdmins-clinic-address [clinicModel]="clinicModel" (onModelUpdated)="updateModel($event)"></systemAdmins-clinic-address>
+                </div>
+                <div class="tab-pane fade" id="Subscription">
+                    <systemAdmins-clinic-subscription [clinicModel]="clinicModel" (onModelUpdated)="updateModel($event)"></systemAdmins-clinic-subscription>
+                </div>
+                <div class="tab-pane fade" id="SMSCredit">
+                    <systemAdmins-clinic-smsCredit [clinicModel]="clinicModel" (onModelUpdated)="updateModel($event)"></systemAdmins-clinic-smsCredit>
+                </div>
+                <div class="tab-pane fade" id="Permissions">
+                    <systemAdmins-clinic-permissions [clinicModel]="clinicModel" (onModelUpdated)="updateModel($event)"></systemAdmins-clinic-permissions>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+

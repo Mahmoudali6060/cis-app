@@ -1,0 +1,171 @@
+﻿
+
+<div class="left-aside desktop-view ">
+    <div class="aside-branding">
+        <a>
+            <!--<img src="Images/logo.png" height="60" width="60" />-->
+            <img src="Images/App-Logo.png" title="Logo" class="appLogo" />
+        </a>
+        <!--<a routerLink="/home" class="large-logo">
+            <span style="color:white;">&nbsp;&nbsp;CIS</span>
+        </a>-->
+        <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
+        <span class="aside-close waves-effect" onclick="closeLeftBar();"><i class="fa fa-times"></i></span>
+    </div>
+    <div class="left-navigation">
+        <ul class="list-accordion padding5">
+
+            <li>
+                <a class="{{ isDashboardSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/dashboard">
+                    <span class="nav-icon"><i class="fa fa-line-chart"></i></span><span class="nav-label">{{ 'Dashboard' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isAccountSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/account/{{clinicId}}">
+                    <span class="nav-icon"><i class="ico-user"></i></span><span class="nav-label">{{ 'Account' | translate}}</span>
+                </a>
+            </li>
+
+            <li>
+                <a onclick="applyVerticalMenuStyle(this);">
+                    <span class="nav-icon"><i class="fa fa fa-cogs"></i></span><span class="nav-label">{{ 'Settings' | translate}}</span>
+                    <span class="menuarrow glyphicon glyphicon-chevron-right"></span>
+                </a>
+
+                <ul>
+                    <li>
+                        <a class="{{ isSettingsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/settings/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-cogs"></i></span><span class="nav-label">{{ 'Settings' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isOrgMasterSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/organizationMaster/{{clinicId}}" *ngIf="hasClinicMaster">
+                            <span class="nav-icon"><i class="fa fa-sitemap"></i></span><span class="nav-label">{{ 'OrganizationStructure' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isPermissionsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/permissions" *ngIf="hasAccessRights">
+                            <span class="nav-icon"><i class="fa fa-unlock-alt"></i></span><span class="nav-label">{{ 'AccessRights' | translate}}</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a class="{{ isAddressSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/address/{{clinicId}}">
+                    <span class="nav-icon"><i class="ico-info-with-circle"></i></span><span class="nav-label">{{ 'AddressandContact' | translate}}</span>
+                </a>
+            </li>
+
+
+
+            <li *ngIf="hasCoding">
+                <a onclick="applyVerticalMenuStyle(this);">
+                    <span class="nav-icon"><i class="fa fa-barcode"></i></span><span class="nav-label">{{ 'Coding' | translate}}</span>
+                    <span class="menuarrow glyphicon glyphicon-chevron-right"></span>
+                </a>
+
+                <ul>
+                    <li>
+                        <a class="{{ isDiagnosisSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/diagnosis/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-stethoscope"></i></span><span class="nav-label">{{ 'Diagnosis' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isDrugsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/drugs/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-glass"></i></span><span class="nav-label">{{ 'Drugs' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isLaboratoryTestsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/laboratoryTests/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-flask"></i></span><span class="nav-label">{{ 'LaboratoryTests' | translate}}</span>
+                            <!--<img src="Images/lab-test.jpg" width="40" height="40" />
+                            {{ 'LaboratoryTests' | translate}}-->
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isRadiologyTestsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/radiologyTests/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-bed"></i></span><span class="nav-label">{{ 'RadiologyTests' | translate}}</span>
+                            <!--<img src="Images/rad-test.jpg" width="40" height="40" />
+                            {{ 'RadiologyTests' | translate}}-->
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isServicesSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/services/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-heartbeat"></i></span><span class="nav-label">{{ 'Services' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isServicePackagesSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/servicePackages/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-heartbeat"></i></span><span class="nav-label">{{ 'ServicePackage' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isProductsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/products/{{clinicId}}">
+                            <span class="nav-icon"><i class="fa fa-eyedropper"></i></span><span class="nav-label">{{ 'Products' | translate}}</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <li>
+                <a onclick="applyVerticalMenuStyle(this);">
+                    <span class="nav-icon"><i class="ico-flow-cascade"></i></span><span class="nav-label">{{ 'EMR' | translate}}</span>
+                    <span class="menuarrow glyphicon glyphicon-chevron-right"></span>
+                </a>
+                <ul>
+                    <li>
+                        <a class="{{ isEMRMasterSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/EMRMaster/{{clinicId}}" *ngIf="hasEMR">
+                            <span class="nav-icon"><i class="ico-flow-cascade"></i></span><span class="nav-label">{{ 'EMRMaster' | translate}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ isEMRWizardSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/EMRWizard/{{clinicId}}" *ngIf="hasEMR">
+                            <span class="nav-icon"><i class="fa fa-sort-amount-asc"></i></span><span class="nav-label">{{ 'EMRWizard' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a class="{{ isAppointmentsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/appointments/{{clinicId}}" *ngIf="hasAppointments">
+                    <span class="nav-icon"><i class="fa fa-calendar"></i></span><span class="nav-label">{{ 'AppointmentMaster' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isInventorySelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/inventory/{{clinicId}}" *ngIf="hasPurshasingAndInventory">
+                    <span class="nav-icon"><i class="ico-shop"></i></span><span class="nav-label">{{ 'Inventory' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isPurchasingSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/purchasing/all/{{clinicId}}" *ngIf="hasPurshasingAndInventory">
+                    <span class="nav-icon"><i class="fa fa-shopping-cart"></i></span><span class="nav-label">{{ 'Purchasing' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isFeedbackSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/feedback/all/{{clinicId}}">
+                    <span class="nav-icon"><i class="fa fa-twitch"></i></span><span class="nav-label">{{ 'Feedback' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isNewsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/news/all/{{clinicId}}">
+                    <span class="nav-icon"><i class="ico-newspaper"></i></span><span class="nav-label">{{ 'News' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isReportsSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/reports/{{clinicId}}">
+                    <span class="nav-icon"><i class="fa fa-files-o"></i></span><span class="nav-label">{{ 'Reports' | translate}}</span>
+                </a>
+            </li>
+            <li>
+                <a class="{{ isTemplatesSelected ? 'selectednavbaritem active' : '' }}" routerLink="/clinic/templates/{{clinicId}}">
+                    <span class="nav-icon"><i class="fa fa-file-word-o"></i></span><span class="nav-label">{{ 'Templates' | translate}}</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>
