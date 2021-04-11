@@ -23,7 +23,7 @@ export class ReceptionistPatientsComponent implements OnInit {
 
     ngOnInit() {
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item :any)=> this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }

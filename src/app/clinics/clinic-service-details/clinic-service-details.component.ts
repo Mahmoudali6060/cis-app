@@ -1,16 +1,16 @@
-﻿import {Component, OnInit, ViewChild, ElementRef, Input, OnChanges, SimpleChanges, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import { TreeNode } from 'primeng/primeng';
-import {ClinicService} from '../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'clinic-service-details',
-    templateUrl: 'clinic-service-details.component.html'
+    templateUrl: './clinic-service-details.component.html'
 })
 
 export class ClinicServiceDetailsComponent implements OnChanges {
@@ -23,12 +23,10 @@ export class ClinicServiceDetailsComponent implements OnChanges {
     active: boolean = true;
     model: any = {};
     showProgress = false;
-    selectedGroupNode: TreeNode;
-    parentId;
-    @ViewChild('btnAddDiagnoseGroup') btnAddDiagnoseGroup: ElementRef;
-    @ViewChild('btnAddDiagnose') btnAddDiagnose: ElementRef;
-
-
+    selectedGroupNode!: TreeNode;
+    parentId!: any;
+    @ViewChild('btnAddDiagnoseGroup') btnAddDiagnoseGroup!: ElementRef;
+    @ViewChild('btnAddDiagnose') btnAddDiagnose!: ElementRef;
 
     constructor(public toastr: ToastrService
         , private clinicService: ClinicService
@@ -40,18 +38,18 @@ export class ClinicServiceDetailsComponent implements OnChanges {
         if (this.serviceId.toString().toLowerCase() != 'new') {
             this.clinicService.getServiceById(this.serviceId)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.model = response;
-                    thisComponent.parentId = thisComponent.model.parentId;
-                    if (thisComponent.parentId > 0)
-                        thisComponent.displaySelectedParentGroupNode(thisComponent.parentId);
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error( error, '');
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.model = response;
+                        thisComponent.parentId = thisComponent.model.parentId;
+                        if (thisComponent.parentId > 0)
+                            thisComponent.displaySelectedParentGroupNode(thisComponent.parentId);
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -84,57 +82,57 @@ export class ClinicServiceDetailsComponent implements OnChanges {
             //Update
             this.clinicService.updateService(this.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.onServiceChanged.emit();
-                    thisComponent.serviceIdValue.emit(thisComponent.serviceId);
-                    thisComponent.clear();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model = response;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.onServiceChanged.emit();
+                        thisComponent.serviceIdValue.emit(thisComponent.serviceId);
+                        thisComponent.clear();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             this.clinicService.createService(this.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.onServiceChanged.emit();
-                    thisComponent.serviceIdValue.emit(thisComponent.serviceId);
-                    thisComponent.clear();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model = response;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.onServiceChanged.emit();
+                        thisComponent.serviceIdValue.emit(thisComponent.serviceId);
+                        thisComponent.clear();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         this.model.parentId = event.node.data;
     }
-    nodeUnselect(event:any) {
+    nodeUnselect(event: any) {
         this.model.parentId = '';
     }
 
     clear() {
         this.model = {};
         this.serviceId = 'new';
-        this.selectedGroupNode = null;
+        this.selectedGroupNode = {};
         this.serviceIdValue.emit(this.serviceId);
         this.active = false;
         setTimeout(() => this.active = true, 0);

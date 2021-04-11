@@ -17,19 +17,19 @@
         <p-column field="diagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
 
         <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-            <template let-noteRadtest="rowData" pTemplate="body">
+            <ng-template let-noteRadtest="rowData" pTemplate="body">
                 <a class="pointer" (click)="editItem(noteRadtest.id)">
                     <img src="Images/edit-24.png" />
                 </a>
-            </template>
+            </ng-template>
         </p-column>
         <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-            <template let-noteRadtest="rowData" pTemplate="body">
+            <ng-template let-noteRadtest="rowData" pTemplate="body">
                 <a data-toggle="modal" data-target="#deleteNoteRadTest" class="pointer"
                    (click)="selectRadTestToDelete(noteRadtest.id)">
                     <img src="Images/DeleteRed.png" />
                 </a>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
 

@@ -3,7 +3,7 @@
 @Component({
    
     selector: 'most-popular',
-    templateUrl: 'most-popular.component.html'
+    templateUrl: './most-popular.component.html'
 
 })
 

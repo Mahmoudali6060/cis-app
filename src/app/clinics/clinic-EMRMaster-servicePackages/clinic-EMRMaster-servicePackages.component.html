@@ -10,14 +10,14 @@
         </div>
 
         <p-tree [value]="items" selectionMode="single" [(selection)]="selectedItem">
-            <template let-node pTemplate="ClinicDivision">
+            <ng-template let-node pTemplate="ClinicDivision">
                {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                 &nbsp; &nbsp;
                 <a [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
                     <img src="images/addImage.png" (click)="displayPopup(node)" title="Add Division" />
                 </a>
-            </template>
-            <template let-node pTemplate="ClinicDepartmentServicePackagesGroup">
+            </ng-template>
+            <ng-template let-node pTemplate="ClinicDepartmentServicePackagesGroup">
                 <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                 &nbsp; 
                 {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
@@ -31,12 +31,12 @@
                            [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
                     <span class="lbl"></span>
                 </label>
-            </template>
-            <template let-node pTemplate="ServicePackage">
+            </ng-template>
+            <ng-template let-node pTemplate="ServicePackage">
                 <span class="nav-icon"><i class="fa fa-cube"></i></span>
                 &nbsp;
                 {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
-            </template>
+            </ng-template>
         </p-tree>
     </div>
 </div>
@@ -77,11 +77,11 @@
                             <input name="txtSearchServices" [placeholder]="'SearchByNameorCode' | translate" class="form-control" [(ngModel)]="filterString" />
                             <div class="nopadding treeBorder" style="height:180px;">
                                 <p-tree [value]="servicePackagesList   | translateObjects  : null : null : lstToTranslated | filterbynameorcode:filterString : leafType" selectionMode="checkbox" [(selection)]="selectedServices">
-                                    <template let-node pTemplate="ServicePackage">
+                                    <ng-template let-node pTemplate="ServicePackage">
                                         <span class="nav-icon"><i class="fa fa-cube"></i></span>
                                         &nbsp;
                                         {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
-                                    </template>
+                                    </ng-template>
                                 </p-tree>
                             </div>
                         </div>

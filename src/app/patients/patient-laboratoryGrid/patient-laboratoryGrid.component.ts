@@ -1,18 +1,18 @@
 ﻿import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
 
 @Component({
-   
+
     selector: 'patient-laboratoryGrid',
     templateUrl: 'patient-laboratoryGrid.component.html',
 })
 
 export class PatientLaboratoryGridComponent implements OnInit, OnChanges {
 
-    @Input() laboratories: any[];
-    @Input() noteLaboratories: any[];
+    @Input() laboratories!: any[];
+    @Input() noteLaboratories!: any[];
     @Input() diagnosis: any[] = [];
-    @Input() masterList: any[];
-    @Input() noteId: number | undefined;
+    @Input() masterList!: any[];
+    @Input() noteId!: number;
 
     allLaboratories: any[] = [];
     lstToTranslated: string[] = ['labTestName', 'labTestNameTranslation'];
@@ -52,13 +52,13 @@ export class PatientLaboratoryGridComponent implements OnInit, OnChanges {
         }
     }
 
-    createClinicNoteLaboratory(laboratory): any {
+    createClinicNoteLaboratory(laboratory: any): any {
         let bindedLaboratory: any;
 
         bindedLaboratory = this.masterList.find(s => s.labTestId == laboratory.data);
 
         if (bindedLaboratory == undefined) {
-            bindedLaboratory = {id: 0, isSelected: false, clinicNoteId: this.noteId, labTestId: laboratory.data, labTestCode: laboratory.code, labTestName: laboratory.label, quantity: 1, labTestNameTranslation: laboratory.labelTranslation };
+            bindedLaboratory = { id: 0, isSelected: false, clinicNoteId: this.noteId, labTestId: laboratory.data, labTestCode: laboratory.code, labTestName: laboratory.label, quantity: 1, labTestNameTranslation: laboratory.labelTranslation };
 
             this.masterList.push(bindedLaboratory);
         }
@@ -66,8 +66,7 @@ export class PatientLaboratoryGridComponent implements OnInit, OnChanges {
         return bindedLaboratory;
     }
 
-    updateSelectedLaboratory(labTestId, event)
-    {
+    updateSelectedLaboratory(labTestId: any, event: any) {
         if (!event.target.checked) {
             // if the item removed clear data
             let noteRadiology = this.allLaboratories.find(s => s.labTestId == labTestId);
@@ -82,8 +81,7 @@ export class PatientLaboratoryGridComponent implements OnInit, OnChanges {
             masterNoteRadiology.diagnoseId = 0;
             masterNoteRadiology.description = '';
         }
-        else
-        {
+        else {
             let noteLaboratory = this.allLaboratories.find(s => s.labTestId == labTestId);
             let masterNoteLaboratory = this.masterList.find(s => s.labTestId == labTestId);
             noteLaboratory.isSelected = true;

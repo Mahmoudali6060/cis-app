@@ -12,7 +12,7 @@ export class MobileMapComponent implements OnInit {
     selectNews: boolean = true;
     options: any;
 
-    overlays: any[];
+    overlays!: any[];
 
     ngOnInit() {
         this.options = {

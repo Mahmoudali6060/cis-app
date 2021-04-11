@@ -1,37 +1,33 @@
-import {Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import { TreeNode } from 'primeng/primeng';
-
-import {ClinicService} from '../shared/clinic.service';
-
-import { ClinicManageDiagnoseComponent } from './manage-diagnose/clinic-manage-diagnose.component';
-import { ClinicManageDiagnosisGroupComponent } from './manage-diagnosis-group/clinic-manage-diagnosis-group.component';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
-
+import { TreeNode } from "primeng/api";
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+
 @Component({
-   
+
     selector: 'clinic-diagnosis',
-    templateUrl: 'clinic-diagnosis.component.html'
+    templateUrl: './clinic-diagnosis.component.html'
 })
 
 export class ClinicDiagnosisComponent implements OnInit {
 
-     filterString: string | undefined;
-     leafType: string = 'Diagnose';
-     userPermisions: UserPermissions = new UserPermissions();
-     key: PermissionKeyEnum = new PermissionKeyEnum();
-     enableAddRootBtn: boolean = false;
-     enableEditBtn: boolean = false;
-     enableActivateBtn: boolean = false;
-     enableSaveBtn: boolean = false;
-     selectedLang = 'ar';
+    filterString!:string;
+    leafType: string = 'Diagnose';
+    userPermisions: UserPermissions = new UserPermissions();
+    key: PermissionKeyEnum = new PermissionKeyEnum();
+    enableAddRootBtn: boolean = false;
+    enableEditBtn: boolean = false;
+    enableActivateBtn: boolean = false;
+    enableSaveBtn: boolean = false;
+    selectedLang = 'ar';
 
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
@@ -39,13 +35,11 @@ export class ClinicDiagnosisComponent implements OnInit {
         , public translate: TranslateService
         , private accountService: AccountService) { }
 
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     selectDiagnosisTab: boolean = true;
     active: boolean = true;
     showProgress = false;
-
-    selectedNode: TreeNode;
-
+    selectedNode!: TreeNode;
     isDiagnosisGroupSelected = true;
     isDiagnoseSelected = false;
     diagnosisGroup: string = '';
@@ -63,10 +57,10 @@ export class ClinicDiagnosisComponent implements OnInit {
     isNew: boolean | undefined;
     toPrintDiv: string = "print-section";
 
-    @ViewChild('btnAddDiagnosisGroup') btnAddDiagnosisGroup: ElementRef;
-    @ViewChild('btnClosePopup') btnClosePopup: ElementRef;
+    @ViewChild('btnAddDiagnosisGroup') btnAddDiagnosisGroup!: ElementRef;
+    @ViewChild('btnClosePopup') btnClosePopup!: ElementRef;
 
-    treeDataSourceItems: any[];
+    treeDataSourceItems!: any[];
     lstToTranslated: string[] = [];
     userType: string = '';
     isClinicAdmin: boolean = false;
@@ -88,13 +82,13 @@ export class ClinicDiagnosisComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
 
         this.getDiagnosisGroupsForTree();
-        
+
     }
 
     getDiagnosisGroupsForTree() {
@@ -104,16 +98,16 @@ export class ClinicDiagnosisComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getDiagnosisGroupsForTree(this.selectedClinicId)
             .subscribe(
-            function (diagnosisGroups) {
-                thisComponent.treeDataSourceItems = diagnosisGroups;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (diagnosisGroups: any) {
+                    thisComponent.treeDataSourceItems = diagnosisGroups;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     expandAll() {
@@ -131,13 +125,13 @@ export class ClinicDiagnosisComponent implements OnInit {
     private expandRecursive(node: TreeNode, isExpand: boolean) {
         node.expanded = isExpand;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.expandRecursive(childNode, isExpand);
             });
         }
     }
 
-    onCheckboxSelectionChange(value) {
+    onCheckboxSelectionChange(value: any) {
         this.selectedAction = value;
 
         if (this.selectedAction == 1) {
@@ -164,7 +158,7 @@ export class ClinicDiagnosisComponent implements OnInit {
         }
     }
 
-    displayPopup(node) {
+    displayPopup(node: any) {
         if (node.type.toLocaleLowerCase() == "diagnose") {
             this.isDiagnosisGroupSelected = false;
             this.isDiagnoseSelected = true;
@@ -202,7 +196,7 @@ export class ClinicDiagnosisComponent implements OnInit {
         this.selctedNode = node;
     }
 
-    passParentGroupInfo(node) {
+    passParentGroupInfo(node: any) {
         this.parentDiagnosisGroupId = node.data;
 
         if (this.selectedLang == 'ar')
@@ -235,48 +229,48 @@ export class ClinicDiagnosisComponent implements OnInit {
         this.selctedNode = node;
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let thisComponent = this;
 
         if (node.type == "Diagnose") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateDiagnoseActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                   // thisComponent.getDiagnosisGroupsForTree();
-                    if (event.target.checked) {
-                        thisComponent.activateParents(node);
-                    }
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        // thisComponent.getDiagnosisGroupsForTree();
+                        if (event.target.checked) {
+                            thisComponent.activateParents(node);
+                        }
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         } else if (node.type.toLocaleLowerCase() == "diagnosisgroup") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateDiagnosisGroupActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    node.isActive = event.target.checked;
-                    if (event.target.checked) {
-                        if (node.parent != undefined)
-                            thisComponent.activateParents(node.parent);
-                    } else {
+                    function (response: any) {
+                        node.isActive = event.target.checked;
+                        if (event.target.checked) {
+                            if (node.parent != undefined)
+                                thisComponent.activateParents(node.parent);
+                        } else {
 
-                        thisComponent.deActivateChildren(node, false);
-                    }
+                            thisComponent.deActivateChildren(node, false);
+                        }
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
     activateParents(node: any) {
@@ -285,10 +279,10 @@ export class ClinicDiagnosisComponent implements OnInit {
             this.activateParents(node.parent);
         }
     }
-    deActivateChildren(node, active) {
+    deActivateChildren(node: any, active: any) {
         node.isActive = active;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.deActivateChildren(childNode, active);
             });
         }
@@ -296,7 +290,7 @@ export class ClinicDiagnosisComponent implements OnInit {
     closeDiagnosisAndGroupsPopup() {
         this.toSaveDiagnosisGroupId = '';
         this.toSaveDiagnoseId = '';
-        this.selectedNode = [];
+        this.selectedNode = {};
 
         this.btnClosePopup.nativeElement.click();
     }
@@ -305,7 +299,7 @@ export class ClinicDiagnosisComponent implements OnInit {
         vm.toSaveDiagnosisGroupId = '';
         vm.toSaveDiagnoseId = '';
         if (node.data > 0 && vm.isNew == false) {
-           // vm.selctedNode = node;
+            // vm.selctedNode = node;
             vm.selctedNode.label = node.label;
             vm.selctedNode.labelTranslation = node.labelTranslation;
         } else {
@@ -325,7 +319,7 @@ export class ClinicDiagnosisComponent implements OnInit {
 
 
     }
-    setIsNewValue(val) {
+    setIsNewValue(val: any) {
         this.isNew = val;
     }
 
@@ -334,15 +328,15 @@ export class ClinicDiagnosisComponent implements OnInit {
 
             for (let item of user.permissions) {
                 if (item.permission.key == this.key.Coding) {
-                     if(item.fullControl == true || item.add)
+                    if (item.fullControl == true || item.add)
                         this.enableAddRootBtn = true;// then any add button should be enabled
-                     if (item.fullControl == true || item.edit)
-                         this.enableEditBtn = true;
-                     if (item.fullControl == true || item.activate)
-                         this.enableActivateBtn = true;
-                     if (item.fullControl || item.add || item.edit) 
-                         this.enableSaveBtn = true;
-                } 
+                    if (item.fullControl == true || item.edit)
+                        this.enableEditBtn = true;
+                    if (item.fullControl == true || item.activate)
+                        this.enableActivateBtn = true;
+                    if (item.fullControl || item.add || item.edit)
+                        this.enableSaveBtn = true;
+                }
 
             }
         }

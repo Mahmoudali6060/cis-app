@@ -1,29 +1,28 @@
-﻿import {Component, Input, OnInit, EventEmitter, ViewChild, ElementRef, Output, OnChanges} from '@angular/core';
+﻿import { Component, Input, OnInit, EventEmitter, ViewChild, ElementRef, Output, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-import { Subscription } from 'rxjs/Subscription';
+import { TranslateService } from '@ngx-translate/core';
 
 import { PatientService } from '../shared/patient.service'
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { ReceptionistAppointmentManager } from '../../receptionists/shared/receptionist-appointment.manager';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'patient-mrf',
     templateUrl: 'patient-mrf.component.html'
 })
 
 export class PatientMrfComponent implements OnInit {
     selectAddressTab: boolean = true;
-    selectedPatientId: string | undefined;
+    selectedPatientId!: string;
     active = true;
     selectedPatient: any = {};
     showProgress = false;
-    divisionId;
+    divisionId!: any;
     parentType: string = "PatientFileType";
     detailsUrl = "PatientReceptionistAttachmentsDetails";
 
@@ -35,8 +34,8 @@ export class PatientMrfComponent implements OnInit {
     fileType: boolean = true;
     showDocumentDetails: boolean = true;
     appointmentModel: any = { id: 0 };
-    selectedDate;
-    selectedTimeSlot;
+    selectedDate!: any;
+    selectedTimeSlot!: any;
     patientName = '';
     selectedDept: any = {};
     appointmentSchedulesList: any[] = [];
@@ -46,22 +45,22 @@ export class PatientMrfComponent implements OnInit {
     timeSlotsList: any[] = [];
     appointementsList: any[] = [];
     currentWeekDays: any[] = [];
-    slotDuration: number | undefined;
-    doctorId;
-    clinicId;
+    slotDuration!: number;
+    doctorId!: any;
+    clinicId!: any;
     entireDayTimeSlotsList: any[] = [];
     pateintMrfs: any[] = [];
     noteId = "new";
     getMrf: boolean = false;
 
-    @ViewChild('appointmentModalButton') appointmentModalButton: ElementRef;
-    @ViewChild('btnClostAppointmentModal') btnClostAppointmentModal: ElementRef;
-    @ViewChild('btnAddNewNote') btnAddNewNote: ElementRef;
-    @ViewChild('newClinicalNoteComp') newClinicalNoteComp ;
+    @ViewChild('appointmentModalButton') appointmentModalButton!: ElementRef;
+    @ViewChild('btnClostAppointmentModal') btnClostAppointmentModal!: ElementRef;
+    @ViewChild('btnAddNewNote') btnAddNewNote!: ElementRef;
+    @ViewChild('newClinicalNoteComp') newClinicalNoteComp!: any;
 
-   // @ViewChild('triggerOldNotes') triggerOldNotes: ElementRef;
+    // @ViewChild('triggerOldNotes') triggerOldNotes: ElementRef;
     utilityClass: UtilityClass = new UtilityClass();
-    receptionistAppointmentManager: ReceptionistAppointmentManager;
+    receptionistAppointmentManager!: ReceptionistAppointmentManager;
     userPermisions: UserPermissions = new UserPermissions();
     key: PermissionKeyEnum = new PermissionKeyEnum();
     enableAttachmentBtn: boolean = false;
@@ -80,30 +79,30 @@ export class PatientMrfComponent implements OnInit {
 
 
     ngOnInit(): void {
-        
+
         this.showProgress = true;
         this.selectedPatientId = this._route.snapshot.params['id'];
         this.divisionId = this._route.snapshot.params['divisionId'];
         this.doctorId = this.storage.retrieve("UserID");
         this.clinicId = this.storage.retrieve("ClinicID");
         this.defaultAppointmentId = this._route.snapshot.params['appointmentId'];
-        
+
         let vm = this;
         this.receptionistAppointmentManager = new ReceptionistAppointmentManager(this.appointmentSchedulesList, this.sessionExtensionsList);
         this.entireDayTimeSlotsList = this.receptionistAppointmentManager.getFullDayTimeSlots(null);
         this.patientService.getPatientById(vm.selectedPatientId.toString()).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.selectedPatient = response;
             },
-            function (error:any) { 
-                vm.toastr.error( error, '');
+            function (error: any) {
+                vm.toastr.error(error, '');
             },
             function () { // finally
                 vm.showProgress = false;
             });
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
@@ -124,30 +123,30 @@ export class PatientMrfComponent implements OnInit {
         this.appointmentModalButton.nativeElement.click();
     }
 
-    selectAppointmentClass(classId) {
+    selectAppointmentClass(classId: any) {
         this.appointmentModel.appointmentClassId = classId;
     }
-    getAppointmentDetailsWrapper(doctorId) {
+    getAppointmentDetailsWrapper(doctorId: any) {
 
         this.showProgress = true;
         let thisComp = this;
         this.patientService.getAppointmentDetailsWrapper(doctorId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComp.appointmentSchedulesList = response.appointmentSchedules;
-                thisComp.sessionExtensionsList = response.sessionExtensions;
-                thisComp.appointmentClassesList = response.appointmentClasses;
-                thisComp.visitTypesList = response.visitTypes;
-                thisComp.appointementsList = response.appointments;
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                    thisComp.appointmentSchedulesList = response.appointmentSchedules;
+                    thisComp.sessionExtensionsList = response.sessionExtensions;
+                    thisComp.appointmentClassesList = response.appointmentClasses;
+                    thisComp.visitTypesList = response.visitTypes;
+                    thisComp.appointementsList = response.appointments;
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
     onDateSelect(dateValue: Date) {
         this.timeSlotsList = [];
@@ -200,15 +199,15 @@ export class PatientMrfComponent implements OnInit {
             let isNewAppointment: boolean = (this.appointmentModel.id == 0) ? true : false;
 
             this.patientService.saveOrUpdateAppointment(this.appointmentModel)
-                    .subscribe(
-                function (response:any) {
-                    thisComp.appointmentModel = response;
+                .subscribe(
+                    function (response: any) {
+                        thisComp.appointmentModel = response;
                         thisComp.closeAppointmentModal();
 
                         let msg = thisComp.translate.instant("SavedSuccessfully");
                         thisComp.toastr.success(msg, '');
                     },
-                    function (error:any) { 
+                    function (error: any) {
                         thisComp.toastr.error(error, '');
                         thisComp.showProgress = false;
                     },
@@ -243,12 +242,12 @@ export class PatientMrfComponent implements OnInit {
     }
     */
 
-    getPatientMrf(value) {
+    getPatientMrf(value: any) {
         this.getMrf = value;
         this.pateintMrfs = [];
         this.patientService.notifyOther({ option: 'call_child', value: 'From child' });
 
-       // this.triggerOldNotes.nativeElement.click();
+        // this.triggerOldNotes.nativeElement.click();
     }
 
     handleUserInterfaceViews(user: any) {
@@ -274,5 +273,5 @@ export class PatientMrfComponent implements OnInit {
         this.newClinicalNoteComp.setSelectedTab(0);
         this.btnAddNewNote.nativeElement.click();
     }
-   
+
 }

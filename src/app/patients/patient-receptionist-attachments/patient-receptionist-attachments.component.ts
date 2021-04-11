@@ -22,7 +22,7 @@ export class PatientReceptionistAttachmentsComponent implements OnInit {
   
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
 
 

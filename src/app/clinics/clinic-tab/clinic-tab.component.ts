@@ -1,13 +1,13 @@
-﻿import {Component, Input, OnInit, OnChanges, SimpleChanges} from '@angular/core';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
-import {ClinicModulesEnum} from '../../shared/shared/clinic-modules.enum';
+import { ClinicModulesEnum } from '../../shared/shared/clinic-modules.enum';
 
 @Component({
-   
+
     selector: 'clinic-tab',
-    templateUrl: 'clinic-tab.component.html',
-   
+    templateUrl: './clinic-tab.component.html',
+
 })
 
 export class ClinicTabComponent implements OnInit, OnChanges {
@@ -76,7 +76,7 @@ export class ClinicTabComponent implements OnInit, OnChanges {
             this.hasID = true;
 
         if (this.accountService.modulesWrapper._isScalar != undefined)
-            this.accountService.modulesWrapper.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.modulesWrapper.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.modulesWrapper);
     }
@@ -86,20 +86,19 @@ export class ClinicTabComponent implements OnInit, OnChanges {
         let thisComponent = this;
         this.accountService.getClinicModules(id)
             .subscribe(
-            function (response:any) {
-                thisComponent.accountService.modulesWrapper = response;
+                function (response: any) {
+                    thisComponent.accountService.modulesWrapper = response;
+                    if (thisComponent.accountService.modulesWrapperObserver != undefined)
+                        thisComponent.accountService.modulesWrapperObserver.next(response);
 
-                if (thisComponent.accountService.modulesWrapperObserver != undefined)
-                    thisComponent.accountService.modulesWrapperObserver.next(response:any);
-
-                thisComponent.handleUserInterfaceViews(thisComponent.accountService.modulesWrapper);
-            },
-            function (error:any) { 
-                // thisComponent.toastr.error(error, '');
-            },
-            function () { // finally
-                //thisComponent.showProgress = false;
-            });
+                    thisComponent.handleUserInterfaceViews(thisComponent.accountService.modulesWrapper);
+                },
+                function (error: any) {
+                    // thisComponent.toastr.error(error, '');
+                },
+                function () { // finally
+                    //thisComponent.showProgress = false;
+                });
     }
 
     handleUserInterfaceViews(clinicModulesWrapper: any) {

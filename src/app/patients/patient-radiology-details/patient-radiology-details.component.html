@@ -9,21 +9,21 @@
             </div>
             <div class="nopadding treeBorder">
                 <p-tree [value]="radTests | filterbynameorcode:filterString : leafType  | translateObjects  : 'label' : 'labelTranslation' : null" selectionMode="single" [(selection)]="selectedFiles" class="height100" (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
-                    <template let-node pTemplate="ClinicDepartmentRadiologyTestsGroup">
+                    <ng-template let-node pTemplate="ClinicDepartmentRadiologyTestsGroup">
                         <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                         &nbsp;
                         {{node.label}}
-                    </template>
-                    <template let-node pTemplate="RadiologyTestsGroup">
+                    </ng-template>
+                    <ng-template let-node pTemplate="RadiologyTestsGroup">
                         <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                         &nbsp;
                         {{node.label}}
-                    </template>
-                    <template let-node pTemplate="RadiologyTest">
+                    </ng-template>
+                    <ng-template let-node pTemplate="RadiologyTest">
                         <span class="nav-icon"><i class="fa fa-cube"></i></span>
                         &nbsp;
                         {{node.label}}
-                    </template>
+                    </ng-template>
                 </p-tree>
             </div>
         </div>

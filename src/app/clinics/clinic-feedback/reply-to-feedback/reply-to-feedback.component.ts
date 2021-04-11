@@ -1,25 +1,24 @@
-﻿import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {Reply} from '../../../classes/reply.class';
-import {Feedback} from '../../../classes/feedback.class';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { Reply } from '../../../classes/reply.class';
+import { Feedback } from '../../../classes/feedback.class';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
-   
+
     selector: 'reply-to-feedback',
-    templateUrl: 'reply-to-feedback.component.html'
+    templateUrl: './reply-to-feedback.component.html'
 })
 
 export class ReplyToFeedbackComponent {
     selectFeedbackTab: boolean = true;
-
-    recorderId: number | undefined;
-    selectedFeedbackId: number | undefined;
-    selectedClinicId: number | undefined;
+    recorderId!: number;
+    selectedFeedbackId!: number;
+    selectedClinicId!: number;
     active: boolean = true;
     showProgress = false;
     selectedFeedback: Feedback = new Feedback();
@@ -44,22 +43,22 @@ export class ReplyToFeedbackComponent {
         if (this.userType == 'ClinicAdmin')
             this.isClinicAdmin = true;
 
-        if (this.selectedFeedbackId && this.selectedFeedbackId >0) {
+        if (this.selectedFeedbackId && this.selectedFeedbackId > 0) {
             let thisComponent = this;
             thisComponent.showProgress = true;
             this.clinicService.getFeedbackById(thisComponent.selectedFeedbackId)
                 .subscribe(
-                function (feedback) {
-                    thisComponent.selectedFeedback = feedback;
-                    thisComponent.feedbackReplies = feedback.replies;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (feedback: any) {
+                        thisComponent.selectedFeedback = feedback;
+                        thisComponent.feedbackReplies = feedback.replies;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -74,39 +73,35 @@ export class ReplyToFeedbackComponent {
         if (this.selectedFeedbackId && this.selectedFeedbackId > 0) {
             thisComponent.showProgress = true;
             this.toSaveReply.feedbackId = this.selectedFeedbackId;
-            this.toSaveReply.repliedById = this.recorderId;
+            this.toSaveReply.repliedById = this.recorderId!:any;
             if (this.selectedFeedback)
                 this.toSaveReply.status = this.selectedFeedback.status;
 
             this.clinicService.saveReply(this.toSaveReply)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.feedbackReplies.push(response:any);
-                    thisComponent.toSaveReply = new Reply();
-                    if (thisComponent.selectedFeedback)
-                    {
-                        if (thisComponent.selectedFeedback.status && thisComponent.selectedFeedback.status != '')
-                        {
-                            if (thisComponent.selectedFeedback.status.toString().toLowerCase() != "completed")
-                            {
+                    function (response: any) {
+                        thisComponent.feedbackReplies.push(response);
+                        thisComponent.toSaveReply = new Reply();
+                        if (thisComponent.selectedFeedback) {
+                            if (thisComponent.selectedFeedback.status && thisComponent.selectedFeedback.status != '') {
+                                if (thisComponent.selectedFeedback.status.toString().toLowerCase() != "completed") {
+                                    thisComponent.selectedFeedback.status = "Replied"
+                                }
+                            }
+                            else {
                                 thisComponent.selectedFeedback.status = "Replied"
                             }
                         }
-                        else
-                        {
-                            thisComponent.selectedFeedback.status = "Replied"
-                        }
-                    }
-                    let msg = thisComponent.translate.instant("SavedAndSentSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        let msg = thisComponent.translate.instant("SavedAndSentSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -116,17 +111,17 @@ export class ReplyToFeedbackComponent {
             thisComponent.showProgress = true;
             this.clinicService.updateFeedback(this.selectedFeedback)
                 .subscribe(
-                function (response:any) {
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

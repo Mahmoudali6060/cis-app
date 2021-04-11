@@ -1,29 +1,21 @@
-import {Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-
-import { TreeNode } from 'primeng/primeng';
-
-import {ClinicService} from '../shared/clinic.service';
-
-import { ClinicManageDrugComponent } from './manage-drug/clinic-manage-drug.component';
-import { ClinicManageDrugsGroupComponent } from './manage-drugs-group/clinic-manage-drugs-group.component';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
-
+import { LocalStorageService } from 'ng2-webstorage';
+import { TreeNode } from 'primeng/api';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'clinic-drugs',
-    templateUrl: 'clinic-drugs.component.html'
+    templateUrl: './clinic-drugs.component.html'
 })
 
 export class ClinicDrugsComponent implements OnInit {
 
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Drug';
     selectedLang = 'ar';
 
@@ -33,12 +25,12 @@ export class ClinicDrugsComponent implements OnInit {
         , public translate: TranslateService
         , private accountService: AccountService) { }
 
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     selectDrugsTab: boolean = true;
     active: boolean = true;
     showProgress = false;
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
     isDrugsGroupSelected = true;
     isDrugSelected = false;
@@ -64,13 +56,11 @@ export class ClinicDrugsComponent implements OnInit {
     enableEditBtn: boolean = false;
     enableActivateBtn: boolean = false;
     enableSaveBtn: boolean = false;
-    @ViewChild('btnAddDrugsGroup') btnAddDrugsGroup: ElementRef;
-    @ViewChild('btnClosePopup') btnClosePopup: ElementRef;
-
-
-    treeDataSourceItems: any[];
-
+    @ViewChild('btnAddDrugsGroup') btnAddDrugsGroup!: ElementRef;
+    @ViewChild('btnClosePopup') btnClosePopup!: ElementRef;
+    treeDataSourceItems!: any[];
     lstToTranslated: string[] = [];
+
     ngOnInit(): void {
         this.selectedLang = this.localStorage.retrieve("selectedLanguage");
         this.lstToTranslated = ['label', 'labelTranslation'];
@@ -88,7 +78,7 @@ export class ClinicDrugsComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -103,16 +93,16 @@ export class ClinicDrugsComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getDrugsGroupsForTree(this.selectedClinicId)
             .subscribe(
-            function (drugsGroups) {
-                thisComponent.treeDataSourceItems = drugsGroups;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (drugsGroups: any) {
+                    thisComponent.treeDataSourceItems = drugsGroups;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     expandAll() {
@@ -136,7 +126,7 @@ export class ClinicDrugsComponent implements OnInit {
         }
     }
 
-    onCheckboxSelectionChange(value) {
+    onCheckboxSelectionChange(value: any) {
         this.selectedAction = value;
 
         if (this.selectedAction == 1) {
@@ -161,7 +151,7 @@ export class ClinicDrugsComponent implements OnInit {
         }
     }
 
-    displayPopup(node) {
+    displayPopup(node: any) {
         if (node.type.toLocaleLowerCase() == "drug") {
             this.isDrugsGroupSelected = false;
             this.isDrugSelected = true;
@@ -200,7 +190,7 @@ export class ClinicDrugsComponent implements OnInit {
         this.rbSelections = [{ value: 1, text: this.groupName }, { value: 2, text: this.childName }];
     }
 
-    passParentGroupInfo(node) {
+    passParentGroupInfo(node: any) {
         this.parentDrugsGroupId = node.data;
         if (this.selectedLang == 'ar')
             this.parentDrugsGroupName = node.label;
@@ -232,46 +222,46 @@ export class ClinicDrugsComponent implements OnInit {
         this.rbSelections = [{ value: 1, text: this.groupName }, { value: 2, text: this.childName }];
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let thisComponent = this;
 
         if (node.type == "Drug") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateDrugActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    if (event.target.checked) {
-                        thisComponent.activateParents(node);
-                    }
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        if (event.target.checked) {
+                            thisComponent.activateParents(node);
+                        }
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         } else if (node.type == "DrugsGroup") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateDrugsGroupActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    node.isActive = event.target.checked;
-                    if (event.target.checked) {
-                        if (node.parent != undefined)
-                            thisComponent.activateParents(node.parent);
-                    } else {
+                    function (response: any) {
+                        node.isActive = event.target.checked;
+                        if (event.target.checked) {
+                            if (node.parent != undefined)
+                                thisComponent.activateParents(node.parent);
+                        } else {
 
-                        thisComponent.deActivateChildren(node, false);
-                    }
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                            thisComponent.deActivateChildren(node, false);
+                        }
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -281,10 +271,10 @@ export class ClinicDrugsComponent implements OnInit {
             this.activateParents(node.parent);
         }
     }
-    deActivateChildren(node, active) {
+    deActivateChildren(node: any, active: any) {
         node.isActive = active;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.deActivateChildren(childNode, active);
             });
         }
@@ -308,13 +298,13 @@ export class ClinicDrugsComponent implements OnInit {
 
 
     }
-    setIsNewValue(val) {
+    setIsNewValue(val: any) {
         this.isNew = val;
     }
     closeDrugsAndGroupsPopup() {
         this.toSaveDrugsGroupId = '';
         this.toSaveDrugId = '';
-        this.selectedNode = [];
+        this.selectedNode = {};
 
         this.btnClosePopup.nativeElement.click();
     }

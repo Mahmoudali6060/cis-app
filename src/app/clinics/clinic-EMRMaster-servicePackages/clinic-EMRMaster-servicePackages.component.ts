@@ -1,29 +1,26 @@
-import {Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../shared/clinic.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
 import { EMRObjectType } from '../shared/EMRObjectType.enum';
-
-import { TreeNode } from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { TreeHelerClass } from '../../shared/shared/treeHelper.class';
 
 @Component({
-   
+
     selector: 'clinic-EMRMaster-servicePackages',
-    templateUrl: 'clinic-EMRMaster-servicePackages.component.html'
+    templateUrl: './clinic-EMRMaster-servicePackages.component.html'
 })
 
 export class ClinicEMRMasterServicePackagesComponent implements OnInit, OnChanges {
 
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Service';
     selectedLang = 'ar';
 
     active: boolean = true;
-    selectedItem: TreeNode;
+    selectedItem!: TreeNode;
     @Input() division: any = {};
     @Input() isClinicAdmin: boolean = false;
     @Input() enableAddRootBtn: boolean = false;
@@ -31,12 +28,12 @@ export class ClinicEMRMasterServicePackagesComponent implements OnInit, OnChange
     @Input() enableActivateBtn: boolean = false;
     items: any[] = [];
     model: any = {};
-    @ViewChild('AddEditServicPackageGroup') AddEditServicPackageGroup: ElementRef;
+    @ViewChild('AddEditServicPackageGroup') AddEditServicPackageGroup!: ElementRef;
     selectedNode: any;
     showProgress: boolean = false;
-    servicesTree: any[];
+    servicesTree!: any[];
     selectedServices: TreeNode[] = [];
-    clinicId: string | undefined;
+    clinicId!: string;
     objectType: EMRObjectType = new EMRObjectType();
     lstToTranslated: string[] = [];
     treeHelper: TreeHelerClass = new TreeHelerClass();
@@ -74,7 +71,7 @@ export class ClinicEMRMasterServicePackagesComponent implements OnInit, OnChange
     loadServicePackages() {
         let vm = this;
         this.clinicService.getAllservicePackages(vm.clinicId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.servicePackagesList = response;
                 //vm.servicesTree.push({
 
@@ -86,7 +83,7 @@ export class ClinicEMRMasterServicePackagesComponent implements OnInit, OnChange
 
                 //});
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -117,22 +114,22 @@ export class ClinicEMRMasterServicePackagesComponent implements OnInit, OnChange
         this.selectedServices = [];
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let vm = this;
         vm.showProgress = true;
         this.clinicService.toggleEMRMasterItemActivation(node.data, event.target.checked, this.objectType.ServicePackages)
             .subscribe(
-            function (response:any) {
-                // change the activation of the node
-                node.isActive = event.target.checked;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    // change the activation of the node
+                    node.isActive = event.target.checked;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
 
@@ -150,29 +147,29 @@ export class ClinicEMRMasterServicePackagesComponent implements OnInit, OnChange
 
         this.clinicService.saveorUpdateEMRMasterItem(vm.model)
             .subscribe(
-            function (response:any) {
-                if (addNew) // attach new object to the selected node 
-                    vm.selectedNode.children.push(response:any);
-                else // update node's name in case of updating 
-                {
-                    vm.selectedNode.label = response.label;
-                    vm.selectedNode.nameTranslation = response.nameTranslation;
-                    vm.selectedNode.labelTranslation = response.nameTranslation;
-                    vm.selectedNode.children = [];
-                    vm.selectedNode.children = response.children;
-                }
+                function (response: any) {
+                    if (addNew) // attach new object to the selected node 
+                        vm.selectedNode.children.push(response);
+                    else // update node's name in case of updating 
+                    {
+                        vm.selectedNode.label = response.label;
+                        vm.selectedNode.nameTranslation = response.nameTranslation;
+                        vm.selectedNode.labelTranslation = response.nameTranslation;
+                        vm.selectedNode.children = [];
+                        vm.selectedNode.children = response.children;
+                    }
 
-                vm.clear();
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.clear();
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     prepareModel() {

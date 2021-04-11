@@ -1,20 +1,16 @@
-﻿import {Component, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges, } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+﻿import { Component, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges, } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-
-import { TreeNode } from 'primeng/primeng';
-import {ClinicService} from '../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
-
+import { LocalStorageService } from 'ng2-webstorage';
+import { TreeNode } from 'primeng/api';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+
 @Component({
-   
     selector: 'clinic-services',
-    templateUrl: 'clinic-services.component.html'
+    templateUrl: './clinic-services.component.html'
 })
 
 export class ClinicServicesComponent implements OnInit {
@@ -25,7 +21,7 @@ export class ClinicServicesComponent implements OnInit {
         , private accountService: AccountService) { }
 
     selectedLang = 'ar';
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Service';
     lstToTranslated: string[] = [];
     selectServicesTab: boolean = true;
@@ -42,16 +38,16 @@ export class ClinicServicesComponent implements OnInit {
     txtHeaderModal = "";
     serviceGroupId = 'new';
     serviceId = 'new';
-    @ViewChild('btnServicesGroup') btnServicesGroup: ElementRef;
-    @ViewChild('btnCloseServicesGroup') btnCloseServicesGroup: ElementRef;
-    @ViewChild('btnCloseService') btnCloseService: ElementRef;
+    @ViewChild('btnServicesGroup') btnServicesGroup!: ElementRef;
+    @ViewChild('btnCloseServicesGroup') btnCloseServicesGroup!: ElementRef;
+    @ViewChild('btnCloseService') btnCloseService!: ElementRef;
     //btnCloseService
-    @ViewChild('btnServices') btnServices: ElementRef;
+    @ViewChild('btnServices') btnServices!: ElementRef;
     @ViewChild('tree') tree: any;
 
-    @ViewChild('i') rbselection: ElementRef;
-    selectedFile2: TreeNode;
-    selectedGroup: TreeNode;
+    @ViewChild('i') rbselection!: ElementRef;
+    selectedFile2!: TreeNode;
+    selectedGroup!: TreeNode;
 
     selectedGroupNode: any;
     titl: string = '';
@@ -95,7 +91,7 @@ export class ClinicServicesComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -105,16 +101,16 @@ export class ClinicServicesComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getServiceGroupsForTreeView(thisComponent.selectedClinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.treeDataSourceItems = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.treeDataSourceItems = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
         //this.clinicService.getServiceGroupsOnlyForTreeView()
         //    .subscribe(
         //    function (response:any) {
@@ -150,14 +146,14 @@ export class ClinicServicesComponent implements OnInit {
         }
     }
 
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         event.node.label;
     }
 
-    nodeUnselect(event:any) {
+    nodeUnselect(event: any) {
         //event.node.label
     }
-    displayPopup(node: TreeNode) {
+    displayPopup(node: any) {
         let thisComponent = this;
         if (node.type.toLocaleLowerCase() == "servicegroup") {
             //  thisComponent.showProgress = true;
@@ -178,22 +174,22 @@ export class ClinicServicesComponent implements OnInit {
             if (this.serviceGroupId.toString().toLowerCase() != 'new') {
                 this.clinicService.getServiceGroupById(this.serviceGroupId)
                     .subscribe(
-                    function (response:any) {
-                        thisComponent.serviceGroupModel = response;
-                        thisComponent.serviceGroupParentId = thisComponent.serviceGroupModel.parentGroupId;
+                        function (response: any) {
+                            thisComponent.serviceGroupModel = response;
+                            thisComponent.serviceGroupParentId = thisComponent.serviceGroupModel.parentGroupId;
 
-                        if (thisComponent.selectedLang == 'ar')
-                            thisComponent.serviceGroupParentlabel = thisComponent.serviceGroupModel.parentName;
-                        else
-                            thisComponent.serviceGroupParentlabel = thisComponent.serviceGroupModel.parentNameTranslation;
+                            if (thisComponent.selectedLang == 'ar')
+                                thisComponent.serviceGroupParentlabel = thisComponent.serviceGroupModel.parentName;
+                            else
+                                thisComponent.serviceGroupParentlabel = thisComponent.serviceGroupModel.parentNameTranslation;
 
-                    },
-                    function (error:any) { 
-                        thisComponent.toastr.error(error, '');
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                        },
+                        function (error: any) {
+                            thisComponent.toastr.error(error, '');
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
             }
 
         } else if (node.type.toLocaleLowerCase() == "service") {
@@ -218,23 +214,23 @@ export class ClinicServicesComponent implements OnInit {
             if (this.serviceId.toString().toLowerCase() != 'new') {
                 this.clinicService.getServiceById(this.serviceId)
                     .subscribe(
-                    function (response:any) {
-                        thisComponent.model = response;
-                        thisComponent.serviceGroupParentId = thisComponent.model.parentId;
-                        if (thisComponent.selectedLang == 'ar')
-                            thisComponent.serviceGroupParentlabel = thisComponent.model.parentName;
-                        else
-                            thisComponent.serviceGroupParentlabel = thisComponent.model.parentNameTranslation;
+                        function (response: any) {
+                            thisComponent.model = response;
+                            thisComponent.serviceGroupParentId = thisComponent.model.parentId;
+                            if (thisComponent.selectedLang == 'ar')
+                                thisComponent.serviceGroupParentlabel = thisComponent.model.parentName;
+                            else
+                                thisComponent.serviceGroupParentlabel = thisComponent.model.parentNameTranslation;
 
 
-                        thisComponent.totalFees = thisComponent.model.resourceFee + thisComponent.model.clinicFee;
-                    },
-                    function (error:any) { 
-                        thisComponent.toastr.error(error, '');
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                            thisComponent.totalFees = thisComponent.model.resourceFee + thisComponent.model.clinicFee;
+                        },
+                        function (error: any) {
+                            thisComponent.toastr.error(error, '');
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
             }
         }
         thisComponent.selectedNode = node;
@@ -304,47 +300,47 @@ export class ClinicServicesComponent implements OnInit {
     //onGetServiceGroupsForTree() {
     //    this.getServiceGroupsForTree();
     //}
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let thisComponent = this;
 
         if (node.type == "Service") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateServiceActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    if (event.target.checked) {
-                        thisComponent.activateParents(node);
-                    }
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        if (event.target.checked) {
+                            thisComponent.activateParents(node);
+                        }
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         } else if (node.type == "ServiceGroup") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateServiceGroupActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    node.isActive = event.target.checked;
-                    if (event.target.checked) {
-                        if (node.parent != undefined)
-                            thisComponent.activateParents(node.parent);
-                    } else {
+                    function (response: any) {
+                        node.isActive = event.target.checked;
+                        if (event.target.checked) {
+                            if (node.parent != undefined)
+                                thisComponent.activateParents(node.parent);
+                        } else {
 
-                        thisComponent.deActivateChildren(node, false);
-                    }
+                            thisComponent.deActivateChildren(node, false);
+                        }
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
     activateParents(node: any) {
@@ -353,16 +349,16 @@ export class ClinicServicesComponent implements OnInit {
             this.activateParents(node.parent);
         }
     }
-    deActivateChildren(node, active) {
+    deActivateChildren(node: any, active: any) {
         node.isActive = active;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.deActivateChildren(childNode, active);
             });
         }
     }
 
-    onSelectionChange(value) {
+    onSelectionChange(value: any) {
         this.selectedAction = value;
 
         if (this.selectedAction == 1) {
@@ -395,54 +391,54 @@ export class ClinicServicesComponent implements OnInit {
             //Update
             this.clinicService.updateServiceGroup(this.serviceGroupModel)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    // thisComponent.serviceGroupModel = response;
-                    thisComponent.selectedNode.label = response.name;
-                    thisComponent.selectedNode.labelTranslation = response.nameTranslation;
-                    //thisComponent.displaySelectedParentGroupNode(thisComponent.selectedNode.data, "servicegroup")//type.toLocaleLowerCase() == "servicegroup"
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearServiceGroupWithParent();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearServiceGroupWithParent();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        // thisComponent.serviceGroupModel = response;
+                        thisComponent.selectedNode.label = response.name;
+                        thisComponent.selectedNode.labelTranslation = response.nameTranslation;
+                        //thisComponent.displaySelectedParentGroupNode(thisComponent.selectedNode.data, "servicegroup")//type.toLocaleLowerCase() == "servicegroup"
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearServiceGroupWithParent();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearServiceGroupWithParent();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             this.clinicService.createServiceGroup(this.serviceGroupModel)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    //  thisComponent.serviceGroupModel = response;
-                    if (thisComponent.serviceGroupParentId == '') {
-                        thisComponent.treeDataSourceItems.push(response:any);
-                    } else {
-                        thisComponent.selectedNode.children.push(response:any);
-                        //thisComponent.selectedNode.children.sort(function (a, b) {
-                        //    return a.type && b.type == "ServiceGroup" ? 1 : -1;
-                        //});
-                        //  thisComponent.displaySelectedParentGroupNode(thisComponent.selectedNode.data, "servicegroup")//type.toLocaleLowerCase() == "servicegroup"
-                    }
+                        //  thisComponent.serviceGroupModel = response;
+                        if (thisComponent.serviceGroupParentId == '') {
+                            thisComponent.treeDataSourceItems.push(response);
+                        } else {
+                            thisComponent.selectedNode.children.push(response);
+                            //thisComponent.selectedNode.children.sort(function (a, b) {
+                            //    return a.type && b.type == "ServiceGroup" ? 1 : -1;
+                            //});
+                            //  thisComponent.displaySelectedParentGroupNode(thisComponent.selectedNode.data, "servicegroup")//type.toLocaleLowerCase() == "servicegroup"
+                        }
 
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearServiceGroupWithParent();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearServiceGroupWithParent();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearServiceGroupWithParent();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearServiceGroupWithParent();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -460,9 +456,9 @@ export class ClinicServicesComponent implements OnInit {
         });
     }
 
-    private displaySelectedNodeRecursive(node: TreeNode, parentGroupId: string, type: string) {
+    private displaySelectedNodeRecursive(node: any, parentGroupId: string, type: string) {
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.displaySelectedNodeRecursive(childNode, parentGroupId, type);
 
                 if (childNode.data == parentGroupId && node.type.toLocaleLowerCase() == type) {
@@ -505,46 +501,46 @@ export class ClinicServicesComponent implements OnInit {
             //Update
             this.clinicService.updateService(this.model)
                 .subscribe(
-                function (response:any) {
-                    // thisComponent.model = response;
-                    thisComponent.selectedNode.label = response.name;
-                    thisComponent.selectedNode.labelTranslation = response.nameTranslation;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearWithParent();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearWithParent();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        // thisComponent.model = response;
+                        thisComponent.selectedNode.label = response.name;
+                        thisComponent.selectedNode.labelTranslation = response.nameTranslation;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearWithParent();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearWithParent();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             this.clinicService.createService(this.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.selectedNode.children.push(response:any);
-                    thisComponent.selectedNode.children.sort(function (a, b) {
-                        return a.type && b.type == "Service" ? 1 : -1;
+                        thisComponent.selectedNode.children.push(response);
+                        thisComponent.selectedNode.children.sort(function (a: { type: any; }, b: { type: string; }) {
+                            return a.type && b.type == "Service" ? 1 : -1;
+                        });
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearWithParent();
+
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearWithParent();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
                     });
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearWithParent();
-
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearWithParent();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
         }
     }
 
@@ -578,14 +574,14 @@ export class ClinicServicesComponent implements OnInit {
         this.btnCloseServicesGroup.nativeElement.click();
     }
     ///////////////////////filtering
-    filterNodes(text, tree) {
+    filterNodes(text: any, tree: any) {
         //tree.treeModel.filterNodes("text", true);
         // this.treeDataSourceItems.treeModel.filterNodes("text", true);
         //tree.treeModel.filterNodes((node) => {
         //    return !node.data.name.startsWith(text);
         //});
     }
-    sum(x, y) {
+    sum() {
         let c = Number(this.model.clinicFee);
         let r = Number(this.model.resourceFee);
         this.totalFees = c + r;
@@ -606,7 +602,7 @@ export class ClinicServicesComponent implements OnInit {
                 }
 
                 if (item.permission.key == this.key.UpdateServicePrice)
-                     this.enableServiceInput = true;
+                    this.enableServiceInput = true;
 
             }
         }

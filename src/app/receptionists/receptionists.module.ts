@@ -1,20 +1,13 @@
 ﻿
-import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { TreeModule } from 'primeng/primeng';
-import {DataTableModule} from 'primeng/primeng';
-import { ScheduleModule } from 'primeng/primeng';
-
-//import { routing } from '../app.routing';
+import { TreeModule } from 'primeng/tree';
 import { ReceptionistRoutingModule } from './receptionists.routing';
-
-
-import { ReceptionistsComponent }   from './receptionists.component';
-import { ReceptionistTabsComponent }   from './receptionist-tabs/receptionist-tabs.component';
-import { ReceptionistBasicComponent }   from './receptionist-basic/receptionist-basic.component';
-import { ReceptionistAddressComponent }   from './receptionist-address/receptionist-address.component';
+import { ReceptionistsComponent } from './receptionists.component';
+import { ReceptionistTabsComponent } from './receptionist-tabs/receptionist-tabs.component';
+import { ReceptionistBasicComponent } from './receptionist-basic/receptionist-basic.component';
+import { ReceptionistAddressComponent } from './receptionist-address/receptionist-address.component';
 import { ReceptionistAccountComponent } from './receptionist-account/receptionist-account.component';
 import { ReceptionistAppointmentsComponent } from './receptionist-appointments/receptionist-appointments.component';
 import { ReceptionistReportsComponent } from './receptionist-reports/receptionist-reports.component';
@@ -23,34 +16,26 @@ import { ReceptionistSearchComponent } from './receptionist-search/receptionist-
 import { ReceptionistAppointmentDetailsComponent } from './receptionist-appointment-details/receptionist-appointment-details.component';
 import { ReceptionistRequestsComponent } from './receptionist-requests/receptionist-requests.component';
 import { ReceptionistDivisionCalendarComponent } from './receptionist-division-calendar/receptionist-division-calendar.component';
-
-import { PatienSearchComponent } from '../patients/patient-search/patient-search.component';
-
-
 import { SharedModule } from '../shared/shared.module';
-import { CalendarModule } from 'primeng/primeng';
-import {DialogModule} from 'primeng/primeng';
-import { PatientsModule } from '../patients/patients.module'; 
-
-import { ReceptionistService }   from './shared/receptionist.service';
-import { SharedService }   from '../shared/shared/shared.service';
-
-
+import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
+import { PatientsModule } from '../patients/patients.module';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     imports: [
         FormsModule,
         CommonModule,
         ReceptionistRoutingModule,
-        SharedModule,        
+        SharedModule,
         //routing,
-        ScheduleModule,  
+        // ScheduleModule,
         TreeModule,
-        DataTableModule,      
+        TableModule,
         DialogModule,
         CalendarModule,
         PatientsModule
-        
+
 
     ],
     declarations: [
@@ -66,10 +51,10 @@ import { SharedService }   from '../shared/shared/shared.service';
         ReceptionistAppointmentDetailsComponent,
         ReceptionistRequestsComponent,
         ReceptionistDivisionCalendarComponent
-       
+
     ],
     providers: [],
-    exports:[
+    exports: [
         ReceptionistsComponent,
         ReceptionistTabsComponent,
         ReceptionistBasicComponent,
@@ -81,7 +66,7 @@ import { SharedService }   from '../shared/shared/shared.service';
         ReceptionistSearchComponent,
         ReceptionistAppointmentDetailsComponent,
         ReceptionistRequestsComponent,
-        ReceptionistDivisionCalendarComponent        
+        ReceptionistDivisionCalendarComponent
     ]
 })
 export class ReceptionistsModule { }

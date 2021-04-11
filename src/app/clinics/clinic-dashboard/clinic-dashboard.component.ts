@@ -1,17 +1,17 @@
-import {Component, OnInit , ViewChild , ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
-import {ClinicService} from '../shared/clinic.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { ClinicService } from '../shared/clinic.service';
 
 
 
 @Component({
-   
+
     selector: 'clinic-dashboard',
-    templateUrl: 'clinic-dashboard.component.html'
+    templateUrl: './clinic-dashboard.component.html'
 })
 
 export class ClinicDashboardComponent implements OnInit {
@@ -19,14 +19,14 @@ export class ClinicDashboardComponent implements OnInit {
     selectDashboardTab: boolean = true;
     model: any = {};
     showProgress: boolean = false;
-    clinicId;
+    clinicId!: any;
     userType: string = '';
     isClinicAdmin: boolean = false;
     options: any;
     lineChartOptions: any;
     barChartOptions: any;
     weekAppointments: any;
-    feedbackDoughnutdata;
+    feedbackDoughnutdata!: any;
     visitsBarChartData: any;
 
     //data = {
@@ -59,7 +59,7 @@ export class ClinicDashboardComponent implements OnInit {
     //        }
     //    ]
     //}
-    
+
     @ViewChild('lineChart') lineChart: any;
     @ViewChild('feedbackDoughnutChart') feedbackDoughnutChart: any;
     @ViewChild('visitsBarChart') visitsBarChart: any;
@@ -141,27 +141,26 @@ export class ClinicDashboardComponent implements OnInit {
 
         this.clinicService.getClinicDashboardWrapper(this.clinicId)
             .subscribe(
-            function (response:any) {
-                vm.model = response;
-                vm.fillAppointmentsChart(response:any);
-                vm.fillFeedbackChart(response:any);
-                vm.fillVisitsandPatientsChart(response:any);
+                function (response: any) {
+                    vm.model = response;
+                    vm.fillAppointmentsChart(response);
+                    vm.fillFeedbackChart(response);
+                    vm.fillVisitsandPatientsChart(response);
 
-                vm.lineChart.reinit();
-                vm.feedbackDoughnutChart.reinit();
-                vm.visitsBarChart.reinit();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.lineChart.reinit();
+                    vm.feedbackDoughnutChart.reinit();
+                    vm.visitsBarChart.reinit();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    fillAppointmentsChart(response:any)
-    {
+    fillAppointmentsChart(response: any) {
         let labels: string[] = response.weekAppoitment.labels;
         let data: number[] = response.weekAppoitment.data;
 
@@ -181,8 +180,7 @@ export class ClinicDashboardComponent implements OnInit {
         };
 
         // check if the maximum value in the array is smaller than 5 make step size 1 to ignore decimals
-        if (Math.max.apply(null, data) < 5)
-        {
+        if (Math.max.apply(null, data) < 5) {
             this.options = {
                 title: {
                     display: false,
@@ -203,7 +201,7 @@ export class ClinicDashboardComponent implements OnInit {
         }
     }
 
-    fillFeedbackChart(response:any) {
+    fillFeedbackChart(response: any) {
         let replied = this.translate.instant('Replied');
         let pending = this.translate.instant('Pending');
 
@@ -224,8 +222,7 @@ export class ClinicDashboardComponent implements OnInit {
         };
     }
 
-    fillVisitsandPatientsChart(response:any)
-    {
+    fillVisitsandPatientsChart(response: any) {
         let visitsLabels: string[] = response.visitsInYear.labels;
         let visitsData: number[] = response.visitsInYear.data;
         let patientData: number[] = response.patientsInYear.data;
@@ -249,5 +246,5 @@ export class ClinicDashboardComponent implements OnInit {
         }
     }
 
-   
+
 }

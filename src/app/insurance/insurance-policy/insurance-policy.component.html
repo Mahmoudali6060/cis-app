@@ -25,27 +25,27 @@
             <p-column field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
             <p-column field="endDateString" [header]="'EndDate' | translate" [sortable]="true"></p-column>
             <p-column [header]="'Active' | translate" styleClass="text-center width70">
-                <template let-policy="rowData" pTemplate="body">
+                <ng-template let-policy="rowData" pTemplate="body">
                     <label>
                         <input id="ChkIsActiveInGrid" disabled="{{ enableUpdatePolicyBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
                                type="checkbox" [checked]="policy.isActive"
                                (click)="changeActivation(policy.id , $event)" />
                         <span class="lbl"></span>
                     </label>
-                </template>
+                </ng-template>
             </p-column>
             <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                <template let-policy="rowData" pTemplate="body">
+                <ng-template let-policy="rowData" pTemplate="body">
                     <a [class.disabled]="!enableViewPolicyDetailsBtn? true : null">
                         <i class="fa fa-pencil fa-2x" (click)="displayPolicyDetailsPopup(policy.id)" style="color: #32bea6;"></i>
                     </a>
 
-                </template>
+                </ng-template>
             </p-column>
             <p-column [header]="'Copy' | translate" styleClass="text-center width50">
-                <template let-policy="rowData" pTemplate="body">
+                <ng-template let-policy="rowData" pTemplate="body">
                     <a [class.disabled]="!enableCopyPolicyBtn ? true : null"> <img src="Images/copy-24.png" class="pointer" (click)="displayCopyPolicyPopup(policy.id)" /></a>
-                </template>
+                </ng-template>
             </p-column>
         </p-dataTable>
     </div>

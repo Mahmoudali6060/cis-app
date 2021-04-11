@@ -1,18 +1,18 @@
 ﻿import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
 
 @Component({
-   
+
     selector: 'patient-diagnosisGrid',
     templateUrl: 'patient-diagnosisGrid.component.html',
 })
 
 export class PatientDiagnosisGridComponent implements OnInit, OnChanges {
 
-    @Input() diagnosis: any[];
-    @Input() noteDiagnosis: any[];
-    @Input() masterList: any[];
-    @Input() noteId: number | undefined;
-    @Input() diagnosisStatuses: any[];
+    @Input() diagnosis!: any[];
+    @Input() noteDiagnosis!: any[];
+    @Input() masterList!: any[];
+    @Input() noteId!: number;
+    @Input() diagnosisStatuses!: any[];
 
     allDiagnosis: any[] = [];
     lstToTranslated: string[] = ['diagnoseName', 'diagnoseNameTranslation'];
@@ -51,7 +51,7 @@ export class PatientDiagnosisGridComponent implements OnInit, OnChanges {
         }
     }
 
-    createClinicNoteDiagnose(diagnose): any {
+    createClinicNoteDiagnose(diagnose: any): any {
         let bindedDiagnose: any;
 
         bindedDiagnose = this.masterList.find(s => s.diagnoseId == diagnose.data);
@@ -65,12 +65,11 @@ export class PatientDiagnosisGridComponent implements OnInit, OnChanges {
         return bindedDiagnose;
     }
 
-    updateSelectedDiagnose(diagnoseId, event)
-    {
+    updateSelectedDiagnose(diagnoseId: any, event: any) {
         if (!event.target.checked) {
             // if the item removed clear data
-            let noteDiagnose= this.allDiagnosis.find(s => s.diagnoseId == diagnoseId);
-            noteDiagnose.status ='1';
+            let noteDiagnose = this.allDiagnosis.find(s => s.diagnoseId == diagnoseId);
+            noteDiagnose.status = '1';
             noteDiagnose.isSelected = false;
             //noteDiagnose.diagnoseId = 0;
             noteDiagnose.description = '';
@@ -81,8 +80,7 @@ export class PatientDiagnosisGridComponent implements OnInit, OnChanges {
             //masterNoteDiagnose.diagnoseId = 0;
             masterNoteDiagnose.description = '';
         }
-        else
-        {
+        else {
             let noteDiagnose = this.allDiagnosis.find(s => s.diagnoseId == diagnoseId);
             let masterNoteDiagnose = this.masterList.find(s => s.diagnoseId == diagnoseId);
             noteDiagnose.isSelected = true;
@@ -90,11 +88,11 @@ export class PatientDiagnosisGridComponent implements OnInit, OnChanges {
         }
     }
 
-    isClinicNoteDiagnoseConfirmed(noteDiagnose): boolean {
+    isClinicNoteDiagnoseConfirmed(noteDiagnose: any): boolean {
         return noteDiagnose && noteDiagnose.status && (noteDiagnose.status == '1' || noteDiagnose.status == 'Confirmed');
     }
-    isClinicNoteDiagnoseSuspected(noteDiagnose): boolean {
-        return noteDiagnose && noteDiagnose.status && (noteDiagnose.status == '2' || noteDiagnose.status== 'Suspicious');
+    isClinicNoteDiagnoseSuspected(noteDiagnose: any): boolean {
+        return noteDiagnose && noteDiagnose.status && (noteDiagnose.status == '2' || noteDiagnose.status == 'Suspicious');
     }
 
 }

@@ -1,19 +1,19 @@
-﻿import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {ClinicService} from '../../shared/clinic.service';
+import { ClinicService } from '../../shared/clinic.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../../security/shared/account.service';
-import {UserPermissions} from '../../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
 import { UtilityClass } from '../../../shared/shared/utility.class';
 
 @Component({
-   
+
     selector: 'doctor-inventory-requests',
-    templateUrl: 'doctor-inventory-requests.component.html'
+    templateUrl: './doctor-inventory-requests.component.html'
 })
 
 export class DoctorInventoryRequestsComponent implements OnInit {
@@ -27,13 +27,13 @@ export class DoctorInventoryRequestsComponent implements OnInit {
     utilityClass: UtilityClass = new UtilityClass();
     inventoriesListDiv: string = 'incomingRequestsPrintingArea';
     selectInventoryTab: boolean = true;
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     showProgress = false;
     supplyStatus = true;
     doctorsRequestsList: any[] = [];
     supplidObject: any = {};
-    inventoryRequestId: number | undefined;
-    suppliedQuantity: number | undefined;
+    inventoryRequestId!: number;
+    suppliedQuantity!: number;
     description: any;
     userType: string = '';
     isClinicAdmin: boolean = false;
@@ -54,14 +54,14 @@ export class DoctorInventoryRequestsComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.lstToTranslated = ['itemName', 'itemNameTranslation', 'doctorName', 'doctorNameTranslation', 'departmentName', 'departmentNameTranslation', 'unitName','unitNameTranslation'];
+        this.lstToTranslated = ['itemName', 'itemNameTranslation', 'doctorName', 'doctorNameTranslation', 'departmentName', 'departmentNameTranslation', 'unitName', 'unitNameTranslation'];
         this.userType = this.localStorage.retrieve("UserType");
         if (this.userType == 'ClinicAdmin')
             this.isClinicAdmin = true;
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -76,49 +76,49 @@ export class DoctorInventoryRequestsComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getAllDoctorsRequests(this.selectedClinicId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.doctorsRequestsList = response;
+                    thisComponent.doctorsRequestsList = response;
 
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
 
     }
     calculateOrderOut(): void {
         let thisComponent = this;
         thisComponent.supplidObject.id = thisComponent.inventoryRequestId;
-        this.clinicService.calculateRequestOfInventoryByDoctor(thisComponent.supplidObject )
+        this.clinicService.calculateRequestOfInventoryByDoctor(thisComponent.supplidObject)
             .subscribe(
-            function (response:any) {
-                thisComponent.raiseProductSupplied(true);
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-                thisComponent.getAllDoctorsRequests();
+                function (response: any) {
+                    thisComponent.raiseProductSupplied(true);
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                    thisComponent.getAllDoctorsRequests();
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
 
-    raiseProductSupplied(getProducts) {
+    raiseProductSupplied(getProducts: any) {
         this.onProductSupplied.emit(getProducts);
     }
 
-    passInventoryRequestId(id:any) {
+    passInventoryRequestId(id: any) {
         this.supplidObject = {};
         this.inventoryRequestId = id;
     }
@@ -127,7 +127,7 @@ export class DoctorInventoryRequestsComponent implements OnInit {
         if (user.permissions != undefined) {
 
             for (let item of user.permissions) {
-                 if (item.permission.key == this.key.TransferTransaction) {
+                if (item.permission.key == this.key.TransferTransaction) {
                     if (item.fullControl == true || item.add || item.edit)
                         this.enableSupplyBtn = true;
                 }
@@ -144,24 +144,24 @@ export class DoctorInventoryRequestsComponent implements OnInit {
         let clinicId = this.localStorage.retrieve('clinicID');
         this.clinicService.getDoctorRequestsSearchWrapper(clinicId)
             .subscribe(
-            function (response:any) {
-                vm.requestStatusList = response.requestStatus;
-                vm.dateFiltersList = response.dateFilters;
-                vm.doctorsList = response.doctors;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.requestStatusList = response.requestStatus;
+                    vm.dateFiltersList = response.dateFilters;
+                    vm.doctorsList = response.doctors;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
-    selectRequestStatus(requestStatus) {
+    selectRequestStatus(requestStatus: any) {
         this.searchCriteria.requestStatus = requestStatus;
     }
-   
+
     selectDateFilter(dateFilter: string) {
 
         this.searchCriteria.dateFilter = dateFilter;
@@ -219,16 +219,16 @@ export class DoctorInventoryRequestsComponent implements OnInit {
         vm.searchCriteria.clinicId = this.localStorage.retrieve("ClinicID");
         this.clinicService.getDoctorsRequestsAccordingtoSearchCriteria(vm.searchCriteria)
             .subscribe(
-            function (response:any) {
-                vm.doctorsRequestsList = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.doctorsRequestsList = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
 }

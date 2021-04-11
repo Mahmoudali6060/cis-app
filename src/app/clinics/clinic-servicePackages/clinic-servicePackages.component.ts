@@ -2,25 +2,22 @@
 import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 @Component({
-   
     selector: 'clinic-servicePackages',
-    templateUrl: 'clinic-servicePackages.component.html'
-
+    templateUrl: './clinic-servicePackages.component.html'
 })
 
 export class ClinicServicePackagesComponent implements OnInit {
-
-    filterString: string | undefined;
+    filterString!:string;
     clinicId = "0";
-    servicePackagesList: any[];
+    servicePackagesList!: any[];
     showProgress = false;
     selectServicePackagesTab: boolean = true;
     userPermisions: UserPermissions = new UserPermissions();
@@ -63,7 +60,7 @@ export class ClinicServicePackagesComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -85,35 +82,35 @@ export class ClinicServicePackagesComponent implements OnInit {
         //navigate to current URL
         this.router.navigate(['/clinic/servicePackageDetails', 'new']);
     }
-    changeActivation(packageId, event) {
+    changeActivation(packageId: any, event: any) {
         let vm = this;
         vm.showProgress = true;
 
         this.clinicService.toggleServicePackageActivation(packageId)
             .subscribe(
-            function (response:any) {
-                // get company by Id from the companies List 
-                //var selectedCompany = vm.companiesList.find(comp => comp.id == id);
-                //selectedCompany.isActive = response;
+                function (response: any) {
+                    // get company by Id from the companies List 
+                    //var selectedCompany = vm.companiesList.find(comp => comp.id == id);
+                    //selectedCompany.isActive = response;
 
-                // load all companies
-                vm.loadServicePackages();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // load all companies
+                    vm.loadServicePackages();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     loadServicePackages() {
         let vm = this;
         this.clinicService.getAllservicePackagesForClinic(vm.clinicId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.servicePackagesList = response;
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally

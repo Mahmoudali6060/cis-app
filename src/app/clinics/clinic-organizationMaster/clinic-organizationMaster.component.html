@@ -34,21 +34,21 @@
         <br />
         <div class="row well">
             <p-tree [value]="organizationStructure" selectionMode="single" [(selection)]="selectedFile2">
-                <template let-node pTemplate="Medical">
+                <ng-template let-node pTemplate="Medical">
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                     &nbsp; &nbsp;
                     <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
                         <img src="images/addImage.png" (click)="displayPopup(node)" />
                     </a>
-                </template>
-                <template let-node pTemplate="NonMedical">
+                </ng-template>
+                <ng-template let-node pTemplate="NonMedical">
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                     &nbsp; &nbsp;
                     <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
                         <img src="images/addImage.png" (click)="displayPopup(node)" />
                     </a>
-                </template>
-                <template let-node pTemplate="ClinicDepartment">
+                </ng-template>
+                <ng-template let-node pTemplate="ClinicDepartment">
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                     <span *ngIf="node.parent.type != 'Medical' ">
                         &nbsp; &nbsp;
@@ -65,8 +65,8 @@
                                [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
                         <span class="lbl"></span>
                     </label>
-                </template>
-                <template let-node pTemplate="ClinicDivision">
+                </ng-template>
+                <ng-template let-node pTemplate="ClinicDivision">
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                     &nbsp; &nbsp;
                     <span *ngIf="node.parent.parent.type != 'Medical' ">
@@ -86,8 +86,8 @@
                                [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
                         <span class="lbl"></span>
                     </label>
-                </template>
-                <template let-node pTemplate="PhysicalResource">
+                </ng-template>
+                <ng-template let-node pTemplate="PhysicalResource">
                     <span class="glyphicon glyphicon-hdd"></span>
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                     &nbsp; &nbsp;
@@ -100,8 +100,8 @@
                                [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
                         <span class="lbl"></span>
                     </label>
-                </template>
-                <template let-node pTemplate="SecurityUser">
+                </ng-template>
+                <ng-template let-node pTemplate="SecurityUser">
                     <span class="glyphicon glyphicon-user"></span>
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
 
@@ -116,7 +116,7 @@
                                [checked]="node.isActive" (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
                         <span class="lbl"></span>
                     </label>
-                </template>
+                </ng-template>
             </p-tree>
         </div>
         

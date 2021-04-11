@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'project-participation',  
-    templateUrl:'app/shared/project-participation/project-participation.component.html'
+    templateUrl:'./project-participation.component.html'
     
 })
 

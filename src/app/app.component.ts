@@ -15,7 +15,7 @@ import { UserTypeEnum } from './security/shared/user-type.enum'
     //                 <a routerLink="/heroes">Heroes</a>
     //               </nav>
     //               <router-outlet></router-outlet>`,
-    templateUrl: 'app/app.component.html'
+    templateUrl: './app.component.html'
 
 })
 

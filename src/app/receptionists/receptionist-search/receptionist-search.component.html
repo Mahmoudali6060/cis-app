@@ -129,12 +129,12 @@
             <p-column field="lastModifier"  [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
             <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate"  [sortable]="true"></p-column>
             <p-column  [header]="'Edit' | translate"  styleClass="text-center width50" >
-                <template let-appointment="rowData" pTemplate="body">
+                <ng-template let-appointment="rowData" pTemplate="body">
                     <!--<a class="pointer" data-toggle="modal" #val data-target="#appointmentDetailsModal" (click)="GetId(appointment)" >-->
                         <a class="pointer"  #val (click)="GetId(appointment)">
                             <img src="Images/details-24.jpg" />
                         </a>
-                </template>
+                </ng-template>
             </p-column>
 
         </p-dataTable>

@@ -1,7 +1,5 @@
-﻿import { NgModule }  from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-
 import { ClinicAccountComponent } from './clinic-account/clinic-account.component';
 import { ClinicAddressComponent } from './clinic-address/clinic-address.component';
 import { ClinicEMRMasterComponent } from './clinic-EMRMaster/clinic-EMRMaster.component';
@@ -22,7 +20,6 @@ import { ClinicSettingsComponent } from './clinic-settings/clinic-settings.compo
 import { ClinicStaffComponent } from './clinic-staff/clinic-staff.component';
 import { ClinicAppointmentsComponent } from './clinic-appointments/clinic-appointments.component';
 import { ClinicOrganizationMasterComponent } from './clinic-organizationMaster/clinic-organizationMaster.component';
-import { ClinicDiagnosisComponent } from './clinic-Diagnosis/clinic-Diagnosis.component';
 import { ClinicServicesComponent } from './clinic-services/clinic-services.component';
 import { ClinicServicePackagesComponent } from './clinic-servicePackages/clinic-servicePackages.component';
 import { ClinicServicePackageDetailsComponent } from './clinic-servicePackage-details/clinic-servicePackage-details.component';
@@ -32,7 +29,7 @@ import { ClinicRadiologyTestsComponent } from './clinic-radiology-tests/clinic-r
 import { ClinicProductsComponent } from './clinic-products/clinic-products.component';
 import { ClinicTemplatesComponent } from './clinic-templates/clinic-templates.component';
 import { ClinicDashboardComponent } from './clinic-dashboard/clinic-dashboard.component';
-
+import { ClinicDiagnosisComponent } from './clinic-diagnosis/clinic-diagnosis.component';
 
 const clinicRoutes: Routes = [
     //Clinics

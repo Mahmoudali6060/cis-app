@@ -109,9 +109,9 @@
                 <p-column field="totalCredit" [header]="'TotalCredit' | translate" [sortable]="true"></p-column>
                 <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'ShowDetails' | translate" styleClass="text-center width100">
-                    <template let-invic="rowData" pTemplate="body">
+                    <ng-template let-invic="rowData" pTemplate="body">
                         <a class="pointer" [class.disabled]="!enableViewCompanyDetails ? true : null" [routerLink]="['/insurance/invoice/detail', invic.id]">{{ 'ShowDetails' | translate }} </a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
             <div id="print-section" class="hidden">

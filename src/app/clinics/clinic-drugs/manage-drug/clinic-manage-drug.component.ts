@@ -1,17 +1,15 @@
-import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'clinic-manage-drug',
-    templateUrl: 'clinic-manage-drug.component.html'
+    templateUrl: './clinic-manage-drug.component.html'
 })
 
-export class ClinicManageDrugComponent implements OnChanges  {
+export class ClinicManageDrugComponent implements OnChanges {
 
     @Input() selectedDrugId: string = '';
     @Input() selectedParentGroupId: string = '';
@@ -32,7 +30,7 @@ export class ClinicManageDrugComponent implements OnChanges  {
         , private clinicService: ClinicService
         , public translate: TranslateService
         , private localStorage: LocalStorageService) { }
-    
+
     ngOnChanges(changes: SimpleChanges) {
         this.selectedLang = this.localStorage.retrieve("selectedLanguage");
         if (this.selectedDrugId && this.selectedDrugId != '') {
@@ -40,22 +38,22 @@ export class ClinicManageDrugComponent implements OnChanges  {
             thisComponent.showProgress = true;
             this.clinicService.getDrugById(thisComponent.selectedDrugId)
                 .subscribe(
-                function (drug) {
-                    thisComponent.selectedDrug = drug;
-                    thisComponent.selectedParentGroupId = drug.parentGroupId;
+                    function (drug: any) {
+                        thisComponent.selectedDrug = drug;
+                        thisComponent.selectedParentGroupId = drug.parentGroupId;
 
-                    if (thisComponent.selectedLang == 'ar')
-                        thisComponent.selectedParentGroupName = drug.parentGroupName;
-                    else
-                        thisComponent.selectedParentGroupName = drug.parentGroupNameTranslation;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                        if (thisComponent.selectedLang == 'ar')
+                            thisComponent.selectedParentGroupName = drug.parentGroupName;
+                        else
+                            thisComponent.selectedParentGroupName = drug.parentGroupNameTranslation;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             this.clearControl();
@@ -71,46 +69,46 @@ export class ClinicManageDrugComponent implements OnChanges  {
             //Update
             this.clinicService.updateDrug(this.selectedDrug)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                   // thisComponent.selectedDrug = response;
-                    thisComponent.onIsNew.emit(false);
-                    thisComponent.onDrugChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                    thisComponent.clearControl();
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        // thisComponent.selectedDrug = response;
+                        thisComponent.onIsNew.emit(false);
+                        thisComponent.onDrugChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                        thisComponent.clearControl();
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             //New
             this.clinicService.createDrug(this.selectedDrug)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    //thisComponent.selectedDrug = response;
-                    thisComponent.onIsNew.emit(true);
-                    thisComponent.onDrugChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                    thisComponent.clearControl();
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        //thisComponent.selectedDrug = response;
+                        thisComponent.onIsNew.emit(true);
+                        thisComponent.onDrugChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                        thisComponent.clearControl();
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

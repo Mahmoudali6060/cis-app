@@ -1,17 +1,12 @@
-﻿import {Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+﻿import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
-
-import {ClinicService} from '../shared/clinic.service';
-
-import { TreeNode } from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'clinic-humanResource-basic',
-    templateUrl: 'clinic-humanResource-basic.component.html'
+    templateUrl: './clinic-humanResource-basic.component.html'
 })
 
 export class ClinicHumanResourceBasicComponent implements OnChanges {
@@ -26,7 +21,7 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
     @Input() isNonMedicalDepartment: boolean = false;
     @Output() onModelUpdated = new EventEmitter<any>();
 
-    selectedClinicId: string | undefined;
+    selectedClinicId!:string;
 
     active: boolean = true;
     showProgress: boolean = false;
@@ -78,22 +73,22 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
             this.user.divisions.push({ id: this.divisionId });
             this.clinicService.saveHumanResource(this.user)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.user = response;
-                    //Update the tree
-                    thisComponent.raiseModelUpdated(response:any);
+                        thisComponent.user = response;
+                        //Update the tree
+                        thisComponent.raiseModelUpdated(response);
 
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
             //}
             //else {
             //    thisComponent.showProgress = false;
@@ -103,19 +98,19 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
         {
             this.clinicService.updateHumanResource(this.user)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.user = response;
-                    thisComponent.raiseModelUpdated(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.user = response;
+                        thisComponent.raiseModelUpdated(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
 
     }
@@ -137,7 +132,7 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
         return valid;
     }
     */
-    raiseModelUpdated(updatedModel) {
+    raiseModelUpdated(updatedModel: any) {
         this.onModelUpdated.emit(updatedModel);
     }
 }

@@ -1,15 +1,15 @@
-﻿import {Component, OnInit, Input , Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 import { ToastrService } from 'ngx-toastr';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
-import {AdministrationService} from '../../administration/shared/administration.service';
-import {SystemAdminService} from '../shared/system-admin.service';
+import { AdministrationService } from '../../administration/shared/administration.service';
+import { SystemAdminService } from '../shared/system-admin.service';
 
 @Component({
-   
+
     selector: 'systemAdmins-vendor-basicData',
     templateUrl: 'systemAdmins-vendor-basicData.component.html'
 })
@@ -22,7 +22,7 @@ export class SystemAdminVendorBasicDataComponent implements OnInit {
     //model: any = { id: 'new', isActive: true };
     showProgress = false;
     active = true;
-    vendorCategoriesList: any[];
+    vendorCategoriesList!: any[];
     vendorId: string = '';
 
     constructor(private administrationService: AdministrationService,
@@ -47,16 +47,16 @@ export class SystemAdminVendorBasicDataComponent implements OnInit {
         }
         this.administrationService.getAllActive('Cis.Core.VendorCategory')
             .subscribe(
-            function (response:any) {
-                thisComponent.vendorCategoriesList = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.vendorCategoriesList = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
         let userType = this.storage.retrieve("UserType");
         if (userType != undefined && userType == "SysAdmin")
             this.enableMyAccountBtn = true;
@@ -72,14 +72,14 @@ export class SystemAdminVendorBasicDataComponent implements OnInit {
         if (this.vendorId.toLowerCase() != 'new') {
             this.systemAdminService.getVendorById(this.vendorId)
                 .subscribe(
-                function (response:any) {
-                    thisComp.model = response;
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                },
-                function () {
-                });
+                    function (response: any) {
+                        thisComp.model = response;
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                    },
+                    function () {
+                    });
         }
     }
 
@@ -87,46 +87,44 @@ export class SystemAdminVendorBasicDataComponent implements OnInit {
         let thisComponent = this;
         thisComponent.showProgress = true;
 
-        if (this.model.id > 0)
-        {
+        if (this.model.id > 0) {
             //Update
             this.systemAdminService.updateVendor(this.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.raiseModelUpdated(response:any);
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model = response;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.raiseModelUpdated(response);
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
-        else
-        {
+        else {
             //New
             this.systemAdminService.createVendor(this.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.raiseModelUpdated(response:any);
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model = response;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.raiseModelUpdated(response);
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

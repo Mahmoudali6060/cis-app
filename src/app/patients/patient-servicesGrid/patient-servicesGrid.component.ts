@@ -1,18 +1,18 @@
 ﻿import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
 
 @Component({
-   
+
     selector: 'patient-servicesGrid',
     templateUrl: 'patient-servicesGrid.component.html',
 })
 
 export class PatientServicesGridComponent implements OnInit, OnChanges {
 
-    @Input() services: any[];
-    @Input() noteServices: any[];
+    @Input() services!: any[];
+    @Input() noteServices!: any[];
     @Input() diagnosis: any[] = [];
-    @Input() masterList: any[];
-    @Input() noteId: number | undefined;
+    @Input() masterList!: any[];
+    @Input() noteId!: number;
 
     allServices: any[] = [];
     lstToTranslated: string[] = ['serviceName', 'serviceNameTranslation'];
@@ -53,13 +53,13 @@ export class PatientServicesGridComponent implements OnInit, OnChanges {
         }
     }
 
-    createClinicNoteService(service): any {
+    createClinicNoteService(service: any): any {
         let bindedService: any;
 
         bindedService = this.masterList.find(s => s.serviceId == service.data);
 
         if (bindedService == undefined) {
-            bindedService = {id:0, isSelected: false, clinicNoteId: this.noteId, serviceId: service.data, serviceCode: service.code, serviceName: service.label, quantity: 1, discount: 0, serviceNameTranslation: service.labelTranslation };
+            bindedService = { id: 0, isSelected: false, clinicNoteId: this.noteId, serviceId: service.data, serviceCode: service.code, serviceName: service.label, quantity: 1, discount: 0, serviceNameTranslation: service.labelTranslation };
 
             this.masterList.push(bindedService);
         }
@@ -67,8 +67,7 @@ export class PatientServicesGridComponent implements OnInit, OnChanges {
         return bindedService;
     }
 
-    updateSelectedService(serviceId, event)
-    {
+    updateSelectedService(serviceId: any, event: any) {
         if (!event.target.checked) {
             // if the item removed clear data
             let noteService = this.allServices.find(s => s.serviceId == serviceId);
@@ -85,8 +84,7 @@ export class PatientServicesGridComponent implements OnInit, OnChanges {
             masterNoteService.diagnoseId = 0;
             masterNoteService.description = '';
         }
-        else
-        {
+        else {
             let noteService = this.allServices.find(s => s.serviceId == serviceId);
             let masterNoteService = this.masterList.find(s => s.serviceId == serviceId);
             noteService.isSelected = true;

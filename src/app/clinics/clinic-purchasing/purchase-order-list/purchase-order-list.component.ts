@@ -12,15 +12,15 @@ import {PermissionKeyEnum} from '../../../shared/shared/permission-key.enum';
 @Component({
    
     selector: 'purchase-order-list',
-    templateUrl: 'purchase-order-list.component.html'
+    templateUrl: './purchase-order-list.component.html'
 })
 
 export class PurchaseOrderList {
     purchasingOrderListDiv: string ='purchasingOrderListPrintDiv'
     selectPurchasingTab: boolean = true;
-    filterString: string | undefined;
+    filterString!:string;
     clinicId = "0";
-    ordersList: any[];
+    ordersList!: any[];
     showProgress = false;
     userType: string = '';
     isClinicAdmin: boolean = false;
@@ -34,7 +34,7 @@ export class PurchaseOrderList {
     itemsMsge = '';
     isEqualed: boolean | undefined;
     model: any = {};
-    @ViewChild('btnConfirm') btnConfirm: ElementRef;
+    @ViewChild('btnConfirm') btnConfirm!: ElementRef;
     display: boolean = false;
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
@@ -56,7 +56,7 @@ export class PurchaseOrderList {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -93,7 +93,7 @@ export class PurchaseOrderList {
             });
 
     }
-    resend(order) {
+    resend(order:any) {
         let vm = this;
         vm.showProgress = true;
         this.clinicService.sendOrderToVendor(order).subscribe(

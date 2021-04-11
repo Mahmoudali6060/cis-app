@@ -29,22 +29,22 @@
             <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
             <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate" [sortable]="true"></p-column>
             <p-column [header]="'Download' | translate" styleClass="text-center width75" *ngIf="allowEditing">
-                <template let-patient="rowData" pTemplate="body">
+                <ng-template let-patient="rowData" pTemplate="body">
                     <i (click)="downloadFile(patient.id)" class="fa fa-download fa-2x remIcon"></i>
 
-                </template>
+                </ng-template>
             </p-column>
             <p-column [header]="'Edit' | translate" styleClass="text-center width75" *ngIf="allowEditing">
-                <template let-patient="rowData" pTemplate="body">
+                <ng-template let-patient="rowData" pTemplate="body">
                     <i (click)="editAttachment(patient.id)" class="editIconStyle fa fa-pencil fa-2x"></i>
 
-                </template>
+                </ng-template>
             </p-column>
             <p-column [header]="'Delete' | translate" styleClass="text-center width75" *ngIf="allowEditing">
-                <template let-patient="rowData" pTemplate="body">
+                <ng-template let-patient="rowData" pTemplate="body">
                     <i (click)="deletePatientAttachment(patient.id)" class="glyphicon glyphicon-remove remIcon"></i>
 
-                </template>
+                </ng-template>
             </p-column>
 
 

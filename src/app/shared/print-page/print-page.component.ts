@@ -39,7 +39,7 @@
 })
 export class PrintComponent implements OnChanges {
 
-    @Input('section') section: string | undefined;
+    @Input('section') section!:string;
     @Output() sectionChange = new EventEmitter<any>();
 
     constructor(private ele: ElementRef) {

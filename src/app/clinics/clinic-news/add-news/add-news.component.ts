@@ -1,23 +1,21 @@
-﻿import {Component, OnInit, ViewChild, EventEmitter, Input, Output} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { SharedService } from '../../../shared/shared/shared.service';
 import { UtilityClass } from '../../../shared/shared/utility.class';
-import {ClinicService} from '../../shared/clinic.service';
-import {ClinicNews} from '../../../classes/clinicNews.class';
-import {AttachmentInfo} from '../../../classes/attachmentInfo.class';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { ClinicService } from '../../shared/clinic.service';
+import { ClinicNews } from '../../../classes/clinicNews.class';
+import { AttachmentInfo } from '../../../classes/attachmentInfo.class';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 
 @Component({
-   
+
     selector: 'clinic-add-news',
-    templateUrl: 'add-news.component.html'
+    templateUrl: './add-news.component.html'
 })
-
-
 
 export class AddNewsComponent {
 
@@ -28,23 +26,22 @@ export class AddNewsComponent {
         , private _route: ActivatedRoute
         , public translate: TranslateService) { }
 
-    @ViewChild("fileInput") fileInput;
-    @ViewChild("newsImage") newsImage;
+    @ViewChild("fileInput") fileInput: any;
+    @ViewChild("newsImage") newsImage: any;
 
     utilityClass: UtilityClass = new UtilityClass();
-
-    @Input() selectedClinicNewsId: number | undefined;
+    @Input() selectedClinicNewsId!: number;
     @Output() onBack = new EventEmitter<any>();
     selectedClinicNews: ClinicNews = new ClinicNews();
     selectNewsTab: boolean = true;
-    recorderId: number | undefined;
-    selectedClinicId: number | undefined;
+    recorderId!: number;
+    selectedClinicId!: number;
     active: boolean = true;
     showProgress = false;
     imageSource: string = '';
     userType: string = '';
     isClinicAdmin: boolean = false;
-    
+
 
 
     ngOnInit(): void {
@@ -60,19 +57,19 @@ export class AddNewsComponent {
             thisComponent.showProgress = true;
             this.clinicService.getClinicNewsById(thisComponent.selectedClinicNewsId)
                 .subscribe(
-                function (clinicNews) {
-                    thisComponent.selectedClinicNews = clinicNews;
+                    function (clinicNews: any) {
+                        thisComponent.selectedClinicNews = clinicNews;
 
-                    if (thisComponent.selectedClinicNews.creationDate)
-                      thisComponent.selectedClinicNews.creationDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.selectedClinicNews.creationDate.toString());
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                        if (thisComponent.selectedClinicNews.creationDate)
+                            thisComponent.selectedClinicNews.creationDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.selectedClinicNews.creationDate.toString());
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -82,7 +79,7 @@ export class AddNewsComponent {
         this.selectedClinicNews.clinicId = this.selectedClinicId;
 
         if (this.selectedClinicNews.creationDate)
-        this.selectedClinicNews.creationDate = this.utilityClass.getUtcDateTime(this.selectedClinicNews.creationDate);
+            this.selectedClinicNews.creationDate = this.utilityClass.getUtcDateTime(this.selectedClinicNews.creationDate);
 
         let dtNow: Date = new Date();
 
@@ -97,44 +94,44 @@ export class AddNewsComponent {
             //Update
             this.clinicService.updateClinicNews(this.selectedClinicNews)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.selectedClinicNews = response;
-                    if (thisComponent.selectedClinicNews && thisComponent.selectedClinicNews.creationDate)
-                        thisComponent.selectedClinicNews.creationDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.selectedClinicNews.creationDate.toString());
-                    fi.value = '';
-                    thisComponent.onBack.emit(thisComponent.selectedClinicNews);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.selectedClinicNews = response;
+                        if (thisComponent.selectedClinicNews && thisComponent.selectedClinicNews.creationDate)
+                            thisComponent.selectedClinicNews.creationDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.selectedClinicNews.creationDate.toString());
+                        fi.value = '';
+                        thisComponent.onBack.emit(thisComponent.selectedClinicNews);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             //New
             this.clinicService.createClinicNews(this.selectedClinicNews)
                 .subscribe(
-                function (response:any) {                    
-                    thisComponent.selectedClinicNews = response;
-                    if (thisComponent.selectedClinicNews && thisComponent.selectedClinicNews.creationDate)
-                        thisComponent.selectedClinicNews.creationDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.selectedClinicNews.creationDate.toString());
-                    fi.value = '';
-                    thisComponent.onBack.emit(thisComponent.selectedClinicNews);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.selectedClinicNews = response;
+                        if (thisComponent.selectedClinicNews && thisComponent.selectedClinicNews.creationDate)
+                            thisComponent.selectedClinicNews.creationDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.selectedClinicNews.creationDate.toString());
+                        fi.value = '';
+                        thisComponent.onBack.emit(thisComponent.selectedClinicNews);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -146,15 +143,14 @@ export class AddNewsComponent {
         if (fi.files && fi.files[0]) {
             let fileToUpload = fi.files[0];
 
-            if (!fileToUpload.type.startsWith("image/"))
-            {
-               // vm.toastr.error('Clinic image file must be of type images only.');
+            if (!fileToUpload.type.startsWith("image/")) {
+                // vm.toastr.error('Clinic image file must be of type images only.');
                 let msg = vm.translate.instant("FileTypeValidation");
                 vm.toastr.error(msg, '');
                 fi.value = '';
                 return;
             }
-                
+
 
             if (fileToUpload.size > 5242880) {
                 let msg = vm.translate.instant("FileSizeMsg");
@@ -170,21 +166,21 @@ export class AddNewsComponent {
 
             this.sharedService.uploadFile(fileToUpload)
                 .subscribe(
-                function (response:any) {
-                    if (response != null) {
-                        vm.selectedClinicNews.attachmentInfo = attchmentInfo;
-                        vm.selectedClinicNews.attachmentInfo.originalName = response.originalName;
-                        vm.selectedClinicNews.attachmentInfo.keyName = response.keyName;
-                        vm.selectedClinicNews.attachmentInfo.fullPath = response.fullPath;
-                        vm.selectedClinicNews.attachmentInfo.fileType = response.fileType;                        
-                    }
-                },
-                function (error:any) { 
-                    vm.toastr.error(error, '');
-                },
-                function () {
+                    function (response: any) {
+                        if (response != null) {
+                            vm.selectedClinicNews.attachmentInfo = attchmentInfo;
+                            vm.selectedClinicNews.attachmentInfo.originalName = response.originalName;
+                            vm.selectedClinicNews.attachmentInfo.keyName = response.keyName;
+                            vm.selectedClinicNews.attachmentInfo.fullPath = response.fullPath;
+                            vm.selectedClinicNews.attachmentInfo.fileType = response.fileType;
+                        }
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                    },
+                    function () {
 
-                });
+                    });
         }
     }
     goBack() {

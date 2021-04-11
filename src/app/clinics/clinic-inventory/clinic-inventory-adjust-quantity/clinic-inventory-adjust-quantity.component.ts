@@ -1,16 +1,15 @@
-﻿import {Component, OnInit, Input , Output,EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from 'primeng/api';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../../clinics/shared/clinic.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../../clinics/shared/clinic.service';
 import { SharedService } from '../../../shared/shared/shared.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { TranslateObjectsPipe } from '../../../shared/pipes/translateObjects.pipe';
 @Component({
-   
     selector: 'clinic-inventory-adjust-quantity',
-    templateUrl: 'clinic-inventory-adjust-quantity.component.html'
+    templateUrl: './clinic-inventory-adjust-quantity.component.html'
 })
 
 export class ClinicInventoryAdjustQuantity {
@@ -24,8 +23,7 @@ export class ClinicInventoryAdjustQuantity {
         , public storage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
 
     Medical: any = {
@@ -51,7 +49,7 @@ export class ClinicInventoryAdjustQuantity {
 
 
     };
-    selectedClinicId: string | undefined;
+    selectedClinicId!: string;
     //isSelectedGroupNode = false;
     model: any = {};
     inventoryRequestModel: any = {};
@@ -62,15 +60,15 @@ export class ClinicInventoryAdjustQuantity {
     showProgress = false;
     productList: any[] = [];
     treeDataSourceItems: any[] = [];
-    selectedGroup: TreeNode;
-    recordedId: string | undefined;
+    selectedGroup!: TreeNode;
+    recordedId!:string;
     doctorName: string = "";
     //unitName: string = "";
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Product';
     code: string = "";
     productName: string = "";
-    clinicIdReq: string | undefined;
+    clinicIdReq!:string;
     lstToTranslated: string[] = [];
     translateObjects = new TranslateObjectsPipe(this.storage);
     ngOnInit(): void {
@@ -92,31 +90,31 @@ export class ClinicInventoryAdjustQuantity {
         thisComponent.showProgress = true;
         this.clinicService.getActiveProductsGroupsForTreeView(thisComponent.selectedClinicId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.Medical.children = [];
-                thisComponent.NonMedical.children = [];
+                    thisComponent.Medical.children = [];
+                    thisComponent.NonMedical.children = [];
 
-                for (let product of response) {
-                    if (product.parent == undefined && product.productGroupType == "Medical") {
-                        thisComponent.Medical.children.push(product);
+                    for (let product of response) {
+                        if (product.parent == undefined && product.productGroupType == "Medical") {
+                            thisComponent.Medical.children.push(product);
+                        }
+                        else if (product.parent == undefined && product.productGroupType == "NonMedical") {
+                            thisComponent.NonMedical.children.push(product);
+                        }
+
                     }
-                    else if (product.parent == undefined && product.productGroupType == "NonMedical") {
-                        thisComponent.NonMedical.children.push(product);
-                    }
+                    thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, '', null, thisComponent.lstToTranslated);
+                    //thisComponent.treeDataSourceItems = response;
 
-                }
-                thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, null, null, thisComponent.lstToTranslated);
-                //thisComponent.treeDataSourceItems = response;
-
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
 
@@ -129,20 +127,20 @@ export class ClinicInventoryAdjustQuantity {
             //Update
             this.clinicService.CreateClinicQuantityAdjustment(this.clinicInventoryObject)
                 .subscribe(
-                function (response:any) {
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clinicInventoryObject = response;
-                    thisComponent.onAmountUpdated.emit(true);
-                   thisComponent.clear();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clinicInventoryObject = response;
+                        thisComponent.onAmountUpdated.emit(true);
+                        thisComponent.clear();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -152,7 +150,7 @@ export class ClinicInventoryAdjustQuantity {
         setTimeout(() => this.active = true, 0);
     }
 
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         this.clear();
         if (event.node.type == "Product") {
             let thisComponent = this;
@@ -166,10 +164,10 @@ export class ClinicInventoryAdjustQuantity {
             if (this.clinicInventoryObject.id > 0) {
                 this.clinicService.getProductById(this.clinicInventoryObject.id)
                     .subscribe(
-                    function (response:any) {
-                        thisComponent.productObject = response;
-                        thisComponent.clinicInventoryObject.product.onHandQuantity = thisComponent.productObject.onHandQuantity;
-                    });
+                        function (response: any) {
+                            thisComponent.productObject = response;
+                            thisComponent.clinicInventoryObject.product.onHandQuantity = thisComponent.productObject.onHandQuantity;
+                        });
             }
         }
 

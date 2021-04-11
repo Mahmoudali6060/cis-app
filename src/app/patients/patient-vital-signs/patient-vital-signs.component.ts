@@ -1,17 +1,15 @@
-﻿import {Component, OnInit, ViewChild, Output, Input, EventEmitter, OnChanges, SimpleChanges} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Output, Input, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-
+import { TranslateService } from '@ngx-translate/core';
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
-
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+
 @Component({
-   
     selector: 'patient-vital-signs',
     templateUrl: 'patient-vital-signs.component.html',
 })
@@ -28,19 +26,19 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
 
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
-    doctorId: string | undefined;
-    clinicIdReq: string | undefined;
-    height: number | undefined;
-    heightValue: number | undefined;
-    heightType: string | undefined;
-    weight: number | undefined;
-    weightvalue: number | undefined;
+    @ViewChild("fileInput") fileInput!: any;
+    doctorId!: string;
+    clinicIdReq!: string;
+    height!: number;
+    heightValue!: number;
+    heightType!: string;
+    weight!: number;
+    weightvalue!: number;
     userType: boolean | undefined; // if user Type equal true this mean this person is Doctor else patient
-    bmi: number | undefined;
-    selectedPatientId: number | undefined;
-    selectedApointmentId: number | undefined;
-    weightType: string | undefined;
+    bmi!: number;
+    selectedPatientId!: number;
+    selectedApointmentId!: number;
+    weightType!: string;
     isDoctor: boolean = false;
     previousTab: string = '';
     nextTab: string = '';
@@ -56,8 +54,7 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
         , public storage: LocalStorageService
         , public translate: TranslateService
         , private accountService: AccountService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         this.loadDoctorOrNurseInfo();
@@ -73,7 +70,7 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
         //this.getChiefComplaintById();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -99,17 +96,17 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
         let thisComponent = this;
         this.patientService.getProductUnits()
             .subscribe(
-            function (wrapper) {
-                thisComponent.heightList = wrapper.heights;
-                thisComponent.weightList = wrapper.weights;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (wrapper: any) {
+                    thisComponent.heightList = wrapper.heights;
+                    thisComponent.weightList = wrapper.weights;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
 
@@ -126,20 +123,20 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
             vm.chiefComplaint.clinicNote = null;
             this.patientService.updateChiefComplaintData(this.chiefComplaint)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.chiefComplaint = response;
-                    vm.onCheifComplaintSaved.emit({ clinicNoteId: vm.chiefComplaint.cLinicNoteId, moveNext: true });
-                },
-                function (error:any) { 
-                    //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.chiefComplaint = response;
+                        vm.onCheifComplaintSaved.emit({ clinicNoteId: vm.chiefComplaint.cLinicNoteId, moveNext: true });
+                    },
+                    function (error: any) {
+                        //console.log("Error happened" + error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
 
         }
         else {//Create new
@@ -164,21 +161,21 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
             }
             this.patientService.createChiefComplaint(this.chiefComplaint)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.chiefComplaint = response;
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.chiefComplaint = response;
 
-                    vm.onCheifComplaintSaved.emit({ clinicNoteId: vm.chiefComplaint.clinicNote.id, moveNext: true });
-                },
-                function (error:any) { 
-                    //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                        vm.onCheifComplaintSaved.emit({ clinicNoteId: vm.chiefComplaint.clinicNote.id, moveNext: true });
+                    },
+                    function (error: any) {
+                        //console.log("Error happened" + error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
 
         }
 
@@ -202,16 +199,16 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
         if (vm.noteId != '' && vm.noteId != 'new') {
             this.patientService.getChiefComplaintByNoteId(vm.noteId)
                 .subscribe(
-                function (response:any) {
-                    vm.chiefComplaint = response;
-                    vm.onCheifComplaintSaved.emit({ clinicNoteId: vm.chiefComplaint.cLinicNoteId, moveNext: false });
-                },
-                function (error:any) { 
-                    //vm.toastr.error('Failed to Load Data - ' + error, '');
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        vm.chiefComplaint = response;
+                        vm.onCheifComplaintSaved.emit({ clinicNoteId: vm.chiefComplaint.cLinicNoteId, moveNext: false });
+                    },
+                    function (error: any) {
+                        //vm.toastr.error('Failed to Load Data - ' + error, '');
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
         //}
     }

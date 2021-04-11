@@ -81,7 +81,7 @@ export class SystemAdminsBasicDataComponent {
 
     }
 
-    getObjectTitle(selectedValue)
+    getObjectTitle(selectedValue:any)
     {
         var selectedObject = this.objectsList.find(obj => obj.value == selectedValue);
 

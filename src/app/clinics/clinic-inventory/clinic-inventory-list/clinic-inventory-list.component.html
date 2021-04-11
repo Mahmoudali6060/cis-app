@@ -42,13 +42,13 @@
         <p-column field="maxNet" [header]="'MaxNet' | translate" [sortable]="true"></p-column>
         <!--<p-column field="unitName" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
         <p-column [header]="'Unit' | translate">
-            <template let-product="rowData" pTemplate="body">
+            <ng-template let-product="rowData" pTemplate="body">
                 <label *ngIf="product.unitType === 'NumbersUnit'">{{ product.unitName | translate}}</label>
                 <label *ngIf="product.unitType == 'HeightsUnit' || product.unitType == 'WeightsUnit' || product.unitType == 'VolumesUnit'">
                     {{ product.unitName}}
                 </label>
 
-            </template>
+            </ng-template>
         </p-column>
         <p-column field="lastPurchasingPrice" [header]="'LastPurchasePrice' | translate" [sortable]="true"></p-column>
     </p-dataTable>

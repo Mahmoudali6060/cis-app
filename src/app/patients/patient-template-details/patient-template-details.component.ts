@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 
 @Component({
-   
     selector: 'patient-template-details',
     templateUrl: 'patient-template-details.component.html',
 })
@@ -17,7 +16,7 @@ import {LocalStorageService} from 'ng2-webstorage';
 export class PatientTemplateDetailsComponent implements OnInit {
 
     selectBasicTab: boolean = true;
-    @Input() noteId: number | undefined;
+    @Input() noteId!: number;
     @Output() onBack = new EventEmitter();
     showDocumentDetails: boolean = false;
     fileNameTxt: string = this.translate.instant("TemplateName");
@@ -35,7 +34,7 @@ export class PatientTemplateDetailsComponent implements OnInit {
 
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
     isReceptionist: boolean = false;
 

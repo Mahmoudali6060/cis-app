@@ -11,7 +11,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 
 
 @Component({
-   
+
     selector: 'receptionist-division-calendar',
     templateUrl: 'receptionist-division-calendar.component.html',
 })
@@ -19,20 +19,20 @@ import { LocalStorageService } from 'ng2-webstorage';
 export class ReceptionistDivisionCalendarComponent implements OnInit, OnChanges {
 
     @Input() divisonId: any;
-    @Input() divisonName: string | undefined;
+    @Input() divisonName!: string;
 
     utilityClass: UtilityClass = new UtilityClass();
-    receptionistAppointmentManager: ReceptionistAppointmentManager = new ReceptionistAppointmentManager([],[]);
+    receptionistAppointmentManager: ReceptionistAppointmentManager = new ReceptionistAppointmentManager([], []);
 
     dayTimeSlotsList: any[] = [];
     showProgress: boolean = false;
     doctorsList: any[] = [];
 
-    today: string | undefined;
+    today!: string;
     lang: string = '';
-    
+
     constructor(
-        private receptionistService: ReceptionistService,        
+        private receptionistService: ReceptionistService,
         private toastr: ToastrService,
         private localStorage: LocalStorageService) { }
 
@@ -55,36 +55,35 @@ export class ReceptionistDivisionCalendarComponent implements OnInit, OnChanges 
         let thisComp = this;
         this.receptionistService.getDivisionDoctorsWithAppointments(this.divisonId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComp.doctorsList = response;
-                
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                    thisComp.doctorsList = response;
+
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
 
-    getAppointmentTitle(doctor: any, slotName): string
-    {
+    getAppointmentTitle(doctor: any, slotName: any): string {
         let appointmentTitle = '';
         if (doctor.appointments != undefined && doctor.appointments != null && doctor.appointments.length > 0) {
-            let appointment = doctor.appointments.find(app => app.time == slotName && app.cancelled != true);
+            let appointment = doctor.appointments.find((app: any) => app.time == slotName && app.cancelled != true);
             if (appointment != undefined)
                 appointmentTitle = appointment.patientName;
         }
-        
+
         return appointmentTitle;
     }
 
-    getClassName(doctor: any, slotName): string {
-        
+    getClassName(doctor: any, slotName: any): string {
+
         if (doctor.appointments != undefined) {
-            let appointment = doctor.appointments.find(app => app.time == slotName);
+            let appointment = doctor.appointments.find((app: any) => app.time == slotName);
             if (appointment != undefined)
                 return 'dividion-calendar-event';//Return the event style if there is an appointment
         }
@@ -92,5 +91,5 @@ export class ReceptionistDivisionCalendarComponent implements OnInit, OnChanges 
         return '';
     }
 
-    
+
 }

@@ -21,7 +21,7 @@ import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
 export class ReceptionistRequestsComponent implements OnInit {
 
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!:string;
 
     active = true;
     model: any = {};
@@ -35,7 +35,7 @@ export class ReceptionistRequestsComponent implements OnInit {
     selectedRequestToBeCanceled;
     lstToTranslated: string[] = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
     userPermisions: UserPermissions = new UserPermissions();
     key: PermissionKeyEnum = new PermissionKeyEnum();
     enableCancelLink: boolean = false;
@@ -64,7 +64,7 @@ export class ReceptionistRequestsComponent implements OnInit {
         vm.loadPatientRequests();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item :any)=> this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }

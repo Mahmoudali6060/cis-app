@@ -19,7 +19,7 @@ export class SystemAdminAccountComponent implements OnInit {
     selectAccountTab: boolean = true;
     active: boolean = true;
     model: any = { reachInfo: {} };
-    allCountryCodes: any[];
+    allCountryCodes!: any[];
 
     showProgress = false;
     enableMyAccountBtn: boolean = false;

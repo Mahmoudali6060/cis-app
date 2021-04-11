@@ -1,15 +1,12 @@
-﻿import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
+﻿import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
     selector: 'clinic-manage-radiology-tests-group',
-    templateUrl: 'clinic-manage-radiology-tests-group.component.html'
+    templateUrl: './clinic-manage-radiology-tests-group.component.html'
 })
 
 export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChanges {
@@ -23,7 +20,7 @@ export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChang
     @Output() onIsNew: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() onCancel = new EventEmitter();
 
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     selectRadiologyTestsTab: boolean = true;
     active: boolean = true;
     showProgress = false;
@@ -36,7 +33,7 @@ export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChang
         , public translate: TranslateService) { }
 
     ngOnInit(): void {
-        this.selectedClinicId = this.localStorage.retrieve("ClinicID");        
+        this.selectedClinicId = this.localStorage.retrieve("ClinicID");
     }
 
     //get data according to selected type 
@@ -47,22 +44,22 @@ export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChang
             thisComponent.showProgress = true;
             this.clinicService.getRadiologyTestsGroupById(thisComponent.selectedRadiologyTestsGroupId)
                 .subscribe(
-                function (radiologyTestsGroup) {
-                    thisComponent.selectedRadiologyTestsGroup = radiologyTestsGroup;
-                    thisComponent.selectedParentGroupId = radiologyTestsGroup.parentGroupId;
-                    if (thisComponent.selectedLang == 'ar')
-                        thisComponent.selectedParentGroupName = radiologyTestsGroup.parentGroupName;
-                    else
-                        thisComponent.selectedParentGroupName = radiologyTestsGroup.parentGroupNameTranslation;
+                    function (radiologyTestsGroup: any) {
+                        thisComponent.selectedRadiologyTestsGroup = radiologyTestsGroup;
+                        thisComponent.selectedParentGroupId = radiologyTestsGroup.parentGroupId;
+                        if (thisComponent.selectedLang == 'ar')
+                            thisComponent.selectedParentGroupName = radiologyTestsGroup.parentGroupName;
+                        else
+                            thisComponent.selectedParentGroupName = radiologyTestsGroup.parentGroupNameTranslation;
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             this.clearControl();
@@ -79,44 +76,44 @@ export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChang
             //Update
             this.clinicService.updateRadiologyTestsGroup(this.selectedRadiologyTestsGroup)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.onIsNew.emit(false);
-                    thisComponent.onRadiologyTestsGroupChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearControl();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.onIsNew.emit(false);
+                        thisComponent.onRadiologyTestsGroupChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearControl();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             //New
             this.clinicService.createRadiologyTestsGroup(this.selectedRadiologyTestsGroup)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.onIsNew.emit(true);
-                    thisComponent.onRadiologyTestsGroupChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearControl();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.onIsNew.emit(true);
+                        thisComponent.onRadiologyTestsGroupChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearControl();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

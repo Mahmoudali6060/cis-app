@@ -143,58 +143,58 @@
                                      rowGroupMode="subheader"
                                      groupField="categoryFriendlyName"
                                      expandableRowGroups="true" [sortableRowGroup]="false">
-                            <template pTemplate="rowgroupheader" let-rowData>
+                            <ng-template pTemplate="rowgroupheader" let-rowData>
                                 {{rowData['categoryFriendlyName']}}
-                            </template>
+                            </ng-template>
                             <!--<p-column field="categoryFriendlyName" header="Permission Category" [sortable]="true"></p-column>-->
                             <p-column field="name" [header]="'Permissions' | translate" [sortable]="false"></p-column>
                             <p-column  [header]="'FullControl' | translate"  styleClass="text-center width70">
-                                <template let-permission="rowData" pTemplate="body">
+                                <ng-template let-permission="rowData" pTemplate="body">
                                     <input type="checkbox" name="chkFullControl"
                                            [disabled]="!permission.isFullControlAvailable"
                                            [checked]="isPermissionChecked(permission.id,'fullControl', permission.isFullControlAvailable)"
                                            (change)="updateSelectedPermissions(permission.id,'fullControl', $event)" />
-                                </template>
+                                </ng-template>
                             </p-column>
                             <p-column [header]="'View' | translate"  styleClass="text-center width50">
-                                <template let-permission="rowData" pTemplate="body">
+                                <ng-template let-permission="rowData" pTemplate="body">
                                     <input type="checkbox" name="chkView"
                                            [disabled]="!permission.isViewAvailable"
                                            [checked]="isPermissionChecked(permission.id,'view', permission.isViewAvailable)"
                                            (change)="updateSelectedPermissions(permission.id,'view', $event)" />
-                                </template>
+                                </ng-template>
                             </p-column>
                             <p-column [header]="'Add' | translate" styleClass="text-center width50">
-                                <template let-permission="rowData" pTemplate="body">
+                                <ng-template let-permission="rowData" pTemplate="body">
                                     <input type="checkbox" name="chkAdd"
                                            [disabled]="!permission.isAddAvailable"
                                            [checked]="isPermissionChecked(permission.id,'add', permission.isAddAvailable)"
                                            (change)="updateSelectedPermissions(permission.id,'add', $event)" />
-                                </template>
+                                </ng-template>
                             </p-column>
                             <p-column [header]="'Edit' | translate"  styleClass="text-center width50">
-                                <template let-permission="rowData" pTemplate="body">
+                                <ng-template let-permission="rowData" pTemplate="body">
                                     <input type="checkbox" name="chkEdit"
                                            [disabled]="!permission.isEditAvailable"
                                            [checked]="isPermissionChecked(permission.id,'edit', permission.isEditAvailable)"
                                            (change)="updateSelectedPermissions(permission.id,'edit', $event)" />
-                                </template>
+                                </ng-template>
                             </p-column>
                             <p-column [header]="'ActivateDeactivate' | translate"   styleClass="text-center width80">
-                                <template let-permission="rowData" pTemplate="body">
+                                <ng-template let-permission="rowData" pTemplate="body">
                                     <input type="checkbox" name="chkActivate"
                                            [disabled]="!permission.isActivateAvailable"
                                            [checked]="isPermissionChecked(permission.id,'activate', permission.isActivateAvailable)"
                                            (change)="updateSelectedPermissions(permission.id,'activate', $event)" />
-                                </template>
+                                </ng-template>
                             </p-column>
                             <p-column [header]="'Allow' | translate" styleClass="text-center width50">
-                                <template let-permission="rowData" pTemplate="body">
+                                <ng-template let-permission="rowData" pTemplate="body">
                                     <input type="checkbox" name="chkAllow"
                                            [disabled]="!permission.isAllowAvailable"
                                            [checked]="isPermissionChecked(permission.id,'allow', permission.isAllowAvailable)"
                                            (change)="updateSelectedPermissions(permission.id,'allow', $event)" />
-                                </template>
+                                </ng-template>
                             </p-column>
                         </p-dataTable>
                     </div>

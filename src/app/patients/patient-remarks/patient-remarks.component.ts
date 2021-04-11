@@ -17,7 +17,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class PatientRemarksComponent implements OnInit {
 
     clinicNote: any = {};
-    @Input() noteId: number | undefined;
+    @Input() noteId!: number;
     @Output() onRemarksSaved = new EventEmitter<any>();
 
     constructor(public toastr: ToastrService

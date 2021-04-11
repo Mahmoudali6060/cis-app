@@ -36,24 +36,24 @@
                 <div class="row well">
                     <!--<p-tree [value]="items" selectionMode="single" [(selection)]="selectedFiles"></p-tree>-->
                     <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedGroup" (onNodeSelect)="nodeSelect($event)" #tree>
-                        <template let-node pTemplate="Medical">
+                        <ng-template let-node pTemplate="Medical">
                             {{node.label}}
                             &nbsp; &nbsp;
-                        </template>
-                        <template let-node pTemplate="NonMedical">
+                        </ng-template>
+                        <ng-template let-node pTemplate="NonMedical">
                             {{node.label}}
                             &nbsp; &nbsp;
-                        </template>
-                        <template let-node pTemplate="Product">
+                        </ng-template>
+                        <ng-template let-node pTemplate="Product">
                             <span class="nav-icon"><i class="fa fa-cube"></i></span>
                             &nbsp;
                            {{node.label}}
-                        </template>
-                        <template let-node pTemplate="ProductsGroup">
+                        </ng-template>
+                        <ng-template let-node pTemplate="ProductsGroup">
                             <span class="nav-icon {{ isSelectedGroupNode ? 'bg-danger' : '' }}"><i class="fa fa-cubes"></i></span>
                             &nbsp; 
                             {{node.label}}
-                        </template>
+                        </ng-template>
                     </p-tree>
                 </div>
                 </div>

@@ -9,9 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { UtilityClass } from '../../shared/shared/utility.class';
 
 @Component({
-
     selector: 'document-details',
-    templateUrl: 'document-details.component.html'
+    templateUrl: './document-details.component.html'
 })
 
 export class DocumentDetailsComponent implements OnChanges {
@@ -22,31 +21,31 @@ export class DocumentDetailsComponent implements OnChanges {
     @Input() docDetailsUrl: string = '';
     @Input('details') documentdetailsUrl: string = '';
     @Input() parentId: string = '';
-    @Input() noteId: number | undefined;
+    @Input() noteId!: number;
     @Input() allowEditing: boolean = false;
     selectedTemplateId: any;
 
-    fileName: string | undefined;
+    fileName!:string;
     AttachmentTypes: any[] = [];
     patientFiles: any[] = [];
     @Output() onBack = new EventEmitter();
-    @Input() attachementId: string | undefined;
+    @Input() attachementId!:string;
     @Input() fileType: boolean | undefined;
     @Input() showBackBtn: boolean = true;
     @Input() showSelectedTemplates: boolean = false;
     @Input() isTemplateExist: boolean = false;
-    @Input() parentType: string | undefined;
-    @Input() fileNameTxt: string | undefined;
-    @Input() fileNameUploadTxt: string | undefined;
+    @Input() parentType!:string;
+    @Input() fileNameTxt!:string;
+    @Input() fileNameUploadTxt!:string;
     @Input() model: any = { id: 0 };
     active = true;
     @Output() onAttachementSaved = new EventEmitter<any>();
     @Output() onAttachementUpdated = new EventEmitter<any>();
-    cliniParentType: string | undefined;
+    cliniParentType!:string;
     attachmentsList: any = [];
     clinicParentId: string = '';
     @Input() title: string = '';
-    fileTypeExtension: string | undefined;
+    fileTypeExtension!:string;
     utilityClass: UtilityClass = new UtilityClass();
 
     userType: string = '';

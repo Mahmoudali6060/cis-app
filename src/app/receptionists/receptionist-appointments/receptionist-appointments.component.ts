@@ -1,8 +1,7 @@
-﻿import {Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-
-import { TreeNode } from 'primeng/primeng';
+import { TranslateService } from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
 
 import { ReceptionistService } from '../shared/receptionist.service'
 import { ReceptionistAppointmentManager } from '../shared/receptionist-appointment.manager'
@@ -14,13 +13,13 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class'
 import { calendarSlotDuration } from '../../app.config';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 import { TimeSlot } from '../../shared/shared/time-slot.model';
 
 @Component({
-   
+
     selector: 'receptionist-appointments',
     templateUrl: 'receptionist-appointments.component.html',
 })
@@ -32,29 +31,29 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     toPrintDiv: string = 'todayAppoinmentsDiv';
     isDayView: boolean = false;
     dayViewSelectedDate = new Date();
-    selectedDateAsString: string | undefined;
+    selectedDateAsString!: string;
     defaultclassId: string = '';
     lang: string = '';
     isRTL: boolean = false;
     waitInInquiry: string = '';
     gotoDateString: string = ''; // used to open the appointment that edited from search
-    selectedAppointmentIDFromSearch: number | undefined;
+    selectedAppointmentIDFromSearch!: number;
     initialView: boolean = false;
-    @ViewChild('bookOrCloseModalButton') bookOrCloseModalButton: ElementRef;
-    @ViewChild('btnCloseBookOrCloseModal') btnCloseBookOrCloseModal: ElementRef;    
-    @ViewChild('appointmentModalButton') appointmentModalButton: ElementRef;
-    @ViewChild('btnClostAppointmentModal') btnClostAppointmentModal: ElementRef;
-    @ViewChild('btnShowSessionExtensionSlotModal') btnShowSessionExtensionSlotModal: ElementRef;
-    @ViewChild('btnCloseSessionExtensionModal') btnCloseSessionExtensionModal: ElementRef;
-    @ViewChild('btnCloseRestoreTimeSlotsModal') btnCloseRestoreTimeSlotsModal: ElementRef;
-    @ViewChild('btnShowRestoreTimeSlotsModal') btnShowRestoreTimeSlotsModal: ElementRef;
+    @ViewChild('bookOrCloseModalButton') bookOrCloseModalButton!: ElementRef;
+    @ViewChild('btnCloseBookOrCloseModal') btnCloseBookOrCloseModal!: ElementRef;
+    @ViewChild('appointmentModalButton') appointmentModalButton!: ElementRef;
+    @ViewChild('btnClostAppointmentModal') btnClostAppointmentModal!: ElementRef;
+    @ViewChild('btnShowSessionExtensionSlotModal') btnShowSessionExtensionSlotModal!: ElementRef;
+    @ViewChild('btnCloseSessionExtensionModal') btnCloseSessionExtensionModal!: ElementRef;
+    @ViewChild('btnCloseRestoreTimeSlotsModal') btnCloseRestoreTimeSlotsModal!: ElementRef;
+    @ViewChild('btnShowRestoreTimeSlotsModal') btnShowRestoreTimeSlotsModal!: ElementRef;
     @ViewChild('pSchedule') pSchedule: any;
-    @ViewChild('btnCloseReceptionistSearchPopup') btnCloseReceptionistSearchPopup: ElementRef;
-    @ViewChild('btnCloseAppointmentPopup') btnCloseAppointmentPopup: ElementRef;
-    @ViewChild('btnDisplayCurrentDayAppointment') btnDisplayCurrentDayAppointment: ElementRef;
+    @ViewChild('btnCloseReceptionistSearchPopup') btnCloseReceptionistSearchPopup!: ElementRef;
+    @ViewChild('btnCloseAppointmentPopup') btnCloseAppointmentPopup!: ElementRef;
+    @ViewChild('btnDisplayCurrentDayAppointment') btnDisplayCurrentDayAppointment!: ElementRef;
 
     utilityClass: UtilityClass = new UtilityClass();
-    receptionistAppointmentManager: ReceptionistAppointmentManager;
+    receptionistAppointmentManager!: ReceptionistAppointmentManager;
     showProgress: boolean = false;
     showLoading: boolean = false;
     active: boolean = true;
@@ -68,10 +67,10 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     showSelectPatient: boolean = true;
     showEditPatient: boolean = false;
     organizationStructureTree: any[] = [];
-    clinicId;
-    doctorId;
-    divisonId;
-    divisonName;
+    clinicId!: any;
+    doctorId!: any;
+    divisonId!: any;
+    divisonName!: any;
     doctorName = '';
     isDoctorSelected: boolean = false;
     isDivisionSelected: boolean = false;
@@ -86,8 +85,8 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     serviceTimeSlotsList: any[] = [];
     currentWeekDays: any[] = [];
     currentHijriWeekDays: string[] = [];
-    slotDuration: number | undefined;
-    calendarSlotDuration: string | undefined;
+    slotDuration!: number;
+    calendarSlotDuration!: string;
     patientQucikAccount: any = {};
 
     sessionExtension: any = {};
@@ -99,14 +98,14 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     patientName = '';
     patientId = '';
 
-    selectedDate;    
-    selectedTimeSlot;
-    selectedDateForOpenCloseSlot;
-    selectedStartTimeForOpenCloseSlot;
-    selectedEndTimeForOpenCloseSlot;
+    selectedDate!: any;
+    selectedTimeSlot!: any;
+    selectedDateForOpenCloseSlot!: any;
+    selectedStartTimeForOpenCloseSlot!: any;
+    selectedEndTimeForOpenCloseSlot!: any;
     numberOfTimeSlots: number = 1;
     defaultDate = '';
-    dateToRestoreTimeSlots: Date | undefined;
+    dateToRestoreTimeSlots!: Date;
     display: boolean = false;
     title = "Add Arrival Time";
     title1 = "Reconfirm Appointment";
@@ -120,22 +119,20 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     cancelationRemarks = "";
     cancelled: boolean | undefined;
     cancelledDate: any;
-    timeSlotForCancelledApp;
+    timeSlotForCancelledApp: any;
     displayRepeatAppointmentPopup: boolean = false;
-    selectedRepeatDate;
-    selectedRepeatTimeSlot;
+    selectedRepeatDate!: any;
+    selectedRepeatTimeSlot!: any;
     repeatedAppointmentModel: any = { id: 0 };
     repeatingTimeSlotsList: any[] = [];
     rescheduledTimeSlotsList: any[] = [];
-    selectedRescheduledDate;
-    selectedRescheduledTimeSlot;
+    selectedRescheduledDate!: any;
+    selectedRescheduledTimeSlot!: any;
     isRescheduledAppointment: boolean = false;
     rescheduledAppointmentModel: any = {};
     reconfirmTime: any;
-    
-    selectedDivisionId;
-    selectedDivisionName;
-    
+    selectedDivisionId!: any;
+    selectedDivisionName!: any;
     ts = "";
     userPermisions: UserPermissions = new UserPermissions();
     key: PermissionKeyEnum = new PermissionKeyEnum();
@@ -149,15 +146,14 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     enableRestoreSlot: boolean = false;
 
     calendarOptions: any = {};
-    reconfirmDate;
-    arrivalTime;
+    reconfirmDate!: any;
+    arrivalTime!: any;
     cancellationDate;
-
     calendarRangeStartDateTime: Date | undefined;
     calendarRangeEndDateTime: Date | undefined;
-    calendarRangeFirstSlot: TimeSlot;
-    calendarRangeLastSlot: TimeSlot;
-    lstToTranslated: string[] = ['serviceName' , 'serviceNameTranslation'];
+    calendarRangeFirstSlot!: TimeSlot;
+    calendarRangeLastSlot!: TimeSlot;
+    lstToTranslated: string[] = ['serviceName', 'serviceNameTranslation'];
 
     constructor(
         private receptionistService: ReceptionistService,
@@ -182,7 +178,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.calendarOptions.firstDay = new Date().getDay();
         this.calendarOptions.navLinks = true;
         this.calendarOptions.selectable = true;
-        this.calendarOptions.select = function (start, end) { thisComp.handleCalendarSelect(start, end); }
+        this.calendarOptions.select = function (start: any, end: any) { thisComp.handleCalendarSelect(start, end); }
         this.calendarOptions.isRTL = this.isRTL;
 
         this.clinicId = this.localStorage.retrieve("ClinicID");
@@ -193,7 +189,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         //this.entireDayTimeSlotsList = this.receptionistAppointmentManager.getFullDayTimeSlots(this.receptionistAppointmentManager.getSlotDuration());
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -211,14 +207,14 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 event.allDay = true;
                 event.className = 'hijriDateStyle';
                 event.title = this.currentHijriWeekDays[dayNo];
-                this.events.push(event:any);
+                this.events.push(event);
             }
         }
     }
 
     fillCurrentWeekDays(startDate: Date) {
         this.currentWeekDays = [];
-       
+
         let satrt: number = startDate.getDate();
 
         for (let dayNo = 0; dayNo <= 6; dayNo++) {
@@ -289,22 +285,22 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             thisComponent.showProgress = true;
             this.receptionistService.createPatientRequest(this.patientQucikAccount)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.updateCalendarEvents(response, true);
-                    thisComponent.closeAppointmentModal();
+                        thisComponent.updateCalendarEvents(response, true);
+                        thisComponent.closeAppointmentModal();
 
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error);
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error);
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -328,16 +324,16 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         //let userId = this.storage.retrieve("UserID");
         this.clinicService.getOrganizationStructureTreeWithDoctorsOnly(this.clinicId)
             .subscribe(
-            function (response:any) {
-                thisComp.organizationStructureTree = response;
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                function (response: any) {
+                    thisComp.organizationStructureTree = response;
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
 
     clear() {
@@ -354,7 +350,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.reconfirmDate = '';
         this.arrivalTime = '';
         //this.cancellationDate = '';
-        
+
         // set default class ID
         this.appointmentModel.appointmentClassId = this.defaultclassId;
 
@@ -366,15 +362,14 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.showAppointmentModal();
     }
 
-    handleEventClick(e) {
+    handleEventClick(e: any) {
 
         let eventId = e.calEvent.id;
 
         this.fillAppointmentinfo(eventId);
     }
 
-    fillAppointmentinfo(eventId)
-    {
+    fillAppointmentinfo(eventId: any) {
         if (this.appointementsList != undefined) {
             this.appointmentModel = this.appointementsList.find(app => app.id == eventId);
 
@@ -415,14 +410,14 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
 
     showAppointmentModal() {
-        
+
         this.appointmentModalButton.nativeElement.click();
     }
 
-    showBookOrCloseModal() {        
+    showBookOrCloseModal() {
         this.bookOrCloseModalButton.nativeElement.click();
     }
-    
+
     closeAppointmentModal() {
         this.btnClostAppointmentModal.nativeElement.click();
     }
@@ -466,14 +461,13 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     //    }
     //}
 
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
 
         this.isDayView = false;
         this.handelSelectedNode(event.node);
     }
 
-    handelSelectedNode(node: any)
-    {
+    handelSelectedNode(node: any) {
         let vm = this;
         this.doctorId = 0;
         this.doctorName = "";
@@ -505,13 +499,13 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
             if (this.lang == 'ar')
                 this.divisonName = node.label;
-            else 
+            else
                 this.divisonName = node.labelTranslation;
 
             this.isDoctorSelected = false;
             this.isDivisionSelected = true;
             this.isDepartmentSelected = false;
-          
+
 
         } else if (node.type.toLocaleLowerCase() == "clinicdepartment") {
 
@@ -521,93 +515,88 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
         }
     }
-    
-    getAppointmentDetailsWrapper(doctorId) {
+
+    getAppointmentDetailsWrapper(doctorId: any) {
 
         this.showProgress = true;
         let thisComp = this;
         this.receptionistService.getAppointmentDetailsWrapper(doctorId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComp.appointmentSchedulesList = response.appointmentSchedules;
-                thisComp.sessionExtensionsList = response.sessionExtensions;
-                thisComp.appointmentClassesList = response.appointmentClasses;
-                thisComp.visitTypesList = response.visitTypes;
-                thisComp.appointementsList = response.appointments;
-                thisComp.serviceTimeSlotsList = response.serviceTimeSlots;
-                thisComp.currentHijriWeekDays = response.currentWeekHijriDates;
-                thisComp.currentDoctor = response.doctor;
+                    thisComp.appointmentSchedulesList = response.appointmentSchedules;
+                    thisComp.sessionExtensionsList = response.sessionExtensions;
+                    thisComp.appointmentClassesList = response.appointmentClasses;
+                    thisComp.visitTypesList = response.visitTypes;
+                    thisComp.appointementsList = response.appointments;
+                    thisComp.serviceTimeSlotsList = response.serviceTimeSlots;
+                    thisComp.currentHijriWeekDays = response.currentWeekHijriDates;
+                    thisComp.currentDoctor = response.doctor;
 
-                // get default class ID 
-                if (thisComp.appointementsList)
-                {
-                    thisComp.appointmentClassesList.forEach(cls => {
-                        if (cls.key == 'Reserved')
-                        {
-                            thisComp.defaultclassId = cls.id;
+                    // get default class ID 
+                    if (thisComp.appointementsList) {
+                        thisComp.appointmentClassesList.forEach(cls => {
+                            if (cls.key == 'Reserved') {
+                                thisComp.defaultclassId = cls.id;
+                            }
+                        });
+                    }
+
+                    //------- Work with the Calendar view -------
+
+                    //Refresh the calendar solt duration according to the doctor solt duration
+                    let formattedSlotDuration = thisComp.calendarSlotDuration;
+                    let scrollTime = "00:00:00";
+                    thisComp.receptionistAppointmentManager = new ReceptionistAppointmentManager(thisComp.appointmentSchedulesList, thisComp.sessionExtensionsList);
+                    thisComp.slotDuration = thisComp.receptionistAppointmentManager.getSlotDurationForDate(thisComp.utilityClass.getDateComponent(new Date()));
+                    if (thisComp.slotDuration != undefined && thisComp.slotDuration != 0)
+                        formattedSlotDuration = '00:' + thisComp.utilityClass.getTwoDigitNumber(thisComp.slotDuration) + ':00';
+
+                    //Get first timeSlot
+                    let firstTimeSlot: TimeSlot = thisComp.receptionistAppointmentManager.getFirstTimeSlot(new Date());
+                    if (firstTimeSlot != undefined) {
+                        if (firstTimeSlot.name.indexOf(":") > -1)//has minutes
+                            scrollTime = firstTimeSlot.name + ":00";//add seconds
+                        else//has only hours
+                            scrollTime = firstTimeSlot.name + ":00:00";//add minutes and seconds
+                    }
+
+                    thisComp.initialView = true;
+                    thisComp.pSchedule.refreshSlotDuration(formattedSlotDuration, scrollTime);
+                    thisComp.initialView = false;
+                    //Update calendar events
+                    thisComp.events = response.calendarEvents;
+
+                    //Adjust calendar view according the schedules
+                    thisComp.fillCurrentWeekDays(new Date());
+                    thisComp.adjustCalendarView();
+                    //thisComp.FillHijriWeekDays();
+
+                    if (thisComp.gotoDateString) {
+                        let date = thisComp.utilityClass.getDateTimeFromString(thisComp.gotoDateString)
+
+                        if (thisComp.isDateWithinCurrentWeek(date)) {
+                            // open appointment popup
+                            thisComp.fillAppointmentinfo(thisComp.selectedAppointmentIDFromSearch);
+                            thisComp.gotoDateString = '';
                         }
-                    });
-                }
-
-                //------- Work with the Calendar view -------
-
-                //Refresh the calendar solt duration according to the doctor solt duration
-                let formattedSlotDuration = thisComp.calendarSlotDuration;
-                let scrollTime = "00:00:00";
-                thisComp.receptionistAppointmentManager = new ReceptionistAppointmentManager(thisComp.appointmentSchedulesList, thisComp.sessionExtensionsList);
-                thisComp.slotDuration = thisComp.receptionistAppointmentManager.getSlotDurationForDate(thisComp.utilityClass.getDateComponent(new Date()));
-               if (thisComp.slotDuration != undefined && thisComp.slotDuration != 0)
-                    formattedSlotDuration = '00:' + thisComp.utilityClass.getTwoDigitNumber(thisComp.slotDuration) + ':00';
-
-                //Get first timeSlot
-                let firstTimeSlot: TimeSlot = thisComp.receptionistAppointmentManager.getFirstTimeSlot(new Date());
-                if (firstTimeSlot != undefined)
-                {
-                    if (firstTimeSlot.name.indexOf(":") > -1)//has minutes
-                        scrollTime = firstTimeSlot.name + ":00";//add seconds
-                    else//has only hours
-                        scrollTime = firstTimeSlot.name + ":00:00";//add minutes and seconds
-                }
-
-                thisComp.initialView = true;
-                thisComp.pSchedule.refreshSlotDuration(formattedSlotDuration, scrollTime);
-                thisComp.initialView = false;
-                //Update calendar events
-                thisComp.events = response.calendarEvents;
-
-                //Adjust calendar view according the schedules
-                thisComp.fillCurrentWeekDays(new Date());
-                thisComp.adjustCalendarView();
-                //thisComp.FillHijriWeekDays();
-
-                if (thisComp.gotoDateString) {
-                    let date = thisComp.utilityClass.getDateTimeFromString(thisComp.gotoDateString)
-
-                    if (thisComp.isDateWithinCurrentWeek(date)) {
-                        // open appointment popup
-                        thisComp.fillAppointmentinfo(thisComp.selectedAppointmentIDFromSearch);
-                        thisComp.gotoDateString = '';
+                        else {
+                            thisComp.pSchedule.gotoDate(date);
+                        }
                     }
-                    else {
-                        thisComp.pSchedule.gotoDate(date);
-                    }
-                }
 
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
 
-    isDateWithinCurrentWeek(passedDate: Date): boolean
-    {
-        for (let weekDate of this.currentWeekDays)
-        {
+    isDateWithinCurrentWeek(passedDate: Date): boolean {
+        for (let weekDate of this.currentWeekDays) {
             let currentWeekDate = this.utilityClass.getUtcDate(weekDate);
             if (currentWeekDate.getDay() == passedDate.getDay() &&
                 currentWeekDate.getFullYear() == passedDate.getFullYear() &&
@@ -618,28 +607,28 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         return false;
     }
 
-    getDoctorClinicDivision(doctorId) {
+    getDoctorClinicDivision(doctorId: any) {
         this.showProgress = true;
         let thisComp = this;
         this.receptionistService.getDoctorClinicDivision(doctorId)
             .subscribe(
-            function (response:any) {
-                if (response != undefined)
-                    thisComp.selectedDivisionId = response.id;
-                if (thisComp.lang == 'ar')
-                    thisComp.selectedDivisionName = response.name;
-                else
-                    thisComp.selectedDivisionName = response.nameTranslation;
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                function (response: any) {
+                    if (response != undefined)
+                        thisComp.selectedDivisionId = response.id;
+                    if (thisComp.lang == 'ar')
+                        thisComp.selectedDivisionName = response.name;
+                    else
+                        thisComp.selectedDivisionName = response.nameTranslation;
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
-    setClinicDepartmentId(value) {
+    setClinicDepartmentId(value: any) {
         let vm = this;
         //  this.clinicId = value;
 
@@ -712,20 +701,20 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         let thisComp = this;
         this.receptionistService.getPatientByClinicMRN(this.patientClinicMrn)
             .subscribe(
-            function (response:any) {
-                thisComp.patientName = response.name;
-                thisComp.patientId = response.id;
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                function (response: any) {
+                    thisComp.patientName = response.name;
+                    thisComp.patientId = response.id;
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
 
-    selectAppointmentClass(classId) {
+    selectAppointmentClass(classId: any) {
         this.appointmentModel.appointmentClassId = classId;
     }
 
@@ -735,15 +724,15 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.appointmentModel.notificationType = 'Cancel';
         this.receptionistService.notifyRelatedUser(this.appointmentModel)
             .subscribe(
-            function (response:any) {
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                function (response: any) {
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
 
     notifyRelatedUserForConfirm() {
@@ -751,15 +740,15 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.appointmentModel.notificationType = 'Confirm';
         this.receptionistService.notifyRelatedUser(this.appointmentModel)
             .subscribe(
-            function (response:any) {
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                function (response: any) {
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
     mergeCallingDateAndCallingTime(obj: Date, secondObj: Date): Date {
 
@@ -814,51 +803,50 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             if (updateArrivalTime) {
                 this.receptionistService.updatePatientArrivalTime(this.appointmentModel)
                     .subscribe(
-                    function (response:any) {
-                        thisComp.updateCalendarEvents(response, isNewAppointment);
-                        thisComp.closeAppointmentModal();
+                        function (response: any) {
+                            thisComp.updateCalendarEvents(response, isNewAppointment);
+                            thisComp.closeAppointmentModal();
 
-                        let msg = thisComp.translate.instant("SavedSuccessfully");
-                        thisComp.toastr.success(msg, '');
-                    },
-                    function (error:any) { 
-                        thisComp.appointmentModel.dateTime = thisComp.appoitmentDateTimeBackup;
-                        thisComp.toastr.error(error, '');
-                        thisComp.showProgress = false;
-                    },
-                    function () {
-                        thisComp.showProgress = false;
-                    });
+                            let msg = thisComp.translate.instant("SavedSuccessfully");
+                            thisComp.toastr.success(msg, '');
+                        },
+                        function (error: any) {
+                            thisComp.appointmentModel.dateTime = thisComp.appoitmentDateTimeBackup;
+                            thisComp.toastr.error(error, '');
+                            thisComp.showProgress = false;
+                        },
+                        function () {
+                            thisComp.showProgress = false;
+                        });
             }
             else {
                 let isSlotsOpened = this.isAppointmentSlotsOpened(timeSlot.dateTime);
 
-               if (!isSlotsOpened)
-               {
-                   let msg = this.translate.instant("NotEnoughOpenedSlots");
-                   this.toastr.error(msg, '');
-                   this.showProgress = false;
-                   this.appointmentModel.dateTime = this.appoitmentDateTimeBackup;
-                   return;
-               }
+                if (!isSlotsOpened) {
+                    let msg = this.translate.instant("NotEnoughOpenedSlots");
+                    this.toastr.error(msg, '');
+                    this.showProgress = false;
+                    this.appointmentModel.dateTime = this.appoitmentDateTimeBackup;
+                    return;
+                }
 
                 this.receptionistService.saveOrUpdateAppointment(this.appointmentModel)
                     .subscribe(
-                    function (response:any) {
-                        thisComp.updateCalendarEvents(response, isNewAppointment);
-                        thisComp.closeAppointmentModal();
+                        function (response: any) {
+                            thisComp.updateCalendarEvents(response, isNewAppointment);
+                            thisComp.closeAppointmentModal();
 
-                        let msg = thisComp.translate.instant("SavedSuccessfully");
-                        thisComp.toastr.success(msg, '');
-                    },
-                    function (error:any) { 
-                        thisComp.toastr.error(error, '');
-                        thisComp.appointmentModel.dateTime = thisComp.appoitmentDateTimeBackup;
-                        thisComp.showProgress = false;
-                    },
-                    function () {
-                        thisComp.showProgress = false;
-                    });
+                            let msg = thisComp.translate.instant("SavedSuccessfully");
+                            thisComp.toastr.success(msg, '');
+                        },
+                        function (error: any) {
+                            thisComp.toastr.error(error, '');
+                            thisComp.appointmentModel.dateTime = thisComp.appoitmentDateTimeBackup;
+                            thisComp.showProgress = false;
+                        },
+                        function () {
+                            thisComp.showProgress = false;
+                        });
             }
         }
         else {
@@ -888,7 +876,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     //RescheduleAppointment() {
     //    this.saveRescheduleAppointment();
     //}
-    handleIsArrivedValue(event:any) {
+    handleIsArrivedValue(event: any) {
         if (event.target.checked) {
             this.isArrived = true;
         } else {
@@ -948,22 +936,22 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         }
         this.receptionistService.saveNewSessionExtension(this.sessionExtension)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.sessionExtension = response;
-                thisComponent.clearSessionExtensionControls();
-                thisComponent.getAppointmentDetailsWrapper(thisComponent.doctorId);
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-                thisComponent.btnCloseSessionExtensionModal.nativeElement.click();
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                //thisComponent.showProgress = false;
-            },
-            function () {
-                //thisComponent.showProgress = false;
-            });
+                    thisComponent.sessionExtension = response;
+                    thisComponent.clearSessionExtensionControls();
+                    thisComponent.getAppointmentDetailsWrapper(thisComponent.doctorId);
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                    thisComponent.btnCloseSessionExtensionModal.nativeElement.click();
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    //thisComponent.showProgress = false;
+                },
+                function () {
+                    //thisComponent.showProgress = false;
+                });
     }
 
 
@@ -1028,7 +1016,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     }
 
-    getAppointmentFullTitle(appointment): string {
+    getAppointmentFullTitle(appointment: any): string {
         let fullTitle = '';
 
         fullTitle += appointment.patientUnifiedMRN;
@@ -1040,7 +1028,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
         if (appointment.confirmed)
             fullTitle += ' - ' + this.translate.instant('Confirmed');
-        else                 
+        else
             fullTitle += ' - ' + this.translate.instant('NotConfirmed');
 
         if (appointment.description)
@@ -1120,19 +1108,19 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         };
         this.receptionistService.restoreTimeSlots(restoreSlotWrapper)
             .subscribe(
-            function (response:any) {
-                thisComponent.getAppointmentDetailsWrapper(thisComponent.doctorId);
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-                thisComponent.btnCloseRestoreTimeSlotsModal.nativeElement.click();
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                //thisComponent.showProgress = false;
-            },
-            function () {
-                //thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.getAppointmentDetailsWrapper(thisComponent.doctorId);
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                    thisComponent.btnCloseRestoreTimeSlotsModal.nativeElement.click();
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    //thisComponent.showProgress = false;
+                },
+                function () {
+                    //thisComponent.showProgress = false;
+                });
     }
 
 
@@ -1152,7 +1140,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         }
     }
 
-    selectRepeatedAppointmentClass(classId) {
+    selectRepeatedAppointmentClass(classId: any) {
         this.repeatedAppointmentModel.appointmentClassId = classId;
     }
 
@@ -1173,21 +1161,21 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             let isNewAppointment: boolean = true;
             this.receptionistService.saveOrUpdateAppointment(this.repeatedAppointmentModel)
                 .subscribe(
-                function (response:any) {
-                    thisComp.updateCalendarEvents(response, isNewAppointment);
+                    function (response: any) {
+                        thisComp.updateCalendarEvents(response, isNewAppointment);
 
-                    thisComp.cancelRepeatingAppointment();
+                        thisComp.cancelRepeatingAppointment();
 
-                    let msg = thisComp.translate.instant("SavedSuccessfully");
-                    thisComp.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                    thisComp.showProgress = false;
-                },
-                function () {
-                    thisComp.showProgress = false;
-                });
+                        let msg = thisComp.translate.instant("SavedSuccessfully");
+                        thisComp.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showProgress = false;
+                    },
+                    function () {
+                        thisComp.showProgress = false;
+                    });
         }
         else {
             let msg = this.translate.instant("EnterDateTime");
@@ -1243,7 +1231,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     }
 
-    handleloadEvents(event:any) {
+    handleloadEvents(event: any) {
         if (!this.initialView) {
 
             let viewName = event.view.name;
@@ -1270,34 +1258,34 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             thisComp.showLoading = true;
             this.receptionistService.getAppointmentsWithinPeriod(periodArgs)
                 .subscribe(
-                function (response:any) {
-                    thisComp.appointementsList = response.appointments;
-                    thisComp.events = response.calendarEvents;
-                    thisComp.adjustEventsAccordingToCalendarView();
+                    function (response: any) {
+                        thisComp.appointementsList = response.appointments;
+                        thisComp.events = response.calendarEvents;
+                        thisComp.adjustEventsAccordingToCalendarView();
 
-                    thisComp.currentHijriWeekDays = response.currentWeekHijriDates;
+                        thisComp.currentHijriWeekDays = response.currentWeekHijriDates;
 
-                    thisComp.fillCurrentWeekDays(startDate);
+                        thisComp.fillCurrentWeekDays(startDate);
 
-                    thisComp.adjustCalendarView(); /*call this method inside FillHijriWeekDays*/
-                    //thisComp.FillHijriWeekDays()
+                        thisComp.adjustCalendarView(); /*call this method inside FillHijriWeekDays*/
+                        //thisComp.FillHijriWeekDays()
 
-                    if (thisComp.gotoDateString) {
-                        // open appointment popup
-                        thisComp.fillAppointmentinfo(thisComp.selectedAppointmentIDFromSearch);
-                    }
+                        if (thisComp.gotoDateString) {
+                            // open appointment popup
+                            thisComp.fillAppointmentinfo(thisComp.selectedAppointmentIDFromSearch);
+                        }
 
-                    //thisComp.GetSelectedDateAppointmentsToPrint();
+                        //thisComp.GetSelectedDateAppointmentsToPrint();
 
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                    thisComp.showLoading = false;
-                },
-                function () {
-                    thisComp.showLoading = false;
-                    thisComp.gotoDateString = '';
-                });
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showLoading = false;
+                    },
+                    function () {
+                        thisComp.showLoading = false;
+                        thisComp.gotoDateString = '';
+                    });
 
             //this.FillHijriWeekDays();
         }
@@ -1319,7 +1307,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         }
     }
 
-    handleDayClick(evt) {
+    handleDayClick(evt: any) {
 
         let selectedDateTime: any = this.utilityClass.convertToUTCDateTime(evt.date._d);
         let selectedSlot: TimeSlot = new TimeSlot(selectedDateTime);
@@ -1337,8 +1325,8 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             this.selectedTimeSlot = availableSlot.name;
         }
     }
-    
-    handleCalendarSelect(start, end) {
+
+    handleCalendarSelect(start: any, end: any) {
 
         if (this.isDoctorSelected) {
             this.calendarRangeStartDateTime = this.utilityClass.convertToUTCDateTime(start._d);
@@ -1364,15 +1352,14 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 this.prepareAndShowOpenSlotsModal();
             }
         }
-        else
-        {
+        else {
             let msg = this.translate.instant("NoDoctorSelected");
             this.toastr.error(msg);
         }
 
     }
 
-    calculateNumberOfSlots(startDateTime, endDateTime) {
+    calculateNumberOfSlots(startDateTime: any, endDateTime: any) {
         let dayDate: any = this.utilityClass.getDateComponent(startDateTime);
         let slotDuration = this.receptionistAppointmentManager.getSlotDurationForDate(dayDate);
         let diffInMiliSeconds = Math.abs(endDateTime - startDateTime);
@@ -1385,11 +1372,10 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         return numberOfTimeSlots;
     }
 
-    prepareAndShowNewAppointmentModal()
-    {
+    prepareAndShowNewAppointmentModal() {
         //Close the options popup
         this.btnCloseBookOrCloseModal.nativeElement.click();
-        
+
         this.addNewAppointment();
 
         this.selectedDate = this.calendarRangeStartDateTime;
@@ -1404,7 +1390,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     prepareAndShowCloseSlotsModal() {
         //Close the options popup
         this.btnCloseBookOrCloseModal.nativeElement.click();
-        
+
         this.selectedDateForOpenCloseSlot = this.calendarRangeStartDateTime;
         this.selectedStartTimeForOpenCloseSlot = this.calendarRangeFirstSlot.name;
         this.selectedEndTimeForOpenCloseSlot = this.calendarRangeLastSlot.name;
@@ -1416,7 +1402,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     prepareAndShowOpenSlotsModal() {
-        
+
         this.selectedDateForOpenCloseSlot = this.calendarRangeStartDateTime;
         this.selectedStartTimeForOpenCloseSlot = this.calendarRangeFirstSlot.name;
         this.selectedEndTimeForOpenCloseSlot = this.calendarRangeLastSlot.name;
@@ -1430,31 +1416,29 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.displayPatientAdvancedSearch = true;
     }
 
-    managePatientSelection(selectedPatientMrn) {
+    managePatientSelection(selectedPatientMrn: any) {
         this.patientClinicMrn = selectedPatientMrn;
         this.displayPatientAdvancedSearch = false;
         this.getPatient()
     }
 
-    handleEventResize(e) {
+    handleEventResize(e: any) {
         alert('Event resized');
     }
 
-    handleEventDrop(e) {
+    handleEventDrop(e: any) {
         alert('Event dropped');
     }
 
-    getSelectedAppointment(appointmentWrapper)
-    {
-        if (appointmentWrapper)
-        {
+    getSelectedAppointment(appointmentWrapper: any) {
+        if (appointmentWrapper) {
             // select current doctor 
             let selectedItem = this.getSelectedDoctor(appointmentWrapper.doctorId);
 
             if (selectedItem) {
                 this.selectedDoctor = selectedItem;
                 this.handelSelectedNode(selectedItem);
-                
+
                 this.gotoDateString = appointmentWrapper.appointmentDate;
                 this.selectedAppointmentIDFromSearch = appointmentWrapper.id;
                 this.btnCloseReceptionistSearchPopup.nativeElement.click();
@@ -1462,8 +1446,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         }
     }
 
-    getSelectedDoctor(doctorID): any
-    {
+    getSelectedDoctor(doctorID: any): any {
         let selectedNode;
         for (let node of this.organizationStructureTree) {
             selectedNode = this.getDoctorNode(node, doctorID);
@@ -1489,8 +1472,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         }
     }
 
-    openPatientProfile()
-    {
+    openPatientProfile() {
         this.router.navigate(['/patient/file', this.patientId]);
         this.btnCloseAppointmentPopup.nativeElement.click();
     }
@@ -1508,34 +1490,31 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         let vm = this;
         this.receptionistService.inquiryWaitInAppointment(this.appointmentModel)
             .subscribe(
-            function (response:any) {
-                vm.waitInInquiry = response;
-            },
-            function (error:any) { 
+                function (response: any) {
+                    vm.waitInInquiry = response;
+                },
+                function (error: any) {
 
-            },
-            function () {
+                },
+                function () {
 
-            });
+                });
     }
 
     getServiceTimeSlots(serviceTimeSlotId: string) {
         var serviceTimeSlot = this.serviceTimeSlotsList.find(srv => srv.id == serviceTimeSlotId);
 
-        if (serviceTimeSlot)
-        {
+        if (serviceTimeSlot) {
             this.numberOfTimeSlots = serviceTimeSlot.noOfTimeSlots;
         }
     }
 
-    handelDayClickEvent(e)
-    {
+    handelDayClickEvent(e: any) {
         alert(e.calEvent.date);
     }
 
-    GetSelectedDateAppointmentsToPrint()
-    {
-        let selectedDayAppoitmentsOriginal :any[]= [];
+    GetSelectedDateAppointmentsToPrint() {
+        let selectedDayAppoitmentsOriginal: any[] = [];
         let vm = this;
 
         if (this.isDayView && this.events) {
@@ -1599,7 +1578,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         return isSlotOpened;
     }
 
-    handleNavDayClick(event:any) {
+    handleNavDayClick(event: any) {
 
         this.isDayView = true;
         this.dayViewSelectedDate = event.date._d;
@@ -1612,12 +1591,12 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 }
 
 export class CalendarEvent {
-    id: number | undefined;
-    title: string | undefined;
-    start: string | undefined;
-    end: string | undefined;
-    rendering: string | undefined;
-    className: string | undefined;
-    dateTime: string | undefined;
-    fullTitle: string | undefined;
+    id!: number;
+    title!: string;
+    start!: string;
+    end!: string;
+    rendering!: string;
+    className!: string;
+    dateTime!: string;
+    fullTitle!: string;
 }

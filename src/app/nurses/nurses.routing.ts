@@ -1,6 +1,5 @@
 ﻿import { NgModule }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { NurseAccountComponent } from './nurse-account/nurse-account.component';
 import { NurseBasicComponent }   from './nurse-basic/nurse-basic.component';
 import { NurseAddressComponent }   from './nurse-address/nurse-address.component';
@@ -8,9 +7,7 @@ import { NurseAppointmentsComponent } from './nurse-appointments/nurse-appointme
 import { NurseRequestsComponent } from './nurse-requests/nurse-requests.component';
 import { NurseReportsComponent } from './nurse-reports/nurse-reports.component';
 
-
 const nurseRoutes: Routes = [
-
     //Nurses
     { path: 'account/:id', component: NurseAccountComponent },
     { path: 'basic/:id', component: NurseBasicComponent },

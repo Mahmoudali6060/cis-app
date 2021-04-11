@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'location-name',  
-    templateUrl:'app/shared/location-name/location-name.component.html'
+    templateUrl:'./location-name.component.html'
     
 })
 

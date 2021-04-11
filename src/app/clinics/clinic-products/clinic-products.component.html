@@ -42,21 +42,21 @@
             
            <div class="row well">
                <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedGroup" (onSelect)="nodeSelect()" (onNodeSelect)="nodeSelect($event)" #tree>
-                   <template let-node pTemplate="Medical">
+                   <ng-template let-node pTemplate="Medical">
                        {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                        &nbsp; &nbsp;
                        <a #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
                            <img src="images/addImage.png" (click)="passInitialServiceGroupValue(node)" />
                        </a>
-                   </template>
-                   <template let-node pTemplate="NonMedical">
+                   </ng-template>
+                   <ng-template let-node pTemplate="NonMedical">
                        {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                        &nbsp; &nbsp;
                        <a #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
                            <img src="images/addImage.png" (click)="passInitialServiceGroupValue(node)" />
                        </a>
-                   </template>
-                   <template let-node pTemplate="Product">
+                   </ng-template>
+                   <ng-template let-node pTemplate="Product">
                        <span class="nav-icon"><i class="fa fa-cube"></i></span>
                        &nbsp;
                        {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
@@ -70,8 +70,8 @@
                                   (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
                            <span class="lbl"></span>
                        </label>
-                   </template>
-                   <template let-node pTemplate="ProductsGroup">
+                   </ng-template>
+                   <ng-template let-node pTemplate="ProductsGroup">
                        <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                        &nbsp;
                        <span class="{{ isSelectedGroupNode ? 'bg-danger' : '' }}">
@@ -92,7 +92,7 @@
                                   (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
                            <span class="lbl"></span>
                        </label>
-                   </template>
+                   </ng-template>
                </p-tree>
 
            </div>

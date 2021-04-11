@@ -8,7 +8,7 @@ import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
    
     selector: 'clinic-settings',
-    templateUrl: 'clinic-settings.component.html'
+    templateUrl: './clinic-settings.component.html'
 })
 
 export class ClinicSettingsComponent {

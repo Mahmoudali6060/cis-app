@@ -1,25 +1,20 @@
 ﻿
-import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-
-import {EditorModule, SharedModule as SharedModuleNg} from 'primeng/primeng';
-import { TreeModule } from 'primeng/primeng';
-import {DataTableModule} from 'primeng/primeng';
-import {CalendarModule} from 'primeng/primeng';
-import {DialogModule} from 'primeng/primeng';
-
-//import { routing } from '../app.routing';
+// import {EditorModule, SharedModule as SharedModuleNg} from 'primeng/primeng';
+import { TreeModule } from 'primeng/tree';
+import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
 import { PatientRoutingModule } from './patients.routing';
-
-import { PatientTabsComponent }   from './patient-tabs/patient-tabs.component';
-import { PatientBasicComponent }   from './patient-basic/patient-basic.component';
-import { PatientVitalSignsComponent }   from './patient-vital-signs/patient-vital-signs.component';
-import { PatientDiagnosisComponent }   from './patient-diagnosis/patient-diagnosis.component';
-import { PatientMedicationComponent }   from './patient-medication/patient-medication.component';
-import { PatientSurgeriesComponent }   from './patient-surgeries/patient-surgeries.component';
-import { PatientAllergiesComponent }   from './patient-allergies/patient-allergies.component';
+import { PatientTabsComponent } from './patient-tabs/patient-tabs.component';
+import { PatientBasicComponent } from './patient-basic/patient-basic.component';
+import { PatientVitalSignsComponent } from './patient-vital-signs/patient-vital-signs.component';
+import { PatientDiagnosisComponent } from './patient-diagnosis/patient-diagnosis.component';
+import { PatientMedicationComponent } from './patient-medication/patient-medication.component';
+import { PatientSurgeriesComponent } from './patient-surgeries/patient-surgeries.component';
+import { PatientAllergiesComponent } from './patient-allergies/patient-allergies.component';
 //import { PatientServicesComponent }   from './patient-services/patient-services.component';
 import { PatientLaboratoryComponent } from './patient-laboratory/patient-laboratory.component';
 import { PatientRadiologyComponent } from './patient-radiology/patient-radiology.component';
@@ -31,10 +26,7 @@ import { PatientAllergyDetailsComponent } from './patient-allergy-details/patien
 import { PatientLabDetailsComponent } from './patient-lab-details/patient-lab-details.component';
 import { PatientRadiologyDetailsComponent } from './patient-radiology-details/patient-radiology-details.component';
 import { PatientAttachmentDetailsComponent } from './patient-attachment-details/patient-attachment-details.component';
-import { DateHijriGregorian} from './date-hijri-gregorian/date-hijri-gregorian.component';
-
-
-//import { PatientServiceDetailsComponent } from './patient-service-details/patient-service-details.component';
+import { DateHijriGregorian } from './date-hijri-gregorian/date-hijri-gregorian.component';
 import { PatientReceptionistTabsComponent } from './patient-receptionist-tabs/patient-receptionist-tabs.component';
 import { PatientAccountComponent } from './patient-account/patient-account.component';
 import { PatientPersonalComponent } from './patient-personal/patient-personal.component';
@@ -53,27 +45,18 @@ import { PatientNoteViewComponent } from './patient-note-view/patient-note-view.
 import { PatientRemarksComponent } from './patient-remarks/patient-remarks.component';
 import { PatientFileComponent } from './patient-file/patient-file.component';
 import { PatienSearchComponent } from './patient-search/patient-search.component';
-import { PatientServicesGridComponent } from './Patient-ServicesGrid/Patient-ServicesGrid.Component';
-import { PatientServicePackagesGridComponent } from './patient-servicePackages-grid/patient-servicePackages-grid.Component';
 import { PatientNoteServicesComponent } from './patient-note-services/patient-note-services.component';
-
-import { PatientDiagnosisGridComponent } from './Patient-diagnosisGrid/Patient-diagnosisGrid.Component';
 import { PatientNoteDiagnosisComponent } from './patient-note-diagnosis/patient-note-diagnosis.component';
-
 import { PatientNoteRadiologyComponent } from './patient-note-radiology/patient-note-radiology.component';
 import { PatientRadiologyGridComponent } from './patient-radiologyGrid/patient-radiologyGrid.component';
-
-import { PatientLaboratoryGridComponent } from './Patient-laboratoryGrid/Patient-laboratoryGrid.Component';
 import { PatientNoteLaboratoryComponent } from './patient-note-laboratory/patient-note-laboratory.component';
-
-import { PatientMedicationsGridComponent } from './Patient-medicationsGrid/Patient-medicationsGrid.Component';
 import { PatientNoteMedicationsComponent } from './patient-note-medications/patient-note-medications.component';
-
-
 import { SharedModule } from '../shared/shared.module';
-
-import { PatientService }   from './shared/patient.service';
-import { SharedService }   from '../shared/shared/shared.service';
+import { PatientServicesGridComponent } from './patient-servicesGrid/patient-servicesGrid.component';
+import { PatientDiagnosisGridComponent } from './patient-diagnosisGrid/patient-diagnosisGrid.component';
+import { PatientLaboratoryGridComponent } from './patient-laboratoryGrid/patient-laboratoryGrid.component';
+import { PatientMedicationsGridComponent } from './patient-medicationsGrid/patient-medicationsGrid.component';
+import { PatientServicePackagesGridComponent } from './patient-servicePackages-grid/patient-servicePackages-grid.component';
 
 
 @NgModule({
@@ -81,17 +64,17 @@ import { SharedService }   from '../shared/shared/shared.service';
         FormsModule,
         CommonModule,
         PatientRoutingModule,
-        SharedModule,  
-        EditorModule,
-        SharedModuleNg,      
-        TreeModule,        
+        SharedModule,
+        // EditorModule,
+        // SharedModuleNg,      
+        TreeModule,
         //routing,  
-        DataTableModule,
+        TableModule,
         CalendarModule,
         DialogModule,
 
     ],
-    declarations: [        
+    declarations: [
         PatientTabsComponent,
         PatientBasicComponent,
         PatientVitalSignsComponent,
@@ -142,10 +125,10 @@ import { SharedService }   from '../shared/shared/shared.service';
         PatientMedicationsGridComponent,
         PatientServicePackagesGridComponent
 
-       
+
     ],
     providers: [],
-    exports:[
+    exports: [
         PatientTabsComponent,
         PatientBasicComponent,
         PatientVitalSignsComponent,
@@ -194,7 +177,7 @@ import { SharedService }   from '../shared/shared/shared.service';
         PatientNoteMedicationsComponent,
         PatientMedicationsGridComponent,
         PatientServicePackagesGridComponent
-       
+
     ]
 })
 export class PatientsModule { }

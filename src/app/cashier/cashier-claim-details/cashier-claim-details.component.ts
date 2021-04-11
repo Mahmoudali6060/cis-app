@@ -1,24 +1,24 @@
-﻿import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { AccountService } from '../../security/shared/account.service';
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { ClaimService } from '../shared/claim.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'cashier-claim-details',
-    templateUrl: 'cashier-claim-details.component.html'
+    templateUrl: './cashier-claim-details.component.html'
 })
 
 export class CashierClaimDetailsComponent implements OnInit {
 
     patient: any = {};
-    claimId;
-    filterString: string | undefined;
+    claimId!: number;
+    filterString!: string;
     showProgress = false;
     active: boolean = true;
     toPrintDiv: string = "print-section";
@@ -30,7 +30,7 @@ export class CashierClaimDetailsComponent implements OnInit {
     enableReprocessBtn: boolean = false;
     enableCancelClaim: boolean = false;
     enableEditClaimDate: boolean = false;
-    
+
 
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
@@ -44,7 +44,7 @@ export class CashierClaimDetailsComponent implements OnInit {
         this.claimId = this.activatedRoute.snapshot.params['id'];
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
@@ -67,22 +67,22 @@ export class CashierClaimDetailsComponent implements OnInit {
         let thisComponent = this;
         this.claimService.getClaimDetails(this.claimId)
             .subscribe(
-            function (response:any) {
-                thisComponent.patientClaim = response;
-                thisComponent.patientClaim.claimDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.patientClaim.claimDate);
-                thisComponent.patientClaim.claimDateString = thisComponent.utilityClass.getDateTimeAsString(thisComponent.patientClaim.claimDate);;
-                if (thisComponent.patientClaim)
-                    thisComponent.isClaimCanceled = thisComponent.patientClaim.claimStatus == 'Canceled';
+                function (response: any) {
+                    thisComponent.patientClaim = response;
+                    thisComponent.patientClaim.claimDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.patientClaim.claimDate);
+                    thisComponent.patientClaim.claimDateString = thisComponent.utilityClass.getDateTimeAsString(thisComponent.patientClaim.claimDate);;
+                    if (thisComponent.patientClaim)
+                        thisComponent.isClaimCanceled = thisComponent.patientClaim.claimStatus == 'Canceled';
 
-                thisComponent.patient = { unifiedMRN: thisComponent.patientClaim.unifiedMRN, clinicMRN: thisComponent.patientClaim.patientMrn, name: thisComponent.patientClaim.patientName }
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                    thisComponent.patient = { unifiedMRN: thisComponent.patientClaim.unifiedMRN, clinicMRN: thisComponent.patientClaim.patientMrn, name: thisComponent.patientClaim.patientName }
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     reProcessClaim() {
@@ -90,25 +90,25 @@ export class CashierClaimDetailsComponent implements OnInit {
         let thisComponent = this;
         this.claimService.reProcessClaim(this.claimId)
             .subscribe(
-            function (response:any) {
-                thisComponent.patientClaim = response;
-                thisComponent.patientClaim.claimDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.patientClaim.claimDate);
-                thisComponent.patientClaim.claimDateString = thisComponent.utilityClass.getDateTimeAsString(thisComponent.patientClaim.claimDate);;
-                if (thisComponent.patientClaim)
-                    thisComponent.isClaimCanceled = thisComponent.patientClaim.claimStatus == 'Canceled';
+                function (response: any) {
+                    thisComponent.patientClaim = response;
+                    thisComponent.patientClaim.claimDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.patientClaim.claimDate);
+                    thisComponent.patientClaim.claimDateString = thisComponent.utilityClass.getDateTimeAsString(thisComponent.patientClaim.claimDate);;
+                    if (thisComponent.patientClaim)
+                        thisComponent.isClaimCanceled = thisComponent.patientClaim.claimStatus == 'Canceled';
 
-                thisComponent.patient = { unifiedMRN: thisComponent.patientClaim.unifiedMRN, clinicMRN: thisComponent.patientClaim.patientMrn, name: thisComponent.patientClaim.patientName }
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                    thisComponent.patient = { unifiedMRN: thisComponent.patientClaim.unifiedMRN, clinicMRN: thisComponent.patientClaim.patientMrn, name: thisComponent.patientClaim.patientName }
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
-    updateAmount(updates) {
+    updateAmount(updates: any) {
         if (updates != null || updates != undefined) {
             //Subtract the old value
             this.patientClaim.totalAmount = this.patientClaim.totalAmount - updates.oldValue;
@@ -131,24 +131,24 @@ export class CashierClaimDetailsComponent implements OnInit {
         this.showProgress = true;
         this.claimService.cancelClaim(toCancelClaim)
             .subscribe(
-            function (response:any) {
-                thisComponent.patientClaim.claimStatus = 'Canceled';
-                thisComponent.patientClaim.cancellationDateString = thisComponent.utilityClass.getISODateFormat(dtNow);
-                if (thisComponent.patientClaim.canceledBy == null)
-                    thisComponent.patientClaim.canceledBy = {};
-                thisComponent.patientClaim.canceledBy.name = canceledByName;
-                thisComponent.isClaimCanceled = true;
-                //thisComponent.toastr.success('Claim canceled successfully', '');
-                let msg = thisComponent.translate.instant("ClaimCanceledSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.patientClaim.claimStatus = 'Canceled';
+                    thisComponent.patientClaim.cancellationDateString = thisComponent.utilityClass.getISODateFormat(dtNow);
+                    if (thisComponent.patientClaim.canceledBy == null)
+                        thisComponent.patientClaim.canceledBy = {};
+                    thisComponent.patientClaim.canceledBy.name = canceledByName;
+                    thisComponent.isClaimCanceled = true;
+                    //thisComponent.toastr.success('Claim canceled successfully', '');
+                    let msg = thisComponent.translate.instant("ClaimCanceledSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
 
@@ -161,19 +161,19 @@ export class CashierClaimDetailsComponent implements OnInit {
         this.showProgress = true;
         this.claimService.changeClaimDate(toChangeClaim)
             .subscribe(
-            function (response:any) {
-                thisComponent.patientClaim.claimDateString = thisComponent.utilityClass.getDateTimeAsString(thisComponent.patientClaim.claimDate);;
-                //thisComponent.toastr.success('ClaimDateChangedSuccessfully', '');
-                let msg = thisComponent.translate.instant("ClaimDateChangedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.patientClaim.claimDateString = thisComponent.utilityClass.getDateTimeAsString(thisComponent.patientClaim.claimDate);;
+                    //thisComponent.toastr.success('ClaimDateChangedSuccessfully', '');
+                    let msg = thisComponent.translate.instant("ClaimDateChangedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     //get claim report

@@ -29,22 +29,22 @@
                         selectionMode="single"
                         [(selection)]="selectedDoctor"
                         (onNodeSelect)="nodeSelect($event)">
-                    <template let-node pTemplate="Medical">
+                    <ng-template let-node pTemplate="Medical">
                         {{lang == 'ar' ? node.label : node.labelTranslation}}
-                    </template>
-                    <template let-node pTemplate="NonMedical">
+                    </ng-template>
+                    <ng-template let-node pTemplate="NonMedical">
                         {{lang == 'ar' ? node.label : node.labelTranslation}}
-                    </template>
-                    <template let-node pTemplate="ClinicDepartment">
+                    </ng-template>
+                    <ng-template let-node pTemplate="ClinicDepartment">
                         {{lang == 'ar' ? node.label : node.labelTranslation}}
-                    </template>
-                    <template let-node pTemplate="ClinicDivision">
+                    </ng-template>
+                    <ng-template let-node pTemplate="ClinicDivision">
                         {{lang == 'ar' ? node.label : node.labelTranslation}}
-                    </template>
-                    <template let-node pTemplate="SecurityUser">
+                    </ng-template>
+                    <ng-template let-node pTemplate="SecurityUser">
                         <span class="glyphicon glyphicon-user"></span>
                         {{lang == 'ar' ? node.label : node.labelTranslation}}
-                    </template>
+                    </ng-template>
                 </p-tree>
             </div>
             <div class="col-md-9 padding5">

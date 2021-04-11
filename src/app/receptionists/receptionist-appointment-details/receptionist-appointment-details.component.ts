@@ -16,14 +16,14 @@ import {LocalStorageService} from 'ng2-webstorage';
 export class ReceptionistAppointmentDetailsComponent implements OnInit {
 
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!:string;
     @Input() AppontmentId: any;
 
    @Input() appointmentDetails: any = {};
 
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
     constructor(private receptionistService: ReceptionistService
         , private sharedService: SharedService

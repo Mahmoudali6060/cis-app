@@ -1,11 +1,11 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import {AdministrationService} from '../../administration/shared/administration.service';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { AdministrationService } from '../../administration/shared/administration.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 enum EMRWizard {
-    Diagnosis=1,
+    Diagnosis = 1,
     Medication,
     Services,
     LabTests,
@@ -14,22 +14,22 @@ enum EMRWizard {
     Remarks
 }
 @Component({
-   
+
     selector: 'clinic-EMRWizard',
-    templateUrl: 'clinic-EMRWizard.component.html'
+    templateUrl: './clinic-EMRWizard.component.html'
 })
 
 export class ClinicEMRWizardComponent implements OnInit {
-   selectEMRWizardTab: boolean = true;
+    selectEMRWizardTab: boolean = true;
     selectAccountTab: boolean = true;
     clinicModel: any = { id: 0, isActive: true };
-    clinicId: number | undefined;
-    emrValue: string = '';
+    clinicId!: number;
+    emrValue!: any;
     concatEmrValue: string = '';
     selectClinicsTab: boolean = true;
     showProgress = false;
     active: boolean = true;
-    wizardItems: EMRWizard;
+    wizardItems!: EMRWizard;
 
     constructor(private administrationService: AdministrationService,
         private localStorage: LocalStorageService,
@@ -52,18 +52,18 @@ export class ClinicEMRWizardComponent implements OnInit {
             this.showProgress = true;
             this.administrationService.getClinicById(this.clinicId)
                 .subscribe(
-                function (response:any) {
-                    thisComp.clinicModel = response;
-                    thisComp.wizardItems = thisComp.clinicModel.emrWizardList;
-                    thisComp.showProgress = false;
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                    thisComp.showProgress = false;
-                },
-                function () {
-                    thisComp.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComp.clinicModel = response;
+                        thisComp.wizardItems = thisComp.clinicModel.emrWizardList;
+                        thisComp.showProgress = false;
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showProgress = false;
+                    },
+                    function () {
+                        thisComp.showProgress = false;
+                    });
         }
     }
 
@@ -78,18 +78,18 @@ export class ClinicEMRWizardComponent implements OnInit {
         // update
         this.administrationService.updateClinic(thisComponent.clinicModel)
             .subscribe(
-            function (response:any) {
-                thisComponent.clinicModel = response;
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.clinicModel = response;
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     returnToDefaultOrder(): void {
@@ -101,19 +101,19 @@ export class ClinicEMRWizardComponent implements OnInit {
         // update
         this.administrationService.updateClinic(thisComponent.clinicModel)
             .subscribe(
-            function (response:any) {
-                thisComponent.clinicModel = response;
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-                thisComponent.initializeModel();
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.clinicModel = response;
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                    thisComponent.initializeModel();
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
 
 
     }
@@ -122,7 +122,7 @@ export class ClinicEMRWizardComponent implements OnInit {
         this.concatEmrValue = '';
         for (let emrWizard of emrWizards) {
             this.emrValue = emrWizard;
-            var tempValue: EMRWizard = <EMRWizard>EMRWizard[this.emrValue];// used to vonvert string into enum integer value
+            var tempValue: any = EMRWizard[this.emrValue];// used to vonvert string into enum integer value
             this.concatEmrValue += tempValue + ',';
 
         }

@@ -4,11 +4,11 @@ export class TimeSlot {
 
     utilClass: UtilityClass = new UtilityClass();
 
-    name: string | undefined;
-    amPmName: string | undefined;
+    name!:string;
+    amPmName!:string;
 
-    hour: number | undefined;
-    minute: number | undefined;
+    hour!: number;
+    minute!: number;
     dateTime: Date | undefined;
 
     constructor(selectedDate: Date) {

@@ -10,16 +10,16 @@
                 <input name="txtSearchServices2" [placeholder]="'SearchByNameorCode' | translate" class="form-control" [(ngModel)]="filterString" />
                 <div class="nopadding treeBorder" style="height:180px;">
                     <p-tree [value]="servicesTree | translateObjects  : null : null : lstToBeTranslated  | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedNode">
-                        <template let-node pTemplate="ServiceGroup">
+                        <ng-template let-node pTemplate="ServiceGroup">
                             <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                             &nbsp;
                             {{node.label}}
-                        </template>
-                        <template let-node pTemplate="Service">
+                        </ng-template>
+                        <ng-template let-node pTemplate="Service">
                             <span class="nav-icon"><i class="fa fa-cube"></i></span>
                             &nbsp;
                             {{node.label}}
-                        </template>
+                        </ng-template>
                     </p-tree>
                 </div>
             </div>
@@ -44,13 +44,13 @@
                 <p-column field="serviceName" [header]="'ServiceName' | translate" [sortable]="true"></p-column>
                 <p-column field="noOfTimeSlots" [header]="'NoofTimeSlots' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                    <template let-item="rowData" pTemplate="body">
+                    <ng-template let-item="rowData" pTemplate="body">
                         <a [class.disabled]="!enableSaveBtn && !isClinicAdmin ? true : null">
                            
                             <i class="fa fa-pencil fa-2x" (click)="editServiceSlot(item.id)" title="Edit Time Slots" style="color: #32bea6;"></i>
 
                         </a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
         </div>

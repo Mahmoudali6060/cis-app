@@ -7,24 +7,16 @@ import {LocalStorageService} from 'ng2-webstorage';
 @Component({
    
     selector: 'cashier-reports',
-    templateUrl: 'cashier-reports.component.html'
+    templateUrl: './cashier-reports.component.html'
 })
 
 export class CashierReportsComponent {
 
-    //active: boolean = true;
-    //selectReportsTab: boolean = true;
-
 
     clinicId = '';
-
     constructor(private _route: ActivatedRoute
         , public storage: LocalStorageService)
     { }
-
-
-
-
 
     ngOnInit(): void {
 

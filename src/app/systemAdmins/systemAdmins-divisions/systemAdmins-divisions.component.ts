@@ -1,15 +1,15 @@
-﻿import {Component, OnInit } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 
 import { AccountService } from '../../security/shared/account.service';
-import {AdministrationService} from '../../administration/shared/administration.service';
+import { AdministrationService } from '../../administration/shared/administration.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'systemAdmins-divisions',
     templateUrl: 'systemAdmins-divisions.component.html'
 })
@@ -20,9 +20,9 @@ export class SystemAdminDivisionsComponent implements OnInit {
     model: any = { id: 0, isActive: true };
     showProgress = false;
     active = true;
-    allObjects: any[];
+    allObjects!: any[];
     itemToDeleteId: string = '';
-    departmentsList: any[];
+    departmentsList!: any[];
     selectDivisionsTab: boolean = true;
     enableMyAccountBtn: boolean = false;
 
@@ -33,7 +33,6 @@ export class SystemAdminDivisionsComponent implements OnInit {
 
     ngOnInit(): void {
         let thisComponent = this;
-
         this.lstToTranslated = ['departmentName', 'departmentNameTranslation'];
         thisComponent.showProgress = true;
         let userType = this.localStorage.retrieve("UserType");
@@ -41,20 +40,19 @@ export class SystemAdminDivisionsComponent implements OnInit {
             this.enableMyAccountBtn = true;
 
         this.loadTable();
-
         this.administrationService.getDivisionsWrapper()
             .subscribe(
-            function (response:any) {
-                thisComponent.departmentsList = response.departments;
+                function (response: any) {
+                    thisComponent.departmentsList = response.departments;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     onSubmit(): void {
@@ -63,23 +61,23 @@ export class SystemAdminDivisionsComponent implements OnInit {
 
         this.administrationService.saveDivision(this.model)
             .subscribe(
-            function (response:any) {
-                       let msg = vm.translate.instant("SavedSuccessfully");
+                function (response: any) {
+                    let msg = vm.translate.instant("SavedSuccessfully");
                     vm.toastr.success(msg, '');
 
-                vm.loadTable();
+                    vm.loadTable();
 
-                vm.clear();
-            },
-            function (error:any) { 
-                let msg = vm.translate.instant("ErrorSaving");
-                vm.toastr.error(msg, '');
+                    vm.clear();
+                },
+                function (error: any) {
+                    let msg = vm.translate.instant("ErrorSaving");
+                    vm.toastr.error(msg, '');
 
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
     }
 
@@ -89,16 +87,16 @@ export class SystemAdminDivisionsComponent implements OnInit {
         vm.showProgress = true;
         this.administrationService.getAllDivisions()
             .subscribe(
-            function (response:any) {
-                vm.allObjects = response;
-            },
-            function (error:any) { 
-                vm.toastr.error( error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.allObjects = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     editItem(id: string): void {
@@ -125,36 +123,36 @@ export class SystemAdminDivisionsComponent implements OnInit {
         vm.showProgress = true;
         this.administrationService.deleteItem(this.itemToDeleteId, this.objectType)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                var selectedObject = vm.allObjects.find(o => o.id == vm.itemToDeleteId);
-                var index = vm.allObjects.indexOf(selectedObject);
-                if (index > -1)
-                    vm.allObjects.splice(index, 1);
+                    // remove delete object from collection
+                    var selectedObject = vm.allObjects.find(o => o.id == vm.itemToDeleteId);
+                    var index = vm.allObjects.indexOf(selectedObject);
+                    if (index > -1)
+                        vm.allObjects.splice(index, 1);
 
-                // clear fields
-                vm.clear();
-            },
-            function (error:any) { 
-                let msg = vm.translate.instant("ErrorHappened");
-                vm.toastr.error(msg, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    vm.clear();
+                },
+                function (error: any) {
+                    let msg = vm.translate.instant("ErrorHappened");
+                    vm.toastr.error(msg, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     clear(): void {
-        this.model = { id: 0, isActive: true};
+        this.model = { id: 0, isActive: true };
         this.active = false;
         setTimeout(() => this.active = true, 0);
     }
 
-    changeActivation(id, event) {
+    changeActivation(id: any, event: any) {
 
         this.editItem(id);
         this.model.isActive = event.target.checked;

@@ -16,7 +16,7 @@ import {LocalStorageService} from 'ng2-webstorage';
 export class ReceptionistReportsComponent implements OnInit {
 
     //selectBasicTab: boolean = true;
-    //filterString: string | undefined;
+    //filterString!:string;
 
     //active = true;
     //model: any = {};

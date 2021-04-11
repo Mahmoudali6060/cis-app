@@ -5,7 +5,7 @@ import { AdministrationService } from '../../administration/shared/administratio
 import { UtilityClass } from '../../shared/shared/utility.class';
 
 import { ToastrService } from 'ngx-toastr';
-import {CalendarModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/calendar';
 
 @Component({
    
@@ -17,7 +17,7 @@ export class SystemAdminClinicSubscriptionComponent implements OnChanges, OnInit
 
     @Input() clinicModel: any = {}
     @Output() onModelUpdated = new EventEmitter<any>();
-    @ViewChild('btnSubscriptionModalClose') btnSubscriptionModalClose: ElementRef;
+    @ViewChild('btnSubscriptionModalClose') btnSubscriptionModalClose!: ElementRef;
 
     subscriptionsList: any[] = [];
     currentSubscription: any = {};

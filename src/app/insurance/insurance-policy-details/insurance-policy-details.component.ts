@@ -1,20 +1,19 @@
 ﻿import { Component, OnInit, Input, Output, EventEmitter, OnChanges, ElementRef, ViewChild } from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
-
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService} from '@ngx-translate/core';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService } from '@ngx-translate/core';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { AccountService } from '../../security/shared/account.service';
-import {InsuranceService} from '../shared/insurance.service';
+import { InsuranceService } from '../shared/insurance.service';
 import { UtilityClass } from '../../shared/shared/utility.class'
-import {PatientService} from '../../patients/shared/patient.service';
+import { PatientService } from '../../patients/shared/patient.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-   
+
     selector: 'insurance-policy-details',
-    templateUrl: 'insurance-policy-details.component.html'
+    templateUrl: './insurance-policy-details.component.html'
 })
 
 export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
@@ -22,11 +21,11 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
     @Input() companyId: any;
     @Input() companyName: any;
     @Input() policyId: any;
-    @Input() policyPatients: any[];
+    @Input() policyPatients!: any[];
     @Output() onPolicyAdded = new EventEmitter<any>();
     @Output() onPolicyUpdated = new EventEmitter<any>();
 
-    @ViewChild('btnOpenPolicyPatientDiv') btnOpenPolicyPatientDiv: ElementRef;
+    @ViewChild('btnOpenPolicyPatientDiv') btnOpenPolicyPatientDiv!: ElementRef;
 
     utilityClass: UtilityClass = new UtilityClass();
 
@@ -59,7 +58,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
@@ -73,7 +72,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
                     this.setPolicyPatientToDeleteBtn = true;
                     this.enableEditPolicypatient = true;
                 }
-                    
+
                 if ((item.permission.key == this.key.DefinePatientPolicy) && (item.edit == true))
                     this.enableEditPolicypatient = true;
 
@@ -87,20 +86,20 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
             thisComponent.showProgress = true;
             this.insuranceService.getPolicyDetails(this.policyId)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.updatePolicyModelToView(response:any);
-                    if (response.patients != undefined && response.patients != null)
-                        thisComponent.policyPatients = response.patients;
-                    else
-                        thisComponent.policyPatients = [];
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.updatePolicyModelToView(response);
+                        if (response.patients != undefined && response.patients != null)
+                            thisComponent.policyPatients = response.patients;
+                        else
+                            thisComponent.policyPatients = [];
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
 
@@ -129,40 +128,39 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
             this.updatePolicyModelToSave();
             this.insuranceService.savePolicy(this.policyModel)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.updatePolicyModelToView(response:any);
-                    thisComponent.raisePolicyAdded(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.updatePolicyModelToView(response);
+                        thisComponent.raisePolicyAdded(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
         else//Update
         {
             this.updatePolicyModelToSave();
             this.insuranceService.updatePolicy(this.policyModel)
                 .subscribe(
-                function (response:any) {
-
-                    thisComponent.updatePolicyModelToView(response:any);
-                    thisComponent.raisePolicyUpdated(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.updatePolicyModelToView(response);
+                        thisComponent.raisePolicyUpdated(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -178,7 +176,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
         this.policyModel.endDate = this.utilityClass.getUtcDate(this.policyModel.endDate);
     }
 
-    updatePolicyModelToView(response:any) {
+    updatePolicyModelToView(response: any) {
         this.policyModel = response;
         this.policyModel.startDate = this.utilityClass.getUtcDateFromString(response.startDate);
         this.policyModel.endDate = this.utilityClass.getUtcDateFromString(response.endDate);
@@ -204,7 +202,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
         this.patientSearchVisible = true;
     }
 
-    managePatientSelection(selectedPatientMrn) {
+    managePatientSelection(selectedPatientMrn: any) {
         this.policyPatientModel.patientMrn = selectedPatientMrn;
         this.patientSearchVisible = false;
     }
@@ -214,45 +212,44 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
         let thisComp = this;
         this.patientService.getPatientByClinicMRN(this.policyPatientModel.patientMrn)
             .subscribe(
-            function (response:any) {
-                thisComp.createPatientInsurance(response:any);
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
-    }
-
-    createPatientInsurance(patient)
-    {
-        let thisComp = this;
-        this.showProgress = true;
-
-        this.policyPatientModel.patientId = patient.id;
-        this.policyPatientModel.policyId = this.policyModel.id;
-       this.policyPatientModel.companyId = this.policyModel.companyId;
-        this.policyPatientModel.startDate = this.utilityClass.getUtcDate(this.policyPatientModel.startDate);
-        this.policyPatientModel.endDate = this.utilityClass.getUtcDate(this.policyPatientModel.endDate);
-
-        if (this.policyPatientModel.id == 0) {
-            this.patientService.createPatientInsurance(this.policyPatientModel)
-                .subscribe(
-                function (response:any) {
-                    thisComp.policyPatients.push(response:any);
-                    thisComp.clearPolicyPatient();
-                    let msg = thisComp.translate.instant("SavedSuccessfully");
-                    thisComp.toastr.success(msg, '');
+                function (response: any) {
+                    thisComp.createPatientInsurance(response);
                 },
-                function (error:any) { 
+                function (error: any) {
                     thisComp.toastr.error(error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
                     thisComp.showProgress = false;
                 });
+    }
+
+    createPatientInsurance(patient: any) {
+        let thisComp = this;
+        this.showProgress = true;
+
+        this.policyPatientModel.patientId = patient.id;
+        this.policyPatientModel.policyId = this.policyModel.id;
+        this.policyPatientModel.companyId = this.policyModel.companyId;
+        this.policyPatientModel.startDate = this.utilityClass.getUtcDate(this.policyPatientModel.startDate);
+        this.policyPatientModel.endDate = this.utilityClass.getUtcDate(this.policyPatientModel.endDate);
+
+        if (this.policyPatientModel.id == 0) {
+            this.patientService.createPatientInsurance(this.policyPatientModel)
+                .subscribe(
+                    function (response: any) {
+                        thisComp.policyPatients.push(response);
+                        thisComp.clearPolicyPatient();
+                        let msg = thisComp.translate.instant("SavedSuccessfully");
+                        thisComp.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showProgress = false;
+                    },
+                    function () {
+                        thisComp.showProgress = false;
+                    });
         }
         else//Update
         {
@@ -260,18 +257,18 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
             this.policyPatientModel.endDate = this.utilityClass.getUtcDate(this.policyPatientModel.endDate);
             this.patientService.updatePatientInsurance(this.policyPatientModel)
                 .subscribe(
-                function (response:any) {
-                    thisComp.clearPolicyPatient();
-                    let msg = thisComp.translate.instant("SavedSuccessfully");
-                    thisComp.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                    thisComp.showProgress = false;
-                },
-                function () {
-                    thisComp.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComp.clearPolicyPatient();
+                        let msg = thisComp.translate.instant("SavedSuccessfully");
+                        thisComp.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showProgress = false;
+                    },
+                    function () {
+                        thisComp.showProgress = false;
+                    });
         }
     }
 
@@ -281,7 +278,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
         //setTimeout(() => this.policyPatientFormActive = true, 0);
     }
 
-    editPolicyPatient(itemToEdit) {
+    editPolicyPatient(itemToEdit: any) {
         this.policyPatientModel = itemToEdit;
         this.policyPatientModel.startDate = this.utilityClass.getUtcDateFromString(itemToEdit.startDate);
         this.policyPatientModel.endDate = this.utilityClass.getUtcDateFromString(itemToEdit.endDate);
@@ -290,7 +287,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
             this.btnOpenPolicyPatientDiv.nativeElement.click();
     }
 
-    setPolicyPatientToDelete(policyPatientId) {
+    setPolicyPatientToDelete(policyPatientId: any) {
 
         let msg = this.translate.instant("AreYouSureDelete");
         let result = confirm(msg);
@@ -298,29 +295,28 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
             this.deletePolicyPatient(policyPatientId);
     }
 
-    deletePolicyPatient(policyPatientId)
-    {
+    deletePolicyPatient(policyPatientId: any) {
         let thisComp = this;
         this.showProgress = true;
 
         this.patientService.deletePatientInsurance(policyPatientId)
             .subscribe(
-            function (response:any) {
-                thisComp.clearPolicyPatient();
-                thisComp.removePolicyPatientFromList(policyPatientId);
-                let msg = thisComp.translate.instant("DeletedSuccessfully");
-                thisComp.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComp.toastr.error(error, '');
-                thisComp.showProgress = false;
-            },
-            function () {
-                thisComp.showProgress = false;
-            });
+                function (response: any) {
+                    thisComp.clearPolicyPatient();
+                    thisComp.removePolicyPatientFromList(policyPatientId);
+                    let msg = thisComp.translate.instant("DeletedSuccessfully");
+                    thisComp.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComp.toastr.error(error, '');
+                    thisComp.showProgress = false;
+                },
+                function () {
+                    thisComp.showProgress = false;
+                });
     }
 
-    removePolicyPatientFromList(policyPatientId) {
+    removePolicyPatientFromList(policyPatientId: any) {
         var itemToRemove = this.policyPatients.find(p => p.id == policyPatientId);
         var index = this.policyPatients.indexOf(itemToRemove);
         if (index > -1)

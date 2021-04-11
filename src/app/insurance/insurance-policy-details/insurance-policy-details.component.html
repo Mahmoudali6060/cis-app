@@ -173,21 +173,21 @@
                     <p-column field="endDateString" [header]="'EndDate' | translate" [sortable]="true"></p-column>
                     <p-column field="cardNumber" [header]="'MembershipNumber' | translate" [sortable]="true"></p-column>
                     <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                        <template let-policyPatient="rowData" pTemplate="body">
+                        <ng-template let-policyPatient="rowData" pTemplate="body">
                             <a class="pointer" [class.disabled]="!enableEditPolicypatient ? true : null"
                                (click)="editPolicyPatient(policyPatient)">
                                 <i class="fa fa-pencil fa-2x"  style="color: #32bea6;"></i>
                             </a>
-                        </template>
+                        </ng-template>
                     </p-column>
                     <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-                        <template let-policyPatient="rowData" pTemplate="body">
+                        <ng-template let-policyPatient="rowData" pTemplate="body">
                             <a [class.disabled]="!setPolicyPatientToDeleteBtn ? true : null"
                                class="pointer" 
                                (click)="setPolicyPatientToDelete(policyPatient.id)">
                                 <i  class="glyphicon glyphicon-remove iconAd"></i>
                             </a>
-                        </template>
+                        </ng-template>
                     </p-column>
                 </p-dataTable>
             </div>

@@ -1,18 +1,17 @@
-﻿import {Component, OnInit, ViewChild, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ReceptionistService } from '../shared/receptionist.service'
 import { SharedService } from '../../shared/shared/shared.service';
-import {DialogModule} from 'primeng/primeng';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService } from '@ngx-translate/core';
 
 import { UtilityClass } from '../../shared/shared/utility.class'
 
 @Component({
-   
+
     selector: 'receptionist-search',
     templateUrl: 'receptionist-search.component.html',
 })
@@ -23,7 +22,7 @@ export class ReceptionistSearchComponent implements OnInit {
     periodStartDate: Date = new Date();
     periodEndDate: Date = new Date();
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!: string;
     searchCriteria: any = {};
     appointmentDetails: any = {};
     appointmentCriteria: any = {};
@@ -46,7 +45,7 @@ export class ReceptionistSearchComponent implements OnInit {
 
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!: any;
 
     toPrintDiv: string = "matchedAppoitmentsToPrintDiv";
     doctorsList: any[] = [];
@@ -58,8 +57,7 @@ export class ReceptionistSearchComponent implements OnInit {
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['visitTypeName', 'visitNameTranslation', 'appointmentClassName', 'classNameTranslation', 'patientName', 'patientNameTranslation', 'doctorName', 'doctorNameTranslation'];
@@ -114,7 +112,7 @@ export class ReceptionistSearchComponent implements OnInit {
             this.todayStatus = false;
             this.weekStatus = false;
             this.monthStatus = false;
-            this.periodOfTime= false;
+            this.periodOfTime = false;
             this.pastOrFuture = true;
 
         }
@@ -133,56 +131,54 @@ export class ReceptionistSearchComponent implements OnInit {
             this.monthStatus = false;
             this.weekStatus = false;
             this.yearStatus = false;
-            this.periodOfTime= false;
+            this.periodOfTime = false;
             this.pastOrFuture = false;
             //this.appointmentCriteria.receptionistMethodsSearch = "";
         }
     }
 
-    getAllDoctorsInClinic()
-    {
+    getAllDoctorsInClinic() {
         let thisComponent = this;
         let clinicId = this.storage.retrieve('ClinicId');
         thisComponent.showProgress = true;
         this.receptionistService.getAllDoctorsInClinic(clinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.doctorsList = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error);
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.doctorsList = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error);
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     getAllPatients() {
         let thisComponent = this;
         thisComponent.receptionistService.SearchForPatient(thisComponent.searchCriteria)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.matchedPatients = response;
-                //thisComponent.display = false;
-                //thisComponent.displayPatientTable = true;
+                    thisComponent.matchedPatients = response;
+                    //thisComponent.display = false;
+                    //thisComponent.displayPatientTable = true;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error( error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
 
 
 
     }
-    GetId(appointmentModel: any)
-    {
+    GetId(appointmentModel: any) {
         this.appointmentId = appointmentModel.id;
         this.onAppointmentSelected.emit(appointmentModel);
         //this.getAppointmentById();
@@ -191,14 +187,13 @@ export class ReceptionistSearchComponent implements OnInit {
 
     GetAllAppointments() {
         let thisComponent = this;
-        
+
         //Update the dates
         if (this.periodOfTime) {
             this.appointmentCriteria.searchStartDate = this.utilityClass.getUtcDate(this.periodStartDate);
             this.appointmentCriteria.searchEndDate = this.utilityClass.getUtcDate(this.periodEndDate);
 
-            if (!(this.appointmentCriteria.searchEndDate >= this.appointmentCriteria.searchStartDate))
-            {
+            if (!(this.appointmentCriteria.searchEndDate >= this.appointmentCriteria.searchStartDate)) {
                 let msg = thisComponent.translate.instant('ScheduleStartDateValidation');
                 thisComponent.toastr.error(msg, '');
                 return;
@@ -209,18 +204,18 @@ export class ReceptionistSearchComponent implements OnInit {
 
         thisComponent.receptionistService.searchForAppointments(thisComponent.appointmentCriteria)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.matchedAppontments = response;
+                    thisComponent.matchedAppontments = response;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error( error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
 
 
@@ -236,18 +231,18 @@ export class ReceptionistSearchComponent implements OnInit {
 
         this.receptionistService.getAppointmentById(this.appointmentId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.appointmentDetails = response;
+                    thisComponent.appointmentDetails = response;
 
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
 
@@ -261,7 +256,7 @@ export class ReceptionistSearchComponent implements OnInit {
     }
 
 
-    imageChanged(response:any) {
+    imageChanged(response: any) {
         let attchmentInfo: any = {};
 
         if (response != null) {
@@ -282,8 +277,7 @@ export class ReceptionistSearchComponent implements OnInit {
         }
 
     }
-    managePatientSelection(selectedPatientMrn)
-    {
+    managePatientSelection(selectedPatientMrn: any) {
         this.appointmentCriteria.patientClinicMRN = selectedPatientMrn;
         this.display = false;
         this.GetAllAppointments();

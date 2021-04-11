@@ -46,7 +46,7 @@ export class PatientFileComponent implements OnInit {
     hasEditPermission: boolean = false;
     hasPatientAttachmentFile: boolean = false;
     hasDefinePatientPolicy: boolean = false;
-    selectedPatientId: string | undefined;
+    selectedPatientId!:string;
     constructor(private patientService: PatientService,
         private toastr: ToastrService,
         private localStorage: LocalStorageService,
@@ -85,7 +85,7 @@ export class PatientFileComponent implements OnInit {
         }
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item :any)=> this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }

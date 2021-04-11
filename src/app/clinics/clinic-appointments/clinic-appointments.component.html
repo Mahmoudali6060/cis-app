@@ -15,18 +15,18 @@
         <div class="nopadding treeBorder" style="height:180px;">
             <!--<p-tree [value]="items" selectionMode="single" [(selection)]="selectedFiles"></p-tree>-->
             <p-tree [value]="organizationStructure | translateObjects  : null : null : lstToTranslated " selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)">
-                <template let-node pTemplate="Medical">
+                <ng-template let-node pTemplate="Medical">
                     {{node.label}}
-                </template>
-                <template let-node pTemplate="ClinicDepartment">
+                </ng-template>
+                <ng-template let-node pTemplate="ClinicDepartment">
                     {{node.label}}
-                </template>
-                <template let-node pTemplate="ClinicDivision">
+                </ng-template>
+                <ng-template let-node pTemplate="ClinicDivision">
                     {{node.label}}
-                </template>
-                <template let-node pTemplate="SecurityUser">
+                </ng-template>
+                <ng-template let-node pTemplate="SecurityUser">
                     <span class="glyphicon glyphicon-user"></span> {{node.label}}
-                </template>
+                </ng-template>
             </p-tree>
         </div>
         <h4 class="h4Deco">{{ 'DoctorSchedules' | translate}}</h4>
@@ -46,9 +46,9 @@
                          [responsive]="true" reorderableColumns="true" [globalFilter]="gb"
                          rowGroupMode="subheader" groupField="fullName"
                          expandableRowGroups="true" [sortableRowGroup]="false">
-                <template pTemplate="rowgroupheader" let-rowData>
+                <ng-template pTemplate="rowgroupheader" let-rowData>
                     {{rowData['fullName']}}
-                </template>
+                </ng-template>
                 <!--<p-column field="categoryFriendlyName" header="Permission Category" [sortable]="true"></p-column>-->
                 <!--<p-column field="name" header="Permission" [sortable]="false"></p-column>-->
 
@@ -57,28 +57,28 @@
                 <p-column field="slotDuration" [header]="'SlotDuration' | translate" styleClass="text-center width50"></p-column>
                 <p-column field="description" [header]="'Remarks' | translate" styleClass="text-center width50"></p-column>
                 <p-column [header]="'Active' | translate" styleClass="text-center width50">
-                    <template let-appointment="rowData" pTemplate="body">
+                    <ng-template let-appointment="rowData" pTemplate="body">
                         <label>
                             <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
                                    type="checkbox" [checked]="appointment.isActive" (click)="changeActivation(appointment.id , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
                             <span class="lbl"></span>
                         </label>
-                    </template>
+                    </ng-template>
                 </p-column>
                 <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                    <template let-appointment="rowData" pTemplate="body">
+                    <ng-template let-appointment="rowData" pTemplate="body">
                         <a class="pointer" (click)="showDetails(appointment.id)" [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
                             <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
                         </a>
-                    </template>
+                    </ng-template>
                 </p-column>
                 <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-                    <template let-appointment="rowData" pTemplate="body">
+                    <ng-template let-appointment="rowData" pTemplate="body">
                         <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer"
                            (click)="selectAppointmentScheduleToDelete(appointment.id)" [class.disabled]="!enableDeleteBtn && !isClinicAdmin ? true : null">
                             <i class="glyphicon glyphicon-remove iconAd"></i>
                         </a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
         </div>

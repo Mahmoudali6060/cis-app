@@ -85,18 +85,18 @@
                 <p-column field="receptionistRemarks" [header]="'ReceptionistRemarks' | translate" [sortable]="true"></p-column>
                 <p-column field="arrivalTimeString" [header]="'Arrival' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'Seen' | translate" styleClass="text-center">
-                    <template let-appointment="rowData" pTemplate="body">
+                    <ng-template let-appointment="rowData" pTemplate="body">
                         <button class="btn btn-success" (click)="addSeenTime(appointment)" disabled="{{ !appointment.isSeen ? '' :'disabled'}}">
                             {{ (appointment.isSeen) ? appointment.seenTimeString : seenString }}
                         </button>
-                    </template>
+                    </ng-template>
                 </p-column>
                 <p-column [header]="'ViewMRF' | translate" styleClass="text-center width50">
-                    <template let-appointment="rowData" pTemplate="body">
+                    <ng-template let-appointment="rowData" pTemplate="body">
                         <a class="pointer" (click)="!disabled && viewMrf(appointment)" [class.disabled]="disabled ? true : null">
                             <img src="Images/viewFile-24.png" />
                         </a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
 

@@ -14,7 +14,7 @@ import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 
 export class PatientSnapshotComponent implements OnChanges, OnInit {
     @Input() activeTabIndex: number = 0;
-    @Input() patientId: number | undefined;
+    @Input() patientId!: number;
     @Input() patientDOB: Date | undefined;
     isDoctor: boolean = false;
 
@@ -26,7 +26,7 @@ export class PatientSnapshotComponent implements OnChanges, OnInit {
     isServicesSelected: boolean = false;
     isLaboratorySelected: boolean = false;
     isRadiologySelected: boolean = false;
-    clinicId;
+    clinicId!:any;
     headerText: string = this.translate.instant('Diagnosis');
     allServices = [];
     divisionId = '';

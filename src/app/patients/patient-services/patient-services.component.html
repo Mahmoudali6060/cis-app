@@ -21,18 +21,18 @@
         <p-column field="recordingDateString"[header]="'RecordedDate' | translate" [sortable]="true"></p-column>
         <p-column field="recorderName" [header]="'RecorderName' | translate" [sortable]="true"></p-column>
         <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-            <template let-noteService="rowData" pTemplate="body">
+            <ng-template let-noteService="rowData" pTemplate="body">
                 <a class="pointer" (click)="editItem(noteService.id)">
                     <img src="Images/edit-24.png" />
                 </a>
-            </template>
+            </ng-template>
         </p-column>
         <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-            <template let-noteService="rowData" pTemplate="body">
+            <ng-template let-noteService="rowData" pTemplate="body">
                 <a class="pointer" (click)="deleteSelectedItem(noteService.id)">
                     <img src="Images/delete-24.png" />
                 </a>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
 </div>

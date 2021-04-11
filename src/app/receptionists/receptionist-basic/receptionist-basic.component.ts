@@ -1,14 +1,14 @@
-﻿import {Component, OnInit, ViewChild} from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ReceptionistService } from '../shared/receptionist.service'
 import { SharedService } from '../../shared/shared/shared.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'receptionist-basic',
     templateUrl: 'receptionist-basic.component.html',
 })
@@ -18,18 +18,17 @@ export class ReceptionistBasicComponent implements OnInit {
 
     active = true;
     model: any = {};
-  
+
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!: any;
 
     constructor(private organizationService: ReceptionistService
         , private sharedService: SharedService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         /*let vm = this;
@@ -134,7 +133,7 @@ export class ReceptionistBasicComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    deleteOrganization(id): void {
+    deleteOrganization(id: any): void {
         /*let vm = this;
         if (id == undefined || isNaN(id)) {
             vm.toastr.warning('لايوجد جمعية مختارة لمسحها', '');
@@ -160,14 +159,12 @@ export class ReceptionistBasicComponent implements OnInit {
             });*/
     }
 
-    imageChanged(response:any)
-    {
+    imageChanged(response: any) {
         let attchmentInfo: any = {};
 
         if (response != null) {
 
-            if (response.originalName == undefined)
-            {
+            if (response.originalName == undefined) {
                 this.model.attachmentInfo = null;
                 return;
             }

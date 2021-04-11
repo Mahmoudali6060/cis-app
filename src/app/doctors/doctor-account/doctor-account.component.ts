@@ -6,7 +6,7 @@ import { UserTypeEnum } from '../../security/shared/user-type.enum';
 @Component({
    
     selector: 'doctor-account',
-    templateUrl: 'doctor-account.component.html'
+    templateUrl: './doctor-account.component.html'
 })
 
 export class DoctorAccountComponent implements OnInit {

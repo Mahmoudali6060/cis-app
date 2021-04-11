@@ -1,11 +1,7 @@
 ﻿
 import { Component, Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
-
 import { Router } from '@angular/router';
-
 import { LocalStorageService } from 'ng2-webstorage';
-
 import { remoteServerUrl } from '../../app.config';
 import { BaseService } from '../../shared/shared/base.service';
 import { HttpClient } from '@angular/common/http';

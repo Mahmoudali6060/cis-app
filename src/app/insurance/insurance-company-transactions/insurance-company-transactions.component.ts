@@ -2,7 +2,7 @@
 import {ActivatedRoute, Router } from '@angular/router';
 import {UserPermissions} from '../../classes/user-permissions.class';
 import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
-import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
 
@@ -12,7 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
    
     selector: 'insurance-company-transactions',
-    templateUrl: 'insurance-company-transactions.component.html'
+    templateUrl: './insurance-company-transactions.component.html'
 })
 
 export class InsuranceCompanyTransactionsComponent implements OnInit {
@@ -30,7 +30,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
     payment: any = { id: 0 };
     company: any = {};
     utilityClass: UtilityClass = new UtilityClass();
-    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup: ElementRef;;
+    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup!: ElementRef;;
     defaultChargeStatus = 'UnPaid';
     defaultClaimSearch = 'Charges';
     displayChargeStatus: boolean = true;
@@ -69,7 +69,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
         this.loadCompanyTransactionSearchWrapper();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item :any)=> this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -155,7 +155,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
         }
     }
 
-    selectClaimSearchType(claimSearchType) {
+    selectClaimSearchType(claimSearchType:any) {
         this.searchCriteria.claimSearchType = claimSearchType;
 
         if (claimSearchType == this.defaultClaimSearch)
@@ -164,7 +164,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
             this.displayChargeStatus = false;
     }
 
-    selectChargeStatus(chargeStatus) {
+    selectChargeStatus(chargeStatus:any) {
         this.searchCriteria.chargeStatus = chargeStatus;
     }
 
@@ -255,7 +255,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
             });
     }
 
-    getCompanyPaymentById(paymentId) {
+    getCompanyPaymentById(paymentId:any) {
         let vm = this;
         vm.showProgress = true
 
@@ -312,7 +312,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
             );
     }
 
-    updateAmount(updates) {
+    updateAmount(updates:any) {
         let vm = this;
         this.insuranceService.getCompanyFinanceFields(vm.company.id, vm.localStorage.retrieve("ClinicID"))
             .subscribe(
@@ -335,7 +335,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
         );
     }
 
-    updateAmountToPay(amount) {
+    updateAmountToPay(amount:any) {
         this.amountToPay = amount;
     }
 

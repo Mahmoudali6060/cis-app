@@ -1,14 +1,13 @@
-﻿import {Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { SharedService } from '../../shared/shared/shared.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { DoctorService } from '../../doctors/shared/doctor.service';
 import { TranslateObjectsPipe } from '../../shared/pipes/translateObjects.pipe';
 @Component({
-   
+
     selector: 'patient-note-laboratory',
     templateUrl: 'patient-note-laboratory.component.html',
 })
@@ -20,10 +19,10 @@ export class PatientNoteLaboratoryComponent implements OnInit, OnChanges {
     departmentLaboratories = [];
     noteDiagnosis = [];
     noteLaboratoriesList: any[] = [];
-    divisionId: string | undefined;
+    divisionId!: string;
     masterNoteLaboratoriesList: any[] = [];
 
-    @Input() noteId: number | undefined;
+    @Input() noteId!: number;
     @Output() onLaboratoriesSaved = new EventEmitter<any>();
 
     lstToTranslated: string[] = [];
@@ -33,8 +32,7 @@ export class PatientNoteLaboratoryComponent implements OnInit, OnChanges {
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
-        , public translate: TranslateService)
-    {
+        , public translate: TranslateService) {
         this.masterNoteLaboratoriesList = [];
     }
 
@@ -61,32 +59,31 @@ export class PatientNoteLaboratoryComponent implements OnInit, OnChanges {
         //get department services groups
         this.doctorService.getClinicDivisionLaboratoryTestsGroupsForTreeView(this.divisionId)
             .subscribe(
-            function (response:any) {
-                vm.departmentLaboratories = response;
-                vm.translateObjects.transform(vm.departmentLaboratories, null, null, vm.lstToTranslated);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.departmentLaboratories = response;
+                    vm.translateObjects.transform(vm.departmentLaboratories, '', null, vm.lstToTranslated);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    getNoteDiagnosis()
-    {
+    getNoteDiagnosis() {
         let vm = this;
         this.doctorService.getNoteDiagnosis(this.noteId.toString())
             .subscribe(
-            function (response:any) {
-                vm.noteDiagnosis = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.noteDiagnosis = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     loadNoteLaboratoryList() {
@@ -95,10 +92,10 @@ export class PatientNoteLaboratoryComponent implements OnInit, OnChanges {
             vm.showProgress = true;
 
             this.doctorService.getClinicNoteLabTests(vm.noteId).subscribe(
-                function (response:any) {
+                function (response: any) {
                     vm.noteLaboratoriesList = response;
                 },
-                function (error:any) { 
+                function (error: any) {
                     vm.toastr.error(error, '');
                 },
                 function () { // finally
@@ -112,19 +109,19 @@ export class PatientNoteLaboratoryComponent implements OnInit, OnChanges {
         vm.showProgress = true;
         this.doctorService.createClinicNoteLabTest(this.masterNoteLaboratoriesList)
             .subscribe(
-            function (response:any) {
-                vm.noteLaboratoriesList = response;
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.onLaboratoriesSaved.emit();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.noteLaboratoriesList = response;
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.onLaboratoriesSaved.emit();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
 }

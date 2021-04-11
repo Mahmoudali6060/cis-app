@@ -5,7 +5,7 @@ import { UtilityClass } from '../../shared/shared/utility.class';
 import {TranslateService} from '@ngx-translate/core';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ToastrService } from 'ngx-toastr';
-import {CalendarModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/calendar';
 
 @Component({
    
@@ -17,7 +17,7 @@ export class SystemAdminClinicSMSCreditComponent implements OnChanges, OnInit {
 
     @Input() clinicModel: any = {}
     @Output() onModelUpdated = new EventEmitter<any>();
-    @ViewChild('btnSmsCreditModalClose') btnSmsCreditModalClose: ElementRef;
+    @ViewChild('btnSmsCreditModalClose') btnSmsCreditModalClose!: ElementRef;
 
     enableMyAccountBtn: boolean = false;
     smsCreditsList: any[] = [];

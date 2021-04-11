@@ -21,7 +21,7 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { SharedService } from './shared/shared.service';
 import { CharityRequestService } from './shared/charityRequest.service';
-// import {DataTableModule} from 'primeng';
+// import {TableModule} from 'primeng';
 import { Table, TableModule } from 'primeng/table';
 import { AllNotificationsComponent } from './all-notifications/all-notifications.component';
 import { TreeCheckboxListComponent } from './tree-checkboxList/tree-checkboxList.component';

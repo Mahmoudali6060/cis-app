@@ -3,7 +3,7 @@
 @Component({
    
     selector: 'advanced-search-home',
-    templateUrl: 'advanced-search.component.html'
+    templateUrl: './advanced-search.component.html'
 
 })
 

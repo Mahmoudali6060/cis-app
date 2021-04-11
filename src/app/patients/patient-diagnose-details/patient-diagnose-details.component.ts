@@ -1,16 +1,14 @@
-﻿import {Component, OnInit, ViewChild, EventEmitter, Input, Output} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { TreeNode } from 'primeng/primeng';
-import {TranslateService} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
 import { DoctorService } from '../../doctors/shared/doctor.service';
-import {ClinicService} from '../../clinics/shared/clinic.service';
-
+import { ClinicService } from '../../clinics/shared/clinic.service';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'patient-diagnose-details',
     templateUrl: 'patient-diagnose-details.component.html',
 })
@@ -18,16 +16,16 @@ import {LocalStorageService} from 'ng2-webstorage';
 export class PatientDiagnoseDetailsComponent implements OnInit {
     selectBasicTab: boolean = true;
 
-    filterString: string | undefined;
+    filterString!: string;
     leafType: string = 'Diagnose';
-    divisionId;
+    divisionId!: any;
 
-    @Input() patientId: number | undefined;
-    @Input() clinicNoteId: number | undefined;
+    @Input() patientId!: number;
+    @Input() clinicNoteId!: number;
     @Input() toSaveClinicNoteDiagnose: any;
     active = true;
     selectedDiagnoseNode: any;
-    clinicId;
+    clinicId!: any;
     diagnosisTreeDataSourceItems: any[] = [];
     getAllDiagnosis = true;
     showProgress = false;
@@ -41,8 +39,7 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
         , public localStorage: LocalStorageService
         , public translate: TranslateService
 
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         this.divisionId = this._route.snapshot.params['divisionId'];
@@ -60,20 +57,20 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
         //get department diagnose groups
         this.doctorService.getClinicDivisionDiagnoseGroupsForTreeView(vm.divisionId)
             .subscribe(
-            function (response:any) {
-                vm.diagnosisTreeDataSourceItems = response;
-                if (vm.toSaveClinicNoteDiagnose) {
-                    vm.getModelToDisplay(vm.toSaveClinicNoteDiagnose);
-                    // vm.displaySelectedNode(vm.toSaveClinicNoteDiagnose.diagnoseId, "Diagnose");
-                    vm.expandAll();
-                }
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.diagnosisTreeDataSourceItems = response;
+                    if (vm.toSaveClinicNoteDiagnose) {
+                        vm.getModelToDisplay(vm.toSaveClinicNoteDiagnose);
+                        // vm.displaySelectedNode(vm.toSaveClinicNoteDiagnose.diagnoseId, "Diagnose");
+                        vm.expandAll();
+                    }
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     getAllDiagnoseGroupsForTreeView(needAll: boolean) {
         let vm = this;
@@ -81,21 +78,21 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
         /////////////////////////get all diagnose groups
         this.clinicService.getDiagnosisGroupsForTree(vm.clinicId)
             .subscribe(
-            function (response:any) {
-                vm.allDiagnosis = response;
-                if (needAll) {
-                    vm.diagnosisTreeDataSourceItems = response;
-                    vm.getAllDiagnosis = false;
-                    vm.expandAll();
-                }
+                function (response: any) {
+                    vm.allDiagnosis = response;
+                    if (needAll) {
+                        vm.diagnosisTreeDataSourceItems = response;
+                        vm.getAllDiagnosis = false;
+                        vm.expandAll();
+                    }
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     getModelToDisplay(returnedModel: any) {
 
@@ -173,40 +170,40 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
             //Add new
             this.doctorService.createClinicNoteDiagnose(this.toSaveClinicNoteDiagnose)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.toSaveClinicNoteDiagnose = response;
-                    vm.clear();
-                    vm.onBack.emit(response:any);
-                },
-                function (error:any) { 
-                    vm.toastr.error(  error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.toSaveClinicNoteDiagnose = response;
+                        vm.clear();
+                        vm.onBack.emit(response);
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
         else {
             //update
             this.doctorService.updateClinicNoteDiagnose(this.toSaveClinicNoteDiagnose)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.toSaveClinicNoteDiagnose = response;
-                    vm.clear();
-                    vm.onBack.emit(response:any);
-                },
-                function (error:any) { 
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.toSaveClinicNoteDiagnose = response;
+                        vm.clear();
+                        vm.onBack.emit(response);
+                    },
+                    function (error: any) {
 
-                    vm.toastr.error( error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
     }
 
@@ -224,7 +221,7 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
     }
 
 
-    treeNodeSelected(event:any) {
+    treeNodeSelected(event: any) {
         if (event && event.node && event.node.code && event.node.code != '') {
             this.toSaveClinicNoteDiagnose.diagnoseCode = event.node.code;
         }

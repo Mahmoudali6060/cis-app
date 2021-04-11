@@ -3,7 +3,7 @@
 @Component({
    
     selector: 'doctor-advanced-search',  
-    templateUrl:'doctor-advanced-search.component.html'
+    templateUrl:'./doctor-advanced-search.component.html'
     
 })
 

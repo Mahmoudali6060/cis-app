@@ -1,30 +1,30 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../../security/shared/account.service';
-import {UserPermissions} from '../../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'receive-purchase-order',
-    templateUrl: 'receive-purchase-order.component.html'
+    templateUrl: './receive-purchase-order.component.html'
 })
 
 export class ReceivePurchaseOrder {
     selectPurchasingTab: boolean = true;
-    orderId;
+    orderId!: any;
     showProgress = false;
     itemsList: any[] = [];
     model: any = {};
     isSent = true;
-    clinicAdminId;
+    clinicAdminId!: any;
     active = true;
-    clinicId;
+    clinicId!: any;
     isReceived = false;
     userType: string = '';
     isClinicAdmin: boolean = false;
@@ -59,7 +59,7 @@ export class ReceivePurchaseOrder {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -73,16 +73,16 @@ export class ReceivePurchaseOrder {
     loadPurchasingOrder() {
         let vm = this;
         this.clinicService.getPurchasingOrderById(vm.orderId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.model = response;
                 vm.itemsList = vm.model.purchaseItems;
                 if (vm.model.orderStatus == "Received") {
                     vm.isReceived = true;
-            } else if (vm.model.orderStatus == "Closed") {
-                vm.isClosed = true;
-            }
+                } else if (vm.model.orderStatus == "Closed") {
+                    vm.isClosed = true;
+                }
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -107,21 +107,21 @@ export class ReceivePurchaseOrder {
 
             this.clinicService.receivePurchasingOrder(thisComponent.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    thisComponent.itemsList = thisComponent.model.purchaseItems;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.navigateToOrdersList();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model = response;
+                        thisComponent.itemsList = thisComponent.model.purchaseItems;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.navigateToOrdersList();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {

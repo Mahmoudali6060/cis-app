@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'registration-result',  
-    templateUrl:'app/shared/registration-result/registration-result.component.html'
+    templateUrl:'./registration-result.component.html'
     
 })
 

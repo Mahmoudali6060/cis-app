@@ -1,29 +1,28 @@
-﻿import {Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { LocalStorageService } from 'ng2-webstorage';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AdministrationService } from '../../administration/shared/administration.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-   
     selector: 'systemAdmins-clinic-permissions',
     templateUrl: 'systemAdmins-clinic-permissions.component.html'
 })
 
 export class SystemAdminClinicPermissionsComponent implements OnInit, OnChanges {
 
-    @Input() clinicModel: any = {}
+    @Input() clinicModel!: any;
     @Output() onModelUpdated = new EventEmitter<any>();
     showProgress: boolean = false;
-    modulesList: any[];
-    selectedModulesIDs = [];
+    modulesList!: any[];
+    selectedModulesIDs: any = [];
     enableMyAccountBtn: boolean = false;
     constructor(
         private administrationService: AdministrationService,
         private toastr: ToastrService
         , public translate: TranslateService
-        ,public localStorage: LocalStorageService) { }
+        , public localStorage: LocalStorageService) { }
 
 
     ngOnInit(): void {
@@ -33,17 +32,17 @@ export class SystemAdminClinicPermissionsComponent implements OnInit, OnChanges 
         let thisComponent = this;
         this.administrationService.getAll('Cis.Core.AppModule')
             .subscribe(
-            function (response:any) {
-                thisComponent.modulesList = response;
+                function (response: any) {
+                    thisComponent.modulesList = response;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
         let userType = this.localStorage.retrieve("UserType");
         if (userType != undefined && userType == "SysAdmin")
             this.enableMyAccountBtn = true;
@@ -67,28 +66,28 @@ export class SystemAdminClinicPermissionsComponent implements OnInit, OnChanges 
         this.updateModelWithModules();
         this.administrationService.updateClinic(thisComponent.clinicModel)
             .subscribe(
-            function (response:any) {
-                thisComponent.clinicModel = response;
-                thisComponent.raiseModelUpdated(thisComponent.clinicModel);
+                function (response: any) {
+                    thisComponent.clinicModel = response;
+                    thisComponent.raiseModelUpdated(thisComponent.clinicModel);
 
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                //console.log("Error happened" + error)
-                thisComponent.toastr.error( error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    //console.log("Error happened" + error)
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     raiseModelUpdated(model: any) {
         this.onModelUpdated.emit(model);
     }
 
-    updateSelectedModules(moduleId, event) {
+    updateSelectedModules(moduleId: any, event: any) {
         if (event.target.checked) {
             this.selectedModulesIDs.push(moduleId);
         }
@@ -114,7 +113,7 @@ export class SystemAdminClinicPermissionsComponent implements OnInit, OnChanges 
 }
 
 class AppModule {
-    id;
-    name;
-    nameTranslation;
+    id: any;
+    name: any;
+    nameTranslation: any;
 }

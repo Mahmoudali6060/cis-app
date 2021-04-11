@@ -8,7 +8,7 @@ import {LocalStorageService} from 'ng2-webstorage';
 @Component({
    
     selector: 'cashier-tabs',
-    templateUrl: 'cashier-tabs.component.html',
+    templateUrl: './cashier-tabs.component.html',
 
 })
 

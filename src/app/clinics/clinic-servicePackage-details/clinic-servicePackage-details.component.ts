@@ -2,47 +2,47 @@
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import { TreeNode } from 'primeng/primeng';
-import {ClinicService} from '../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'clinic-servicePackage-details',
-    templateUrl: 'clinic-servicePackage-details.component.html'
+    templateUrl: './clinic-servicePackage-details.component.html'
 })
 
 export class ClinicServicePackageDetailsComponent implements OnInit {
 
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Service';
 
     selectServicePackagesTab: boolean = true;
     selectedClinicId: string = "0";
-    selectedFile: TreeNode;
+    selectedFile!: TreeNode;
     model: any = {};
     serviceModel: any = {};
     tempServiceModel: any = {};
     showProgress = false;
-    teamMembersList: any[];
+    teamMembersList!: any[];
     servicesList: any[] = [];
     active = true;
-    servicePackageId;
+    servicePackageId!: any;
     nodeType = "";
     selectedObject: any = {};
     treeDataSourceItems: any[] = [];
-    itemToDeleteId;//servicemodel to be deleted
+    itemToDeleteId!: any;//servicemodel to be deleted
     isGroupSelected = false;
     isNew = true;
-    idToBeEdited;
+    idToBeEdited!: any;
     totalFees: number = 0;
     servicesCost: number = 0;
-    @ViewChild('btnServicesGroup') btnServicesGroup: ElementRef;
+    @ViewChild('btnServicesGroup') btnServicesGroup!: ElementRef;
     userType: string = '';
     isClinicAdmin: boolean = false;
     userPermisions: UserPermissions = new UserPermissions();
@@ -80,7 +80,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -91,16 +91,16 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getServiceGroupsForTreeView(thisComponent.selectedClinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.treeDataSourceItems = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.treeDataSourceItems = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
     //on submit 
     onSubmit(): void {
@@ -116,28 +116,28 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
             if (thisComponent.servicesList.length > 0) {
                 this.clinicService.createServicePackage(thisComponent.model)
                     .subscribe(
-                    function (response:any) {
-                        let msg = thisComponent.translate.instant("SavedSuccessfully");
-                        thisComponent.toastr.success(msg, '');
-                        thisComponent.model = response;
-                        thisComponent.totalFees = thisComponent.model.totalCost;
-                        thisComponent.servicesCost = thisComponent.model.servicesCost;
-                        thisComponent.servicePackageId = response.id;
+                        function (response: any) {
+                            let msg = thisComponent.translate.instant("SavedSuccessfully");
+                            thisComponent.toastr.success(msg, '');
+                            thisComponent.model = response;
+                            thisComponent.totalFees = thisComponent.model.totalCost;
+                            thisComponent.servicesCost = thisComponent.model.servicesCost;
+                            thisComponent.servicePackageId = response.id;
 
-                        // thisComponent.servicesList = response.services;
-                        thisComponent.loadServicePackageModel();
-                        thisComponent.navigateToPackages();
+                            // thisComponent.servicesList = response.services;
+                            thisComponent.loadServicePackageModel();
+                            thisComponent.navigateToPackages();
 
-                        thisComponent.filterString = '';
-                    },
-                    function (error:any) { 
-                        //console.log("Error happened" + error)
-                        thisComponent.toastr.error(error, '');
-                        thisComponent.showProgress = false;
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    }
+                            thisComponent.filterString = '';
+                        },
+                        function (error: any) {
+                            //console.log("Error happened" + error)
+                            thisComponent.toastr.error(error, '');
+                            thisComponent.showProgress = false;
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        }
                     );
 
             } else {
@@ -154,24 +154,24 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
             if (thisComponent.servicesList.length > 0) {
                 this.clinicService.updateServicePackage(thisComponent.model)
                     .subscribe(
-                    function (response:any) {
-                        let msg = thisComponent.translate.instant("SavedSuccessfully");
-                        thisComponent.toastr.success(msg, '');
-                        thisComponent.model = response;
-                        thisComponent.totalFees = thisComponent.model.totalCost;
-                        thisComponent.servicesCost = thisComponent.model.servicesCost;
-                        thisComponent.loadServicePackageModel();
-                        thisComponent.filterString = '';
-                        //  thisComponent.servicesList = response.services;
-                    },
-                    function (error:any) { 
-                        //console.log("Error happened" + error)
-                        thisComponent.toastr.error(error, '');
-                        thisComponent.showProgress = false;
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                        function (response: any) {
+                            let msg = thisComponent.translate.instant("SavedSuccessfully");
+                            thisComponent.toastr.success(msg, '');
+                            thisComponent.model = response;
+                            thisComponent.totalFees = thisComponent.model.totalCost;
+                            thisComponent.servicesCost = thisComponent.model.servicesCost;
+                            thisComponent.loadServicePackageModel();
+                            thisComponent.filterString = '';
+                            //  thisComponent.servicesList = response.services;
+                        },
+                        function (error: any) {
+                            //console.log("Error happened" + error)
+                            thisComponent.toastr.error(error, '');
+                            thisComponent.showProgress = false;
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
 
             }
             else {
@@ -197,25 +197,25 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
         let thisComponent = this;
         this.clinicService.getServicePackageById(thisComponent.servicePackageId)
             .subscribe(
-            function (response:any) {
-                thisComponent.model = response;
-                thisComponent.servicesList = response.services;
-                thisComponent.totalFees = thisComponent.model.totalCost;
-                thisComponent.servicesCost = thisComponent.model.servicesCost;
-                for (let item of thisComponent.servicesList) {
-                    item.nodeType = "Service";
+                function (response: any) {
+                    thisComponent.model = response;
+                    thisComponent.servicesList = response.services;
+                    thisComponent.totalFees = thisComponent.model.totalCost;
+                    thisComponent.servicesCost = thisComponent.model.servicesCost;
+                    for (let item of thisComponent.servicesList) {
+                        item.nodeType = "Service";
 
-                    //thisComponent.strm = 'aaaaa';
-                }
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                        //thisComponent.strm = 'aaaaa';
+                    }
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         this.serviceModel.serviceId = event.node.data;
         this.serviceModel.serviceName = event.node.label;
         this.serviceModel.nodeType = event.node.type
@@ -225,7 +225,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
         //    this.nodeType = event.node.type;
         this.showProgress = false;
     }
-    nodeUnselect(event:any) {
+    nodeUnselect(event: any) {
         this.serviceModel.serviceId = '';
     }
 
@@ -258,7 +258,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
             //  vm.isGroupSelected = false;
         } else {
 
-         //   vm.toastr.error('you must select service not service group.');
+            //   vm.toastr.error('you must select service not service group.');
             // vm.RemoveServiceModelFromlist(vm.serviceModel.serviceId);
             //vm.deleteItem(vm.serviceModel.serviceId);
             let msg = vm.translate.instant("SelectServiceNotServiceGroup");
@@ -318,12 +318,12 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
     clearServiceModel() {
 
         this.serviceModel = {};
-        this.selectedFile = null;
+        this.selectedFile = {};
         this.filterString = '';
     }
     initialize() {
         this.serviceModel = {};
-        this.selectedFile = null;
+        this.selectedFile = {};
         this.isNew = true;
     }
     updateModelWithServices() {
@@ -376,7 +376,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
     private displaySelectedNodeRecursive(node: TreeNode, serviceId: string) {
         let vm = this;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.displaySelectedNodeRecursive(childNode, serviceId);
 
                 if (childNode.data == serviceId && childNode.type.toLocaleLowerCase() == "service")

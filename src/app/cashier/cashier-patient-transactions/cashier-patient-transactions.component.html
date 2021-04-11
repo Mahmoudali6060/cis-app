@@ -191,9 +191,9 @@
                 <p-column field="chargesAsString" [header]="'Charges' | translate" [sortable]="true"></p-column>
                 <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
                 <p-column [header]="Details" styleClass="text-center width70 hidden">
-                    <template let-item="rowData" pTemplate="body">
+                    <ng-template let-item="rowData" pTemplate="body">
                         <a *ngIf="item.id" data-toggle="modal" [class.disabled]="!enableViewPatientPaymentBtn ? true : null" data-target="#PayService" class="underLinelinkText pointer" (click)="getPatientPaymentById(item.id)">View Payment</a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
             <div class="row">

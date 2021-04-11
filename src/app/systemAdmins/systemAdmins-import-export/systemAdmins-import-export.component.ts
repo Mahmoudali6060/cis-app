@@ -1,17 +1,17 @@
-﻿import {Component, Input, OnChanges, SimpleChanges, OnInit} from '@angular/core';
-import {AdministrationService} from '../../administration/shared/administration.service';
+﻿import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { AdministrationService } from '../../administration/shared/administration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'systemAdmins-import-export',
     templateUrl: 'systemAdmins-import-export.component.html'
 })
 
-export class SystemAdminImportExportComponent implements OnInit  {
+export class SystemAdminImportExportComponent implements OnInit {
 
     selectImportExportTab: boolean = true;
     model: any = {};
@@ -19,13 +19,13 @@ export class SystemAdminImportExportComponent implements OnInit  {
     active = true;
     attachment: any;
     sheetName: string = "";
-    filesPathList: any[];
-    keyName: string | undefined;
-    fileType: string | undefined;
-    selectedName: string | undefined;
+    filesPathList!: any[];
+    keyName!: string;
+    fileType!: string;
+    selectedName!: string;
     impStr: string = '';
     expStr: string = '';
-   // rbSelections = [{ value: '1', text: this.impStr }, { value: '2', text: this.expStr }];
+    // rbSelections = [{ value: '1', text: this.impStr }, { value: '2', text: this.expStr }];
     rbSelections = [{ value: '1', text: 'Import' }, { value: '2', text: 'Export' }];
     selectedAction = '1';
     isImport = true;
@@ -38,7 +38,7 @@ export class SystemAdminImportExportComponent implements OnInit  {
     isLogFile = false;
     exportedFileName = "";
     newFileName = "";
-   // txtImportOrExport = " What Imported";
+    // txtImportOrExport = " What Imported";
     txtImportOrExport = this.translate.instant("ImportText");
     constructor(private administrationService: AdministrationService,
         public toastr: ToastrService,
@@ -76,51 +76,51 @@ export class SystemAdminImportExportComponent implements OnInit  {
         if (vm.selectedAction == '1') {
             this.administrationService.import(this.keyName, this.fileType, this.sheetName, this.selectedName)
                 .subscribe(
-                function (response:any) {
-                    vm.importResult = response.result
-                    if (vm.importResult == "Succeeded") {
-                        let msg = vm.translate.instant("ImportedSuccessfully");
-                        vm.toastr.success(msg, '');
-                       // vm.clear();
-                    } else if (vm.importResult == "PartiallySucceded") {
-                        let msg = vm.translate.instant("PartiallySucceded");
-                        vm.toastr.success(msg, '');
-                    } else {
-                        vm.isLogFile = true;
-                        vm.logFile = response.logFile;
-                    }
+                    function (response: any) {
+                        vm.importResult = response.result
+                        if (vm.importResult == "Succeeded") {
+                            let msg = vm.translate.instant("ImportedSuccessfully");
+                            vm.toastr.success(msg, '');
+                            // vm.clear();
+                        } else if (vm.importResult == "PartiallySucceded") {
+                            let msg = vm.translate.instant("PartiallySucceded");
+                            vm.toastr.success(msg, '');
+                        } else {
+                            vm.isLogFile = true;
+                            vm.logFile = response.logFile;
+                        }
 
-                },
-                function (error:any) { 
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         } else if (vm.selectedAction == '2') {
 
             this.administrationService.export(this.selectedName)
                 .subscribe(
-                function (response:any) {
-                    vm.exportResult = response.result;
-                    if (vm.exportResult == "Succeeded") {
-                        vm.exportedFileName = response.exportedFileName;
-                        var index = vm.exportedFileName.lastIndexOf("\\");
-                        vm.newFileName = vm.exportedFileName.substring(index + 1, vm.exportedFileName.length);
-                        vm.downloadFile(vm.newFileName, vm.selectedName);
-                    } else {
-                        vm.logFile = response.logFile;
-                        vm.isLogFile = true;
-                    }
-                },
-                function (error:any) { 
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        vm.exportResult = response.result;
+                        if (vm.exportResult == "Succeeded") {
+                            vm.exportedFileName = response.exportedFileName;
+                            var index = vm.exportedFileName.lastIndexOf("\\");
+                            vm.newFileName = vm.exportedFileName.substring(index + 1, vm.exportedFileName.length);
+                            vm.downloadFile(vm.newFileName, vm.selectedName);
+                        } else {
+                            vm.logFile = response.logFile;
+                            vm.isLogFile = true;
+                        }
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
 
     }
@@ -129,39 +129,39 @@ export class SystemAdminImportExportComponent implements OnInit  {
         let vm = this;
         var url = this.administrationService.prepareDownloadUrl(exportedFileName, selectedFileName);
 
-            try {
-                var linkElement = document.createElement('a');
-                linkElement.setAttribute('href', url);
+        try {
+            var linkElement = document.createElement('a');
+            linkElement.setAttribute('href', url);
 
-                var clickEvent = new MouseEvent("click", {
-                    "view": window,
-                    "bubbles": true,
-                    "cancelable": false
-                });
+            var clickEvent = new MouseEvent("click", {
+                "view": window,
+                "bubbles": true,
+                "cancelable": false
+            });
 
-                linkElement.dispatchEvent(clickEvent);
-            }
-            catch (ex) {
-                console.log(ex);
-            }
+            linkElement.dispatchEvent(clickEvent);
+        }
+        catch (ex) {
+            console.log(ex);
+        }
 
     }
     fillConfigFilesDropDownList() {
         let vm = this;
         this.administrationService.fillConfigFilesDropDownList()
             .subscribe(
-            function (response:any) {
-                vm.filesPathList = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.filesPathList = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    attachmentChanged(response:any) {
+    attachmentChanged(response: any) {
         let attchmentInfo: any = {};
 
         if (response != null) {
@@ -186,8 +186,7 @@ export class SystemAdminImportExportComponent implements OnInit  {
     }
     onChange(value: string) {
         let vm = this;
-        if (value.includes(".xml"))
-        {
+        if (value.includes(".xml")) {
             var selected = this.filesPathList.find(f => f.filePath == value);
             vm.selectedName = selected.fileName;
         }
@@ -196,16 +195,16 @@ export class SystemAdminImportExportComponent implements OnInit  {
         if (value != "") {
             this.administrationService.getfileDescription(vm.selectedName, vm.selectedAction)
                 .subscribe(
-                function (response:any) {
-                    vm.description = response;
-                },
-                function (error:any) { 
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        vm.description = response;
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
     }
 
@@ -238,21 +237,21 @@ export class SystemAdminImportExportComponent implements OnInit  {
         let vm = this;
         this.administrationService.fillExportConfigFilesDropDownList()
             .subscribe(
-            function (response:any) {
-                vm.filesPathList = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.filesPathList = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
     }
 
     onClick() {
         let vm = this;
-            vm.downloadLogFile(vm.selectedAction);
+        vm.downloadLogFile(vm.selectedAction);
     }
     downloadLogFile(selAction: string) {
         let vm = this;
@@ -274,9 +273,8 @@ export class SystemAdminImportExportComponent implements OnInit  {
             console.log(ex);
         }
     }
-    clear()
-    {
-       // this.filesPathList = [];
+    clear() {
+        // this.filesPathList = [];
         this.sheetName = "";
     }
 }

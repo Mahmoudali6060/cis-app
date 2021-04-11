@@ -1,24 +1,24 @@
 ﻿import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
 
 @Component({
-   
+
     selector: 'patient-servicePackages-grid',
     templateUrl: 'patient-servicePackages-grid.component.html',
 })
 
 export class PatientServicePackagesGridComponent implements OnInit, OnChanges {
 
-    @Input() packages: any[];
-    @Input() notePackages: any[];
+    @Input() packages!: any[];
+    @Input() notePackages!: any[];
     @Input() diagnosis: any[] = [];
-    @Input() masterList: any[];
-    @Input() noteId: number | undefined;
+    @Input() masterList!: any[];
+    @Input() noteId!: number;
 
     allPackages: any[] = [];
     lstToTranslated: string[] = ['servicePackageName', 'servicePackageNameTranslation'];
 
     ngOnInit(): void {
-      
+
     }
 
     ngOnChanges(): void {
@@ -53,7 +53,7 @@ export class PatientServicePackagesGridComponent implements OnInit, OnChanges {
         }
     }
 
-    createClinicNoteService(packge): any {
+    createClinicNoteService(packge: any): any {
         let bindedService: any;
 
         bindedService = this.masterList.find(s => s.servicePackageId == packge.data);
@@ -67,8 +67,7 @@ export class PatientServicePackagesGridComponent implements OnInit, OnChanges {
         return bindedService;
     }
 
-    updateSelectedService(servicePackageId, event)
-    {
+    updateSelectedService(servicePackageId: any, event: any) {
         if (!event.target.checked) {
             // if the item removed clear data
             let noteService = this.allPackages.find(s => s.servicePackageId == servicePackageId);
@@ -85,13 +84,12 @@ export class PatientServicePackagesGridComponent implements OnInit, OnChanges {
             masterNoteService.diagnoseId = 0;
             masterNoteService.description = '';
         }
-        else
-        {
+        else {
             let noteService = this.allPackages.find(s => s.servicePackageId == servicePackageId);
             let masterNoteService = this.masterList.find(s => s.servicePackageId == servicePackageId);
             noteService.isSelected = true;
             masterNoteService.isSelected = true;
         }
     }
-   
+
 }

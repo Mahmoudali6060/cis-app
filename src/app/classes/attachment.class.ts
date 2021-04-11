@@ -1,11 +1,11 @@
 ﻿import { AttachmentInfo } from './attachmentInfo.class';
 export class Attachment {
-    name: string | undefined;
-    parentId: number | undefined;
-    parentType: string | undefined;
-    fileType: string | undefined;
-    type: string | undefined;
-    attachmentTypeId: number | undefined;
-    nameWithoutExtension: string | undefined;
+    name!:string;
+    parentId!: number;
+    parentType!:string;
+    fileType!:string;
+    type!:string;
+    attachmentTypeId!: number;
+    nameWithoutExtension!:string;
     attachmentInfo: AttachmentInfo | undefined;
 }

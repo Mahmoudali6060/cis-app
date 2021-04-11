@@ -1,23 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from "primeng/api";
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../shared/clinic.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
 
 import { UtilityClass } from '../../shared/shared/utility.class';
-//import {DataTableModule} from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+//import {TableModule} from 'primeng/table';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'clinic-appointments',
-    templateUrl: 'clinic-appointments.component.html'
+    templateUrl: './clinic-appointments.component.html'
 })
 
 export class ClinicAppointmentsComponent implements OnInit {
@@ -25,17 +25,17 @@ export class ClinicAppointmentsComponent implements OnInit {
     count: number = 12;
     showProgress = true;
     organizationStructure: any[] = [];
-    clinicId;
+    clinicId!: any;
     doctorId: string = "0";
     doctorName: string = "";
     slotDurations: any[] = [];
     appointmentsList: any[] = [];
     daysList: any[] = [];
     appointmentId = '';
-    selectedFiles: TreeNode;
-    departmentId;
-    divisionId;
-    appointmentToBeDeleted;
+    selectedFiles!: TreeNode;
+    departmentId: any;
+    divisionId: any;
+    appointmentToBeDeleted: any;
     isDetailsVisible: boolean = false;
     isDepartmentOrDivisionSelected = false;
     isDoctorSelected = false;
@@ -72,7 +72,7 @@ export class ClinicAppointmentsComponent implements OnInit {
     ngOnInit(): void {
         let vm = this;
         this.lstToTranslated = ['label', 'labelTranslation'];
-        this.lstToBeTranslated = ['',''];
+        this.lstToBeTranslated = ['', ''];
         this.clinicId = this.localStorage.retrieve("ClinicID");
         this.userType = this.localStorage.retrieve("UserType");
         if (this.userType == 'ClinicAdmin')
@@ -81,16 +81,16 @@ export class ClinicAppointmentsComponent implements OnInit {
         this.loadOrganizationStructureTree();
         this.clinicService.getAppointmentScheduleWrapper()
             .subscribe(
-            function (response:any) {
-                vm.daysList = response.days;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                //  vm.showProgress = false;
-            },
-            function () { // finally
-                //  vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.daysList = response.days;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    //  vm.showProgress = false;
+                },
+                function () { // finally
+                    //  vm.showProgress = false;
+                });
 
         vm.fillSlotsList(vm.count);
         if (vm.doctorId.toString().toLowerCase() != "0")
@@ -98,10 +98,10 @@ export class ClinicAppointmentsComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
-        }            
+        }
     }
     loadOrganizationStructureTree() {
         let vm = this;
@@ -109,25 +109,25 @@ export class ClinicAppointmentsComponent implements OnInit {
         //let userId = this.storage.retrieve("UserID");
         this.clinicService.getOrganizationStructureTreeWithDoctorsOnly(this.clinicId)
             .subscribe(
-            function (response:any) {
-                vm.organizationStructure = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.organizationStructure = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     loadAppointmentSchedules() {
         let vm = this;
         this.clinicService.getAllAppointmentSchedules(vm.doctorId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.appointmentsList = response;
 
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -138,11 +138,11 @@ export class ClinicAppointmentsComponent implements OnInit {
     getAllAppointmentSchedulesUnderClinic() {
         let vm = this;
         this.clinicService.getAllAppointmentSchedulesUnderClinic(vm.clinicId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.appointmentsList = response;
             },
-            function (error:any) { 
-                vm.toastr.error( error, '');
+            function (error: any) {
+                vm.toastr.error(error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -152,10 +152,10 @@ export class ClinicAppointmentsComponent implements OnInit {
     getAllAppointmentSchedulesUnderDepartment() {
         let vm = this;
         this.clinicService.getAllAppointmentSchedulesUnderDepartment(vm.departmentId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.appointmentsList = response;
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -166,10 +166,10 @@ export class ClinicAppointmentsComponent implements OnInit {
     getAllAppointmentSchedulesUnderDivision() {
         let vm = this;
         this.clinicService.getAllAppointmentSchedulesUnderDivision(vm.divisionId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.appointmentsList = response;
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -186,7 +186,7 @@ export class ClinicAppointmentsComponent implements OnInit {
         }
     }
     ///////////////
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         if (event.node.type.toLocaleLowerCase() == "securityuser") {
             this.doctorId = event.node.data;
             this.doctorName = event.node.label;
@@ -208,34 +208,34 @@ export class ClinicAppointmentsComponent implements OnInit {
             this.getAllAppointmentSchedulesUnderDivision();
         }
     }
-    nodeUnselect(event:any) {
+    nodeUnselect(event: any) {
         //   this.serviceModel.serviceId = '';
         this.clear();
     }
     clear() {
         this.appointmentsList = [];
     }
-    changeActivation(packageId, event) {
+    changeActivation(packageId: any, event: any) {
         let vm = this;
         vm.showProgress = true;
 
         this.clinicService.toggleAppointmentScheduleActivation(packageId)
             .subscribe(
-            function (response:any) {
-                // get company by Id from the companies List
-                //var selectedCompany = vm.companiesList.find(comp => comp.id == id);
-                //selectedCompany.isActive = response;
+                function (response: any) {
+                    // get company by Id from the companies List
+                    //var selectedCompany = vm.companiesList.find(comp => comp.id == id);
+                    //selectedCompany.isActive = response;
 
-                // load all companies
-                //   vm.loadServicePackages();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // load all companies
+                    //   vm.loadServicePackages();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     selectAppointmentScheduleToDelete(id: string) {
         this.appointmentToBeDeleted = id;
@@ -252,26 +252,26 @@ export class ClinicAppointmentsComponent implements OnInit {
         vm.showProgress = true;
         this.clinicService.deleteAppointmentSchedule(this.appointmentToBeDeleted)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                var selectedObject = vm.appointmentsList.find(o => o.id == vm.appointmentToBeDeleted);
-                var index = vm.appointmentsList.indexOf(selectedObject);
-                if (index > -1)
-                    vm.appointmentsList.splice(index, 1);
+                    // remove delete object from collection
+                    var selectedObject = vm.appointmentsList.find(o => o.id == vm.appointmentToBeDeleted);
+                    var index = vm.appointmentsList.indexOf(selectedObject);
+                    if (index > -1)
+                        vm.appointmentsList.splice(index, 1);
 
-                // clear fields
-                //  vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    //  vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     handleUserInterfaceViews(user: any) {

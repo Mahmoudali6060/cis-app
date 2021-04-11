@@ -1,26 +1,26 @@
-﻿import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
+﻿import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../security/shared/account.service';
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { ClaimService } from '../shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class'
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
-   
+
     selector: 'cashier-claims',
-    templateUrl: 'cashier-claims.component.html'
+    templateUrl: './cashier-claims.component.html'
 })
 
 export class CashierClaimsComponent implements OnInit {
 
     contentStyle: any = { height: 400 };
     claimDiv: string = 'divPrintedArea';
-    clinicId;
-    filterString: string | undefined;
+    clinicId!: number;
+    filterString!:string;
     claimsList: any[] = [];
     showProgress = false;
     toPrintDiv: string = "print-section";
@@ -58,13 +58,13 @@ export class CashierClaimsComponent implements OnInit {
 
     ngOnInit(): void {
         this.lstToTranslated = ['doctorName', 'doctorNameTranslation', 'doctorDivision', 'doctorDivisionTranslation'];
-       this.clinicId = this.localStorage.retrieve("ClinicID");
+        this.clinicId = this.localStorage.retrieve("ClinicID");
         this.claimsSearchParameters.clinicId = this.clinicId;
         this.getClaimsSearchParametersWrapper();
         this.getTodayClaims();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -74,17 +74,17 @@ export class CashierClaimsComponent implements OnInit {
         let thisComponent = this;
         this.claimService.getTodayClaims(this.clinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.claimsList = response;
+                function (response: any) {
+                    thisComponent.claimsList = response;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     getClaimsSearchParametersWrapper() {
@@ -93,18 +93,18 @@ export class CashierClaimsComponent implements OnInit {
         let clinicId = this.localStorage.retrieve('clinicID');
         this.claimService.getClaimsSearchParametersWrapper(clinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.dateFiltersList = response.dateFilters;
-                thisComponent.claimStatusesList = response.claimStatuses;
-                thisComponent.doctorsList = response.doctors;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.dateFiltersList = response.dateFilters;
+                    thisComponent.claimStatusesList = response.claimStatuses;
+                    thisComponent.doctorsList = response.doctors;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     searchForClaims() {
@@ -116,16 +116,16 @@ export class CashierClaimsComponent implements OnInit {
 
         this.claimService.searchForClaims(this.claimsSearchParameters)
             .subscribe(
-            function (response:any) {
-                thisComponent.claimsList = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.claimsList = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     handleUserInterfaceViews(user: any) {
@@ -136,7 +136,7 @@ export class CashierClaimsComponent implements OnInit {
             }
         }
     }
-    managePatientSelection(selectedPatientMrn) {
+    managePatientSelection(selectedPatientMrn: any) {
         this.claimsSearchParameters.patientMRN = selectedPatientMrn;
         this.display = false;
     }

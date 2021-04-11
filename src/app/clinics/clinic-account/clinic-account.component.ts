@@ -13,24 +13,24 @@ import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
    
     selector: 'clinic-account',
-    templateUrl: 'clinic-account.component.html'
+    templateUrl: './clinic-account.component.html'
 })
 
 export class ClinicAccountComponent implements OnInit {
     selectAccountTab: boolean = true;
     clinicModel: any = { id: 0, isActive: true };
-    clinicId: number | undefined;
+    clinicId!: number;
     selectClinicsTab: boolean = true;
     showProgress = false;
     modifierName: string = '';
     startDateString: string = '';
     endDateString: string = '';
-    numberOfUsers: number | undefined;
+    numberOfUsers!: number;
     userType: string = '';
     isClinicAdmin: boolean = false;
     model: any = {};
     active: boolean = true;
-    adminType: UserTypeEnum;
+    adminType!: UserTypeEnum;
     constructor(private administrationService: AdministrationService,
         private localStorage: LocalStorageService,
         public toastr: ToastrService,

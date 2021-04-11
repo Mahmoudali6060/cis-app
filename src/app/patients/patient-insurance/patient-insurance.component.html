@@ -63,29 +63,29 @@
                     <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
 
                     <p-column [header]="'Active' | translate"  styleClass="text-center width70">
-                        <template let-insurance="rowData" pTemplate="body">
+                        <ng-template let-insurance="rowData" pTemplate="body">
                             <label>
                                 <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
                                        type="checkbox" [checked]="insurance.isActive"
                                        (click)="changeActivation(insurance.id , $event)" />
                                 <span class="lbl"></span>
                             </label>
-                        </template>
+                        </ng-template>
                     </p-column>
                     <p-column [header]="'Edit' | translate"  styleClass="text-center width50">
-                        <template let-insurance="rowData" pTemplate="body">
+                        <ng-template let-insurance="rowData" pTemplate="body">
                             <a class="pointer" (click)="setInsuranceIdValue(insurance.id)">
                                 <img src="Images/edit-24.png" />
                             </a>
-                        </template>
+                        </ng-template>
                     </p-column>
                     <p-column [header]="'Delete' | translate"  styleClass="text-center width70">
-                        <template let-insurance="rowData" pTemplate="body">
+                        <ng-template let-insurance="rowData" pTemplate="body">
                             <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer"
                                (click)="selectPatientInsuranceToDelete(insurance.id)">
                                 <img src="Images/DeleteRed.png" />
                             </a>
-                        </template>
+                        </ng-template>
                     </p-column>
                 </p-dataTable>
             </div>

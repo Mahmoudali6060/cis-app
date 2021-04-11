@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'loading',
-    templateUrl: 'app/shared/loading/loading.component.html'
+    templateUrl: './loading.component.html'
 
 })
 

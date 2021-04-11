@@ -1,21 +1,21 @@
-﻿import {Component, OnInit, ViewChild, ElementRef, Input} from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
+﻿import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../security/shared/account.service';
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { InsuranceInvoice } from '../../classes/insuranceInvoice.class';
 import { InvoiceStatus } from '../../classes/enums.class';
-import { Charge }   from '../../classes/charge.class';
-import { SecurityUser }   from '../../classes/securityUser.class';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { Charge } from '../../classes/charge.class';
+import { SecurityUser } from '../../classes/securityUser.class';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { InsuranceService } from '../shared/insurance.service';
 import { ClaimService } from '../../cashier/shared/claim.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
-   
+
     selector: 'insurance-invoice-detail',
     templateUrl: 'insurance-invoice-detail.component.html'
 })
@@ -26,16 +26,16 @@ export class InsuranceInvoiceDetailComponent {
     enableViewCompanyDetails: boolean = false;
     enableCancelInvioce: boolean = false;
     enableEndorseInvoicesBtn: boolean = false;
-    selectedInvoiceId: number | undefined;
-    filterString: string | undefined;
+    selectedInvoiceId!: number;
+    filterString!: string;
     showProgress = false;
     active: boolean = true;
     toPrintDiv: string = "print-section";
     selectedInvoice: InsuranceInvoice = new InsuranceInvoice();
-    invoiceChargesList: Array<Charge>;
+    invoiceChargesList!: any;
     isInvoiceCanceled: boolean | undefined;
     utilityClass: UtilityClass = new UtilityClass();
-    companyId;
+    companyId!: any;
 
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
@@ -50,7 +50,7 @@ export class InsuranceInvoiceDetailComponent {
         this.getInvoiceDetails();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -72,24 +72,24 @@ export class InsuranceInvoiceDetailComponent {
         let thisComponent = this;
         this.insuranceService.getInvoiceById(this.selectedInvoiceId)
             .subscribe(
-            function (response:any) {
-                thisComponent.selectedInvoice = response;
-                if (thisComponent.selectedInvoice) {
-                    thisComponent.companyId = thisComponent.selectedInvoice.companyId;
-                    thisComponent.invoiceChargesList = thisComponent.selectedInvoice.charges;
-                    thisComponent.isInvoiceCanceled = thisComponent.selectedInvoice.status.toString() == "Canceled";
-                }
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.selectedInvoice = response;
+                    if (thisComponent.selectedInvoice) {
+                        thisComponent.companyId = thisComponent.selectedInvoice.companyId;
+                        thisComponent.invoiceChargesList = thisComponent.selectedInvoice.charges;
+                        thisComponent.isInvoiceCanceled = thisComponent.selectedInvoice?.status?.toString() == "Canceled";
+                    }
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
-    updateAmount(updates) {
+    updateAmount(updates: any) {
         if (updates != null || updates != undefined) {
             //Subtract the old value
             this.selectedInvoice.netAmount = this.selectedInvoice.netAmount - updates.oldValue;
@@ -112,23 +112,23 @@ export class InsuranceInvoiceDetailComponent {
         this.showProgress = true;
         this.insuranceService.cancelInvoice(toCancelInvoice)
             .subscribe(
-            function (response:any) {
-                thisComponent.selectedInvoice.status = InvoiceStatus.canceled;
-                thisComponent.selectedInvoice.cancellationDateString = thisComponent.utilityClass.getISODateFormat(dtNow);
-                if (thisComponent.selectedInvoice.canceledBy == null)
-                    thisComponent.selectedInvoice.canceledBy = new SecurityUser();
-                thisComponent.selectedInvoice.canceledBy.name = canceledByName;
-                thisComponent.isInvoiceCanceled = true;
-                //thisComponent.toastr.success('Claim canceled successfully', '');
-                let msg = thisComponent.translate.instant("InvoiceCanceledSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.selectedInvoice.status = InvoiceStatus.canceled;
+                    thisComponent.selectedInvoice.cancellationDateString = thisComponent.utilityClass.getISODateFormat(dtNow);
+                    if (thisComponent.selectedInvoice.canceledBy == null)
+                        thisComponent.selectedInvoice.canceledBy = new SecurityUser();
+                    thisComponent.selectedInvoice.canceledBy.name = canceledByName;
+                    thisComponent.isInvoiceCanceled = true;
+                    //thisComponent.toastr.success('Claim canceled successfully', '');
+                    let msg = thisComponent.translate.instant("InvoiceCanceledSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     endorseInvoice() {
@@ -146,17 +146,17 @@ export class InsuranceInvoiceDetailComponent {
         this.showProgress = true;
         this.insuranceService.endorseInvoice(toEndorseInvoice)
             .subscribe(
-            function (response:any) {
-                thisComponent.selectedInvoice.status = InvoiceStatus.endorsed;
-                let msg = thisComponent.translate.instant("InvoiceEndorsedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.selectedInvoice.status = InvoiceStatus.endorsed;
+                    let msg = thisComponent.translate.instant("InvoiceEndorsedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
 }

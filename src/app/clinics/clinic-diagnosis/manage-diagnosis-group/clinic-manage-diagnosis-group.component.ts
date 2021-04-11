@@ -1,15 +1,13 @@
-import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
+import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'clinic-manage-diagnosis-group',
-    templateUrl: 'clinic-manage-diagnosis-group.component.html'
+    templateUrl: './clinic-manage-diagnosis-group.component.html'
 })
 
 export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
@@ -23,7 +21,7 @@ export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
     @Output() onIsNew: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() onCancel = new EventEmitter();
 
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     selectDiagnosisTab: boolean = true;
     active: boolean = true;
     showProgress = false;
@@ -33,7 +31,7 @@ export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
-        , public translate: TranslateService) { }    
+        , public translate: TranslateService) { }
 
     ngOnInit(): void {
         this.selectedClinicId = this.localStorage.retrieve("ClinicID");
@@ -47,21 +45,21 @@ export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
             thisComponent.showProgress = true;
             this.clinicService.getDiagnosisGroupById(thisComponent.selectedDiagnosisGroupId)
                 .subscribe(
-                function (diagnosisGroup) {
-                    thisComponent.selectedDiagnosisGroup = diagnosisGroup;
-                    thisComponent.selectedParentGroupId = diagnosisGroup.parentGroupId;
-                    if (thisComponent.selectedLang == 'ar')
-                        thisComponent.selectedParentGroupName = diagnosisGroup.parentGroupName;
-                    else
-                        thisComponent.selectedParentGroupName = diagnosisGroup.parentGroupNameTranslation;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (diagnosisGroup: any) {
+                        thisComponent.selectedDiagnosisGroup = diagnosisGroup;
+                        thisComponent.selectedParentGroupId = diagnosisGroup.parentGroupId;
+                        if (thisComponent.selectedLang == 'ar')
+                            thisComponent.selectedParentGroupName = diagnosisGroup.parentGroupName;
+                        else
+                            thisComponent.selectedParentGroupName = diagnosisGroup.parentGroupNameTranslation;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             this.clearControl();
@@ -69,65 +67,64 @@ export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
     }
 
 
-saveDiagnosisGroup(): void {
-    let thisComponent = this;
-    thisComponent.showProgress = true;
-    this.selectedDiagnosisGroup.parentGroupId = this.selectedParentGroupId;
-    this.selectedDiagnosisGroup.clinicId = this.selectedClinicId
-    if (this.selectedDiagnosisGroup.id > 0) {
-    //Update
-    this.clinicService.updateDiagnosisGroup(this.selectedDiagnosisGroup)
-        .subscribe(
-        function (response:any) {
+    saveDiagnosisGroup(): void {
+        let thisComponent = this;
+        thisComponent.showProgress = true;
+        this.selectedDiagnosisGroup.parentGroupId = this.selectedParentGroupId;
+        this.selectedDiagnosisGroup.clinicId = this.selectedClinicId
+        if (this.selectedDiagnosisGroup.id > 0) {
+            //Update
+            this.clinicService.updateDiagnosisGroup(this.selectedDiagnosisGroup)
+                .subscribe(
+                    function (response: any) {
 
-          //  thisComponent.selectedDiagnosisGroup = response;
-            thisComponent.onIsNew.emit(false);
-            thisComponent.onDiagnosisGroupChanged.emit(response:any);
-            let msg = thisComponent.translate.instant("SavedSuccessfully");
-            thisComponent.toastr.success(msg, '');
-            thisComponent.clearControl();
-        },
-        function (error:any) { 
-            thisComponent.toastr.error(error, '');
-            thisComponent.showProgress = false;
-        },
-        function () {
-            thisComponent.showProgress = false;
-        });
+                        //  thisComponent.selectedDiagnosisGroup = response;
+                        thisComponent.onIsNew.emit(false);
+                        thisComponent.onDiagnosisGroupChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
-}
+        }
         else {
-    //New
-    this.clinicService.createDiagnosisGroup(this.selectedDiagnosisGroup)
-        .subscribe(
-        function (response:any) {
+            //New
+            this.clinicService.createDiagnosisGroup(this.selectedDiagnosisGroup)
+                .subscribe(
+                    function (response: any) {
 
-            //thisComponent.selectedDiagnosisGroup = response;
-            thisComponent.onIsNew.emit(true);
-            thisComponent.onDiagnosisGroupChanged.emit(response:any);
-            let msg = thisComponent.translate.instant("SavedSuccessfully");
-            thisComponent.toastr.success(msg, '');
-            thisComponent.clearControl();
-        },
-        function (error:any) { 
-            thisComponent.toastr.error(error, '');
-            thisComponent.showProgress = false;
-        },
-        function () {
-            thisComponent.showProgress = false;
-        });
-}
+                        //thisComponent.selectedDiagnosisGroup = response;
+                        thisComponent.onIsNew.emit(true);
+                        thisComponent.onDiagnosisGroupChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
+        }
     }
 
-clearControl(): void {
-    this.selectedDiagnosisGroup = {};
-    this.active = false;
-    setTimeout(() => this.active = true, 0);
-}
+    clearControl(): void {
+        this.selectedDiagnosisGroup = {};
+        this.active = false;
+        setTimeout(() => this.active = true, 0);
+    }
 
-cancelDiagnosisGroup(): void
-    {
-    this.clearControl();
-    this.onCancel.emit();
+    cancelDiagnosisGroup(): void {
+        this.clearControl();
+        this.onCancel.emit();
     }
 }

@@ -1,30 +1,23 @@
-﻿import {Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+﻿import { Component, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-
-import { TreeNode } from 'primeng/primeng';
-
-import {ClinicService} from '../shared/clinic.service';
-
-import { ClinicManageLaboratoryTestComponent } from './manage-laboratory-test/clinic-manage-laboratory-test.component';
-import { ClinicManageLaboratoryTestsGroupComponent } from './manage-laboratory-tests-group/clinic-manage-laboratory-tests-group.component';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TreeNode } from 'primeng/api';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 @Component({
-   
+
     selector: 'clinic-laboratory-tests',
-    templateUrl: 'clinic-laboratory-tests.component.html'
+    templateUrl: './clinic-laboratory-tests.component.html'
 })
 
 export class ClinicLaboratoryTestsComponent implements OnInit {
 
     selectedLang = 'ar';
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'LaboratoryTest';
     groupName: string = '';
     childName: string = '';
@@ -42,12 +35,12 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         , public translate: TranslateService
         , private accountService: AccountService) { }
 
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     selectLaboratoryTestsTab: boolean = true;
     active: boolean = true;
     showProgress = false;
 
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
 
     isLaboratoryTestsGroupSelected = true;
     isLaboratoryTestSelected = false;
@@ -64,11 +57,10 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
     isNew: boolean | undefined;
     toPrintDiv: string = "print-section";
 
-    @ViewChild('btnAddLaboratoryTestsGroup') btnAddLaboratoryTestsGroup: ElementRef;
-    @ViewChild('btnClosePopup') btnClosePopup: ElementRef;
-
+    @ViewChild('btnAddLaboratoryTestsGroup') btnAddLaboratoryTestsGroup!: ElementRef;
+    @ViewChild('btnClosePopup') btnClosePopup!: ElementRef;
     lstToTranslated: string[] = [];
-    treeDataSourceItems: any[];
+    treeDataSourceItems!: any[];
 
     ngOnInit(): void {
         this.selectedLang = this.localStorage.retrieve("selectedLanguage");
@@ -87,7 +79,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -102,16 +94,16 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getLaboratoryTestsGroupsForTree(this.selectedClinicId)
             .subscribe(
-            function (laboratoryTestsGroups) {
-                thisComponent.treeDataSourceItems = laboratoryTestsGroups;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (laboratoryTestsGroups: any) {
+                    thisComponent.treeDataSourceItems = laboratoryTestsGroups;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     expandAll() {
@@ -135,7 +127,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         }
     }
 
-    onCheckboxSelectionChange(value) {
+    onCheckboxSelectionChange(value: any) {
         this.selectedAction = value;
 
         if (this.selectedAction == 1) {
@@ -159,7 +151,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         }
     }
 
-    displayPopup(node) {
+    displayPopup(node: any) {
         if (node.type.toLocaleLowerCase() == "laboratorytest") {
             this.isLaboratoryTestsGroupSelected = false;
             this.isLaboratoryTestSelected = true;
@@ -198,7 +190,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         this.selctedNode = node;
     }
 
-    passParentGroupInfo(node) {
+    passParentGroupInfo(node: any) {
         this.parentLaboratoryTestsGroupId = node.data;
         if (this.selectedLang == 'ar')
             this.parentLaboratoryTestsGroupName = node.label;
@@ -207,7 +199,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         this.isLaboratoryTestsGroupSelected = true;
         this.isLaboratoryTestSelected = false;
         this.selectedAction = 1;
-       // this.txtHeaderModal = "LaboratoryTestsGroup";
+        // this.txtHeaderModal = "LaboratoryTestsGroup";
         this.txtHeaderModal = this.translate.instant("LaboratoryTestsGroup");
         this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
 
@@ -230,45 +222,45 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         this.selctedNode = node;
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let thisComponent = this;
 
         if (node.type.toLocaleLowerCase() == "laboratorytest") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateLaboratoryTestActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    if (event.target.checked) {
-                        thisComponent.activateParents(node);
-                    }
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        if (event.target.checked) {
+                            thisComponent.activateParents(node);
+                        }
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         } else if (node.type.toLocaleLowerCase() == "laboratorytestsgroup") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateLaboratoryTestsGroupActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    node.isActive = event.target.checked;
-                    if (event.target.checked) {
-                        if (node.parent != undefined)
-                            thisComponent.activateParents(node.parent);
-                    } else {
-                        thisComponent.deActivateChildren(node, false);
-                    }
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        node.isActive = event.target.checked;
+                        if (event.target.checked) {
+                            if (node.parent != undefined)
+                                thisComponent.activateParents(node.parent);
+                        } else {
+                            thisComponent.deActivateChildren(node, false);
+                        }
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -278,10 +270,10 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
             this.activateParents(node.parent);
         }
     }
-    deActivateChildren(node, active) {
+    deActivateChildren(node: any, active: any) {
         node.isActive = active;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.deActivateChildren(childNode, active);
             });
         }
@@ -302,13 +294,13 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
             }
         }
     }
-    setIsNewValue(val) {
+    setIsNewValue(val: any) {
         this.isNew = val;
     }
     closeLaboratoryTestsAndGroupsPopup() {
         this.toSaveLaboratoryTestsGroupId = '';
         this.toSaveLaboratoryTestId = '';
-        this.selectedNode = [];
+        this.selectedNode = {};
 
         this.btnClosePopup.nativeElement.click();
     }

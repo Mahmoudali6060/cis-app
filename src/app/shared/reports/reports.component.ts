@@ -2,7 +2,7 @@
 
 @Component({
     selector: 'reports',
-    templateUrl: 'app/shared/reports/reports.component.html'
+    templateUrl: './reports.component.html'
 
 })
 

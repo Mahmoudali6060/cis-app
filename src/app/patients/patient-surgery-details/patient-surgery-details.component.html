@@ -10,16 +10,16 @@
                 </div>
                 <p-tree [value]="servicesTreeDataSourceItems | filterbynameorcode:filterString : leafType  | translateObjects  : 'label' : 'labelTranslation' : null" selectionMode="single"
                         [(selection)]="selectedSurgeryNode" (onNodeSelect)="treeNodeSelected($event)">
-                    <template let-node pTemplate="ServiceGroup">
+                    <ng-template let-node pTemplate="ServiceGroup">
                         <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                         &nbsp;
                         {{node.label}}
-                    </template>
-                    <template let-node pTemplate="Service">
+                    </ng-template>
+                    <ng-template let-node pTemplate="Service">
                         <span class="nav-icon"><i class="fa fa-cube"></i></span>
                         &nbsp;
                         {{node.label}}
-                    </template>
+                    </ng-template>
                 </p-tree>
             </div>
         </div>

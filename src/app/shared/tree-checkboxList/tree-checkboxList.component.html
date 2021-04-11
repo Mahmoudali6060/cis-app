@@ -3,11 +3,11 @@
         <div class="nopadding treeBorder" style="height:200px;">
             <p-tree [value]="treeList | translateObjects  : null : null : lstToTranslated" selectionMode="single" 
                     [(selection)]="selectedGroup" (onNodeSelect)="nodeSelect($event)">
-                <template let-node pTemplate="{{groupType}}">
+                <ng-template let-node pTemplate="{{groupType}}">
                     <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                     &nbsp;
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
-                </template>
+                </ng-template>
             </p-tree>
         </div>
     </div>

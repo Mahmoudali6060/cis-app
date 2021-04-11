@@ -1,16 +1,15 @@
-﻿import {Component, OnInit, Input} from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
-import {ClinicService} from '../../../clinics/shared/clinic.service';
+import { TreeNode } from 'primeng/api';
+import { ClinicService } from '../../../clinics/shared/clinic.service';
 import { SharedService } from '../../../shared/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { TranslateObjectsPipe } from '../../../shared/pipes/translateObjects.pipe';
 @Component({
-   
     selector: 'clinic-inventory-add-quantity',
-    templateUrl: 'clinic-inventory-add-quantity.component.html'
+    templateUrl: './clinic-inventory-add-quantity.component.html'
 })
 
 export class ClinicInventoryAddQuantity implements OnInit {
@@ -23,8 +22,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
         , public storage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     Medical: any = {
         label: "المنتجات الطبية",
@@ -46,10 +44,10 @@ export class ClinicInventoryAddQuantity implements OnInit {
         parentName: "NonMedical Product",
         children: []
     };
-    selectedClinicId: string | undefined;
+    selectedClinicId!: string;
     //isSelectedGroupNode = false;
-    hideOnHandQuantity = true;
-    showOnHandQuantity = false;
+    hideOnHandQuantity: boolean = true;
+    showOnHandQuantity: boolean = false;
     model: any = {};
     inventoryRequestModel: any = {};
     active = true;
@@ -59,11 +57,11 @@ export class ClinicInventoryAddQuantity implements OnInit {
     showProgress = false;
     productList: any[] = [];
     treeDataSourceItems: any[] = [];
-    selectedGroup: TreeNode;
-    doctorId: string | undefined;
+    selectedGroup!: TreeNode;
+    doctorId!:string;
     doctorName: string = "";
     //unitName: string = "";
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Product';
     code: string = "";
     productName: string = "";
@@ -85,31 +83,31 @@ export class ClinicInventoryAddQuantity implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getActiveProductsGroupsForTreeView(thisComponent.selectedClinicId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.Medical.children = [];
-                thisComponent.NonMedical.children = [];
+                    thisComponent.Medical.children = [];
+                    thisComponent.NonMedical.children = [];
 
-                for (let product of response) {
-                    if (product.parent == undefined && product.productGroupType == "Medical") {
-                        thisComponent.Medical.children.push(product);
+                    for (let product of response) {
+                        if (product.parent == undefined && product.productGroupType == "Medical") {
+                            thisComponent.Medical.children.push(product);
+                        }
+                        else if (product.parent == undefined && product.productGroupType == "NonMedical") {
+                            thisComponent.NonMedical.children.push(product);
+                        }
+
                     }
-                    else if (product.parent == undefined && product.productGroupType == "NonMedical") {
-                        thisComponent.NonMedical.children.push(product);
-                    }
+                    thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, '', null, thisComponent.lstToTranslated);
+                    //thisComponent.treeDataSourceItems = response;
 
-                }
-                thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, null, null, thisComponent.lstToTranslated);
-                //thisComponent.treeDataSourceItems = response;
-
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
     onSubmit(): void {
@@ -119,22 +117,22 @@ export class ClinicInventoryAddQuantity implements OnInit {
 
             this.clinicService.updateClinicQuantity(thisComponent.clinicInventoryObject)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.clinicInventoryObject = response;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clear();
-                    thisComponent.getProductsGroupsForTree()
-                    this.hideOnHandQuantity = false;
-                    this.showOnHandQuantity = true;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.clinicInventoryObject = response;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clear();
+                        thisComponent.getProductsGroupsForTree()
+                        thisComponent.hideOnHandQuantity = false;
+                        thisComponent.showOnHandQuantity = true;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -144,7 +142,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         this.clear();
         this.showOnHandQuantity = false;
         this.hideOnHandQuantity = true;
@@ -153,8 +151,8 @@ export class ClinicInventoryAddQuantity implements OnInit {
                 this.clinicInventoryObject.onHandQuantity = event.node.onHandQuantity;
                 this.hideOnHandQuantity = false;
                 this.showOnHandQuantity = true;
-                let msg = this.translate.instant( "OnhandQuantityExist");
-                this.toastr.warning(msg,event.node.name);
+                let msg = this.translate.instant("OnhandQuantityExist");
+                this.toastr.warning(msg, event.node.name);
             }
 
             let thisComponent = this;

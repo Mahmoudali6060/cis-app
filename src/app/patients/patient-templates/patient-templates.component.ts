@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 
 @Component({
-   
     selector: 'patient-templates',
     templateUrl: 'patient-templates.component.html',
 })
@@ -21,7 +20,7 @@ export class PatientTemplatesComponent implements OnInit {
      active = true;
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
     isDoctor: boolean = false;
     isReceptionist: boolean = false;
     previousTab: string = '';
@@ -32,7 +31,7 @@ export class PatientTemplatesComponent implements OnInit {
     fileType: boolean = false;
     isTemplateExist: boolean = true;
 
-    @Input() noteId: number | undefined;
+    @Input() noteId!: number;
     model: any;
     type = 'DoctorAppliedTemplate';
     patientAttachementId = '';

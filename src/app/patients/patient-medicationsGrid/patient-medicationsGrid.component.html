@@ -5,15 +5,15 @@
 </div>
 <p-dataTable [value]="allDrugs | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
     <p-column styleClass="text-center width50">
-        <template let-noteDrug="rowData" pTemplate="body">
+        <ng-template let-noteDrug="rowData" pTemplate="body">
             <input type="checkbox" [checked] ="noteDrug.isSelected"
                    (change)="updateSelectedDrug(noteDrug.drugId, $event)" />
-        </template>
+        </ng-template>
     </p-column>
     <p-column field="drugName" [header]="'DrugName' | translate" [sortable]="true"></p-column>
     
     <p-column [header]="'DosageQuantity' | translate" styleClass="text-center width90">
-        <template let-noteDrug="rowData" pTemplate="body">
+        <ng-template let-noteDrug="rowData" pTemplate="body">
             <div class="row">
                 <input type="number" pattern="^[0-9]\d*$" min="0" name="txtMedicationDosageQuantity" class="form-control"
                        [(ngModel)]='noteDrug.dosageQuantity' #txtMedicationDosageQuantity="ngModel" />
@@ -23,18 +23,18 @@
                     <option *ngFor="let obj of drugDosageUnits| translateObjects" [value]="obj.id">{{obj.name}}</option>
                 </select>
             </div>
-        </template>
+        </ng-template>
     </p-column>
     <p-column [header]="'Frequency' | translate" styleClass="text-center width100">
-        <template let-noteDrug="rowData" pTemplate="body">
+        <ng-template let-noteDrug="rowData" pTemplate="body">
                 <select class="form-control" name="ddldrugFrequencies" [(ngModel)]='noteDrug.frequencyId' required>
                     <option *ngFor="let obj of drugFrequencies| translateObjects" [value]="obj.id">{{obj.name}}</option>
                 </select>
-        </template>
+        </ng-template>
     </p-column>
 
     <p-column [header]="'Duration' | translate" styleClass="width170" [style]="{'overflow':'visible'}">
-        <template let-noteDrug="rowData" pTemplate="body" style="overflow: visible">
+        <ng-template let-noteDrug="rowData" pTemplate="body" style="overflow: visible">
             <div class="row">
                 <div class="col-md-4 nopadding">
                     <input type="number" pattern="^[0-9]\d*$" min="0" name="txtDuration" class="form-control"
@@ -57,19 +57,19 @@
                             yearRange="2000:2050"
                             [inputStyle]="{'width':'125px'}"
                             [styleClass]="calendarClass"></p-calendar>
-</template>
+</ng-template>
     </p-column>
 
     <p-column [header]="'DiagnoseName' | translate">
-        <template let-noteDrug="rowData" pTemplate="body">
+        <ng-template let-noteDrug="rowData" pTemplate="body">
             <select class="form-control" name="ddlDiagnosis" [(ngModel)]='noteDrug.relatedDiagnoseId' required >
                 <option *ngFor="let obj of diagnosis| translateObjects" [value]="obj.id">{{obj.name}}</option>
             </select>
-        </template>
+        </ng-template>
     </p-column>
     <p-column [header]="'Remarks' | translate">
-        <template let-noteDrug="rowData" pTemplate="body">
+        <ng-template let-noteDrug="rowData" pTemplate="body">
             <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteDrug.description'></textarea>
-        </template>
+        </ng-template>
     </p-column>
 </p-dataTable>

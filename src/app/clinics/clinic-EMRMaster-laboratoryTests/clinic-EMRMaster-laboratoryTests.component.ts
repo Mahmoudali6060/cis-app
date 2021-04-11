@@ -1,30 +1,30 @@
-import {Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../shared/clinic.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
 import { EMRObjectType } from '../shared/EMRObjectType.enum';
 
-import { TreeNode } from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { TreeHelerClass } from '../../shared/shared/treeHelper.class';
 
 @Component({
-   
+
     selector: 'clinic-EMRMaster-laboratoryTests',
-    templateUrl: 'clinic-EMRMaster-laboratoryTests.component.html'
+    templateUrl: './clinic-EMRMaster-laboratoryTests.component.html'
 })
 
-    
+
 export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChanges {
 
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'LaboratoryTest';
     selectedLang = 'ar';
 
     active: boolean = true;
-    selectedItem: TreeNode;
+    selectedItem!: TreeNode;
     @Input() division: any = {};
     @Input() isClinicAdmin: boolean = false;
     @Input() enableAddRootBtn: boolean = false;
@@ -32,12 +32,12 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
     @Input() enableActivateBtn: boolean = false;
     items: any[] = [];
     model: any = {};
-    @ViewChild('AddEditLaboratoryTestGroup') AddEditLaboratoryTestGroup: ElementRef;
+    @ViewChild('AddEditLaboratoryTestGroup') AddEditLaboratoryTestGroup!: ElementRef;
     selectedNode: any;
     showProgress: boolean = false;
-    laboratoryTestsTree: any[];
+    laboratoryTestsTree!: any[];
     selectedLaboratoryTests: TreeNode[] = [];
-    clinicId: number | undefined;
+    clinicId!: number;
     objectType: EMRObjectType = new EMRObjectType();
     lstToTranslated: string[] = [];
     treeHelper: TreeHelerClass = new TreeHelerClass();
@@ -49,7 +49,7 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
         private storage: LocalStorageService,
         private toastr: ToastrService,
         public translate: TranslateService) { }
-   
+
 
     ngOnInit(): void {
         // load laboratoryTests tree 
@@ -60,30 +60,30 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
         vm.lstToTranslated = ['label', 'labelTranslation'];
         this.clinicService.getLaboratoryTestsGroupsWithoutTestsForTree(vm.clinicId)
             .subscribe(
-            function (laboratoryTestsGroups) {
-                //vm.laboratoryTestsTree = laboratoryTestsGroups;
-                vm.laboratoryTestsTree = laboratoryTestsGroups; //vm.treeHelper.getActiveNodesOnly(laboratoryTestsGroups);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (laboratoryTestsGroups: any) {
+                    //vm.laboratoryTestsTree = laboratoryTestsGroups;
+                    vm.laboratoryTestsTree = laboratoryTestsGroups; //vm.treeHelper.getActiveNodesOnly(laboratoryTestsGroups);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         this.clinicService.getAllLaboratoryTests(vm.clinicId)
             .subscribe(
-            function (laboratoryTests) {
-                vm.allLaboratoryTests = laboratoryTests;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (laboratoryTests: any) {
+                    vm.allLaboratoryTests = laboratoryTests;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -110,22 +110,22 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
         this.selectedLaboratoryTestsIDs = [];
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let vm = this;
         vm.showProgress = true;
         this.clinicService.toggleEMRMasterItemActivation(node.data, event.target.checked, this.objectType.LaboratoryTests)
             .subscribe(
-            function (response:any) {
-                // change the activation of the node
-                node.isActive = event.target.checked;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    // change the activation of the node
+                    node.isActive = event.target.checked;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
 
@@ -145,28 +145,28 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
 
         this.clinicService.saveorUpdateEMRMasterItem(vm.model)
             .subscribe(
-            function (response:any) {
-                if (addNew) // attach new object to the selected node 
-                    vm.selectedNode.children.push(response:any);
-                else // update node's name in case of updating 
-                {
-                    vm.selectedNode.label = response.label;
-                    vm.selectedNode.labelTranslation = response.nameTranslation;
-                    vm.selectedNode.children = [];
-                    vm.selectedNode.children = response.children;
-                }
+                function (response: any) {
+                    if (addNew) // attach new object to the selected node 
+                        vm.selectedNode.children.push(response);
+                    else // update node's name in case of updating 
+                    {
+                        vm.selectedNode.label = response.label;
+                        vm.selectedNode.labelTranslation = response.nameTranslation;
+                        vm.selectedNode.children = [];
+                        vm.selectedNode.children = response.children;
+                    }
 
-                vm.clear();
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.clear();
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     prepareModel() {

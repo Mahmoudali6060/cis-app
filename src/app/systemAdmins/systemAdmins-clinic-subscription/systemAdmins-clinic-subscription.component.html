@@ -53,9 +53,9 @@
         <p-column field="endDateString"  [header]="'EndDate' | translate" [sortable]="true"></p-column>
         <p-column field="numberOfUsers"   [header]="'NoOfUsers' | translate" [sortable]="true"></p-column>
         <p-column [header]="'Current' | translate"  styleClass="text-center width70">
-            <template let-item="rowData" pTemplate="body">
+            <ng-template let-item="rowData" pTemplate="body">
                 <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="item.isCurrent" disabled />
-            </template>
+            </ng-template>
         </p-column>
         <p-column field="creationDateString" header="Creation Date" [sortable]="true"></p-column>
     </p-dataTable>

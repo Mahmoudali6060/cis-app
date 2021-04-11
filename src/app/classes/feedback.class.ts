@@ -1,16 +1,16 @@
 ﻿import { Reply } from './reply.class';
 
 export class Feedback {
-    clinicId: number | undefined;
-    patientId: number | undefined;
-    patientName: string | undefined;
-    patientUniqueMRN: string | undefined;
-    patientMobileNumber: string | undefined;
+    clinicId!: number;
+    patientId!: number;
+    patientName!:string;
+    patientUniqueMRN!:string;
+    patientMobileNumber!:string;
     dateString: Date | undefined;
     date: Date | undefined;
-    status: string | undefined;
-    message: string | undefined;
-    lastReplyingDateString: string | undefined;
-    lastReplyingUserName: string | undefined;
+    status!:string;
+    message!:string;
+    lastReplyingDateString!:string;
+    lastReplyingUserName!:string;
     replies: Reply[] | undefined;
 }

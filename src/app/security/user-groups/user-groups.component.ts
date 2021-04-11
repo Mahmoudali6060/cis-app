@@ -1,8 +1,8 @@
-﻿import {Component, OnChanges, OnInit, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'ng2-webstorage';
 import { Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AccountService } from '../shared/account.service'
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +11,7 @@ import { PermissionAssignment } from '../../security/shared/permission-assignmen
 import { PermissionNames } from '../../security/shared/permission-names';
 
 @Component({
-   
+
     selector: 'user-groups',
     templateUrl: 'user-groups.component.html'
 })
@@ -23,16 +23,16 @@ export class UserGroupsComponent implements OnInit, OnChanges {
 
     permissionNames: PermissionNames = new PermissionNames();
 
-    groupfilterString: string | undefined;
-    userfilterString: string | undefined;
+    groupfilterString!: string;
+    userfilterString!: string;
     model: any = { id: 0, isActive: true };
     active = true;
     showProgress = false;
-    userGroupsList: any[] | undefined;
-    usersList: any[] =[];
+    userGroupsList!: any[];
+    usersList: any[] = [];
     permissionsList: any[] | undefined;
 
-    selectedGroupUsersIDs:any = [];
+    selectedGroupUsersIDs: any = [];
     selectedGroupPermissions: PermissionAssignment[] = [];
 
     groupToDeleteId: string = '';
@@ -41,7 +41,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
     isAdminGroupSelected: boolean = false;
     clinicId = '';
     selectedLang = 'ar';
-    
+
 
     constructor(private accountService: AccountService,
         private toastr: ToastrService,
@@ -80,26 +80,26 @@ export class UserGroupsComponent implements OnInit, OnChanges {
         thisComponent.selectedGroupUsersIDs = [];
         this.accountService.getSecurityGroupById(id)
             .subscribe(
-            function (response:any) {
-                thisComponent.model = response;
-                thisComponent.isAdminGroupSelected = response.isAdmin;
-                for (var x = 0; x < response.securityUsers.length; x++)
-                    thisComponent.selectedGroupUsersIDs.push(response.securityUsers[x].id);
+                function (response: any) {
+                    thisComponent.model = response;
+                    thisComponent.isAdminGroupSelected = response.isAdmin;
+                    for (var x = 0; x < response.securityUsers.length; x++)
+                        thisComponent.selectedGroupUsersIDs.push(response.securityUsers[x].id);
 
-                thisComponent.updateModelWithSelectedUsers();
+                    thisComponent.updateModelWithSelectedUsers();
 
-                thisComponent.selectedGroupPermissions = response.permissions;
+                    thisComponent.selectedGroupPermissions = response.permissions;
 
-                if (thisComponent.selectedGroupPermissions == null || thisComponent.selectedGroupPermissions == undefined)
-                    thisComponent.selectedGroupPermissions = [];
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                    if (thisComponent.selectedGroupPermissions == null || thisComponent.selectedGroupPermissions == undefined)
+                        thisComponent.selectedGroupPermissions = [];
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     onSubmit(): void {
@@ -110,19 +110,19 @@ export class UserGroupsComponent implements OnInit, OnChanges {
         this.updateModelWithPermissions();
         this.accountService.saveOrUpdateUserGroup(this.model)
             .subscribe(
-            function (response:any) {
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-                thisComponent.raiseModelUpdated();
-                thisComponent.clear();
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            }
+                function (response: any) {
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                    thisComponent.raiseModelUpdated();
+                    thisComponent.clear();
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                }
             );
     }
 
@@ -142,20 +142,20 @@ export class UserGroupsComponent implements OnInit, OnChanges {
         thisComponent.showProgress = true;
         this.accountService.deleteUserGroup(this.groupToDeleteId)
             .subscribe(
-            function (response:any) {
-                let msg = thisComponent.translate.instant("DeletedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-                thisComponent.clear();
-                thisComponent.raiseModelUpdated();
-            },
-            function (error:any) { 
-                //console.log("Error happened" + error)
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    let msg = thisComponent.translate.instant("DeletedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                    thisComponent.clear();
+                    thisComponent.raiseModelUpdated();
+                },
+                function (error: any) {
+                    //console.log("Error happened" + error)
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     clear(): void {
@@ -168,7 +168,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
         setTimeout(() => this.active = true, 0);
     }
 
-    updateSelectedUsers(userId:any, event:any) {
+    updateSelectedUsers(userId: any, event: any) {
         if (event.target.checked) {
             this.selectedGroupUsersIDs.push(userId);
         }
@@ -186,13 +186,13 @@ export class UserGroupsComponent implements OnInit, OnChanges {
         for (var indx = 0; indx < this.selectedGroupUsersIDs.length; indx++) {
             var selectedUsr = this.usersList.find(u => u.id == this.selectedGroupUsersIDs[indx]);
             if (selectedUsr != undefined)
-              arrSelectedUsers.push(selectedUsr);
+                arrSelectedUsers.push(selectedUsr);
         }
 
         this.model.securityUsers = arrSelectedUsers;
     }
 
-    updateSelectedPermissions(permissionId:any, permissionName:any, event:any) {
+    updateSelectedPermissions(permissionId: any, permissionName: any, event: any) {
 
         var selectedPermission = this.selectedGroupPermissions.find(perm => perm.permissionId == permissionId);
         if (selectedPermission == null) {
@@ -219,8 +219,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
 
     }
 
-    updateModelWithPermissions()
-    {
+    updateModelWithPermissions() {
         this.model.permissions = [];
         for (var indx = 0; indx < this.selectedGroupPermissions.length; indx++) {
             let selectedPerm = this.selectedGroupPermissions[indx];
@@ -239,7 +238,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
         }
     }
 
-    isPermissionChecked(permissionId:any, permissionName:any, isPermissionAvailable: boolean): boolean | undefined {
+    isPermissionChecked(permissionId: any, permissionName: any, isPermissionAvailable: boolean): boolean | undefined {
 
         if (isPermissionAvailable) {
             var selectedPermission = this.selectedGroupPermissions.find(perm => perm.permissionId == permissionId);

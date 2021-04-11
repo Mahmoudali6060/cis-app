@@ -26,11 +26,11 @@
             <div class="row well">
                 <div class="col-md-10 col-md-offset-1">
                     <p-orderList [value]="wizardItems" [listStyle]="{'height':'300px'}" [responsive]="true" [header]="'EMRWizardItems' | translate">
-                        <template let-item pTemplate="default">
+                        <ng-template let-item pTemplate="default">
                             <div class="ui-helper-clearfix">
                      <div style="font-size:14px;margin:10px 5px 0 0">{{item  | translate}}</div>
                             </div>
-                        </template>
+                        </ng-template>
                     </p-orderList>
 
                 </div>

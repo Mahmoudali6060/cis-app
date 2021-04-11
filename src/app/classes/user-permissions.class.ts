@@ -1,8 +1,8 @@
 ﻿import {PermissionAssignment} from '../classes/permissionAssignment.class';
 export class UserPermissions {
 
-    id: string | undefined;
-    type: string | undefined;
+    id!:string;
+    type!:string;
     permissions: PermissionAssignment[] | undefined;
 
     constructor() {

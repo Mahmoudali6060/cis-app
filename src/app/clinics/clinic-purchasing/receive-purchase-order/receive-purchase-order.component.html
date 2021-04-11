@@ -64,14 +64,14 @@
                     <p-column field="net" [header]="'Net' | translate" [sortable]="false"></p-column>
                     <p-column field="orderedQuantity" [header]="'OrderdQuant' | translate" [sortable]="false"></p-column>
                     <p-column [header]="'ReceivedQuantity' | translate">
-                        <template let-purchaseItem="rowData" pTemplate="body">
+                        <ng-template let-purchaseItem="rowData" pTemplate="body">
                             <input type="number" class="form-control" name="txtReceivedQuantity{{purchaseItem.id}}" [(ngModel)]="purchaseItem.receivedQuantity" />
-                        </template>
+                        </ng-template>
                     </p-column>
                     <p-column [header]="'Remark' | translate">
-                        <template let-purchaseItem="rowData" pTemplate="body">
+                        <ng-template let-purchaseItem="rowData" pTemplate="body">
                             <textarea class="form-control" name="txtRemark{{purchaseItem.id}}" [(ngModel)]="purchaseItem.description"></textarea>
-                        </template>
+                        </ng-template>
                     </p-column>
                 </p-dataTable>
             </div>

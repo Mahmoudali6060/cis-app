@@ -1,11 +1,11 @@
-﻿import {Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {AdministrationService} from '../../administration/shared/administration.service';
+import { AdministrationService } from '../../administration/shared/administration.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-   
+
     selector: 'systemAdmins-clinics-details',
     templateUrl: 'systemAdmins-clinics-details.component.html'
 })
@@ -13,10 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 export class SystemAdminClinicDetailsComponent implements OnInit {
 
     clinicModel: any = { id: 0, isActive: true };
-    clinicId: number | undefined;
+    clinicId!: number;
     selectClinicsTab: boolean = true;
     showProgress = false;
-    @ViewChild('divAddress') divAddress;
+    @ViewChild('divAddress') divAddress!: any;
 
     constructor(private administrationService: AdministrationService,
         public toastr: ToastrService,
@@ -43,33 +43,33 @@ export class SystemAdminClinicDetailsComponent implements OnInit {
 
         //In case of Edit mode, load it from the DB
         let thisComp = this;
-        if (this.clinicId && this.clinicId>0) {
+        if (this.clinicId && this.clinicId > 0) {
             this.showProgress = true;
             this.administrationService.getClinicById(this.clinicId)
                 .subscribe(
-                function (response:any) {
-                    if (response.owner == null || response.owner == undefined)
-                        response.owner = { id: 0 };
+                    function (response: any) {
+                        if (response.owner == null || response.owner == undefined)
+                            response.owner = { id: 0 };
 
-                    if (response.owner.reachInfo == null || response.owner.reachInfo == undefined)
-                        response.owner.reachInfo = { id: 0 };
+                        if (response.owner.reachInfo == null || response.owner.reachInfo == undefined)
+                            response.owner.reachInfo = { id: 0 };
 
-                    if (response.admin == null || response.admin == undefined)
-                        response.admin = { id: 0 };
+                        if (response.admin == null || response.admin == undefined)
+                            response.admin = { id: 0 };
 
-                    if (response.admin.reachInfo == null || response.admin.reachInfo == undefined)
-                        response.admin.reachInfo = { id: 0 };
+                        if (response.admin.reachInfo == null || response.admin.reachInfo == undefined)
+                            response.admin.reachInfo = { id: 0 };
 
-                    thisComp.clinicModel = response;
-                    thisComp.showProgress = false;
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                    thisComp.showProgress = false;
-                },
-                function () {
-                    thisComp.showProgress = false;
-                });
+                        thisComp.clinicModel = response;
+                        thisComp.showProgress = false;
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showProgress = false;
+                    },
+                    function () {
+                        thisComp.showProgress = false;
+                    });
         }
     }
 

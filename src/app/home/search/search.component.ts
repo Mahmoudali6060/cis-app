@@ -6,7 +6,7 @@ import {UserTypeEnum} from '../../security/shared/user-type.enum';
 @Component({
    
     selector: 'search-home',
-    templateUrl: 'search.component.html'
+    templateUrl: './search.component.html'
 
 })
 

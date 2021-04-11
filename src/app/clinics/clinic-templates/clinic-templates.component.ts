@@ -1,16 +1,12 @@
-﻿import {Component, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UtilityClass } from '../../shared/shared/utility.class';
+﻿import { Component, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
-import { TreeNode } from 'primeng/primeng';
-import {ClinicService} from '../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
-   
     selector: 'clinic-templates',
-    templateUrl: 'clinic-templates.component.html'
+    templateUrl: './clinic-templates.component.html'
 })
 
 export class ClinicTemplatesComponent implements OnInit {
@@ -22,7 +18,7 @@ export class ClinicTemplatesComponent implements OnInit {
     model: any;
     type = 'TemplateFileType';
     patientAttachementId = '';
-    selectedClinicId: string | undefined;
+    selectedClinicId!:string;
     isTemplatesSelected = true;
 
     constructor(public toastr: ToastrService,

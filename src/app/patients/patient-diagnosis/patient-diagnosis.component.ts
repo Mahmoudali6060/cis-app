@@ -1,16 +1,15 @@
-﻿import {Component, OnInit, ViewChild, Input , OnChanges , SimpleChanges} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DoctorService } from '../../doctors/shared/doctor.service';
 import { SharedService } from '../../shared/shared/shared.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {TranslateService} from '@ngx-translate/core';
-
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'patient-diagnosis',
     templateUrl: 'patient-diagnosis.component.html',
 })
@@ -19,8 +18,8 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
     selectBasicTab: boolean = true;
     utilityClass: UtilityClass = new UtilityClass();
     @Input() allowEditing: boolean = true;
-    @Input() patientId: number | undefined;
-    @Input() clinicNoteId: number | undefined;
+    @Input() patientId!: number;
+    @Input() clinicNoteId!: number;
     @Input() usedInClinicNoteDiagnosis: boolean = false;
     isDetailsVisible: boolean = false;
     diagnosisList: any[] = [];
@@ -37,8 +36,7 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
         , private _route: ActivatedRoute
         , public localStorage: LocalStorageService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         let thisComponent = this;
@@ -50,16 +48,16 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
             thisComponent.showProgress = true;
             this.doctorService.getPatientSnapshotDiagnosis(thisComponent.patientId)
                 .subscribe(
-                function (clinicNoteDiagnosis) {
-                    thisComponent.diagnosisList = clinicNoteDiagnosis;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (clinicNoteDiagnosis: any) {
+                        thisComponent.diagnosisList = clinicNoteDiagnosis;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -69,22 +67,22 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
             thisComponent.showProgress = true;
             this.doctorService.getClinicNoteDiagnosis(thisComponent.clinicNoteId)
                 .subscribe(
-                function (clinicNoteDiagnosis) {
-                    thisComponent.diagnosisList = clinicNoteDiagnosis;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (clinicNoteDiagnosis: any) {
+                        thisComponent.diagnosisList = clinicNoteDiagnosis;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
 
     }
 
     ngOnChanges(changes: SimpleChanges) {
-       // this.getClinicNoteDiagnosis();
+        // this.getClinicNoteDiagnosis();
     }
 
     addNewClinicNoteDiagnose() {
@@ -92,27 +90,27 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
         this.isDetailsVisible = true;
     }
 
-    showDetails(rowData) {
+    showDetails(rowData: any) {
         if (rowData && rowData.id) {
             let thisComponent = this;
             thisComponent.showProgress = true;
             this.doctorService.getClinicNoteDiagnoseById(rowData.id)
                 .subscribe(
-                function (matchedClinicNoteDiagnose) {
-                    thisComponent.toSaveClinicNoteDiagnose = matchedClinicNoteDiagnose;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (matchedClinicNoteDiagnose: any) {
+                        thisComponent.toSaveClinicNoteDiagnose = matchedClinicNoteDiagnose;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
             this.isDetailsVisible = true;
         }
     }
 
-    hideDetails(updatedClinicNoteDiagnose) {
+    hideDetails(updatedClinicNoteDiagnose: any) {
         if (updatedClinicNoteDiagnose) {
 
             let thisComponent = this;
@@ -127,46 +125,46 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
         this.isDetailsVisible = false;
     }
 
-    deleteClinicNoteDiagnose(rowData) {
+    deleteClinicNoteDiagnose(rowData: any) {
         if (rowData && rowData.id) {
             let thisComponent = this;
             thisComponent.showProgress = true;
             this.doctorService.deleteClinicNoteDiagnose(rowData.id)
                 .subscribe(
-                function (matchedClinicNoteDiagnose) {
-                    thisComponent.diagnosisList.forEach(clinicNoteDiagnose => {
-                        if (clinicNoteDiagnose.id == rowData.id)
-                            thisComponent.diagnosisList.splice(thisComponent.diagnosisList.indexOf(clinicNoteDiagnose), 1);
+                    function (matchedClinicNoteDiagnose: any) {
+                        thisComponent.diagnosisList.forEach(clinicNoteDiagnose => {
+                            if (clinicNoteDiagnose.id == rowData.id)
+                                thisComponent.diagnosisList.splice(thisComponent.diagnosisList.indexOf(clinicNoteDiagnose), 1);
+                        });
+                        let msg = thisComponent.translate.instant("DeletedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
                     });
-                    let msg = thisComponent.translate.instant("DeletedSuccessfully");
+        }
+    }
+
+    changeCurrentStatus(clinicNoteDiagnoseId: any, event: any) {
+        let thisComponent = this;
+        thisComponent.showProgress = true;
+        this.doctorService.changeClinicNoteDiagnoseCurrentStatus({ "id": clinicNoteDiagnoseId, "isCurrent": event.target.checked })
+            .subscribe(
+                function (matchedClinicNoteDiagnose: any) {
+                    let msg = thisComponent.translate.instant("StatusChanged");
                     thisComponent.toastr.success(msg, '');
                 },
-                function (error:any) { 
+                function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
                 });
-        }
-    }
-
-    changeCurrentStatus(clinicNoteDiagnoseId, event) {
-        let thisComponent = this;
-        thisComponent.showProgress = true;
-        this.doctorService.changeClinicNoteDiagnoseCurrentStatus({ "id": clinicNoteDiagnoseId, "isCurrent": event.target.checked })
-            .subscribe(
-            function (matchedClinicNoteDiagnose) {
-                let msg = thisComponent.translate.instant("StatusChanged");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
 
     }
 }

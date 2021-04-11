@@ -1,21 +1,21 @@
-﻿import {Component, OnInit, ViewChild, Input, OnChanges, EventEmitter, Output} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PatientService } from '../shared/patient.service';
 import { SharedService } from '../../shared/shared/shared.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
 
 @Component({
-   
+
     selector: 'patient-insurance',
     templateUrl: 'patient-insurance.component.html',
 })
 
-export class PatientInsuranceComponent implements OnInit, OnChanges{
+export class PatientInsuranceComponent implements OnInit, OnChanges {
     selectBasicTab: boolean = true;
     @Input() patientId: string = '';
     @Input() patientModel: any;
@@ -24,25 +24,24 @@ export class PatientInsuranceComponent implements OnInit, OnChanges{
     active = true;
     model: any = {};
     hasInsurance: boolean = false;
-    insuranceId;
-    insurances = [];
+    insuranceId!: any;
+    insurances!: any;
     isTableView: boolean = true;
-    insuranceToBeDeleted;
-    patientIdValue;
+    insuranceToBeDeleted!: any;
+    patientIdValue!: any;
     showProgress = false;
     tst = "test";
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!: any;
     utilityClass: UtilityClass = new UtilityClass();
-    selectedClinicId;
+    selectedClinicId!: any;
     constructor(private patientService: PatientService
         , private sharedService: SharedService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , private router: Router
-        ,public translate: TranslateService
-    )
-    { }
+        , public translate: TranslateService
+    ) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['companyName', 'companyNameTranslation', 'policyName', 'policyNameTranslation', 'patientName', 'patientNameTranslation'];
@@ -72,40 +71,40 @@ export class PatientInsuranceComponent implements OnInit, OnChanges{
     loadPatientInsurances() {
         let vm = this;
         this.patientService.getAllPatientInsurances(vm.patientIdValue).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.insurances = response;
                 if (vm.patientModel.birthDate)
                     vm.patientModel.birthDate = vm.utilityClass.getUtcDateFromString(vm.patientModel.birthDate);
             },
-            function (error:any) { 
-                vm.toastr.error( error, '');
+            function (error: any) {
+                vm.toastr.error(error, '');
             },
             function () { // finally
                 vm.showProgress = false;
             });
 
     }
-    changeActivation(insuranceId, event) {
+    changeActivation(insuranceId: any, event: any) {
         let vm = this;
         vm.showProgress = true;
 
         this.patientService.togglePatientInsuranceActivation(insuranceId)
             .subscribe(
-            function (response:any) {
-                // get company by Id from the companies List
-                //var selectedCompany = vm.companiesList.find(comp => comp.id == id);
-                //selectedCompany.isActive = response;
+                function (response: any) {
+                    // get company by Id from the companies List
+                    //var selectedCompany = vm.companiesList.find(comp => comp.id == id);
+                    //selectedCompany.isActive = response;
 
-                // load all companies
-                vm.loadPatientInsurances();
-            },
-            function (error:any) { 
-                vm.toastr.error( error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // load all companies
+                    vm.loadPatientInsurances();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     editItem(id: string): void {
         //this.isForm = true;
@@ -137,26 +136,26 @@ export class PatientInsuranceComponent implements OnInit, OnChanges{
         vm.showProgress = true;
         this.patientService.deletePatientInsurance(this.insuranceToBeDeleted)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                var selectedObject = vm.insurances.find(o => o.id == vm.insuranceToBeDeleted);
-                var index = vm.insurances.indexOf(selectedObject);
-                if (index > -1)
-                    vm.insurances.splice(index, 1);
+                    // remove delete object from collection
+                    var selectedObject = vm.insurances.find((o: any) => o.id == vm.insuranceToBeDeleted);
+                    var index = vm.insurances.indexOf(selectedObject);
+                    if (index > -1)
+                        vm.insurances.splice(index, 1);
 
-                // clear fields
-                //  vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    //  vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     private navigateToPackages() {
@@ -164,7 +163,7 @@ export class PatientInsuranceComponent implements OnInit, OnChanges{
         this.router.navigate(['/receptionist/patients', this.selectedClinicId]);
     }
 
-    changeInsuranceStatus(patientId, event) {
+    changeInsuranceStatus(patientId: any, event: any) {
         let vm = this;
         vm.showProgress = true;
         if (event.target.checked)
@@ -173,21 +172,21 @@ export class PatientInsuranceComponent implements OnInit, OnChanges{
             vm.patientModel.isInsured = false;
         this.patientService.updatePatientPersonalData(vm.patientModel)
             .subscribe(
-            function (response:any) {
-                vm.patientModel = response;
+                function (response: any) {
+                    vm.patientModel = response;
 
-                if (vm.model.birthDate)
-                    vm.model.birthDate = vm.utilityClass.getUtcDateFromString(vm.model.birthDate);
+                    if (vm.model.birthDate)
+                        vm.model.birthDate = vm.utilityClass.getUtcDateFromString(vm.model.birthDate);
 
-                vm.raiseModelUpdated(vm.patientModel);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.raiseModelUpdated(vm.patientModel);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     raiseModelUpdated(model: any) {

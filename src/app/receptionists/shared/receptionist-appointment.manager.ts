@@ -10,16 +10,15 @@ export class ReceptionistAppointmentManager {
     timeSlotsList: any[] = [];
     toExcludeTimeSlotsList: any[] = [];
     sessionsList: any[] = [];
-    slotDuration: number | undefined;
+    slotDuration!: number;
 
-    constructor(schedulesList: any[], sessionExtensionsList) {
+    constructor(schedulesList: any[], sessionExtensionsList: any) {
         this.appointmentSchedulesList = schedulesList;
         this.sessionExtensionsList = sessionExtensionsList;
     }
 
-    public getFirstTimeSlot(dateValue: Date)
-    {
-        let firstTimeSlot: TimeSlot = undefined;
+    public getFirstTimeSlot(dateValue: Date) {
+        let firstTimeSlot!: TimeSlot;
 
         for (let dayno = 0; dayno <= 6; dayno++) {
 
@@ -38,7 +37,7 @@ export class ReceptionistAppointmentManager {
     }
 
     public getTimeSlots(dateValue: Date): any[] {
-        
+
         this.timeSlotsList = [];
         //this.toExcludeTimeSlotsList = [];
         if (dateValue != undefined) {
@@ -61,7 +60,7 @@ export class ReceptionistAppointmentManager {
 
         //Sort time slots
         this.timeSlotsList.sort(function (slot1, slot2) {
-            
+
             if (slot1.dateTime > slot2.dateTime)
                 return 1;
             else
@@ -71,14 +70,13 @@ export class ReceptionistAppointmentManager {
         return this.timeSlotsList;
     }
 
-    handleSessionExtensions(selectedDate)
-    {
+    handleSessionExtensions(selectedDate: any) {
         if (this.sessionExtensionsList != undefined) {
 
             //Get session extensions in selected date
-            let sessionExtensionsInDate = [];
+            let sessionExtensionsInDate: any = [];
 
-            this.sessionExtensionsList.forEach(item => {
+            this.sessionExtensionsList.forEach((item: any) => {
                 var date = this.utilityClass.getUtcDateFromString(item.day);
                 if (date.toDateString() == selectedDate.toDateString()) {
                     sessionExtensionsInDate.push(item);
@@ -87,7 +85,7 @@ export class ReceptionistAppointmentManager {
 
             //Sort by DB ID
             let thisComp = this;
-            sessionExtensionsInDate.sort(function (sesion1, sesion2) {
+            sessionExtensionsInDate.sort(function (sesion1: any, sesion2: any) {
                 let id1: number = Number(sesion1.id);
                 let id2: number = Number(sesion2.id);
 
@@ -98,18 +96,18 @@ export class ReceptionistAppointmentManager {
             });
 
             //Manage session extenstions slots
-            sessionExtensionsInDate.forEach(item => this.manageSesssionExtensionItem(selectedDate, item));
+            sessionExtensionsInDate.forEach((item: any) => this.manageSesssionExtensionItem(selectedDate, item));
         }
     }
 
-    manageSesssionExtensionItem(selectedDate, item) {
-        let itemTimeSlots = [];
+    manageSesssionExtensionItem(selectedDate: any, item: any) {
+        let itemTimeSlots: any = [];
         this.addTimeSlots(selectedDate, item, itemTimeSlots)
 
-        itemTimeSlots.forEach(slot => this.handleSesssionExtensionSlot(item, slot));
+        itemTimeSlots.forEach((slot: any) => this.handleSesssionExtensionSlot(item, slot));
     }
 
-    handleSesssionExtensionSlot(sessionExtensionItem, slot) {
+    handleSesssionExtensionSlot(sessionExtensionItem: any, slot: any) {
         if (sessionExtensionItem.type == "OpenSlot") {
             let availableSlot = this.timeSlotsList.find(s => s.name == slot.name);
             if (availableSlot == undefined)//add it
@@ -135,7 +133,7 @@ export class ReceptionistAppointmentManager {
                 this.sessionsList = this.getDaySessions(appSchedule, dayName);
 
                 if (this.sessionExtensionsList != undefined) {
-                    this.sessionExtensionsList.forEach(item => {
+                    this.sessionExtensionsList.forEach((item: any) => {
                         var date = this.utilityClass.getUtcDateFromString(item.day);
                         if (date.toDateString() == dateValue.toDateString() && item.type == "OpenSlot") {
                             this.sessionsList.push(item);
@@ -177,7 +175,7 @@ export class ReceptionistAppointmentManager {
     private getDaySessions(appSchedule: any, dayName: string): any[] {
         let daySessions: any[] = [];
         if (appSchedule != undefined && appSchedule.sessions != undefined) {
-            appSchedule.sessions.forEach(item => {
+            appSchedule.sessions.forEach((item: any) => {
                 if (item.day == dayName)
                     daySessions.push(item);
             });
@@ -200,10 +198,10 @@ export class ReceptionistAppointmentManager {
 
     private fillTimeSlots(selectedDate: Date, daySessions: any[]) {
         let thisCompnonent = this;
-        daySessions.forEach(item => this.addTimeSlots(selectedDate, item, this.timeSlotsList));
+        daySessions.forEach((item: any) => this.addTimeSlots(selectedDate, item, this.timeSlotsList));
     }
 
-    findWithAttr(array, attr, value) {
+    findWithAttr(array: any, attr: any, value: any) {
         for (var i = 0; i < array.length; i += 1) {
             if (array[i][attr] === value) {
                 return i;
@@ -244,7 +242,7 @@ export class ReceptionistAppointmentManager {
         //    toFillTimeSlotsList.push(endTimeSlot);
     }
 
-    getFullDayTimeSlots(daySlotDuration): TimeSlot[] {
+    getFullDayTimeSlots(daySlotDuration: any): TimeSlot[] {
         if (daySlotDuration == null || daySlotDuration == undefined) {
             daySlotDuration = 10;//Default
             //Override it if there is calendar slot duration

@@ -29,13 +29,13 @@ export enum ConnectionState {
 }
 
 export class ChannelConfig {
-    url: string | undefined;
-    hubName: string | undefined;
-    channel: string | undefined;
+    url!:string;
+    hubName!:string;
+    channel!:string;
 }
 
 class ChannelSubject {
-    channel: string | undefined;
+    channel!:string;
     subject: Subject<string> = new Subject<string>();
 }
 

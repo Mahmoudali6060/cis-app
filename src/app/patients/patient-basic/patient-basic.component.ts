@@ -1,9 +1,7 @@
 ﻿import {Component, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
-
 import { ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 
@@ -21,7 +19,7 @@ export class PatientBasicComponent implements OnInit {
   
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
     constructor(private organizationService: PatientService
         , private sharedService: SharedService

@@ -14,7 +14,7 @@ import { PermissionNames } from '../../security/shared/permission-names';
 @Component({
    
     selector: 'user-permissions',
-    templateUrl: 'user-permissions.component.html'
+    templateUrl: './user-permissions.component.html'
 })
 
 export class UserPermissionsComponent implements OnInit, OnChanges {
@@ -27,8 +27,8 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
     usersList: any[] | undefined;
     permissionsList: any[] | undefined;
 
-    userGroupfilterString: string | undefined;
-    userListfilterString: string | undefined;
+    userGroupfilterString!:string;
+    userListfilterString!:string;
 
     model: any = { id: 0, isActive: true };
     active = true;

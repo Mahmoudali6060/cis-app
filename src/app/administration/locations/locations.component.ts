@@ -8,7 +8,7 @@ import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
    
     selector: 'locations',
-    templateUrl: 'locations.component.html'
+    templateUrl: './locations.component.html'
 })
 
 export class LocationsComponent implements OnChanges, OnInit, AfterContentChecked {
@@ -21,11 +21,11 @@ export class LocationsComponent implements OnChanges, OnInit, AfterContentChecke
     model: any = { id: 0, isActive: true };
     showProgress = false;
     active = true;
-    allObjects: any[];
+    allObjects!: any[];
     itemToDeleteId: string = '';
-    countriesList: any[];
-    regionsList: any[];
-    citiesList: any[];
+    countriesList!: any[];
+    regionsList!: any[];
+    citiesList!: any[];
     toPrintDiv: string = "print-section";
     lstToTranslated: string[] = [];
 
@@ -209,7 +209,7 @@ export class LocationsComponent implements OnChanges, OnInit, AfterContentChecke
         }
     }
 
-    changeActivation(id, event) {
+    changeActivation(id:any, event:any) {
 
         this.editItem(id);
         this.model.isActive = event.target.checked;

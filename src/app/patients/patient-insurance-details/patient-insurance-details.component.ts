@@ -1,16 +1,16 @@
-﻿import {Component, OnInit, ViewChild, Input, Output, EventEmitter, AfterContentChecked} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input, Output, EventEmitter, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
 
 @Component({
-   
+
     selector: 'patient-insurance-details',
     templateUrl: 'patient-insurance-details.component.html',
 })
@@ -27,11 +27,11 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
     isTableView: boolean = true;
     companies = [];
     policies = [];
-    insuranceIdvalue;
+    insuranceIdvalue!: any;
     utilityClass: UtilityClass = new UtilityClass();
 
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!: any;
 
     constructor(private patientService: PatientService
         , private sharedService: SharedService
@@ -39,8 +39,7 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
         , private _route: ActivatedRoute
         , public storage: LocalStorageService,
         public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         let vm = this;
@@ -50,37 +49,37 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
         //get all calssifications from DB
         this.patientService.getpatientInsuranceWrapper()
             .subscribe(
-            function (response:any) {
-                vm.companies = response.companies;
-               // vm.policies = response.policies;
-            },
-            function (error:any) { 
-                vm.toastr.error( error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.companies = response.companies;
+                    // vm.policies = response.policies;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         // get organization in case of update
         if (this.insuranceIdvalue.toString().toLowerCase() != 'new') {
             vm.showProgress = true;
             this.patientService.getPatientInsuranceById(this.insuranceIdvalue)
                 .subscribe(
-                function (response:any) {
-                    vm.model = response;
+                    function (response: any) {
+                        vm.model = response;
 
-                    if (vm.model.startDate)
-                        vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
-                    if (vm.model.endDate)
-                        vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
-                },
-                function (error:any) { 
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                        if (vm.model.startDate)
+                            vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
+                        if (vm.model.endDate)
+                            vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
 
     }
@@ -96,7 +95,7 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
     }
 
     fillPolicies(id: string) {
-        var company = this.companies.find(i => i.id == id);
+        var company: any = this.companies.find((i: any) => i.id == id);
 
         if (company != null) {
             this.policies = company.insurancePolicies;
@@ -122,49 +121,49 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
                 //organization => this.model = organization,
                 //error => this.errorMessage = <any>error);
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.model = response;
-                    vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
-                    vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
-                    // store selected organization ID
-                    //vm.storage.store("OrganizationID", vm.model.id);
-                    //if (response.imageData != null) {
-                    //    vm.model.imageData = response.imageData;
-                    //    vm.model.imageId = response.imageId;
-                    //}
-                },
-                function (error:any) { 
-                    //console.log("Error happened" + error)
-                    vm.toastr.error( error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                }
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.model = response;
+                        vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
+                        vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
+                        // store selected organization ID
+                        //vm.storage.store("OrganizationID", vm.model.id);
+                        //if (response.imageData != null) {
+                        //    vm.model.imageData = response.imageData;
+                        //    vm.model.imageId = response.imageId;
+                        //}
+                    },
+                    function (error: any) {
+                        //console.log("Error happened" + error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    }
                 );
         }
         else {
             // update
             this.patientService.updatePatientInsurance(this.model)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.model = response;
-                    vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
-                    vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.model = response;
+                        vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
+                        vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
 
-                },
-                function (error:any) { 
-                    //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        //console.log("Error happened" + error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
 
     }

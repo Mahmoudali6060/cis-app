@@ -1,39 +1,32 @@
-﻿import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+﻿import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import {ClinicService} from '../shared/clinic.service';
-
-import { TreeNode } from 'primeng/primeng';
+import { ClinicService } from '../shared/clinic.service';
 
 @Component({
-   
+
     selector: 'clinic-humanResource',
-    templateUrl: 'clinic-humanResource.component.html'
+    templateUrl: './clinic-humanResource.component.html'
 })
 
 export class ClinicHumanResourceComponent implements OnInit {
 
-    @Input() isEditMode: boolean = false;    
+    @Input() isEditMode: boolean = false;
     @Input() selectedNode: any;
     @Input() isClinicAdmin: boolean = false;
     @Input() enableSaveBtn: boolean = false;
     @Output() onModelUpdated = new EventEmitter<any>();
-    @ViewChild('basicDataLink') basicDataLink: ElementRef;
-
+    @ViewChild('basicDataLink') basicDataLink!: ElementRef;
     selectedUserToEdit: any;
-
     departmentName = '';
     divisionName = '';
     divisionId = '';
-
     isNonMedicalDepartment: boolean = false;
-
     clinicId = '';
     humanResourceWrapper: any;
-
     showProgress: boolean = false;
 
     constructor(private clinicService: ClinicService,
@@ -88,7 +81,7 @@ export class ClinicHumanResourceComponent implements OnInit {
 
         this.loadHumanResourcesWrapper();
 
-       
+
     }
 
     loadHumanResourcesWrapper() {
@@ -96,40 +89,40 @@ export class ClinicHumanResourceComponent implements OnInit {
         let thisComponent = this;
         this.clinicService.getHumanResourcesWrapper(this.clinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.humanResourceWrapper = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.humanResourceWrapper = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
-    loadUserToEdit(userToEditId) {
+    loadUserToEdit(userToEditId: any) {
         this.showProgress = true;
         let thisComponent = this;
         this.clinicService.getHumanResourceById(userToEditId)
             .subscribe(
-            function (response:any) {
-                thisComponent.selectedUserToEdit = response;
+                function (response: any) {
+                    thisComponent.selectedUserToEdit = response;
 
-                if (thisComponent.selectedUserToEdit.reachInfo == undefined)
-                    thisComponent.selectedUserToEdit.reachInfo = {};
+                    if (thisComponent.selectedUserToEdit.reachInfo == undefined)
+                        thisComponent.selectedUserToEdit.reachInfo = {};
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
-    updateModel(updatedModel) {
+    updateModel(updatedModel: any) {
         this.selectedUserToEdit = updatedModel;
 
         if (!this.isEditMode)//Add new node to the tree
@@ -152,16 +145,15 @@ export class ClinicHumanResourceComponent implements OnInit {
         }
     }
 
-    raiseModelUpdated(node) {
+    raiseModelUpdated(node: any) {
         this.onModelUpdated.emit(node);
     }
 
-    isDoctorEditing(): boolean
-    {
+    isDoctorEditing(): boolean {
         if (this.selectedUserToEdit != undefined && this.selectedUserToEdit.type == 'Doctor')
             return true;
 
         return false;
     }
-    
+
 }

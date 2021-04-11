@@ -1,10 +1,10 @@
 ﻿
 export class PermissionAssignment {
 
-    id: number | undefined;
-    securityUserId: number | undefined;
-    securityGroupId: number | undefined;
-    permissionId: number | undefined;
+    id!: number;
+    securityUserId!: number;
+    securityGroupId!: number;
+    permissionId!: number;
 
     fullControl: boolean | undefined;
     view: boolean | undefined;

@@ -1,25 +1,24 @@
-﻿import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
+﻿import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../security/shared/account.service';
 
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService} from '@ngx-translate/core';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService } from '@ngx-translate/core';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { InsuranceService } from '../shared/insurance.service';
 import { UtilityClass } from '../../shared/shared/utility.class'
 
 @Component({
-   
+
     selector: 'insurance-invoice',
-    templateUrl: 'insurance-invoice.component.html'
+    templateUrl: './insurance-invoice.component.html'
 })
 
 export class InsuranceInvoiceComponent implements OnInit {
 
     utilityClass: UtilityClass = new UtilityClass();
-
     active: boolean = true;
     showProgress = false;
     lstToTranslated: string[] = [];
@@ -30,11 +29,9 @@ export class InsuranceInvoiceComponent implements OnInit {
     enableViewCompanyDetails: boolean = false;
     isDurationVisible: boolean = false;
     isPeriodOfTimeVisible: boolean = false;
-
     durationLabel: string = "Duration";
     periodStartDate: Date | undefined;
     periodEndDate: Date | undefined;
-
     invoiceSearchParameters: any = {};
     dateFiltersList: any[] = [];
     invoiceStatusesList: any[] = [];
@@ -59,7 +56,7 @@ export class InsuranceInvoiceComponent implements OnInit {
         this.getAllInvoicesToday();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -77,16 +74,16 @@ export class InsuranceInvoiceComponent implements OnInit {
         let thisComponent = this;
         this.insuranceService.getAllInvoicesToday(this.clinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.invoicesList = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.invoicesList = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     getInvoiceSearchParametersWrapper() {
@@ -94,18 +91,18 @@ export class InsuranceInvoiceComponent implements OnInit {
         let thisComponent = this;
         this.insuranceService.getInvoiceSearchParametersWrapper()
             .subscribe(
-            function (response:any) {
-                thisComponent.dateFiltersList = response.dateFilters;
-                thisComponent.invoiceStatusesList = response.invoiceStatuses;
-                thisComponent.companiesList = response.insuranceCompanies;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.dateFiltersList = response.dateFilters;
+                    thisComponent.invoiceStatusesList = response.invoiceStatuses;
+                    thisComponent.companiesList = response.insuranceCompanies;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     searchForInvoices() {
@@ -121,16 +118,16 @@ export class InsuranceInvoiceComponent implements OnInit {
 
         this.insuranceService.searchForInvoices(this.invoiceSearchParameters)
             .subscribe(
-            function (response:any) {
-                thisComponent.invoicesList = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.invoicesList = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     selectDateFilter(dateFilter: string) {
@@ -167,7 +164,7 @@ export class InsuranceInvoiceComponent implements OnInit {
         }
     }
 
-    fillCompanyPolicies(companyId) {
+    fillCompanyPolicies(companyId: any) {
         if (this.companiesList != undefined && this.companiesList.length > 0) {
             let comp = this.companiesList.find(c => c.id == companyId);
             if (comp != undefined && comp.insurancePolicies != undefined)

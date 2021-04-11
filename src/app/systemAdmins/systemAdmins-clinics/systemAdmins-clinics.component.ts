@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
@@ -9,7 +9,7 @@ import { AdministrationService } from '../../administration/shared/administratio
 import { UtilityClass } from '../../shared/shared/utility.class';
 
 @Component({
-   
+
     selector: 'systemAdmins-clinics',
     templateUrl: 'systemAdmins-clinics.component.html'
 
@@ -18,13 +18,13 @@ import { UtilityClass } from '../../shared/shared/utility.class';
 export class SystemAdminClinicsComponent implements OnInit {
 
     lstToTranslated: string[] = [];
-    filterString: string | undefined;
-    clinicsList: any[];
+    filterString!: string;
+    clinicsList!: any[];
     showProgress = false;
     selectClinicsTab: boolean = true;
     newSubscription: any = {};
     newSubscriptionToSave: any = {};
-    selectedClinicId;
+    selectedClinicId!: any;
     active: boolean = true;
     toPrintDiv: string = "print-section";
     newCredit: any = { id: 0 };
@@ -32,8 +32,8 @@ export class SystemAdminClinicsComponent implements OnInit {
     utilityClass: UtilityClass = new UtilityClass();
     todayDate: string = '';
     enableMyAccountBtn: boolean = false;
-    @ViewChild('btnSubscriptionModalClose') btnSubscriptionModalClose: ElementRef;
-    @ViewChild('btnSmsCreditModalClose') btnSmsCreditModalClose: ElementRef;
+    @ViewChild('btnSubscriptionModalClose') btnSubscriptionModalClose!: ElementRef;
+    @ViewChild('btnSmsCreditModalClose') btnSmsCreditModalClose!: ElementRef;
 
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
@@ -52,53 +52,50 @@ export class SystemAdminClinicsComponent implements OnInit {
             this.enableMyAccountBtn = true;
     }
 
-    getAllClinics()
-    {
+    getAllClinics() {
         this.showProgress = true;
         let thisComponent = this;
         this.administrationService.getAllClinics()
             .subscribe(
-            function (response:any) {
-                thisComponent.clinicsList = response;
+                function (response: any) {
+                    thisComponent.clinicsList = response;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
-    }
-
-    changeActivation(id, event) {
-
-        var selectedObject = this.clinicsList.find(o => o.id == id);
-        if (selectedObject != null && selectedObject != undefined)
-        {
-            selectedObject.isActive = event.target.checked;
-
-            let thisComponent = this;
-            this.showProgress = true;
-            this.administrationService.toggleClinicActivation(id)
-                .subscribe(
-                function (response:any) {
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
                 },
-                function (error:any) { 
+                function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
                 });
+    }
+
+    changeActivation(id: any, event: any) {
+
+        var selectedObject = this.clinicsList.find(o => o.id == id);
+        if (selectedObject != null && selectedObject != undefined) {
+            selectedObject.isActive = event.target.checked;
+
+            let thisComponent = this;
+            this.showProgress = true;
+            this.administrationService.toggleClinicActivation(id)
+                .subscribe(
+                    function (response: any) {
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
 
     }
 
-    selectClinic(clinicId)
-    {
+    selectClinic(clinicId: any) {
         this.selectedClinicId = clinicId;
     }
 
@@ -113,25 +110,25 @@ export class SystemAdminClinicsComponent implements OnInit {
         let thisComponent = this;
         this.administrationService.renewSubcscription(thisComponent.newSubscriptionToSave)
             .subscribe(
-            function (response:any) {
-                //Reset the subscription
-                thisComponent.newSubscription = {};
-                thisComponent.newSubscriptionToSave = {};
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-                thisComponent.closeSubscriptionModal();
+                function (response: any) {
+                    //Reset the subscription
+                    thisComponent.newSubscription = {};
+                    thisComponent.newSubscriptionToSave = {};
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                    thisComponent.closeSubscriptionModal();
 
-                //Refresh clinics
-                thisComponent.getAllClinics();
-            },
-            function (error:any) { 
-                //console.log("Error happened" + error)
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                    //Refresh clinics
+                    thisComponent.getAllClinics();
+                },
+                function (error: any) {
+                    //console.log("Error happened" + error)
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
 
     }
 
@@ -150,23 +147,23 @@ export class SystemAdminClinicsComponent implements OnInit {
         let thisComponent = this;
         this.administrationService.addSmsCredit(thisComponent.newCreditToSave)
             .subscribe(
-            function (response:any) {
-                //Reset the subscription
-                thisComponent.newCredit = { id: 0 };
-                thisComponent.newCreditToSave = { id: 0 };
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
+                function (response: any) {
+                    //Reset the subscription
+                    thisComponent.newCredit = { id: 0 };
+                    thisComponent.newCreditToSave = { id: 0 };
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
 
-                thisComponent.closeSmsCreditModal();
-            },
-            function (error:any) { 
-                //console.log("Error happened" + error)
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                    thisComponent.closeSmsCreditModal();
+                },
+                function (error: any) {
+                    //console.log("Error happened" + error)
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
 
     }
 

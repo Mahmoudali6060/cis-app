@@ -1,14 +1,14 @@
-﻿import {Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 
-import {AdministrationService} from '../../administration/shared/administration.service';
+import { AdministrationService } from '../../administration/shared/administration.service';
 
 @Component({
-   
+
     selector: 'systemAdmins-clinic-basicData',
     templateUrl: 'systemAdmins-clinic-basicData.component.html'
 })
@@ -20,7 +20,7 @@ export class SystemAdminClinicBasicDataComponent implements OnInit {
 
     showProgress = false;
     active = true;
-    clinicLevelsList: any[];
+    clinicLevelsList!: any[];
     selectDivisionsTab: boolean = true;
     clinicId: string = '';
     enableMyAccountBtn: boolean = false;
@@ -38,17 +38,17 @@ export class SystemAdminClinicBasicDataComponent implements OnInit {
         let thisComponent = this;
         this.administrationService.getAll('Cis.Core.ClinicLevel')
             .subscribe(
-            function (response:any) {
-                thisComponent.clinicLevelsList = response;
+                function (response: any) {
+                    thisComponent.clinicLevelsList = response;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
         let userType = this.localStorage.retrieve("UserType");
         if (userType != undefined && userType == "SysAdmin")
@@ -63,26 +63,26 @@ export class SystemAdminClinicBasicDataComponent implements OnInit {
             if (this.isPasswordValid()) {
                 this.administrationService.saveClinic(this.model)
                     .subscribe(
-                    function (response:any) {
+                        function (response: any) {
 
-                        thisComponent.model = response;
-                        if (thisComponent.model.admin == null || thisComponent.model.admin == undefined)
-                            thisComponent.model.admin = { id: 0 };
+                            thisComponent.model = response;
+                            if (thisComponent.model.admin == null || thisComponent.model.admin == undefined)
+                                thisComponent.model.admin = { id: 0 };
 
-                        if (thisComponent.model.admin.reachInfo == null || thisComponent.model.admin.reachInfo == undefined)
-                            thisComponent.model.admin.reachInfo = { id: 0 };
+                            if (thisComponent.model.admin.reachInfo == null || thisComponent.model.admin.reachInfo == undefined)
+                                thisComponent.model.admin.reachInfo = { id: 0 };
 
-                        thisComponent.raiseModelUpdated(response:any);
-                        let msg = thisComponent.translate.instant("SavedSuccessfully");
-                        thisComponent.toastr.success(msg, '');
-                    },
-                    function (error:any) { 
-                        thisComponent.toastr.error(error, '');
-                        thisComponent.showProgress = false;
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                            thisComponent.raiseModelUpdated(response);
+                            let msg = thisComponent.translate.instant("SavedSuccessfully");
+                            thisComponent.toastr.success(msg, '');
+                        },
+                        function (error: any) {
+                            thisComponent.toastr.error(error, '');
+                            thisComponent.showProgress = false;
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
             }
             else {
                 thisComponent.showProgress = false;
@@ -93,26 +93,26 @@ export class SystemAdminClinicBasicDataComponent implements OnInit {
             if ((this.isPasswordValid() && !this.model.ownerIsAdmin && this.model.adminId == null) || this.model.ownerIsAdmin || (this.model.adminId > 0)) {
                 this.administrationService.updateClinic(this.model)
                     .subscribe(
-                    function (response:any) {
+                        function (response: any) {
 
-                        thisComponent.model = response;
-                        if (thisComponent.model.admin == null || thisComponent.model.admin == undefined)
-                            thisComponent.model.admin = { id: 0 };
+                            thisComponent.model = response;
+                            if (thisComponent.model.admin == null || thisComponent.model.admin == undefined)
+                                thisComponent.model.admin = { id: 0 };
 
-                        if (thisComponent.model.admin.reachInfo == null || thisComponent.model.admin.reachInfo == undefined)
-                            thisComponent.model.admin.reachInfo = { id: 0 };
+                            if (thisComponent.model.admin.reachInfo == null || thisComponent.model.admin.reachInfo == undefined)
+                                thisComponent.model.admin.reachInfo = { id: 0 };
 
-                        thisComponent.raiseModelUpdated(response:any);
-                        let msg = thisComponent.translate.instant("SavedSuccessfully");
-                        thisComponent.toastr.success(msg, '');
-                    },
-                    function (error:any) { 
-                        thisComponent.toastr.error(error, '');
-                        thisComponent.showProgress = false;
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                            thisComponent.raiseModelUpdated(response);
+                            let msg = thisComponent.translate.instant("SavedSuccessfully");
+                            thisComponent.toastr.success(msg, '');
+                        },
+                        function (error: any) {
+                            thisComponent.toastr.error(error, '');
+                            thisComponent.showProgress = false;
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
 
             }
             else {
@@ -150,7 +150,7 @@ export class SystemAdminClinicBasicDataComponent implements OnInit {
         this.onModelUpdated.emit(model);
     }
 
-    imageChanged(response:any) {
+    imageChanged(response: any) {
         let attchmentInfo: any = {};
 
         if (response != null) {

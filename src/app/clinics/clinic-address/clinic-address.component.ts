@@ -9,7 +9,7 @@ import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
    
     selector: 'clinic-address',
-    templateUrl: 'clinic-address.component.html'
+    templateUrl: './clinic-address.component.html'
 })
 
 export class ClinicAddressComponent implements OnInit {

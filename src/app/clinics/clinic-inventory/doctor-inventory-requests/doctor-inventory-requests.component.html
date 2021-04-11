@@ -102,22 +102,22 @@
                 <p-column field="suppliedQuantity" [header]="'SuppliedQuantity' | translate" [sortable]="true"></p-column>
                 <!--<p-column field="unitName" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
                 <p-column [header]="'Unit' | translate">
-                    <template let-product="rowData" pTemplate="body">
+                    <ng-template let-product="rowData" pTemplate="body">
                         <label *ngIf="product.unitType === 'NumbersUnit'">{{ product.unitName | translate}}</label>
                         <label *ngIf="product.unitType == 'HeightsUnit' || product.unitType == 'WeightsUnit' || product.unitType == 'VolumesUnit'">
                             {{ product.unitName}}
                         </label>
 
-                    </template>
+                    </ng-template>
                 </p-column>
                 <p-column field="doctorName" [header]="'Doctor' | translate" [sortable]="true"></p-column>
                 <p-column field="departmentName" [header]="'Department' | translate" [sortable]="true"></p-column>
                 <p-column field="inventoryRequestStatus" [header]="'Status' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'Action' | translate" styleClass="text-center width70">
-                    <template let-item="rowData" pTemplate="body">
+                    <ng-template let-item="rowData" pTemplate="body">
                         <a class="pointer underLinelinkText" style="color:blue;" (click)="passInventoryRequestId(item.id)" *ngIf="!item.isSuppliedRequest" data-toggle="modal" data-target="#supplyDoctorInventoryRequests" [class.disabled]="!enableSupplyBtn && !isClinicAdmin ? true : null">{{ 'Supply' | translate}}</a>
                         <a class="pointer" *ngIf="item.isSuppliedRequest" style="color:#808080;" [class.disabled]="!enableSupplyBtn && !isClinicAdmin ? true : null">{{ 'Supplied' | translate}}</a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
         </div>

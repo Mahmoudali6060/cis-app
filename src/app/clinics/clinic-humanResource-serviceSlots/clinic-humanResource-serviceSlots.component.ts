@@ -1,34 +1,27 @@
-﻿import {Component, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+﻿import { Component, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
+import { TreeNode } from 'primeng/api';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
-import {ClinicService} from '../shared/clinic.service';
-
-import { TreeNode } from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
-   
     selector: 'clinic-humanResource-serviceSlots',
-    templateUrl: 'clinic-humanResource-serviceSlots.component.html'
+    templateUrl: './clinic-humanResource-serviceSlots.component.html'
 })
 
 export class ClinicHumanResourceServiceSlotsComponent implements OnChanges {
-
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Service';
-
     @Input() humanResourceWrapper: any;
     @Input() selectedUserToEdit: any;
     @Input() isClinicAdmin: boolean = false;
     @Input() enableSaveBtn: boolean = false;
     @Output() onModelUpdated = new EventEmitter<any>();
-
     active: boolean = true;
     showProgress: boolean = false;
     servicesTree: any[] = [];
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
     userServiceSlots: any[] = [];
     serviceSlotModel: any = { id: 0 };
     isEditMode: boolean = false;
@@ -76,25 +69,25 @@ export class ClinicHumanResourceServiceSlotsComponent implements OnChanges {
                 this.serviceSlotModel.serviceId = this.selectedNode.data;
                 this.clinicService.updateHumanResource(thisComponent.selectedUserToEdit)
                     .subscribe(
-                    function (response:any) {
+                        function (response: any) {
 
-                        //thisComponent.selectedUserToEdit = response;
-                        //thisComponent.userServiceSlots = response.serviceTimeSlots;
-                        thisComponent.raiseModelUpdated(response:any);
+                            //thisComponent.selectedUserToEdit = response;
+                            //thisComponent.userServiceSlots = response.serviceTimeSlots;
+                            thisComponent.raiseModelUpdated(response);
 
-                        thisComponent.clear();
+                            thisComponent.clear();
 
-                        let msg = thisComponent.translate.instant("SavedSuccessfully");
-                        thisComponent.toastr.success(msg, '');
-                    },
-                    function (error:any) { 
-                        //console.log("Error happened" + error)
-                        thisComponent.toastr.error(error, '');
-                        thisComponent.showProgress = false;
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                            let msg = thisComponent.translate.instant("SavedSuccessfully");
+                            thisComponent.toastr.success(msg, '');
+                        },
+                        function (error: any) {
+                            //console.log("Error happened" + error)
+                            thisComponent.toastr.error(error, '');
+                            thisComponent.showProgress = false;
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
             }
             else {
                 let msg = this.translate.instant("DuplicatedService");
@@ -107,16 +100,16 @@ export class ClinicHumanResourceServiceSlotsComponent implements OnChanges {
         }
     }
 
-    editServiceSlot(id:any) {
+    editServiceSlot(id: any) {
         this.isEditMode = true;
-        this.serviceSlotModel = this.selectedUserToEdit.serviceTimeSlots.find(itm => itm.id == id);
+        this.serviceSlotModel = this.selectedUserToEdit.serviceTimeSlots.find((itm: any) => itm.id == id);
         if (this.serviceSlotModel != undefined)
             this.selectServiceNode(this.serviceSlotModel.serviceId);
     }
 
-    isServiceDuplicated(serviceId, serviceSlotId): boolean {
+    isServiceDuplicated(serviceId: any, serviceSlotId: any): boolean {
         if (this.selectedUserToEdit != undefined) {
-            let duplicatedItem = this.selectedUserToEdit.serviceTimeSlots.find(itm => itm.serviceId == serviceId && itm.id != serviceSlotId);
+            let duplicatedItem = this.selectedUserToEdit.serviceTimeSlots.find((itm: any) => itm.serviceId == serviceId && itm.id != serviceSlotId);
             if (duplicatedItem != undefined)
                 return true;
         }
@@ -127,12 +120,12 @@ export class ClinicHumanResourceServiceSlotsComponent implements OnChanges {
     clear() {
         this.serviceSlotModel = { id: 0 };
         this.isEditMode = false;
-        this.selectedNode = undefined;
+        this.selectedNode = {};
         this.active = false;
         setTimeout(() => this.active = true, 0);
     }
 
-    raiseModelUpdated(updatedModel) {
+    raiseModelUpdated(updatedModel: any) {
         this.onModelUpdated.emit(updatedModel);
     }
 

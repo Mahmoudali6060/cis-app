@@ -8,26 +8,24 @@ import { ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 
 @Component({
-   
     selector: 'patient-attachment-details',
     templateUrl: 'patient-attachment-details.component.html',
 })
 
 export class PatientAttachmentDetailsComponent implements OnInit {
     selectBasicTab: boolean = true;
-
     @Output() onBack = new EventEmitter();
     patientFiles: any[] = [];
     attachment: any;
-    keyName: string | undefined;
-    fileType: string | undefined;
+    keyName!:string;
+    fileType!:string;
     active = true;
     patientAttachmentFile: any = {};
     type = 'PatientFileType';
 
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
     isReceptionist: boolean = false;
 

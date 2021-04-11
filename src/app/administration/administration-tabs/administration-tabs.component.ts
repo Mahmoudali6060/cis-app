@@ -3,7 +3,7 @@
 @Component({
    
     selector: 'administration-tabs',
-    templateUrl: 'administration-tabs.component.html'
+    templateUrl: './administration-tabs.component.html'
 })
 
 export class AdministrationTabsComponent {

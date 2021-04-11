@@ -1,23 +1,22 @@
-﻿import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {ClinicService} from '../shared/clinic.service';
+import { ClinicService } from '../shared/clinic.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 import { UtilityClass } from '../../shared/shared/utility.class';
-import { TreeNode } from 'primeng/primeng';
-import {CalendarModule} from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'clinic-organizationMaster',
-    templateUrl: 'clinic-organizationMaster.component.html'
+    templateUrl: './clinic-organizationMaster.component.html'
 })
 
 export class ClinicOrganizationMasterComponent implements OnInit {
@@ -33,20 +32,20 @@ export class ClinicOrganizationMasterComponent implements OnInit {
     enableEditBtn: boolean = false;
     enableActivateBtn: boolean = false;
     enableSaveBtn: boolean = false;
-    @ViewChild('AddNonMedicalDepartment') AddNonMedicalDepartment: ElementRef;
-    @ViewChild('AddMedicalDepartment') AddMedicalDepartment: ElementRef;
-    @ViewChild('AddDivision') AddDivision: ElementRef;
-    @ViewChild('AddPhysicalResource') AddPhysicalResource: ElementRef;
-    @ViewChild('AddHumanResource') AddHumanResource: ElementRef;
+    @ViewChild('AddNonMedicalDepartment') AddNonMedicalDepartment!: ElementRef;
+    @ViewChild('AddMedicalDepartment') AddMedicalDepartment!: ElementRef;
+    @ViewChild('AddDivision') AddDivision!: ElementRef;
+    @ViewChild('AddPhysicalResource') AddPhysicalResource!: ElementRef;
+    @ViewChild('AddHumanResource') AddHumanResource!: ElementRef;
     //@ViewChild('btnResetPassword') btnResetPassword: ElementRef;
 
     organizationStructure: any[] = [];
-    clinicId: number | undefined;
+    clinicId!: number;
     departments: any[] = [];
     PhysicalResourceTypes: any[] = [];
     utilityClass: UtilityClass = new UtilityClass();
 
-    selectedFile2: TreeNode;
+    selectedFile2!: TreeNode;
     selectedDepartmentsandDivisions: TreeNode[] = [];
     selectedNode: any;
 
@@ -80,7 +79,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -92,16 +91,16 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         //let userId = this.storage.retrieve("UserID");
         this.clinicService.getOrganizationStructureTree(this.clinicId)
             .subscribe(
-            function (response:any) {
-                vm.organizationStructure = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.organizationStructure = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     loadOrganizationStructureWrapper() {
@@ -109,17 +108,17 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         vm.showProgress = true;
         this.clinicService.getOrganizationStructureWrapper()
             .subscribe(
-            function (response:any) {
-                vm.departments = response.departments;
-                vm.PhysicalResourceTypes = response.physicalResourceTypes;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.departments = response.departments;
+                    vm.PhysicalResourceTypes = response.physicalResourceTypes;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     SaveDepartmentsandDivisions() {
@@ -137,20 +136,20 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         vm.showProgress = true;
         this.clinicService.saveMedicalDepartmentsandDivisions(vm.model)
             .subscribe(
-            function (response:any) {
-                vm.organizationStructure = response;
-                vm.model = { id: 0 };
-             let msg = vm.translate.instant("SavedSuccessfully");
-            vm.toastr.success(msg, '');
-                vm.organizationStructure[0].expand;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.organizationStructure = response;
+                    vm.model = { id: 0 };
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.organizationStructure[0].expand;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     expandAll() {
@@ -174,7 +173,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         }
     }
 
-    displayPopup(node: TreeNode) {
+    displayPopup(node: any) {
         this.model = { id: 0 };
 
         if (node.type.toString() == "Medical") {
@@ -229,7 +228,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         }
     }
 
-    displayPhysicalResourcePopup(node: TreeNode) {
+    displayPhysicalResourcePopup(node: any) {
         this.AddPhysicalResource.nativeElement.click();
         this.model = { id: 0 };
         this.model.departmentName = node.parent.label;
@@ -254,25 +253,25 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         vm.showProgress = true;
         this.clinicService.saveNonMedicalDepartment(vm.model)
             .subscribe(
-            function (response:any) {
-                if (addNew) // attach new object to the selected node 
-                    vm.selectedNode.children.push(response:any);
-                else // update node's name in case of updating 
-                {
-                    vm.selectedNode.label = response.label;
-                    vm.selectedNode.labelTranslation = response.labelTranslation;
-                }
-                vm.clear();
-           let msg = vm.translate.instant("SavedSuccessfully");
-            vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    if (addNew) // attach new object to the selected node 
+                        vm.selectedNode.children.push(response);
+                    else // update node's name in case of updating 
+                    {
+                        vm.selectedNode.label = response.label;
+                        vm.selectedNode.labelTranslation = response.labelTranslation;
+                    }
+                    vm.clear();
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     editDepartment(node: TreeNode) {
@@ -281,16 +280,16 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         vm.selectedNode = node;
         this.clinicService.getNonMedicalDepartmentById(node.data)
             .subscribe(
-            function (response:any) {
-                vm.model = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.model = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         // display popup
         this.AddNonMedicalDepartment.nativeElement.click();
@@ -305,45 +304,45 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         vm.showProgress = true;
         this.clinicService.saveNonMedicalDivision(vm.model)
             .subscribe(
-            function (response:any) {
-                if (addNew) // attach new object to the selected node 
-                    vm.selectedNode.children.push(response:any);
-                else // update node's name in case of updating 
-                {
-                    vm.selectedNode.label = response.label;
-                    vm.selectedNode.labelTranslation = response.labelTranslation;
-                }
-                //vm.loadOrganizationStructureTree();
-                vm.clear();
-             let msg = vm.translate.instant("SavedSuccessfully");
-            vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    if (addNew) // attach new object to the selected node 
+                        vm.selectedNode.children.push(response);
+                    else // update node's name in case of updating 
+                    {
+                        vm.selectedNode.label = response.label;
+                        vm.selectedNode.labelTranslation = response.labelTranslation;
+                    }
+                    //vm.loadOrganizationStructureTree();
+                    vm.clear();
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    editDivision(node: TreeNode) {
+    editDivision(node: any) {
         let vm = this;
         vm.showProgress = true;
         vm.selectedNode = node;
         this.clinicService.getNonMedicalDivisionById(node.data)
             .subscribe(
-            function (response:any) {
-                vm.model = response;
-                vm.model.departmentName = node.parent.label;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.model = response;
+                    vm.model.departmentName = node.parent.label;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         // display popup
         this.AddDivision.nativeElement.click();
@@ -363,96 +362,96 @@ export class ClinicOrganizationMasterComponent implements OnInit {
 
         this.clinicService.savePhysicalResource(vm.model)
             .subscribe(
-            function (response:any) {
-                if (addNew) // attach new object to the selected node 
-                    vm.selectedNode.children.push(response:any);
-                else // update node's name in case of updating 
-                {
-                    vm.selectedNode.label = response.label;
-                    vm.selectedNode.labelTranslation = response.labelTranslation;
-                }
+                function (response: any) {
+                    if (addNew) // attach new object to the selected node 
+                        vm.selectedNode.children.push(response);
+                    else // update node's name in case of updating 
+                    {
+                        vm.selectedNode.label = response.label;
+                        vm.selectedNode.labelTranslation = response.labelTranslation;
+                    }
 
-                vm.clear();
-             let msg = vm.translate.instant("SavedSuccessfully");
-            vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.clear();
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    editPhysicalResource(node: TreeNode) {
+    editPhysicalResource(node: any) {
         let vm = this;
         vm.showProgress = true;
         vm.selectedNode = node;
         this.clinicService.getPhysicalResourceById(node.data)
             .subscribe(
-            function (response:any) {
-                vm.model = response;
+                function (response: any) {
+                    vm.model = response;
 
-                if (vm.model.startDate)
-                    vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
-                if (vm.model.endDate)
-                    vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
+                    if (vm.model.startDate)
+                        vm.model.startDate = vm.utilityClass.getUtcDateFromString(vm.model.startDate);
+                    if (vm.model.endDate)
+                        vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
 
-                vm.model.departmentName = node.parent.parent.label;
-                vm.model.divisionName = node.parent.label;
+                    vm.model.departmentName = node.parent.parent.label;
+                    vm.model.divisionName = node.parent.label;
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         // display popup
         this.AddPhysicalResource.nativeElement.click();
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let vm = this;
         vm.showProgress = true;
         this.clinicService.toggleOrganizationStructureActivation(node.data, event.target.checked, node.type)
             .subscribe(
-            function (response:any) {
-                //change the activation of the node and all of it's children 
-                vm.toggleActivationForNodeandSubs(node, event.target.checked);
+                function (response: any) {
+                    //change the activation of the node and all of it's children 
+                    vm.toggleActivationForNodeandSubs(node, event.target.checked);
 
-                // activate parents 
-                if (node.type == 'PhysicalResource' && event.target.checked) {
-                    node.parent.isActive = true;
-                    node.parent.parent.isActive = true;
-                }
-                if (node.type == 'ClinicDivision' && event.target.checked) {
-                    node.parent.isActive = true;
-                }
-                if (node.type == 'SecurityUser' && event.target.checked) {
-                    node.parent.isActive = true;
-                    node.parent.parent.isActive = true;
-                }
+                    // activate parents 
+                    if (node.type == 'PhysicalResource' && event.target.checked) {
+                        node.parent.isActive = true;
+                        node.parent.parent.isActive = true;
+                    }
+                    if (node.type == 'ClinicDivision' && event.target.checked) {
+                        node.parent.isActive = true;
+                    }
+                    if (node.type == 'SecurityUser' && event.target.checked) {
+                        node.parent.isActive = true;
+                        node.parent.parent.isActive = true;
+                    }
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    private toggleActivationForNodeandSubs(node, active: boolean) {
+    private toggleActivationForNodeandSubs(node: any, active: boolean) {
         node.isActive = active;
 
         if (active == false) {
             if (node.children) {
-                node.children.forEach(childNode => {
+                node.children.forEach((childNode: any) => {
                     this.toggleActivationForNodeandSubs(childNode, active);
                 });
             }
@@ -479,7 +478,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         this.AddHumanResource.nativeElement.click();
     }
 
-    updateModel(newNode) {
+    updateModel(newNode: any) {
         this.isEditMode = true;
         this.selectedNode = newNode;
 

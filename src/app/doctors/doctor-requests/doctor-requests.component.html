@@ -46,13 +46,13 @@
                     <p-column field="itemName" [header]="'ItemName' | translate" [sortable]="true"></p-column>
                     <!--<p-column field="unitName" [header]="'Unit' | translate"[sortable]="true"></p-column>-->
                     <p-column [header]="'Unit' | translate">
-                        <template let-product="rowData" pTemplate="body">
+                        <ng-template let-product="rowData" pTemplate="body">
                             <label *ngIf="product.unitType === 'NumbersUnit'">{{ product.unitName | translate}}</label>
                             <label *ngIf="product.unitType == 'HeightsUnit' || product.unitType == 'WeightsUnit' || product.unitType == 'VolumesUnit'">
                                 {{ product.unitName}}
                             </label>
 
-                        </template>
+                        </ng-template>
                     </p-column>
                     <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
                     <p-column field="suppliedQuantity" [header]="'SuppliedQuantity' | translate" [sortable]="true"></p-column>
@@ -62,11 +62,11 @@
                     <p-column field="id" header="Order Ref No" [header]="'OrderRefNo' | translate" [sortable]="true"></p-column>
 
                     <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-                        <template let-request="rowData" pTemplate="body">
+                        <ng-template let-request="rowData" pTemplate="body">
                             <a class="pointer" [class.disabled]="!enableDeleteInventoryRequest ? true : null">
                                 <img src="Images/delete-24.png" (click)="deleteInventoryRequestPopUp(request.id)" *ngIf="request.inventoryRequestStatus =='Requested'" />
                             </a>
-                        </template>
+                        </ng-template>
                     </p-column>
 
                 </p-dataTable>

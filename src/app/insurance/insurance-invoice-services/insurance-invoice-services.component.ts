@@ -1,20 +1,20 @@
-﻿import {Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
+﻿import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { AccountService } from '../../security/shared/account.service';
 import { InsuranceService } from '../shared/insurance.service';
 import { ClaimService } from '../../cashier/shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import { Charge }   from '../../classes/charge.class';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { Charge } from '../../classes/charge.class';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'insurance-invoice-services',
-    templateUrl: 'insurance-invoice-services.component.html'
+    templateUrl: './insurance-invoice-services.component.html'
 })
 
 export class InsuranceInvoiceServicesComponent implements OnInit {
@@ -35,26 +35,26 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
     selectedCharges: Charge[] = [];
     payment: any = { id: 0 };
     editable: boolean = true;
-    selectedCharge: Charge;
+    selectedCharge!: Charge;
     releaseChargeReason = '';
     resubmitChargeReason = '';
     rejectChargeReason = '';
 
     utilityClass: UtilityClass = new UtilityClass();
 
-    @Input() invoiceChargesList: Array<Charge>;
+    @Input() invoiceChargesList!: Array<Charge>;
     @Input() isInvoiceCanceled: boolean | undefined;
-    @Input() companyId: number | undefined;
+    @Input() companyId!: number;
     @Output() onAmountUpdated = new EventEmitter<any>();
     @Output() onChargeSelected = new EventEmitter<any>();
 
-    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup: ElementRef;
-    @ViewChild('btnReleaseChargeModal') btnReleaseChargeModal: ElementRef;
-    @ViewChild('btnCancelReleaseChargeModal') btnCancelReleaseChargeModal: ElementRef;
-    @ViewChild('btnRejectChargeModal') btnRejectChargeModal: ElementRef;
-    @ViewChild('btnCancelRejectChargeModal') btnCancelRejectChargeModal: ElementRef;
-    @ViewChild('btnResubmitChargeModal') btnResubmitChargeModal: ElementRef;
-    @ViewChild('btnCancelResubmitChargeModal') btnCancelResubmitChargeModal: ElementRef;
+    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup!: ElementRef;
+    @ViewChild('btnReleaseChargeModal') btnReleaseChargeModal!: ElementRef;
+    @ViewChild('btnCancelReleaseChargeModal') btnCancelReleaseChargeModal!: ElementRef;
+    @ViewChild('btnRejectChargeModal') btnRejectChargeModal!: ElementRef;
+    @ViewChild('btnCancelRejectChargeModal') btnCancelRejectChargeModal!: ElementRef;
+    @ViewChild('btnResubmitChargeModal') btnResubmitChargeModal!: ElementRef;
+    @ViewChild('btnCancelResubmitChargeModal') btnCancelResubmitChargeModal!: ElementRef;
 
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
@@ -66,24 +66,24 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
 
     ngOnInit(): void {
         let vm = this;
-        this.lstToTranslated = ['serviceName', 'serviceNameTranslation', 'diagnoseName', 'diagnoseNameTranslation', 'doctorName', 'doctorNameTranslation', 'policyName','policyNameTranslation'];
+        this.lstToTranslated = ['serviceName', 'serviceNameTranslation', 'diagnoseName', 'diagnoseNameTranslation', 'doctorName', 'doctorNameTranslation', 'policyName', 'policyNameTranslation'];
         vm.showProgress = true
         this.claimService.getPatientPaymentWrapper()
             .subscribe(
-            function (response:any) {
-                vm.paymentTypes = response.paymentTypes;
-                vm.paymentMethods = response.paymentMethod;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.paymentTypes = response.paymentTypes;
+                    vm.paymentMethods = response.paymentMethod;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -107,16 +107,16 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
         }
     }
 
-    raiseAmountUpdated(updates) {
+    raiseAmountUpdated(updates: any) {
         this.onAmountUpdated.emit(updates);
     }
 
-    updateSelectedCharges(charge, event) {
+    updateSelectedCharges(charge: any, event: any) {
         if (event.target.checked) {
             this.selectedCharges.push(charge);
         }
         else {
-            var selectedObject = this.selectedCharges.find(o => o.id == charge.id);
+            var selectedObject: any = this.selectedCharges.find(o => o.id == charge.id);
             var index = this.selectedCharges.indexOf(selectedObject);
             if (index > -1)
                 this.selectedCharges.splice(index, 1);
@@ -143,51 +143,51 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
 
         this.insuranceService.saveCompanyPayment(vm.payment)
             .subscribe(
-            function (response:any) {
-                // update selected charges to be paid
-                vm.selectedCharges.forEach(charge => {
-                    var selectedCharge = vm.invoiceChargesList.find(c => c.id == charge.id);
-                    selectedCharge.companyPaymentId = response.id;
-                });
-                vm.selectedCharges = [];
+                function (response: any) {
+                    // update selected charges to be paid
+                    vm.selectedCharges.forEach(charge => {
+                        var selectedCharge: any = vm.invoiceChargesList.find(c => c.id == charge.id);
+                        selectedCharge.companyPaymentId = response.id;
+                    });
+                    vm.selectedCharges = [];
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.raiseAmountUpdated(null)
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.raiseAmountUpdated(null)
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
-    getPaymentById(paymentId) {
+    getPaymentById(paymentId: any) {
         let vm = this;
         vm.showProgress = true
         vm.editable = false;
 
         this.claimService.getPatientPaymentById(paymentId)
             .subscribe(
-            function (response:any) {
-                vm.payment = response;
+                function (response: any) {
+                    vm.payment = response;
 
-                if (vm.payment.date)
-                    vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
+                    if (vm.payment.date)
+                        vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
 
-                if (vm.localStorage.retrieve("selectedLanguage") == 'en')
-                    vm.payment.companyChargesAsString = vm.payment.companyChargesAsStringTranslation;
+                    if (vm.localStorage.retrieve("selectedLanguage") == 'en')
+                        vm.payment.companyChargesAsString = vm.payment.companyChargesAsStringTranslation;
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
     clearPaymentandOpenPopup() {
@@ -208,7 +208,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
 
         if (this.localStorage.retrieve("selectedLanguage") == 'en')
             this.payment.companyChargesAsString = chargeAsStringTranslation;
-        else 
+        else
             this.payment.companyChargesAsString = chargeAsString;
 
         this.payment.amount = totalAmount;
@@ -226,7 +226,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
     }
 
 
-    updatePaymentType(typeId) {
+    updatePaymentType(typeId: any) {
         //var selectedType = this.paymentTypes.find(t => t.id == typeId);
 
         //if (selectedType.key == 'PrePaid') {
@@ -250,30 +250,30 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
 
         this.insuranceService.releaseCompanyCharge(toReleaseCharge)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: 0 })
-                //update the selected charge
-                vm.selectedCharge.releaseReasonForCompany = response.releaseReasonForCompany;
-                vm.selectedCharge.actualNetPrice = response.actualNetPrice;
-                vm.selectedCharge.isReleasedForCompany = response.isReleasedForCompany;
-                vm.selectedCharge.releaseForCompanyIconName = response.releaseForCompanyIconName;
+                    vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: 0 })
+                    //update the selected charge
+                    vm.selectedCharge.releaseReasonForCompany = response.releaseReasonForCompany;
+                    vm.selectedCharge.actualNetPrice = response.actualNetPrice;
+                    vm.selectedCharge.isReleasedForCompany = response.isReleasedForCompany;
+                    vm.selectedCharge.releaseForCompanyIconName = response.releaseForCompanyIconName;
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.clear();
-                vm.closeReleaseChargeWindow();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.clear();
+                    vm.closeReleaseChargeWindow();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    openReleaseChargeWindow(charge) {
+    openReleaseChargeWindow(charge: any) {
         this.selectedCharge = charge;
         this.releaseChargeReason = charge.releaseReasonForCompany;
 
@@ -292,30 +292,30 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
         toRejectCharge.rejectReasonForCompany = this.rejectChargeReason;
         this.insuranceService.rejectCompanyCharge(toRejectCharge)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: 0 })
-                //update the selected charge
-                vm.selectedCharge.rejectReasonForCompany = response.rejectReasonForCompany;
-                vm.selectedCharge.actualNetPrice = response.actualNetPrice;
-                vm.selectedCharge.isRejectedForCompany = response.isRejectedForCompany;
-                vm.selectedCharge.rejectForCompanyIconName = response.rejectForCompanyIconName;
+                    vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: 0 })
+                    //update the selected charge
+                    vm.selectedCharge.rejectReasonForCompany = response.rejectReasonForCompany;
+                    vm.selectedCharge.actualNetPrice = response.actualNetPrice;
+                    vm.selectedCharge.isRejectedForCompany = response.isRejectedForCompany;
+                    vm.selectedCharge.rejectForCompanyIconName = response.rejectForCompanyIconName;
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.clear();
-                vm.closeRejectChargeWindow();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.clear();
+                    vm.closeRejectChargeWindow();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    openRejectChargeWindow(charge) {
+    openRejectChargeWindow(charge: any) {
         this.selectedCharge = charge;
         this.rejectChargeReason = charge.rejectReasonForCompany;
 
@@ -334,29 +334,29 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
         toResubmitCharge.resubmitReasonForCompany = this.resubmitChargeReason;
         this.insuranceService.resubmitCompanyCharge(toResubmitCharge)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                //update the selected charge
-                vm.selectedCharge.resubmitReasonForCompany = response.resubmitReasonForCompany;
-                //vm.selectedCharge.actualNetPrice = response.actualNetPrice;
-                //vm.selectedCharge.isRejectedForCompany = response.isRejectedForCompany;
-                //vm.selectedCharge.rejectForCompanyIconName = response.rejectForCompanyIconName;
+                    //update the selected charge
+                    vm.selectedCharge.resubmitReasonForCompany = response.resubmitReasonForCompany;
+                    //vm.selectedCharge.actualNetPrice = response.actualNetPrice;
+                    //vm.selectedCharge.isRejectedForCompany = response.isRejectedForCompany;
+                    //vm.selectedCharge.rejectForCompanyIconName = response.rejectForCompanyIconName;
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.clear();
-                vm.closeResubmitChargeWindow();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.clear();
+                    vm.closeResubmitChargeWindow();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    openResubmitChargeWindow(charge) {
+    openResubmitChargeWindow(charge: any) {
         this.selectedCharge = charge;
         this.resubmitChargeReason = charge.resubmitReasonForCompany;
 
@@ -368,7 +368,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
     }
 
     clear() {
-        this.selectedCharge = undefined;
+        this.selectedCharge = new Charge();
         this.releaseChargeReason = '';
         this.resubmitChargeReason = '';
         this.rejectChargeReason = '';

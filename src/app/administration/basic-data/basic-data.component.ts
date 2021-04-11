@@ -1,17 +1,17 @@
-﻿import {Component, Input, OnChanges, SimpleChanges, OnInit} from '@angular/core';
-import {AdministrationService} from '../shared/administration.service';
+﻿import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+import { AdministrationService } from '../shared/administration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'basic-data',
-    templateUrl: 'basic-data.component.html'
+    templateUrl: './basic-data.component.html'
 })
 
-export class BasicDataComponent implements OnChanges{
+export class BasicDataComponent implements OnChanges {
 
     @Input() objectType: string = '';
     @Input() title: string = '';
@@ -20,25 +20,25 @@ export class BasicDataComponent implements OnChanges{
     model: any = { id: 0, isActive: true };
     showProgress = false;
     active = true;
-    allObjects: any[];
+    allObjects!: any[];
     itemToDeleteId: string = '';
     toPrintDiv: string = "print-section";
     lstToTranslated: string[] = [];
     isExempted: boolean = false;
     constructor(private administrationService: AdministrationService,
-                public toastr: ToastrService,
-                private _route: ActivatedRoute,
-                public localStorage: LocalStorageService
+        public toastr: ToastrService,
+        private _route: ActivatedRoute,
+        public localStorage: LocalStorageService
         , public translate: TranslateService) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['name', 'nameTranslation'];
         let userType = this.localStorage.retrieve("UserType");
-        if (userType != undefined && userType =="SysAdmin" )
+        if (userType != undefined && userType == "SysAdmin")
             this.enableMyAccountBtn = true;
 
         if (this.objectType.toLocaleLowerCase() == 'cis.core.nationality')
-               this.isExempted = true;
+            this.isExempted = true;
 
     }
 
@@ -59,42 +59,42 @@ export class BasicDataComponent implements OnChanges{
 
         this.administrationService.saveObject(this.model)
             .subscribe(
-            function (response:any) {
-               let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // add object to collection in case of add new
-                if (vm.model.id == 0) {
-                    vm.allObjects.push(response:any);
-                }
+                    // add object to collection in case of add new
+                    if (vm.model.id == 0) {
+                        vm.allObjects.push(response);
+                    }
 
-                vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error , '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     loadTable(): void {
         let vm = this;
-        vm.model = { id: 0, isActive: true};
+        vm.model = { id: 0, isActive: true };
         vm.showProgress = true;
         this.administrationService.getAll(vm.objectType)
             .subscribe(
-            function (response:any) {
-                vm.allObjects = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.allObjects = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     editItem(id: string): void {
@@ -121,26 +121,26 @@ export class BasicDataComponent implements OnChanges{
         vm.showProgress = true;
         this.administrationService.deleteItem(this.itemToDeleteId, this.objectType)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                var selectedObject = vm.allObjects.find(o => o.id == vm.itemToDeleteId);
-                var index = vm.allObjects.indexOf(selectedObject);
-                if (index > -1)
-                    vm.allObjects.splice(index, 1);
+                    // remove delete object from collection
+                    var selectedObject = vm.allObjects.find(o => o.id == vm.itemToDeleteId);
+                    var index = vm.allObjects.indexOf(selectedObject);
+                    if (index > -1)
+                        vm.allObjects.splice(index, 1);
 
-                // clear fields
-                vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error , '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     clear(): void {
@@ -149,7 +149,7 @@ export class BasicDataComponent implements OnChanges{
         setTimeout(() => this.active = true, 0);
     }
 
-    changeActivation(id , event) {
+    changeActivation(id: any, event: any) {
 
         this.editItem(id);
         this.model.isActive = event.target.checked;

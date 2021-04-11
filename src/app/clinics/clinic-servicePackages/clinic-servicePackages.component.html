@@ -40,21 +40,21 @@
                     <p-column field="totalCost" [header]="'TotalCost' | translate" [sortable]="true"></p-column>
 
                     <p-column [header]="'Active' | translate" styleClass="text-center width70">
-                        <template let-package="rowData" pTemplate="body">
+                        <ng-template let-package="rowData" pTemplate="body">
                             <label>
                                 <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
                                        type="checkbox" [checked]="package.isActive"
                                        (click)="changeActivation(package.id , $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
                                 <span class="lbl"></span>
                             </label>
-                        </template>
+                        </ng-template>
                     </p-column>
                     <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                        <template let-package="rowData" pTemplate="body">
+                        <ng-template let-package="rowData" pTemplate="body">
                             <a class="pointer" (click)="editServicePackage(package.id)" [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
                                 <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
                             </a>
-                        </template>
+                        </ng-template>
                     </p-column>
                 </p-dataTable>
             </div>

@@ -1,19 +1,18 @@
-﻿import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
+﻿import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../security/shared/account.service';
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService} from '@ngx-translate/core';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService } from '@ngx-translate/core';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { InsuranceService } from '../shared/insurance.service';
-
 import { UtilityClass } from '../../shared/shared/utility.class'
 
 @Component({
-   
+
     selector: 'insurance-generate-invoice',
-    templateUrl: 'insurance-generate-invoice.component.html'
+    templateUrl: './insurance-generate-invoice.component.html'
 })
 
 export class InsuranceGenerateInvoiceComponent implements OnInit {
@@ -36,12 +35,12 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
     isGenerateInvoiceActive: boolean = false;
     userPermisions: UserPermissions = new UserPermissions();
     key: PermissionKeyEnum = new PermissionKeyEnum();
-    invoiceCompanyId;
-    invoicePolicyId;
-    invoiceCreatorId;
-    prepaidBalance;
-    totalAmount;
-        lstToTranslated: string[] = [];
+    invoiceCompanyId!: any;
+    invoicePolicyId!: any;
+    invoiceCreatorId!: any;
+    prepaidBalance!: any;
+    totalAmount!: any;
+    lstToTranslated: string[] = [];
 
     constructor(
         private toastr: ToastrService,
@@ -61,7 +60,7 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
         this.getInvoiceClaimsSearchWrapper();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -82,16 +81,16 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
         let thisComponent = this;
         this.insuranceService.getInvoiceClaimsSearchWrapper()
             .subscribe(
-            function (response:any) {
-                thisComponent.companiesList = response.insuranceCompanies;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.companiesList = response.insuranceCompanies;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     searchForInvoiceClaims() {
@@ -107,29 +106,28 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
 
         this.insuranceService.searchForInvoiceClaims(this.claimsSearchParameters)
             .subscribe(
-            function (response:any) {
-                thisComponent.claimsList = response.claims;
-                thisComponent.totalAmount = response.totalAmount;
-                thisComponent.prepaidBalance = response.companyPrePaidBalance;
-                thisComponent.invoiceCompanyId = thisComponent.claimsSearchParameters.companyId;
-                thisComponent.invoicePolicyId = thisComponent.claimsSearchParameters.policyId;
-                if (thisComponent.claimsList != undefined && thisComponent.claimsList.length > 0)
-                    thisComponent.isGenerateInvoiceActive = true;
-                else
-                    thisComponent.isGenerateInvoiceActive = false;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.claimsList = response.claims;
+                    thisComponent.totalAmount = response.totalAmount;
+                    thisComponent.prepaidBalance = response.companyPrePaidBalance;
+                    thisComponent.invoiceCompanyId = thisComponent.claimsSearchParameters.companyId;
+                    thisComponent.invoicePolicyId = thisComponent.claimsSearchParameters.policyId;
+                    if (thisComponent.claimsList != undefined && thisComponent.claimsList.length > 0)
+                        thisComponent.isGenerateInvoiceActive = true;
+                    else
+                        thisComponent.isGenerateInvoiceActive = false;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
-    fillCompanyPolicies(companyId) {
-        if (this.companiesList != undefined && this.companiesList.length > 0)
-        {
+    fillCompanyPolicies(companyId: any) {
+        if (this.companiesList != undefined && this.companiesList.length > 0) {
             let comp = this.companiesList.find(c => c.id == companyId);
             if (comp != undefined && comp.insurancePolicies != undefined)
                 this.policiesList = comp.insurancePolicies;
@@ -138,25 +136,24 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
         }
     }
 
-    generateInvoice()
-    {
+    generateInvoice() {
         this.showProgress = true;
         let thisComponent = this;
         let invoice = this.createNewInvoice();
 
         this.insuranceService.generateInvoice(invoice)
             .subscribe(
-            function (response:any) {
-                let msg = thisComponent.translate.instant("InvoiceGeneratedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    let msg = thisComponent.translate.instant("InvoiceGeneratedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     createNewInvoice() {

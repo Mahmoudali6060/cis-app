@@ -1,9 +1,9 @@
 ﻿export class Reply {
-    feedbackId: number | undefined;
-    dateString: string | undefined;
+    feedbackId!: number;
+    dateString!:string;
     date: Date | undefined;
-    repliedById: number | undefined;
-    repliedByName: string | undefined;
-    message : string | undefined;
-    status: string | undefined;
+    repliedById!: number;
+    repliedByName!:string;
+    message !:string;
+    status!:string;
 }

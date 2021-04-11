@@ -39,25 +39,25 @@
                <p-column   styleClass="text-center width100" field="endDateString" [header]="'EndDate' | translate" [sortable]="true"></p-column>
                <p-column field="addressString" [header]="'Address' | translate" [sortable]="true"></p-column>
                <p-column [header]="'Renew' | translate" styleClass="text-center width101">
-                   <template let-clinic="rowData" pTemplate="body">
+                   <ng-template let-clinic="rowData" pTemplate="body">
                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-success nopadding"
                                data-toggle="modal" data-target="#newSubscriptionModal"
                                (click)="selectClinic(clinic.id)">
                            {{ 'Renew' | translate}}
                        </button>
-                   </template>
+                   </ng-template>
                </p-column>
                <p-column [header]="'SMSCredit' | translate" styleClass="text-center width100">
-                   <template let-clinic="rowData" pTemplate="body">
+                   <ng-template let-clinic="rowData" pTemplate="body">
                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-danger nopadding"
                                data-toggle="modal" data-target="#newSMSCredit"
                                (click)="selectClinic(clinic.id)">
                            {{ 'Add' | translate}}
                        </button>
-                   </template>
+                   </ng-template>
                </p-column>
                <p-column [header]="'ActiveQues' | translate" styleClass="text-center width70">
-                   <template let-clinic="rowData" pTemplate="body">
+                   <ng-template let-clinic="rowData" pTemplate="body">
                        <label>
                            <input id="ChkIsActiveInGrid" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
                                   type="checkbox" [checked]="clinic.isActive"
@@ -65,14 +65,14 @@
                            <span class="lbl"></span>
                        </label>
 
-                   </template>
+                   </ng-template>
                </p-column>
                <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                   <template let-clinic="rowData" pTemplate="body">
+                   <ng-template let-clinic="rowData" pTemplate="body">
                        <a [class.disabled]="!enableMyAccountBtn ? true : null">
                            <i class="fa fa-pencil fa-2x" [routerLink]="['/systemAdmin/clinicDetails/', clinic.id]" style="color: #32bea6;"></i>
                        </a>
-                   </template>
+                   </ng-template>
                </p-column>
            </p-dataTable>
 

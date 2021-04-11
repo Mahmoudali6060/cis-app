@@ -46,38 +46,38 @@
             <p-column field="clinicMRN" [header]="'MRN' | translate" [sortable]="true"></p-column>
             <p-column field="name" [header]="'PatientName' | translate" [sortable]="true"></p-column>
             <p-column [header]="'MobileNumber' | translate" styleClass="text-center">
-                <template let-patient="rowData" pTemplate="body">
+                <ng-template let-patient="rowData" pTemplate="body">
                     <label>
                         {{patient.reachInfo?.mobile}}
                     </label>
-                </template>
+                </ng-template>
             </p-column>
 
             <p-column field="idNumber" [header]="'IdNumber' | translate" [sortable]="true"></p-column>
 
 
             <p-column [header]="'IsActive' | translate" styleClass="text-center width70" *ngIf="showActive">
-                <template let-patient="rowData" pTemplate="body">
+                <ng-template let-patient="rowData" pTemplate="body">
                     <label>
                         <input type="checkbox" class="ace ace-switch ace-switch-6" #patientType [checked]="patient.isActive" id="chkBoxIsActive" name="chkBoxIsActive" [value]="patient.isActive" (click)="changePatientActivation(patientType.value,patient.id, $event)" disabled="{{ enableActivatePatientBtn ? '' :'disabled'}}" />
                         <span class="lbl"></span>
                     </label>
-                </template>
+                </ng-template>
 
 
             </p-column>
             <!--[class.disabled]="!enableEditPatientBtn ? true : null"-->
             <p-column [header]="'Edit' | translate" styleClass="text-center width50" *ngIf="showEdit">
-                <template let-patient="rowData" pTemplate="body">
+                <ng-template let-patient="rowData" pTemplate="body">
                     <a class="pointer" routerLink="/patient/file/{{patient.id}}">
                         <img src="Images/edit-24.png" />
                     </a>
-                </template>
+                </ng-template>
             </p-column>
             <p-column [header]="'SelectPatient' | translate" *ngIf="showSelect" styleClass="text-center width60">
-                <template let-patient="rowData" pTemplate="body">
+                <ng-template let-patient="rowData" pTemplate="body">
                     <img src="Images/if_hand_finger_17529.png" (click)="selectPatientForSearch(patient.id)" width="30" height="30" />
-                </template>
+                </ng-template>
             </p-column>
 
 

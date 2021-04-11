@@ -5,7 +5,7 @@ import { AccountService } from '../../security/shared/account.service';
 @Component({
    
     selector: 'prototype-home',
-    templateUrl: 'prototype-home.component.html'
+    templateUrl: './prototype-home.component.html'
 
 })
 

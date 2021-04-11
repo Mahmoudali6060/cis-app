@@ -1,28 +1,25 @@
-﻿import {Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+﻿import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../shared/clinic.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
 import { EMRObjectType } from '../shared/EMRObjectType.enum';
-
-import { TreeNode } from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { TreeHelerClass } from '../../shared/shared/treeHelper.class';
 
 @Component({
-   
+
     selector: 'clinic-EMRMaster-drugs',
-    templateUrl: 'clinic-EMRMaster-drugs.component.html'
+    templateUrl: './clinic-EMRMaster-drugs.component.html'
 })
 
 export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
 
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Drug';
 
     active: boolean = true;
-    selectedItem: TreeNode;
+    selectedItem!: TreeNode;
     @Input() division: any = {};
     @Input() isClinicAdmin: boolean = false;
     @Input() enableAddRootBtn: boolean = false;
@@ -30,12 +27,12 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
     @Input() enableActivateBtn: boolean = false;
     items: any[] = [];
     model: any = {};
-    @ViewChild('AddEditDrugGroup') AddEditDrugGroup: ElementRef;
+    @ViewChild('AddEditDrugGroup') AddEditDrugGroup!: ElementRef;
     selectedNode: any;
     showProgress: boolean = false;
-    drugsTree: any[];
+    drugsTree!: any[];
     selectedDrugs: TreeNode[] = [];
-    clinicId: number | undefined;
+    clinicId!: number;
     objectType: EMRObjectType = new EMRObjectType();
     selectedLang = 'ar';
     lstToTranslated: string[] = [];
@@ -48,7 +45,7 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
         private storage: LocalStorageService,
         private toastr: ToastrService
         , public translate: TranslateService) { }
-   
+
     ngOnInit(): void {
         // load drugs tree 
         this.selectedLang = this.storage.retrieve("selectedLanguage");
@@ -59,27 +56,27 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
 
         this.clinicService.getDrugsGroupsWithoutDrugsForTree(vm.clinicId)
             .subscribe(
-            function (drugsGroups) {
-                vm.drugsTree = drugsGroups;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (drugsGroups: any) {
+                    vm.drugsTree = drugsGroups;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         this.clinicService.getAllDrugs(vm.clinicId)
             .subscribe(
-            function (drugs) {
-                vm.allDrugs = drugs;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-            });
+                function (drugs: any) {
+                    vm.allDrugs = drugs;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                });
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -106,22 +103,22 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
         this.selectedDrugsIDs = [];
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let vm = this;
         vm.showProgress = true;
         this.clinicService.toggleEMRMasterItemActivation(node.data, event.target.checked, this.objectType.Drugs)
             .subscribe(
-            function (response:any) {
-                // change the activation of the node
-                node.isActive = event.target.checked;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    // change the activation of the node
+                    node.isActive = event.target.checked;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
 
@@ -140,28 +137,28 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
 
         this.clinicService.saveorUpdateEMRMasterItem(vm.model)
             .subscribe(
-            function (response:any) {
-                if (addNew) // attach new object to the selected node 
-                    vm.selectedNode.children.push(response:any);
-                else // update node's name in case of updating 
-                {
-                    vm.selectedNode.label = response.label;
-                    vm.selectedNode.labelTranslation = response.nameTranslation;
-                    vm.selectedNode.children = [];
-                    vm.selectedNode.children = response.children;
-                }
+                function (response: any) {
+                    if (addNew) // attach new object to the selected node 
+                        vm.selectedNode.children.push(response);
+                    else // update node's name in case of updating 
+                    {
+                        vm.selectedNode.label = response.label;
+                        vm.selectedNode.labelTranslation = response.nameTranslation;
+                        vm.selectedNode.children = [];
+                        vm.selectedNode.children = response.children;
+                    }
 
-                vm.clear();
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.clear();
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     prepareModel() {

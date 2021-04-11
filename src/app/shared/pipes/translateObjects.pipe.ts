@@ -1,5 +1,5 @@
 ﻿import { PipeTransform, Pipe } from '@angular/core';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Pipe({
     name: 'translateObjects',
@@ -8,9 +8,9 @@ export class TranslateObjectsPipe implements PipeTransform {
 
     public constructor(
         private storage: LocalStorageService
-        ) { }
+    ) { }
 
-    transform(value: any, primaryProperty: string, secondaryProperty: string, lstToTranslated: any[]): any {
+    transform(value: any, primaryProperty: string, secondaryProperty: any | null, lstToTranslated: any[]): any {
         let selectedLanguage = this.storage.retrieve("selectedLanguage");
 
         if (selectedLanguage == null || selectedLanguage == undefined)
@@ -18,10 +18,10 @@ export class TranslateObjectsPipe implements PipeTransform {
 
         //|| primaryProperty.trim() === ''
         //|| secondaryProperty.trim() === ''
-        if (primaryProperty === undefined || primaryProperty === null || primaryProperty === '' )
+        if (primaryProperty === undefined || primaryProperty === null || primaryProperty === '')
             primaryProperty = "name";
 
-        if (secondaryProperty === undefined || secondaryProperty === null || secondaryProperty === '' )
+        if (secondaryProperty === undefined || secondaryProperty === null || secondaryProperty === '')
             secondaryProperty = "nameTranslation";
         if (value != undefined) {
 
@@ -42,13 +42,13 @@ export class TranslateObjectsPipe implements PipeTransform {
                                         englishItem = arabicItem;
 
                                     if (englishItem != undefined && englishItem != '' && englishItem != null) {
-                                    
-                                        if (obj[englishItem] != undefined && obj[englishItem] != '' && obj[englishItem] != null) 
+
+                                        if (obj[englishItem] != undefined && obj[englishItem] != '' && obj[englishItem] != null)
                                             obj[arabicItem] = obj[englishItem];
                                         else
                                             obj[arabicItem] = obj[arabicItem];
                                     }
-                                        
+
 
                                     i = i + 1;
                                 }
@@ -75,8 +75,7 @@ export class TranslateObjectsPipe implements PipeTransform {
 
 
                         }
-                        if (obj.children != null)
-                        {
+                        if (obj.children != null) {
                             this.transform(obj.children, primaryProperty, secondaryProperty, lstToTranslated);
 
                         }

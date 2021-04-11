@@ -10,14 +10,14 @@ import { UtilityClass } from '../../shared/shared/utility.class';
 export class PatientMedicationsGridComponent implements OnInit, OnChanges {
 
     utilityClass: UtilityClass = new UtilityClass();
-    @Input() drugs: any[];
-    @Input() noteDrugs: any[];
+    @Input() drugs!: any[];
+    @Input() noteDrugs!: any[];
     @Input() diagnosis: any[] = [];
     @Input() drugDosageUnits: any[] = [];
     @Input() drugFrequencies: any[] = [];
     @Input() durationUnits: any[] = [];
-    @Input() masterList: any[];
-    @Input() noteId: number | undefined;
+    @Input() masterList!: any[];
+    @Input() noteId!: number;
 
     allDrugs: any[] = [];
     lstToTranslated: string[] = ['drugName', 'drugNameTranslation'];
@@ -63,7 +63,7 @@ export class PatientMedicationsGridComponent implements OnInit, OnChanges {
         }
     }
 
-    createClinicNoteDrug(drug): any {
+    createClinicNoteDrug(drug:any): any {
         let bindedDrug: any;
 
         bindedDrug = this.masterList.find(s => s.drugId == drug.data);
@@ -77,7 +77,7 @@ export class PatientMedicationsGridComponent implements OnInit, OnChanges {
         return bindedDrug;
     }
 
-    updateSelectedDrug(drugId, event) {
+    updateSelectedDrug(drugId:any, event:any) {
         if (!event.target.checked) {
             // if the item removed clear data
             let noteDrug = this.allDrugs.find(s => s.drugId == drugId);

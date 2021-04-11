@@ -18,19 +18,19 @@
         <p-column field="dateTimeString" [header]="'Date' | translate" [sortable]="true"></p-column>
         <p-column field="description"[header]="'Description' | translate" [sortable]="true"></p-column>
         <p-column [header]="'Edit' | translate" styleClass="text-center">
-            <template let-surgery="rowData" pTemplate="body">
+            <ng-template let-surgery="rowData" pTemplate="body">
                 <a class="pointer" (click)="showDetails(surgery)"  [class.disabled]="!enable ? true : null">
                     <i class="fa fa-pencil fa-2x"  style="color: #32bea6;"></i>
                 </a>
-            </template>
+            </ng-template>
         </p-column>
         <p-column [header]="'Delete' | translate" styleClass="text-center width50">
-            <template let-surgery="rowData" pTemplate="body">
+            <ng-template let-surgery="rowData" pTemplate="body">
                 <td class="borderStyle text-center">
                     <a class="pointer" (click)="deleteSurgery(surgery)" [class.disabled]="!enable ? true : null">
                         <i  class="glyphicon glyphicon-remove iconClose"></i>
                     </a>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
 </div>

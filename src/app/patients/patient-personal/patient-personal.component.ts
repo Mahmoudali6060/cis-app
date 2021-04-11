@@ -1,28 +1,26 @@
-﻿import {Component, OnChanges, OnInit, ViewChild, Input, EventEmitter, Output, SimpleChanges, AfterContentChecked} from '@angular/core';
+﻿import { Component, OnChanges, OnInit, ViewChild, Input, EventEmitter, Output, SimpleChanges, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
-
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
-   
     selector: 'patient-personal',
     templateUrl: 'patient-personal.component.html',
 })
 
-export class PatientPersonalComponent implements OnInit, AfterContentChecked, OnChanges{
+export class PatientPersonalComponent implements OnInit, AfterContentChecked, OnChanges {
     selectBasicTab: boolean = true;
     @Input() model: any = {};
     @Output() onModelUpdated = new EventEmitter<any>();
     @Input() patientId: string = '';
     @Input() title: string = '';
     active = true;
-   // model: any = {};
-  
+    // model: any = {};
+
     countries = [];
     regions = [];
     cities = [];
@@ -32,8 +30,8 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
     idTypes = [];
     bloodGroups = [];
     showProgress = false;
-    selectedClinicId;
-    @ViewChild("fileInput") fileInput;
+    selectedClinicId!: any;
+    @ViewChild("fileInput") fileInput!: any;
     utilityClass: UtilityClass = new UtilityClass();
 
     constructor(private patientService: PatientService
@@ -43,51 +41,50 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
         , public storage: LocalStorageService
         , private router: Router
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
-       let vm = this;
-       
-      //  let id = this._route.snapshot.params['id'];
-       this.selectedClinicId = this.storage.retrieve("ClinicID");
+        let vm = this;
+
+        //  let id = this._route.snapshot.params['id'];
+        this.selectedClinicId = this.storage.retrieve("ClinicID");
         vm.showProgress = true;
 
         this.patientService.getPatientPersonalWrapper()
             .subscribe(
-            function (response:any) {
-                vm.countries = response.countries;
-                //vm.regions = response.regions;
-                vm.religions = response.religions;
-                vm.nationalities = response.nationalities;
-                vm.bloodGroups = response.bloodGroups;
-                vm.idTypes = response.idTypes;
-                vm.maritalStatuses = response.maritalStatuses;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
-       
+                function (response: any) {
+                    vm.countries = response.countries;
+                    //vm.regions = response.regions;
+                    vm.religions = response.religions;
+                    vm.nationalities = response.nationalities;
+                    vm.bloodGroups = response.bloodGroups;
+                    vm.idTypes = response.idTypes;
+                    vm.maritalStatuses = response.maritalStatuses;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
+
         // get organization in case of update
         //if (this.model.id.toString().toLowerCase() != 'new') {
         //    vm.showProgress = true;
-            //this.patientService.getPatientById(this.patientId)
-            //    .subscribe(
-            //    function (response:any) {
-            //        vm.model = response;
-            //    },
-            //    function (error:any) { 
-            //        vm.toastr.error('Failed to get patient with ID'+" - " + error, '');
-            //        vm.showProgress = false;
-            //    },
-            //    function () {
-            //        vm.showProgress = false;
-            //    });
-    //    }
-     
+        //this.patientService.getPatientById(this.patientId)
+        //    .subscribe(
+        //    function (response:any) {
+        //        vm.model = response;
+        //    },
+        //    function (error:any) { 
+        //        vm.toastr.error('Failed to get patient with ID'+" - " + error, '');
+        //        vm.showProgress = false;
+        //    },
+        //    function () {
+        //        vm.showProgress = false;
+        //    });
+        //    }
+
     }
     ngOnChanges(): void {
 
@@ -105,14 +102,14 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
         }
     }
     onSubmit(): void {
-        
+
         let vm = this;
         vm.showProgress = true;
 
 
-            this.patientService.updatePatientPersonalData(this.model)
-                .subscribe(
-                function (response:any) {
+        this.patientService.updatePatientPersonalData(this.model)
+            .subscribe(
+                function (response: any) {
                     vm.model = response;
                     if (vm.model.birthDate)
                         vm.model.birthDate = vm.utilityClass.getUtcDateFromString(vm.model.birthDate);
@@ -126,7 +123,7 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
                         vm.model.imageId = response.imageId;
                     }
                 },
-                function (error:any) { 
+                function (error: any) {
                     //console.log("Error happened" + error)
                     vm.toastr.error(error, '');
                     vm.showProgress = false;
@@ -134,8 +131,8 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
                 function () {
                     vm.showProgress = false;
                 }
-                );
-        
+            );
+
     }
 
     clear(): void {
@@ -144,14 +141,14 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
         setTimeout(() => this.active = true, 0);
     }
 
-    deleteOrganization(id): void {
+    deleteOrganization(id: any): void {
         let vm = this;
         if (id == undefined || isNaN(id)) {
             vm.toastr.warning('لايوجد جمعية مختارة لمسحها', '');
             return;
         }
 
-   //     vm.showProgress = true;
+        //     vm.showProgress = true;
         //this.organizationService.deleteOrganization(id)
         //    .subscribe(
         //    function (response:any) {
@@ -170,14 +167,12 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
         //    });
     }
 
-    imageChanged(response:any)
-    {
+    imageChanged(response: any) {
         let attchmentInfo: any = {};
 
         if (response != null) {
 
-            if (response.originalName == undefined)
-            {
+            if (response.originalName == undefined) {
                 this.model.attachmentInfo = null;
                 return;
             }
@@ -195,7 +190,7 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
     }
 
     fillRegions(id: string) {
-        var country = this.countries.find(i => i.id == id);
+        var country: any = this.countries.find((i: any) => i.id == id);
 
         if (country != null) {
             this.regions = country.regions;
@@ -208,7 +203,7 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
     }
 
     fillCities(id: string) {
-        var region = this.regions.find(i => i.id == id);
+        var region: any = this.regions.find((i: any) => i.id == id);
 
         if (region != null)
             this.cities = region.cities;

@@ -1,37 +1,29 @@
 ﻿import {Component, OnInit, ViewChild, Input} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorService } from '../../doctors/shared/doctor.service';
-
 import {TranslateService} from '@ngx-translate/core';
-
-import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
-
 import { ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 
 @Component({
-   
     selector: 'patient-radiology',
     templateUrl: 'patient-radiology.component.html',
 })
 
 export class PatientRadiologyComponent implements OnInit {
     selectBasicTab: boolean = true;
-
     lstToTranslated: string[] = [];
     isDetailsVisible: boolean = false;
-
     @Input() allowEditing: boolean = true;
-    @Input() noteId: number | undefined;
-
+    @Input() noteId!: number;
     active = true;
     radTests: any[] = [];
     radTestToBeDeleted: any;
     noteRadtId: any;
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService

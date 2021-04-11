@@ -16,8 +16,8 @@ import {LocalStorageService} from 'ng2-webstorage';
 
 export class NursesComponent implements OnInit {    
 
-    filterString: string | undefined;
-    organizationsList: any[];
+    filterString!:string;
+    organizationsList!: any[];
     showProgress = false;
 
     constructor(private organizationService: NurseService

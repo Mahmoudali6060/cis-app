@@ -35,41 +35,41 @@
                  <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate" [sortable]="true"></p-column>
                  <p-column field="userName" [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
                  <p-column [header]="'ViewDetails' | translate" styleClass="text-center">
-                     <template let-order="rowData" pTemplate="body">
+                     <ng-template let-order="rowData" pTemplate="body">
                          <a class="underLinelinkText" (click)="viewOrderDetails(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'ViewDetails' | translate}}</a>
-                     </template>
+                     </ng-template>
                  </p-column>
                  <p-column [header]="'Edit' | translate" styleClass="text-center width70">
-                     <template let-order="rowData" pTemplate="body">
+                     <ng-template let-order="rowData" pTemplate="body">
                          <!--<a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin || order.orderStatus != 'Prepared'  ? true : null">{{ 'Edit' | translate}}</a>
                 <a href="http://google.com" class="disabled" disabled>Link</a>-->
                          <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="isClinicAdmin && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
                          <a class="disabled" *ngIf="isClinicAdmin && order.orderStatus != 'Prepared'" disabled>{{ 'Edit' | translate}}</a>
                          <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="enableDetailsLink && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
                          <a class="disabled" *ngIf="enableDetailsLink && order.orderStatus != 'Prepared'" disabled>{{ 'Edit' | translate}}</a>
-                     </template>
+                     </ng-template>
                  </p-column>
                  <p-column [header]="'ReSend' | translate" styleClass="text-center width70">
-                     <template let-order="rowData" pTemplate="body">
+                     <ng-template let-order="rowData" pTemplate="body">
                          <a class="underLinelinkText" (click)="resend(order)" [class.disabled]="!enableResendLink && !isClinicAdmin ? true : null">{{ 'ReSend' | translate}}</a>
-                     </template>
+                     </ng-template>
                  </p-column>
                  <p-column [header]="'ReceiveQuantity' | translate" styleClass="text-center width70">
-                     <template let-order="rowData" pTemplate="body">
+                     <ng-template let-order="rowData" pTemplate="body">
                          <!--<a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{order.id}}" [class.disabled]="!enableReceiveLink && !isClinicAdmin ? true : null">{{ 'ReceiveQuantity' | translate}}</a>-->
                          <a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{order.id}}" *ngIf="isClinicAdmin || enableReceiveLink">{{ 'ReceiveQuantity' | translate}}</a>
                          <a class="disabled" *ngIf="!isClinicAdmin && !enableReceiveLink" disabled>{{ 'ReceiveQuantity' | translate}}</a>
-                     </template>
+                     </ng-template>
                  </p-column>
                  <p-column [header]="'CloseOrder' | translate" styleClass="text-center">
-                     <template let-order="rowData" pTemplate="body">
+                     <ng-template let-order="rowData" pTemplate="body">
                          <a class="underLinelinkText" (click)="closeOrder(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Close' | translate}}</a>
-                     </template>
+                     </ng-template>
                  </p-column>
                  <!--<p-column [header]="'Delete' | translate" styleClass="text-center width70">
-            <template let-order="rowData" pTemplate="body">
+            <ng-template let-order="rowData" pTemplate="body">
                 <a class="underLinelinkText" (click)="selectOrderToDelete(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Delete' | translate}}</a>
-            </template>
+            </ng-template>
         </p-column>-->
              </p-dataTable>
          </div>

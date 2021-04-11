@@ -1,17 +1,14 @@
-﻿import {Component, OnChanges, OnInit, ViewChild, Output, Input, SimpleChanges, EventEmitter} from '@angular/core';
+﻿import { Component, OnChanges, OnInit, ViewChild, Output, Input, SimpleChanges, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorService } from '../../doctors/shared/doctor.service';
-import {TranslateService} from '@ngx-translate/core';
-import { TreeNode } from 'primeng/primeng';
-
-import { PatientService } from '../shared/patient.service'
+import { TranslateService } from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
 import { SharedService } from '../../shared/shared/shared.service';
-
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'patient-radiology-details',
     templateUrl: 'patient-radiology-details.component.html',
 })
@@ -22,26 +19,26 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
 
     @Output() onBack = new EventEmitter();
     @Input() noteId: string = '';
-    @Input() noteRadTestId: string | undefined;
+    @Input() noteRadTestId!: string;
     active = true;
-    radTestToSave: any = { id: 0, quantity:1 };
-    filterString: string | undefined;
+    radTestToSave: any = { id: 0, quantity: 1 };
+    filterString!: string;
     leafType: string = 'RadiologyTest';
     selectedAction = 1;
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!: any;
     isRadTest = true;
     radTests: any[] = [];
     noteDiagnosis: any[] = [];
-    selectedGroupNode: TreeNode;
+    selectedGroupNode!: TreeNode;
     radTestCode = '';
     isAll = true;
     divisionId = "";
     clinicId = "";
     selectedLabNode: any;
-    selectedNode: TreeNode;
-    selectedFiles: TreeNode;
+    selectedNode!: TreeNode;
+    selectedFiles!: TreeNode;
     radTreeDataSourceItems: any[] = [];
     getAllRads = true;
 
@@ -52,8 +49,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
         , public storage: LocalStorageService
         , public translate: TranslateService
 
-    )
-    { }
+    ) { }
 
 
     ngOnChanges(changes: SimpleChanges) {
@@ -61,20 +57,20 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
         //get organization in case of update
         if (this.noteRadTestId == 'new') {
             vm.showProgress = true;
-            if (this.noteRadTestId && this.noteRadTestId != "undefined") {
+            if (this.noteRadTestId && this.noteRadTestId != undefined) {
                 this.doctorService.getClinicNoteRadTestById(this.noteRadTestId)
                     .subscribe(
-                    function (response:any) {
-                        vm.radTestToSave = response;
-                        vm.displaySelectedParentGroupNode(vm.radTestToSave.radiologyTestId);
-                    },
-                    function (error:any) { 
-                        vm.toastr.error(error, '');
-                        vm.showProgress = false;
-                    },
-                    function () {
-                        vm.showProgress = false;
-                    });
+                        function (response: any) {
+                            vm.radTestToSave = response;
+                            vm.displaySelectedParentGroupNode(vm.radTestToSave.radiologyTestId);
+                        },
+                        function (error: any) {
+                            vm.toastr.error(error, '');
+                            vm.showProgress = false;
+                        },
+                        function () {
+                            vm.showProgress = false;
+                        });
             }
         }
         if (this.noteRadTestId != 'new') {
@@ -82,16 +78,16 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
             if (this.noteRadTestId && this.noteRadTestId != "undefined") {
                 this.doctorService.getClinicNoteRadTestById(this.noteRadTestId)
                     .subscribe(
-                    function (response:any) {
-                        vm.radTestToSave = response;
-                    },
-                    function (error:any) { 
-                        vm.toastr.error(error, '');
-                        vm.showProgress = false;
-                    },
-                    function () {
-                        vm.showProgress = false;
-                    });
+                        function (response: any) {
+                            vm.radTestToSave = response;
+                        },
+                        function (error: any) {
+                            vm.toastr.error(error, '');
+                            vm.showProgress = false;
+                        },
+                        function () {
+                            vm.showProgress = false;
+                        });
             }
         }
     }
@@ -108,24 +104,24 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
         //get note diagnosis
         this.doctorService.getNoteDiagnosis(vm.noteId)
             .subscribe(
-            function (response:any) {
-                vm.noteDiagnosis = response;
-                // vm.servicePackages = res
+                function (response: any) {
+                    vm.noteDiagnosis = response;
+                    // vm.servicePackages = res
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            })
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                })
     }
 
     clear(): void {
-        this.radTestToSave = { quantity:1};
+        this.radTestToSave = { quantity: 1 };
         this.radTestToSave.radiologyTestId = '';
         this.noteRadTestId = 'new';
-        this.selectedNode = null;
+        this.selectedNode = {};
         this.active = false;
         setTimeout(() => this.active = true, 0);
     }
@@ -136,20 +132,20 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
         //get department services groups
         this.doctorService.getClinicDivisionRadiologyTestsGroups(vm.divisionId)
             .subscribe(
-            function (response:any) {
-                vm.radTests = response;
-                if (vm.radTestToSave) {
-                    vm.addModelToServicesList(vm.radTestToSave)
-                    vm.expandAll();
-                }
+                function (response: any) {
+                    vm.radTests = response;
+                    if (vm.radTestToSave) {
+                        vm.addModelToServicesList(vm.radTestToSave)
+                        vm.expandAll();
+                    }
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     displaySelectedParentGroupNode(radTestId: string) {
         let vm = this
@@ -166,25 +162,25 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
         /////////////////////////get all services groups
         this.doctorService.getRadiologyTestsGroupsForTreeView(vm.clinicId)
             .subscribe(
-            function (response:any) {
-                vm.radTests = response;
-                if (needAll) {
-                    vm.getAllRads = false;
-                    vm.radTreeDataSourceItems = response;
-                    vm.expandAll();
-                }
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.radTests = response;
+                    if (needAll) {
+                        vm.getAllRads = false;
+                        vm.radTreeDataSourceItems = response;
+                        vm.expandAll();
+                    }
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     private displaySelectedNodeRecursive(node: TreeNode, labTestId: string) {
         let vm = this;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.displaySelectedNodeRecursive(childNode, labTestId);
 
                 if (childNode.data == labTestId && childNode.type.toLocaleLowerCase() == "radiologytest")
@@ -193,13 +189,13 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
             });
         }
     }
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         this.radTestToSave.radiologyTestId = event.node.data;
         this.radTestToSave.radTestCode = event.node.code;
         this.radTestToSave.radTestName = event.node.name;
 
     }
-    nodeUnselect(event:any) {
+    nodeUnselect(event: any) {
         this.radTestToSave.labTestId = '';
     }
     expandAll() {
@@ -230,43 +226,43 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
             // Add new
             this.doctorService.createClinicNoteRadTest(this.radTestToSave)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.radTestToSave = response;
-                    vm.noteRadTestId = vm.radTestToSave.id;
-                    vm.onBack.emit();
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.radTestToSave = response;
+                        vm.noteRadTestId = vm.radTestToSave.id;
+                        vm.onBack.emit();
 
-                },
-                function (error:any) { 
-                    //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                }
+                    },
+                    function (error: any) {
+                        //console.log("Error happened" + error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    }
                 );
         }
         else {
             // update
             this.doctorService.updateClinicNoteRadTest(this.radTestToSave)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.radTestToSave = response;
-                    vm.onBack.emit();
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.radTestToSave = response;
+                        vm.onBack.emit();
 
-                },
-                function (error:any) { 
-                    //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        //console.log("Error happened" + error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
     }
 

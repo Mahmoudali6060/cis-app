@@ -1,13 +1,13 @@
 ﻿export class BaseEntity {
 
-    id: number | undefined;
-    name: string | undefined;
-    nameTranslation: string | undefined;
-    description: string | undefined;
-    descriptionTranslation: string | undefined;
+    id!: number;
+    name!:string;
+    nameTranslation!:string;
+    description!:string;
+    descriptionTranslation!:string;
     isActive: boolean | undefined;
-    lastModificationDateString: string | undefined;
+    lastModificationDateString!:string;
     lastModificationDate: Date | undefined;
-    lastModifierID: number | undefined;
-    lastModifierName: string | undefined;
+    lastModifierID!: number;
+    lastModifierName!:string;
 }

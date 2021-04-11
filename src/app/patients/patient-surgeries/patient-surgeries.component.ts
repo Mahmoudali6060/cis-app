@@ -1,16 +1,16 @@
-﻿import {Component, OnInit, ViewChild, Input} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
 import { DoctorService } from '../../doctors/shared/doctor.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'patient-surgeries',
     templateUrl: 'patient-surgeries.component.html',
 })
@@ -19,13 +19,13 @@ export class PatientSurgeriesComponent implements OnInit {
     selectBasicTab: boolean = true;
     utilityClass: UtilityClass = new UtilityClass();
     isDetailsVisible: boolean = false;
-    @Input() patientId: number | undefined;
+    @Input() patientId!: number;
     @Input() patientDOB: Date | undefined;
     @Input() allServices: any[] = [];
     @Input() enable: boolean = true;
     active = true;
     lstToTranslated: string[] = [];
-    surgeriesList = [];
+    surgeriesList: any = [];
     showProgress = false;
     toSaveSurgery: any = {};
 
@@ -35,8 +35,7 @@ export class PatientSurgeriesComponent implements OnInit {
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['surgeryName', 'surgeryNameTranslation'];
@@ -44,16 +43,16 @@ export class PatientSurgeriesComponent implements OnInit {
         thisComponent.showProgress = true;
         this.doctorService.getPatientSnapshotSurgeries(thisComponent.patientId)
             .subscribe(
-            function (surgeries) {
-                thisComponent.surgeriesList = surgeries;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error( error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (surgeries: any) {
+                    thisComponent.surgeriesList = surgeries;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
 
@@ -62,32 +61,32 @@ export class PatientSurgeriesComponent implements OnInit {
         this.isDetailsVisible = true;
     }
 
-    showDetails(rowData) {
+    showDetails(rowData: any) {
         if (rowData && rowData.id) {
             let thisComponent = this;
             thisComponent.showProgress = true;
             this.doctorService.getSurgeryById(rowData.id)
                 .subscribe(
-                function (matchedSurgery) {
-                    thisComponent.toSaveSurgery = matchedSurgery;
-                    thisComponent.toSaveSurgery.dateTime = thisComponent.utilityClass.getDateTimeFromString(thisComponent.toSaveSurgery.dateTime);
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error( error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (matchedSurgery: any) {
+                        thisComponent.toSaveSurgery = matchedSurgery;
+                        thisComponent.toSaveSurgery.dateTime = thisComponent.utilityClass.getDateTimeFromString(thisComponent.toSaveSurgery.dateTime);
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
             this.isDetailsVisible = true;
         }
     }
 
-    hideDetails(updatedSurgery) {
+    hideDetails(updatedSurgery: any) {
         if (updatedSurgery) {
 
             let thisComponent = this;
-            thisComponent.surgeriesList.forEach(surgery => {
+            thisComponent.surgeriesList.forEach((surgery: any) => {
                 if (surgery.id == updatedSurgery.id)
                     thisComponent.surgeriesList.splice(thisComponent.surgeriesList.indexOf(surgery), 1);
             });
@@ -98,28 +97,28 @@ export class PatientSurgeriesComponent implements OnInit {
         this.isDetailsVisible = false;
     }
 
-    deleteSurgery(rowData) {
+    deleteSurgery(rowData: any) {
 
         if (rowData && rowData.id) {
             let thisComponent = this;
             thisComponent.showProgress = true;
             this.doctorService.deleteSurgery(rowData.id)
                 .subscribe(
-                function () {
-                    thisComponent.surgeriesList.forEach(surgery => {
-                        if (surgery.id == rowData.id)
-                            thisComponent.surgeriesList.splice(thisComponent.surgeriesList.indexOf(surgery), 1);
+                    function () {
+                        thisComponent.surgeriesList.forEach((surgery: any) => {
+                            if (surgery.id == rowData.id)
+                                thisComponent.surgeriesList.splice(thisComponent.surgeriesList.indexOf(surgery), 1);
+                        });
+                        let msg = thisComponent.translate.instant("DeletedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
                     });
-                    let msg = thisComponent.translate.instant("DeletedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error( error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
         }
     }
 

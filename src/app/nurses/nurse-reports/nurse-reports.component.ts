@@ -16,14 +16,14 @@ import {LocalStorageService} from 'ng2-webstorage';
 export class NurseReportsComponent implements OnInit {
 
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!:string;
 
     active = true;
     model: any = {};
   
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
     constructor(private organizationService: NurseService
         , private sharedService: SharedService
@@ -136,7 +136,7 @@ export class NurseReportsComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    deleteOrganization(id): void {
+    deleteOrganization(id:any): void {
         let vm = this;
         if (id == undefined || isNaN(id)) {
             vm.toastr.warning('لايوجد جمعية مختارة لمسحها', '');

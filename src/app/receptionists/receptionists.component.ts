@@ -16,8 +16,8 @@ import {LocalStorageService} from 'ng2-webstorage';
 
 export class ReceptionistsComponent implements OnInit {    
 
-    filterString: string | undefined;
-    organizationsList: any[];
+    filterString!:string;
+    organizationsList!: any[];
     showProgress = false;
 
     constructor(private organizationService: ReceptionistService

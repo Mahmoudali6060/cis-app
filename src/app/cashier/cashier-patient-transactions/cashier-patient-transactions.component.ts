@@ -1,18 +1,18 @@
-﻿import {Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
 import { ClaimService } from '../shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-   
+
     selector: 'cashier-patient-transactions',
-    templateUrl: 'cashier-patient-transactions.component.html'
+    templateUrl: './cashier-patient-transactions.component.html'
 })
 
 export class CashierPatientTransactionsComponent implements OnInit {
@@ -30,7 +30,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
     payment: any = { id: 0 };
     patient: any = {};
     utilityClass: UtilityClass = new UtilityClass();
-    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup: ElementRef;;
+    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup!: ElementRef;;
     defaultChargeStatus = 'UnPaid';
     defaultClaimSearch = 'Charges';
     displayChargeStatus: boolean = true;
@@ -52,11 +52,11 @@ export class CashierPatientTransactionsComponent implements OnInit {
     enableViewPatientPaymentBtn: boolean = false;
     lstToTranslated: string[] = [];
     prepaidAmount = '';
-    paymentMethodId;
+    paymentMethodId!: number;
 
     enableAttachmentBtn: boolean = false;
     isPatientSelected: boolean = false;
-    selectedPatientId: string | undefined;
+    selectedPatientId!:string;
     parentType: string = "PatientFileType";
     showDocumentDetails: boolean = true;
     btnUploadText = this.translate.instant("UploadFile");
@@ -82,7 +82,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
         this.loadPatientTransactionSearchWrapper();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -93,7 +93,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
                 if (item.permission.key == this.key.Claim && (item.view == true || item.fullControl)) {
                     this.enableSearchForPatient = true;
                     this.enableViewPatientPaymentBtn = true;
-                } 
+                }
                 if (item.permission.key == this.key.ConsumeFromPrepaid && (item.allow == true))
                     this.enableRefundClaimBtn = true;
                 if (item.permission.key == this.key.Claim && (item.add == true))
@@ -110,21 +110,21 @@ export class CashierPatientTransactionsComponent implements OnInit {
         let clinicId = this.localStorage.retrieve('clinicID');
         this.claimService.getPatientTransactionSearchWrapper(clinicId)
             .subscribe(
-            function (response:any) {
-                vm.paymentTypes = response.paymentTypes;
-                vm.paymentMethods = response.paymentMethod;
-                vm.chargeStatusList = response.chargeStatus;
-                vm.claimSearchTypeList = response.claimSearchType;
-                vm.dateFiltersList = response.dateFilters;
-                vm.doctorsList = response.doctors;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.paymentTypes = response.paymentTypes;
+                    vm.paymentMethods = response.paymentMethod;
+                    vm.chargeStatusList = response.chargeStatus;
+                    vm.claimSearchTypeList = response.claimSearchType;
+                    vm.dateFiltersList = response.dateFilters;
+                    vm.doctorsList = response.doctors;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
     display: boolean = false;
@@ -140,7 +140,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
     claimSearchTypeList: any = [];
     chargeStatusList: any = [];
 
-    managePatientSelection(selectedPatientMrn) {
+    managePatientSelection(selectedPatientMrn: any) {
         this.searchCriteria.patientClinicMRN = selectedPatientMrn;
         this.display = false;
     }
@@ -183,7 +183,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
         }
     }
 
-    selectClaimSearchType(claimSearchType) {
+    selectClaimSearchType(claimSearchType: any) {
         this.searchCriteria.claimSearchType = claimSearchType;
 
         if (claimSearchType == this.defaultClaimSearch)
@@ -192,7 +192,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
             this.displayChargeStatus = false;
     }
 
-    selectChargeStatus(chargeStatus) {
+    selectChargeStatus(chargeStatus: any) {
         this.searchCriteria.chargeStatus = chargeStatus;
     }
 
@@ -223,40 +223,40 @@ export class CashierPatientTransactionsComponent implements OnInit {
         vm.searchCriteria.clinicId = this.localStorage.retrieve("ClinicID");
         this.claimService.getPatientTransactionsAccordingtoSearchCriteria(vm.searchCriteria)
             .subscribe(
-            function (response:any) {
-                vm.allCharges = response.charges;
-                vm.allPatientPayments = response.payments;
-                vm.allPatientPayments = vm.allPatientPayments.concat(response.installments);
-                vm.patient = response.patient;
+                function (response: any) {
+                    vm.allCharges = response.charges;
+                    vm.allPatientPayments = response.payments;
+                    vm.allPatientPayments = vm.allPatientPayments.concat(response.installments);
+                    vm.patient = response.patient;
 
-                // patient ptrpaid, pending,.... values
-                vm.prePaidBalanceAmount = response.prePaidBalance;
-                vm.pendingAmount = response.patientPending;
-                vm.amountToPay = response.amountToPay;
-                vm.netAmount = response.netAmount;
+                    // patient ptrpaid, pending,.... values
+                    vm.prePaidBalanceAmount = response.prePaidBalance;
+                    vm.pendingAmount = response.patientPending;
+                    vm.amountToPay = response.amountToPay;
+                    vm.netAmount = response.netAmount;
 
-                if (vm.patient == null || vm.patient == undefined) {
-                    vm.toastr.warning(vm.translate.instant('NoPatientWithProvidedCriteria'), '');
-                    vm.patient = {};
-                    return;
-                }
+                    if (vm.patient == null || vm.patient == undefined) {
+                        vm.toastr.warning(vm.translate.instant('NoPatientWithProvidedCriteria'), '');
+                        vm.patient = {};
+                        return;
+                    }
 
-               
-                vm.selectedPatientId = response.patient.id;
-                vm.isPatientSelected = true;
 
-                if (vm.searchCriteria.claimSearchType == 'Charges' && (vm.allCharges == null || vm.allCharges.length == 0))
-                    vm.toastr.warning(vm.translate.instant('NoResults'), '');
-                if (vm.searchCriteria.claimSearchType == 'Transactions' && (vm.allPatientPayments == null || vm.allPatientPayments.length == 0))
-                    vm.toastr.warning(vm.translate.instant('NoResults'), '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                    vm.selectedPatientId = response.patient.id;
+                    vm.isPatientSelected = true;
+
+                    if (vm.searchCriteria.claimSearchType == 'Charges' && (vm.allCharges == null || vm.allCharges.length == 0))
+                        vm.toastr.warning(vm.translate.instant('NoResults'), '');
+                    if (vm.searchCriteria.claimSearchType == 'Transactions' && (vm.allPatientPayments == null || vm.allPatientPayments.length == 0))
+                        vm.toastr.warning(vm.translate.instant('NoResults'), '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
     savePatientPayment() {
@@ -264,37 +264,37 @@ export class CashierPatientTransactionsComponent implements OnInit {
 
         this.claimService.savePatientPayment(vm.payment)
             .subscribe(
-            function (response:any) {
-                vm.toastr.success(vm.translate.instant('SavedSuccessfully'), '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.toastr.success(vm.translate.instant('SavedSuccessfully'), '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
-    getPatientPaymentById(paymentId) {
+    getPatientPaymentById(paymentId: any) {
         let vm = this;
         vm.showProgress = true
 
         this.claimService.getPatientPaymentById(paymentId)
             .subscribe(
-            function (response:any) {
-                vm.payment = response;
+                function (response: any) {
+                    vm.payment = response;
 
-                if (vm.payment.date)
-                    vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
-            },
-            function (error:any) { 
-                vm.toastr.error(vm.translate.instant('FailedToLoadData'), '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                    if (vm.payment.date)
+                        vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
+                },
+                function (error: any) {
+                    vm.toastr.error(vm.translate.instant('FailedToLoadData'), '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
     refundFromPrepaid() {
@@ -310,45 +310,45 @@ export class CashierPatientTransactionsComponent implements OnInit {
 
         this.claimService.reFundFromPrePaid(vm.refundModel)
             .subscribe(
-            function (response:any) {
-                vm.toastr.success(vm.translate.instant('SavedSuccessfully'), '');
+                function (response: any) {
+                    vm.toastr.success(vm.translate.instant('SavedSuccessfully'), '');
 
-                // update finance fields such as prepaid, pending,.... values
-                vm.prePaidBalanceAmount = response.prePaidBalance;
-                vm.pendingAmount = response.patientPending;
-                //vm.amountToPay = response.amountToPay;
-                //vm.netAmount = response.netAmount;
+                    // update finance fields such as prepaid, pending,.... values
+                    vm.prePaidBalanceAmount = response.prePaidBalance;
+                    vm.pendingAmount = response.patientPending;
+                    //vm.amountToPay = response.amountToPay;
+                    //vm.netAmount = response.netAmount;
 
-                vm.refundModel = {};
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                    vm.refundModel = {};
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
 
-    updateAmount(updates) {
+    updateAmount(updates: any) {
         let vm = this;
         this.claimService.getPatientFinanceFields(vm.patient.id, vm.localStorage.retrieve("ClinicID"))
             .subscribe(
-            function (response:any) {
-                // update finance fields such as prepaid, pending,.... values
-                vm.prePaidBalanceAmount = response.prePaidBalance;
-                vm.pendingAmount = response.patientPending;
-                vm.amountToPay = 0;
-                //vm.netAmount = response.netAmount;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                function (response: any) {
+                    // update finance fields such as prepaid, pending,.... values
+                    vm.prePaidBalanceAmount = response.prePaidBalance;
+                    vm.pendingAmount = response.patientPending;
+                    vm.amountToPay = 0;
+                    //vm.netAmount = response.netAmount;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
 
@@ -376,26 +376,26 @@ export class CashierPatientTransactionsComponent implements OnInit {
         // vm.transactionWrapperModel.lastModifierName = vm.lastModifierName;
         this.claimService.updatePrepaidBalance(vm.transactionWrapperModel)
             .subscribe(
-            function (response:any) {
-                // update finance fields such as prepaid, pending,.... values
-                vm.prePaidBalanceAmount = response.prePaidBalance;
-                //vm.pendingAmount = response.pending;
-                //vm.amountToPay = response.amountToPay;
-                //vm.netAmount = response.netAmount;
-                vm.toastr.success(vm.translate.instant('SavedSuccessfully'), '');
-                vm.prepaidAmount = '';
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                function (response: any) {
+                    // update finance fields such as prepaid, pending,.... values
+                    vm.prePaidBalanceAmount = response.prePaidBalance;
+                    //vm.pendingAmount = response.pending;
+                    //vm.amountToPay = response.amountToPay;
+                    //vm.netAmount = response.netAmount;
+                    vm.toastr.success(vm.translate.instant('SavedSuccessfully'), '');
+                    vm.prepaidAmount = '';
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
 
-    updateAmountToPay(amount) {
+    updateAmountToPay(amount: any) {
 
         this.amountToPay = amount;
 

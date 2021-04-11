@@ -1,18 +1,18 @@
-﻿import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import {ClinicService} from '../../shared/clinic.service';
+import { ClinicService } from '../../shared/clinic.service';
 
-import {ClinicNews} from '../../../classes/clinicNews.class';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { ClinicNews } from '../../../classes/clinicNews.class';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
-   
+
     selector: 'view-news-list',
-    templateUrl: 'view-news-list.component.html'
+    templateUrl: './view-news-list.component.html'
 })
 
 export class ViewNewsListComponent implements OnInit {
@@ -22,18 +22,15 @@ export class ViewNewsListComponent implements OnInit {
         , private clinicService: ClinicService
         , public translate: TranslateService) { }
 
-    @ViewChild('btnReplyToFeedBack') btnReplyToFeedBack: ElementRef;
-    @ViewChild('btnClosePopup') btnClosePopup: ElementRef;
-
+    @ViewChild('btnReplyToFeedBack') btnReplyToFeedBack!: ElementRef;
+    @ViewChild('btnClosePopup') btnClosePopup!: ElementRef;
     selectNewsTab: boolean = true;
-
-    selectedClinicId: number | undefined;
-    selectedClinicNewsId: string | undefined;
+    selectedClinicId!: number;
+    selectedClinicNewsId!:string;
     active: boolean = true;
     showProgress = false;
     clinicNewsList: ClinicNews[] = [];
     lstToTranslated: string[] = [];
-    
     isDetailsVisible: boolean = false;
     userType: string = '';
     isClinicAdmin: boolean = false;
@@ -49,55 +46,55 @@ export class ViewNewsListComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getClinicNews(this.selectedClinicId)
             .subscribe(
-            function (newsList) {
-                thisComponent.clinicNewsList = newsList;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (newsList: any) {
+                    thisComponent.clinicNewsList = newsList;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
 
-    changeClinicNewsActivationState(id, event) {
+    changeClinicNewsActivationState(id: any, event: any) {
         let thisComponent = this;
 
         thisComponent.showProgress = true;
         thisComponent.clinicService.changeClinicNewsActivationState({ "id": id, "isActive": event.target.checked })
             .subscribe(
-            function (response:any) {
-                let msg = thisComponent.translate.instant("SavedSuccessfully");
-                thisComponent.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    let msg = thisComponent.translate.instant("SavedSuccessfully");
+                    thisComponent.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
-    showNewsDetails(clinicNewsId) {
+    showNewsDetails(clinicNewsId: any) {
         this.selectedClinicNewsId = clinicNewsId;
         this.isDetailsVisible = true;
     }
 
-    getNewsImage(clinicNewsImageData): string {
+    getNewsImage(clinicNewsImageData: any): string {
         if (clinicNewsImageData && clinicNewsImageData != null)
             return 'data:image/JPG;base64,' + clinicNewsImageData;
         return '';
     }
 
     addNewClinicNews() {
-        this.selectedClinicNewsId ='new';
+        this.selectedClinicNewsId = 'new';
         this.isDetailsVisible = true;
     }
 
-    hideDetails(updatedClinicNews) {
+    hideDetails(updatedClinicNews: any) {
         if (updatedClinicNews) {
             let thisComponent = this;
             thisComponent.clinicNewsList.forEach(clinicNews => {

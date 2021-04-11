@@ -1,21 +1,21 @@
-﻿import {Component, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
-import { TreeNode } from 'primeng/primeng';
-import {ClinicService} from '../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TreeNode } from 'primeng/api';
+import { ClinicService } from '../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { TranslateObjectsPipe } from '../../shared/pipes/translateObjects.pipe';
 @Component({
-   
+
     selector: 'clinic-products',
-    templateUrl: 'clinic-products.component.html'
+    templateUrl: './clinic-products.component.html'
 })
 
 export class ClinicProductsComponent implements OnInit {
@@ -28,7 +28,7 @@ export class ClinicProductsComponent implements OnInit {
     ) { }
 
     selectedLang = 'ar';
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Product';
     userPermisions: UserPermissions = new UserPermissions();
     key: PermissionKeyEnum = new PermissionKeyEnum();
@@ -55,22 +55,22 @@ export class ClinicProductsComponent implements OnInit {
     txtHeaderModal = "";
     productGroupId = 'new';
     productId = 'new';
-    @ViewChild('btnServicesGroup') btnServicesGroup: ElementRef;
-    @ViewChild('btnCloseProductsGroup') btnCloseProductsGroup: ElementRef;
-    
-    @ViewChild('btnCloseProduct') btnCloseProduct: ElementRef;
-    @ViewChild('btnServices') btnServices: ElementRef;
+    @ViewChild('btnServicesGroup') btnServicesGroup!: ElementRef;
+    @ViewChild('btnCloseProductsGroup') btnCloseProductsGroup!: ElementRef;
+
+    @ViewChild('btnCloseProduct') btnCloseProduct!: ElementRef;
+    @ViewChild('btnServices') btnServices!: ElementRef;
     @ViewChild('tree') tree: any;
     utilityClass: UtilityClass = new UtilityClass();
 
-    @ViewChild('i') rbselection: ElementRef;
-    @ViewChild('d') selection: ElementRef;
+    @ViewChild('i') rbselection!: ElementRef;
+    @ViewChild('d') selection!: ElementRef;
 
 
-    selectedFile2: TreeNode;
-    selectedGroup: TreeNode;
+    selectedFile2!: TreeNode;
+    selectedGroup!: TreeNode;
 
-    selectedGroupNode: TreeNode;
+    selectedGroupNode!: TreeNode;
     titl: string = '';
     model: any = {};
     productGroupModel: any = {};
@@ -84,7 +84,7 @@ export class ClinicProductsComponent implements OnInit {
     productGroupParentlabel = '';
     isRoot = false;
     checkParentChildren = true;
-    totalFees: number | undefined;
+    totalFees!: number;
     isEdit = false;
     selctedNode: any;
     toPrintDiv: string = "print-section";
@@ -93,7 +93,7 @@ export class ClinicProductsComponent implements OnInit {
     weightList: any[] = [];
     volumeList: any[] = [];
 
-    measuringId;
+    measuringId!: any;
 
     unitList: any[] = [];
     vendors: any[] = [];
@@ -149,7 +149,7 @@ export class ClinicProductsComponent implements OnInit {
         this.loadProductWrapper();
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -160,21 +160,21 @@ export class ClinicProductsComponent implements OnInit {
         let thisComponent = this;
         this.clinicService.getProductUnits()
             .subscribe(
-            function (wrapper) {
-                thisComponent.heightList = wrapper.heights;
-                thisComponent.weightList = wrapper.weights;
-                thisComponent.volumeList = wrapper.volumes;
-                thisComponent.unitList = wrapper.unites;
-                thisComponent.vendors = wrapper.vendors;
+                function (wrapper: any) {
+                    thisComponent.heightList = wrapper.heights;
+                    thisComponent.weightList = wrapper.weights;
+                    thisComponent.volumeList = wrapper.volumes;
+                    thisComponent.unitList = wrapper.unites;
+                    thisComponent.vendors = wrapper.vendors;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
     fillUnits(erd: string) {
@@ -244,36 +244,36 @@ export class ClinicProductsComponent implements OnInit {
     }
 
     getProductsGroupsForTree() {
-        let thisComponent = this;        
+        let thisComponent = this;
         thisComponent.showProgress = true;
         this.clinicService.getProductsGroupsForTreeView(thisComponent.selectedClinicId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.Medical.children = [];
-                thisComponent.NonMedical.children = [];
+                    thisComponent.Medical.children = [];
+                    thisComponent.NonMedical.children = [];
 
-                for (let product of response) {
-                    if (product.parent == undefined && product.productGroupType == "Medical") {
-                        thisComponent.Medical.children.push(product);
+                    for (let product of response) {
+                        if (product.parent == undefined && product.productGroupType == "Medical") {
+                            thisComponent.Medical.children.push(product);
+                        }
+                        else if (product.parent == undefined && product.productGroupType == "NonMedical") {
+                            thisComponent.NonMedical.children.push(product);
+                        }
+
                     }
-                    else if (product.parent == undefined && product.productGroupType == "NonMedical") {
-                        thisComponent.NonMedical.children.push(product);
-                    }
+                    thisComponent.treeDataSourceItems.push(thisComponent.Medical);
+                    thisComponent.treeDataSourceItems.push(thisComponent.NonMedical);
+                    thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, '', null, thisComponent.lstToTranslated);
 
-                }
-                thisComponent.treeDataSourceItems.push(thisComponent.Medical);
-                thisComponent.treeDataSourceItems.push(thisComponent.NonMedical);
-                thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, null, null, thisComponent.lstToTranslated);
-
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
 
@@ -298,13 +298,13 @@ export class ClinicProductsComponent implements OnInit {
         }
     }
 
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         event.node.label;
     }
 
-    nodeUnselect(event:any) {
+    nodeUnselect(event: any) {
     }
-    displayPopup(node) {
+    displayPopup(node: any) {
         let thisComponent = this;
         if (node.type.toLocaleLowerCase() == "productsgroup") {
             this.productGroupId = node.data;
@@ -325,26 +325,26 @@ export class ClinicProductsComponent implements OnInit {
             if (this.productGroupId.toString().toLowerCase() != 'new') {
                 this.clinicService.getProductGroupById(this.productGroupId, this.checkParentChildren)
                     .subscribe(
-                    function (response:any) {
-                        thisComponent.productGroupModel = response;
-                        thisComponent.productGroupParentId = thisComponent.productGroupModel.parentGroupId;
-                        if (thisComponent.productGroupModel.parentName == "undefined") {
-                            thisComponent.productGroupParentlabel = thisComponent.productGroupModel.productGroupType;
-                        }
-                        else if (thisComponent.productGroupModel.parentName != null) {
-                            if (thisComponent.selectedLang == 'ar')
-                                thisComponent.productGroupParentlabel = thisComponent.productGroupModel.parentName;
-                            else
-                                thisComponent.productGroupParentlabel = thisComponent.productGroupModel.parentNameTranslation;
-                            
-                        }
-                    },
-                    function (error:any) { 
-                        thisComponent.toastr.error(error, '');
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                        function (response: any) {
+                            thisComponent.productGroupModel = response;
+                            thisComponent.productGroupParentId = thisComponent.productGroupModel.parentGroupId;
+                            if (thisComponent.productGroupModel.parentName == "undefined") {
+                                thisComponent.productGroupParentlabel = thisComponent.productGroupModel.productGroupType;
+                            }
+                            else if (thisComponent.productGroupModel.parentName != null) {
+                                if (thisComponent.selectedLang == 'ar')
+                                    thisComponent.productGroupParentlabel = thisComponent.productGroupModel.parentName;
+                                else
+                                    thisComponent.productGroupParentlabel = thisComponent.productGroupModel.parentNameTranslation;
+
+                            }
+                        },
+                        function (error: any) {
+                            thisComponent.toastr.error(error, '');
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
             }
 
         } else if (node.type.toLocaleLowerCase() == "product") {
@@ -367,28 +367,28 @@ export class ClinicProductsComponent implements OnInit {
             if (this.productId.toString().toLowerCase() != 'new') {
                 this.clinicService.getProductById(this.productId)
                     .subscribe(
-                    function (response:any) {
-                        thisComponent.model = response;
-                        thisComponent.model.unitName == "NumbersUnit" ? thisComponent.hideUnit = false : thisComponent.hideUnit = true;
-                        if (thisComponent.model.expiryDate)
-                            thisComponent.model.expiryDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.expiryDate);
-                        if (thisComponent.model.manufacturingDate)
-                            thisComponent.model.manufacturingDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.manufacturingDate);
+                        function (response: any) {
+                            thisComponent.model = response;
+                            thisComponent.model.unitName == "NumbersUnit" ? thisComponent.hideUnit = false : thisComponent.hideUnit = true;
+                            if (thisComponent.model.expiryDate)
+                                thisComponent.model.expiryDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.expiryDate);
+                            if (thisComponent.model.manufacturingDate)
+                                thisComponent.model.manufacturingDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.manufacturingDate);
 
-                        thisComponent.productGroupParentId = thisComponent.model.parentGroupId;
-                        thisComponent.fillMesauringUnits(response.unitType, response);
+                            thisComponent.productGroupParentId = thisComponent.model.parentGroupId;
+                            thisComponent.fillMesauringUnits(response.unitType, response);
 
-                        if (thisComponent.selectedLang == 'ar')
-                            thisComponent.productGroupParentlabel = thisComponent.model.parentGroupName;
-                        else
-                            thisComponent.productGroupParentlabel = thisComponent.model.parentGroupNameTranslation;
-                    },
-                    function (error:any) { 
-                        thisComponent.toastr.error(error, '');
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                            if (thisComponent.selectedLang == 'ar')
+                                thisComponent.productGroupParentlabel = thisComponent.model.parentGroupName;
+                            else
+                                thisComponent.productGroupParentlabel = thisComponent.model.parentGroupNameTranslation;
+                        },
+                        function (error: any) {
+                            thisComponent.toastr.error(error, '');
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
             }
 
 
@@ -397,7 +397,7 @@ export class ClinicProductsComponent implements OnInit {
         thisComponent.selctedNode = node;
     }
 
-    passServiceGroupValue(node) {
+    passServiceGroupValue(node: any) {
 
         let thisComp = this;
         thisComp.clearProductGroupWithParent();
@@ -421,7 +421,7 @@ export class ClinicProductsComponent implements OnInit {
         thisComp.selctedNode = node;
         this.rbSelections = [{ value: 1, text: this.groupName }, { value: 2, text: this.childName }];
     }
-    passInitialServiceGroupValue(node) {
+    passInitialServiceGroupValue(node: any) {
         let thisComp = this;
         thisComp.clearProductGroupWithParent()
         this.productGroupModel.productGroupType = node.productGroupType;
@@ -446,47 +446,47 @@ export class ClinicProductsComponent implements OnInit {
         this.rbSelections = [{ value: 1, text: this.groupName }, { value: 2, text: this.childName }];
     }
 
-    changeActivation(node, event) {
+    changeActivation(node: any, event: any) {
         let thisComponent = this;
 
         if (node.type.toLocaleLowerCase() == "product") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateProductActiveState({ "id": node.id, "isActive": event.target.checked })
                 .subscribe(
-                function (response:any) {
-                    if (event.target.checked) {
-                        thisComponent.activateParents(node);
-                    }
+                    function (response: any) {
+                        if (event.target.checked) {
+                            thisComponent.activateParents(node);
+                        }
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         } else if (node.type.toLocaleLowerCase() == "productsgroup") {
             thisComponent.showProgress = true;
             thisComponent.clinicService.updateProductsGroupActiveState({ "id": node.id, "isActive": event.target.checked }, thisComponent.checkParentChildren)
                 .subscribe(
-                function (response:any) {
-                    node.isActive = event.target.checked;
-                    if (event.target.checked) {
-                        if (node.parent != undefined)
-                            thisComponent.activateParents(node.parent);
-                    } else {
+                    function (response: any) {
+                        node.isActive = event.target.checked;
+                        if (event.target.checked) {
+                            if (node.parent != undefined)
+                                thisComponent.activateParents(node.parent);
+                        } else {
 
-                        thisComponent.deActivateChildren(node, false);
-                    }
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                            thisComponent.deActivateChildren(node, false);
+                        }
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
     }
     activateParents(node: any) {
@@ -495,10 +495,10 @@ export class ClinicProductsComponent implements OnInit {
             this.activateParents(node.parent);
         }
     }
-    deActivateChildren(node, active) {
+    deActivateChildren(node: any, active: any) {
         node.isActive = active;
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode: any) => {
                 this.deActivateChildren(childNode, active);
             });
         }
@@ -509,7 +509,7 @@ export class ClinicProductsComponent implements OnInit {
     onproductIdValue(value: string): void {
         this.productId = value;
     }
-    onSelectionChange(value) {
+    onSelectionChange(value: any) {
         this.selectedAction = value;
         if (this.selectedAction == 1) {
             this.isProductGroupSeleced = true;
@@ -540,46 +540,46 @@ export class ClinicProductsComponent implements OnInit {
             //Update
             this.clinicService.updateProductGroup(this.productGroupModel)
                 .subscribe(
-                function (response:any) {
-                    //  thisComponent.productGroupModel = response;
-                    thisComponent.selctedNode.label = response.name;
-                    thisComponent.selctedNode.labelTranslation = response.nameTranslation;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearProductGroupWithParent();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        //  thisComponent.productGroupModel = response;
+                        thisComponent.selctedNode.label = response.name;
+                        thisComponent.selctedNode.labelTranslation = response.nameTranslation;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearProductGroupWithParent();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             this.clinicService.createProductGroup(this.productGroupModel)
                 .subscribe(
-                function (response:any) {
-                    // thisComponent.productGroupModel = response;
-                    if (thisComponent.productGroupParentId == '') {
-                        thisComponent.treeDataSourceItems.push(response:any);
-                    } else {
-                        thisComponent.selctedNode.children.push(response:any);
-                    }
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearProductGroupWithParent();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
+                    function (response: any) {
+                        // thisComponent.productGroupModel = response;
+                        if (thisComponent.productGroupParentId == '') {
+                            thisComponent.treeDataSourceItems.push(response);
+                        } else {
+                            thisComponent.selctedNode.children.push(response);
+                        }
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearProductGroupWithParent();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
 
-                    thisComponent.clearProductGroupWithParent();
+                        thisComponent.clearProductGroupWithParent();
 
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
     clearProductGroupWithParent() {
@@ -605,49 +605,49 @@ export class ClinicProductsComponent implements OnInit {
 
             this.clinicService.updateProduct(this.model)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.model = response;
-                    thisComponent.selctedNode.label = response.name;
-                    thisComponent.selctedNode.labelTranslation = response.nameTranslation;
-                    thisComponent.model.expiryDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.expiryDate)
+                    function (response: any) {
+                        thisComponent.model = response;
+                        thisComponent.selctedNode.label = response.name;
+                        thisComponent.selctedNode.labelTranslation = response.nameTranslation;
+                        thisComponent.model.expiryDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.expiryDate)
 
-                    thisComponent.model.manufacturingDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.manufacturingDate)
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearWithParent();
-                    thisComponent.btnCloseProduct.nativeElement.click();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                    thisComponent.clearWithParent();
-                    thisComponent.btnCloseProduct.nativeElement.click();
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model.manufacturingDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.manufacturingDate)
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearWithParent();
+                        thisComponent.btnCloseProduct.nativeElement.click();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                        thisComponent.clearWithParent();
+                        thisComponent.btnCloseProduct.nativeElement.click();
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             //if return for edit so it will be reurn measureId
             this.updateModelWithMeasuringID();
             this.clinicService.createProduct(this.model)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.selctedNode.children.push(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearWithParent();
-                    thisComponent.btnCloseProduct.nativeElement.click();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                    thisComponent.clearWithParent();
-                    thisComponent.btnCloseProduct.nativeElement.click();
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.selctedNode.children.push(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearWithParent();
+                        thisComponent.btnCloseProduct.nativeElement.click();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                        thisComponent.clearWithParent();
+                        thisComponent.btnCloseProduct.nativeElement.click();
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

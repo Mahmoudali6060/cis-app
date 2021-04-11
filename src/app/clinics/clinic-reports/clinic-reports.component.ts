@@ -7,7 +7,7 @@ import {LocalStorageService} from 'ng2-webstorage';
 @Component({
    
     selector: 'clinic-reports',
-    templateUrl: 'clinic-reports.component.html'
+    templateUrl: './clinic-reports.component.html'
 })
 
 export class ClinicReportsComponent {

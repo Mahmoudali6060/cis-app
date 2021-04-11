@@ -23,11 +23,11 @@
             <p-column field="lastReplyingUserName" [header]="'LastReplyBy' | translate" [sortable]="true"></p-column>
             <p-column field="lastReplyingDateString" [header]="'LastReplyDate' | translate" [sortable]="true"></p-column>
             <p-column [header]="'Action' | translate" styleClass="text-center">
-                <template let-feedback="rowData" pTemplate="body">
+                <ng-template let-feedback="rowData" pTemplate="body">
                     <a class="pointer" routerLink="/clinic/feedback/replyToFeedback/{{feedback.id}}" [class.disabled]="!isClinicAdmin ? true : null">
                         <img src="Images/edit-24.png" />
                     </a>
-                </template>
+                </ng-template>
             </p-column>
         </p-dataTable>
     </div>

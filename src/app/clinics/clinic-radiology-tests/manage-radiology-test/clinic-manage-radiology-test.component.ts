@@ -1,14 +1,12 @@
-﻿import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
+﻿import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'clinic-manage-radiology-test',
-    templateUrl: 'clinic-manage-radiology-test.component.html'
+    templateUrl: './clinic-manage-radiology-test.component.html'
 })
 
 export class ClinicManageRadiologyTestComponent implements OnChanges {
@@ -40,22 +38,22 @@ export class ClinicManageRadiologyTestComponent implements OnChanges {
             thisComponent.showProgress = true;
             this.clinicService.getRadiologyTestById(thisComponent.selectedRadiologyTestId)
                 .subscribe(
-                function (radiologyTest) {
-                    thisComponent.selectedRadiologyTest = radiologyTest;
-                    thisComponent.selectedParentGroupId = radiologyTest.parentGroupId;
-                    if (thisComponent.selectedLang == 'ar')
-                        thisComponent.selectedParentGroupName = radiologyTest.parentGroupName;
-                    else
-                        thisComponent.selectedParentGroupName = radiologyTest.parentGroupNameTranslation;
+                    function (radiologyTest: any) {
+                        thisComponent.selectedRadiologyTest = radiologyTest;
+                        thisComponent.selectedParentGroupId = radiologyTest.parentGroupId;
+                        if (thisComponent.selectedLang == 'ar')
+                            thisComponent.selectedParentGroupName = radiologyTest.parentGroupName;
+                        else
+                            thisComponent.selectedParentGroupName = radiologyTest.parentGroupNameTranslation;
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             this.clearControl();
@@ -71,46 +69,46 @@ export class ClinicManageRadiologyTestComponent implements OnChanges {
             //Update
             this.clinicService.updateRadiologyTest(this.selectedRadiologyTest)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    //thisComponent.selectedRadiologyTest = response;
-                    thisComponent.onIsNew.emit(false);
-                    thisComponent.onRadiologyTestChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearControl();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        //thisComponent.selectedRadiologyTest = response;
+                        thisComponent.onIsNew.emit(false);
+                        thisComponent.onRadiologyTestChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearControl();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             //New
             this.clinicService.createRadiologyTest(this.selectedRadiologyTest)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                   // thisComponent.selectedRadiologyTest = response;
-                    thisComponent.onIsNew.emit(true);
-                    thisComponent.onRadiologyTestChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearControl();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        // thisComponent.selectedRadiologyTest = response;
+                        thisComponent.onIsNew.emit(true);
+                        thisComponent.onRadiologyTestChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearControl();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

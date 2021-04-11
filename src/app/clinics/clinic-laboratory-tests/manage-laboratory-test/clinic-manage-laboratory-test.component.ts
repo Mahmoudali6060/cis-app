@@ -1,17 +1,15 @@
-﻿import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
+﻿import { Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'clinic-manage-laboratory-test',
-    templateUrl: 'clinic-manage-laboratory-test.component.html'
+    templateUrl: './clinic-manage-laboratory-test.component.html'
 })
 
-export class ClinicManageLaboratoryTestComponent implements OnChanges  {
+export class ClinicManageLaboratoryTestComponent implements OnChanges {
 
     @Input() selectedLaboratoryTestId: string = '';
     @Input() selectedParentGroupId: string = '';
@@ -32,7 +30,7 @@ export class ClinicManageLaboratoryTestComponent implements OnChanges  {
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService) { }
-    
+
     ngOnChanges(changes: SimpleChanges) {
         this.selectedLang = this.localStorage.retrieve("selectedLanguage");
         if (this.selectedLaboratoryTestId && this.selectedLaboratoryTestId != '') {
@@ -40,21 +38,21 @@ export class ClinicManageLaboratoryTestComponent implements OnChanges  {
             thisComponent.showProgress = true;
             this.clinicService.getLaboratoryTestById(thisComponent.selectedLaboratoryTestId)
                 .subscribe(
-                function (laboratoryTest) {
-                    thisComponent.selectedLaboratoryTest = laboratoryTest;
-                    thisComponent.selectedParentGroupId = laboratoryTest.parentGroupId;
-                    if (thisComponent.selectedLang == 'ar')
-                        thisComponent.selectedParentGroupName = laboratoryTest.parentGroupName;
-                    else
-                        thisComponent.selectedParentGroupName = laboratoryTest.parentGroupNameTranslation;
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () { // finally
-                    thisComponent.showProgress = false;
-                });
+                    function (laboratoryTest: any) {
+                        thisComponent.selectedLaboratoryTest = laboratoryTest;
+                        thisComponent.selectedParentGroupId = laboratoryTest.parentGroupId;
+                        if (thisComponent.selectedLang == 'ar')
+                            thisComponent.selectedParentGroupName = laboratoryTest.parentGroupName;
+                        else
+                            thisComponent.selectedParentGroupName = laboratoryTest.parentGroupNameTranslation;
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () { // finally
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             this.clearControl();
@@ -70,46 +68,46 @@ export class ClinicManageLaboratoryTestComponent implements OnChanges  {
             //Update
             this.clinicService.updateLaboratoryTest(this.selectedLaboratoryTest)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    //thisComponent.selectedLaboratoryTest = response;
-                    thisComponent.onIsNew.emit(false);
-                    thisComponent.onLaboratoryTestChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearControl();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        //thisComponent.selectedLaboratoryTest = response;
+                        thisComponent.onIsNew.emit(false);
+                        thisComponent.onLaboratoryTestChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearControl();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
             //New
             this.clinicService.createLaboratoryTest(this.selectedLaboratoryTest)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                   // thisComponent.selectedLaboratoryTest = response;
-                    thisComponent.onIsNew.emit(true);
-                    thisComponent.onLaboratoryTestChanged.emit(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearControl();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.clearControl();
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        // thisComponent.selectedLaboratoryTest = response;
+                        thisComponent.onIsNew.emit(true);
+                        thisComponent.onLaboratoryTestChanged.emit(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearControl();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.clearControl();
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

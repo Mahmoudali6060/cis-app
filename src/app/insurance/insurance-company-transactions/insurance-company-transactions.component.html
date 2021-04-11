@@ -180,9 +180,9 @@
                 <p-column field="companyChargesAsString" [header]="'Charges' | translate" [sortable]="true"></p-column>
                 <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
                 <p-column [header]="Details" styleClass="text-center width70">
-                    <template let-item="rowData" pTemplate="body">
+                    <ng-template let-item="rowData" pTemplate="body">
                         <a *ngIf="item.id" [class.disabled]="!enableViewCompanyDetails ? true : null" data-toggle="modal" data-target="#PayService" class="underLinelinkText pointer" (click)="getCompanyPaymentById(item.id)">{{'ViewPayment'| translate}}</a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
             <div class="row">

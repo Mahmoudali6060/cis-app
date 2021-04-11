@@ -1,6 +1,5 @@
 ﻿import { NgModule }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { SystemAdminAccountComponent } from './systemAdmins-account/systemAdmins-account.component';
 import { SystemAdminClinicsComponent } from './systemAdmins-clinics/systemAdmins-clinics.component';
 import { SystemAdminClinicDetailsComponent } from './systemAdmins-clinics-details/systemAdmins-clinics-details.component';
@@ -13,9 +12,7 @@ import { SystemAdminSettingsComponent } from './systemAdmins-settings/systemAdmi
 import { SystemAdminDashboardComponent } from './systemAdmins-dashboard/systemAdmins-dashboard.component';
 import { SystemAdminClinicPermissionsComponent } from './systemAdmins-clinic-permissions/systemAdmins-clinic-permissions.component';
 import { SystemAdminsBasicDataComponent } from './systemAdmins-basicData/systemAdmins-basicData.component';
-
 import { SystemAdminImportExportComponent } from './systemAdmins-import-export/systemAdmins-import-export.component';
-
 const systemAdminRoutes: Routes = [
     //System Admins
     { path: 'account/:id', component: SystemAdminAccountComponent },

@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
    
     selector: 'doctor-address',
-    templateUrl: 'doctor-address.component.html'
+    templateUrl: './doctor-address.component.html'
 })
 
 export class DoctorAddressComponent implements OnInit {

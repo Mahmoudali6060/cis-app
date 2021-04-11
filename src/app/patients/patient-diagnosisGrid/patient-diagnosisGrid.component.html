@@ -5,24 +5,24 @@
 </div>
 <p-dataTable [value]="allDiagnosis | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
     <p-column styleClass="text-center width50">
-        <template let-noteDiagnose="rowData" pTemplate="body">
+        <ng-template let-noteDiagnose="rowData" pTemplate="body">
             <input type="checkbox" [checked] ="noteDiagnose.isSelected"
                    (change)="updateSelectedDiagnose(noteDiagnose.diagnoseId, $event)" />
-        </template>
+        </ng-template>
     </p-column>
     <p-column field="diagnoseCode" [header]="'DiagnoseCode' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
     <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
     <p-column  [header]="'Status' | translate">
-        <template let-noteDiagnose="rowData" pTemplate="body">
+        <ng-template let-noteDiagnose="rowData" pTemplate="body">
             <select class="form-control" name="ddlDiagnosisStatuses" [(ngModel)]='noteDiagnose.status'>
                 <option *ngFor="let obj of diagnosisStatuses" [value]="obj.value">{{obj.text | translate}}</option>
             </select>
-        </template>
+        </ng-template>
     </p-column>
 
     <p-column [header]="'Remarks' | translate">
-        <template let-noteDiagnose="rowData" pTemplate="body">
+        <ng-template let-noteDiagnose="rowData" pTemplate="body">
             <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteDiagnose.description'></textarea>
-        </template>
+        </ng-template>
     </p-column>
 </p-dataTable>

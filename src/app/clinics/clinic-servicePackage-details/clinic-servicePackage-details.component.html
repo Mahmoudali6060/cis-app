@@ -169,16 +169,16 @@
                                 <div class="nopadding treeBorder" style="height:180px;">
                                     <p-tree [value]="treeDataSourceItems | translateObjects  : null : null : lstToBeTranslated | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedFile"
                                             (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
-                                        <template let-node pTemplate="ServiceGroup">
+                                        <ng-template let-node pTemplate="ServiceGroup">
                                             <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                                             &nbsp;
                                             {{node.label}}
-                                        </template>
-                                        <template let-node pTemplate="Service">
+                                        </ng-template>
+                                        <ng-template let-node pTemplate="Service">
                                             <span class="nav-icon"><i class="fa fa-cube"></i></span>
                                             &nbsp;
                                             {{node.label}}
-                                        </template>
+                                        </ng-template>
                                     </p-tree>
 
                                     <input type="hidden" id="treeSelections" required />

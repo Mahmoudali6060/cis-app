@@ -1,13 +1,13 @@
-﻿import {Component, OnInit, Input, OnChanges, EventEmitter, Output} from '@angular/core';
+﻿import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PatientService } from '../shared/patient.service'
 import { ToastrService } from 'ngx-toastr';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'patient-address',
     templateUrl: 'patient-address.component.html'
 })
@@ -22,7 +22,7 @@ export class PatientAddressComponent implements OnInit, OnChanges {
     active = true;
     //model: any = {};
     showProgress = false;
-    selectedClinicId
+    selectedClinicId: any;
 
     constructor(private patientService: PatientService,
         private localStorage: LocalStorageService,
@@ -59,22 +59,22 @@ export class PatientAddressComponent implements OnInit, OnChanges {
         //  this.model.clinicId = this.clinicId;
         this.patientService.saveorUpdateReachInformation(this.model)
             .subscribe(
-            function (response:any) {
-                vm.model = response;
-                if (vm.model.birthDate)
-                    vm.model.birthDate = vm.utilityClass.getUtcDateFromString(vm.model.birthDate);
+                function (response: any) {
+                    vm.model = response;
+                    if (vm.model.birthDate)
+                        vm.model.birthDate = vm.utilityClass.getUtcDateFromString(vm.model.birthDate);
 
-                vm.raiseModelUpdated(vm.model);
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.raiseModelUpdated(vm.model);
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     raiseModelUpdated(model: any) {

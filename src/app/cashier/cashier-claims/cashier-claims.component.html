@@ -113,14 +113,14 @@
                 <p-column field="patientMrn" [header]="'MRN' | translate" [sortable]="true"></p-column>
                 <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'ViewDetails' | translate" styleClass="text-center width100">
-                    <template let-item="rowData" pTemplate="body">
+                    <ng-template let-item="rowData" pTemplate="body">
                         <a [class.disabled]="!enableSearchForPateintClaim ? true : null" class="underLinelinkText" routerLink="/cashier/claimDetails/{{item.id}}">{{ 'ViewDetails' | translate}}</a>
-                    </template>
+                    </ng-template>
                 </p-column>
                 <p-column [header]="'Report' | translate" styleClass="text-center width100">
-                    <template let-item="rowData" pTemplate="body">
+                    <ng-template let-item="rowData" pTemplate="body">
                         <a [class.disabled]="!enableSearchForPateintClaim ? true : null" class="fa  fa-file-text-o pointer" (click)="openClaimReport(item.id , 'ClaimDetailsReport')"></a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
         </div>

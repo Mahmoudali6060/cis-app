@@ -8,7 +8,6 @@ import { ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 
 @Component({
-   
     selector: 'patient-attachments',
     templateUrl: 'patient-attachments.component.html',
 })
@@ -21,18 +20,13 @@ export class PatientAttachmentsComponent implements OnInit {
     @Input() allowEditing: boolean = true;
     type = 'PatientFileType';
     docsDetailsUrl: string = "patientAttachmentDetails";
-
     docsListUrl: string = "patientAttachments";
     organizationId = '';
- 
     active = true;
     model: any = {};
-
-
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
-
+    @ViewChild("fileInput") fileInput!:any;
     isDoctor: boolean = false;
     isReceptionist: boolean = false;
     previousTab: string = '';

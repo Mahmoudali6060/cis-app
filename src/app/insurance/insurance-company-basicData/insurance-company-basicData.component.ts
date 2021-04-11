@@ -1,17 +1,17 @@
-﻿import {Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter} from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService} from '@ngx-translate/core';
+﻿import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService } from '@ngx-translate/core';
 import { InsuranceService } from '../shared/insurance.service';
 import { AccountService } from '../../security/shared/account.service';
 
 @Component({
-   
+
     selector: 'insurance-company-basicData',
-    templateUrl: 'insurance-company-basicData.component.html'
+    templateUrl: './insurance-company-basicData.component.html'
 })
 
 export class InsuranceCompanyBasicDataComponent implements OnInit, OnChanges {
@@ -45,7 +45,7 @@ export class InsuranceCompanyBasicDataComponent implements OnInit, OnChanges {
         }
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
@@ -81,38 +81,38 @@ export class InsuranceCompanyBasicDataComponent implements OnInit, OnChanges {
         if (this.model.id == 0) {
             this.insuranceService.SaveInsuranceCompanyBasic(this.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    thisComponent.raiseModelUpdated(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model = response;
+                        thisComponent.raiseModelUpdated(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
         else//Update
         {
             this.insuranceService.UpdateInsuranceCompanyBasic(this.model)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.model = response;
-                    thisComponent.raiseModelUpdated(response:any);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComponent.model = response;
+                        thisComponent.raiseModelUpdated(response);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 

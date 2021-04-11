@@ -42,7 +42,7 @@
                 
                 <div class="row well">
                     <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedNode">
-                        <template let-node pTemplate="Diagnose">
+                        <ng-template let-node pTemplate="Diagnose">
                             <span class="nav-icon"><i class="fa fa-cube"></i></span>
                             &nbsp;
                             {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
@@ -57,8 +57,8 @@
                                        (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
                                 <span class="lbl"></span>
                             </label>
-                        </template>
-                        <template let-node pTemplate="DiagnosisGroup">
+                        </ng-template>
+                        <ng-template let-node pTemplate="DiagnosisGroup">
                             <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                             &nbsp;
                             <!--{{node.label}}-->
@@ -78,7 +78,7 @@
                                        (click)="changeActivation(node , $event)" disabled="{{ enableActivateBtn || isClinicAdmin? '' :'disabled'}}" />
                                 <span class="lbl"></span>
                             </label>
-                        </template>
+                        </ng-template>
                     </p-tree>
                 </div>
             </div>

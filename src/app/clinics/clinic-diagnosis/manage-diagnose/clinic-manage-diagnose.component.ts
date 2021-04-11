@@ -1,6 +1,4 @@
 import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
 import { ToastrService } from 'ngx-toastr';
 import {LocalStorageService} from 'ng2-webstorage';
 import {ClinicService} from '../../shared/clinic.service';
@@ -8,7 +6,7 @@ import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
    
     selector: 'clinic-manage-diagnose',
-    templateUrl: 'clinic-manage-diagnose.component.html'
+    templateUrl: './clinic-manage-diagnose.component.html'
 })
 
 export class ClinicManageDiagnoseComponent implements OnChanges  {
@@ -40,7 +38,7 @@ export class ClinicManageDiagnoseComponent implements OnChanges  {
             thisComponent.showProgress = true;
             this.clinicService.getDiagnoseById(thisComponent.selectedDiagnoseId)
                 .subscribe(
-                function (diagnose) {
+                function (diagnose:any) {
                     thisComponent.selectedDiagnose = diagnose;
                     thisComponent.selectedParentGroupId = diagnose.parentGroupId;
 
@@ -75,7 +73,7 @@ export class ClinicManageDiagnoseComponent implements OnChanges  {
 
                     //  thisComponent.selectedDiagnose = response;
                     thisComponent.onIsNew.emit(false);
-                    thisComponent.onDiagnoseChanged.emit(response:any);
+                    thisComponent.onDiagnoseChanged.emit(response);
                     let msg = thisComponent.translate.instant("SavedSuccessfully");
                     thisComponent.toastr.success(msg, '');
                     thisComponent.clearControl();
@@ -98,7 +96,7 @@ export class ClinicManageDiagnoseComponent implements OnChanges  {
 
                   //  thisComponent.selectedDiagnose = response;
                     thisComponent.onIsNew.emit(true);
-                    thisComponent.onDiagnoseChanged.emit(response:any);
+                    thisComponent.onDiagnoseChanged.emit(response);
                     let msg = thisComponent.translate.instant("SavedSuccessfully");
                     thisComponent.toastr.success(msg, '');
                     thisComponent.clearControl();

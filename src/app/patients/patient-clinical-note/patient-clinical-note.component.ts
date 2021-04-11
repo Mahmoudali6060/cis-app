@@ -1,10 +1,9 @@
-﻿import {Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, ViewChild , ElementRef} from '@angular/core';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { LocalStorageService } from 'ng2-webstorage';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import {AdministrationService} from '../../administration/shared/administration.service';
+import { AdministrationService } from '../../administration/shared/administration.service';
 enum EMRWizard {
     ChiefComplaint = 1,
     Diagnosis,
@@ -16,7 +15,7 @@ enum EMRWizard {
     Remarks
 }
 @Component({
-   
+
     selector: 'patient-clinical-note',
     templateUrl: 'patient-clinical-note.component.html',
 
@@ -24,20 +23,20 @@ enum EMRWizard {
 
 export class PatientClinicalNoteComponent implements OnChanges, OnInit {
 
-    
+
     @ViewChild('patientVitalSignsComp') patientVitalSignsComp: any;
     @Input() activeTabIndex: number = 0;
     @Input() patientId = '1';
     @Input() noteId = '';
-    @Input() departmentId: string | undefined;
-    @Input() selectedAppointmentId: number | undefined;
+    @Input() departmentId!: string;
+    @Input() selectedAppointmentId!: number;
     @Input() hasEditednote: boolean = false;
     appointmentId: number = 0;
     hasID: boolean = false;
     isDoctor: boolean = false;
     //@Output() onCheifComplaintSavedGetNoteId = new EventEmitter<any>();
 
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     selectEMRWizardTab: boolean = true;
     selectAccountTab: boolean = true;
     clinicModel: any = { id: 0, isActive: true };
@@ -55,22 +54,22 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
     //isSurgeriesSelected: boolean = false;
     //isAllergiesSelected: boolean = false;
     //isAttachmentsSelected: boolean = false;
-    firstTab: string | undefined;
-    secondTab: string | undefined;
-    thirdTab: string | undefined;
-    fourthTab: string | undefined;
-    fifthTab: string | undefined;
-    sixthTab: string | undefined;
-    seventhTab: string | undefined;
-    eightTab: string | undefined;
+    firstTab!: string;
+    secondTab!: string;
+    thirdTab!: string;
+    fourthTab!: string;
+    fifthTab!: string;
+    sixthTab!: string;
+    seventhTab!: string;
+    eightTab!: string;
 
-    firstTabValue: number | undefined;
-    secondTabValue: number | undefined;
-    thirdTabvalue: number | undefined;
-    fourthTabValue: number | undefined;
-    fifthTabValue: number | undefined;
-    sixthTabValue: number | undefined;
-    seventhTabvalue: number | undefined;
+    firstTabValue!: number;
+    secondTabValue!: number;
+    thirdTabvalue!: number;
+    fourthTabValue!: number;
+    fifthTabValue!: number;
+    sixthTabValue!: number;
+    seventhTabvalue!: number;
 
     isDiagnosisSelected: boolean = false;
     isMedicationSelected: boolean = false;
@@ -102,7 +101,7 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
     fifthTabIcon: string = '';
     sixthTabIcon: string = '';
     seventhTabIcon: string = '';
-    
+
 
 
     constructor(private administrationService: AdministrationService,
@@ -136,34 +135,33 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
             this.showProgress = true;
             this.administrationService.getClinicById(thisComp.selectedClinicId)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComp.clinicModel = response;
-                    thisComp.wizardItems = thisComp.clinicModel.emrWizardList;
-                    thisComp.firstTab = thisComp.wizardItems[0];
-                    thisComp.secondTab = thisComp.wizardItems[1];
-                    thisComp.thirdTab = thisComp.wizardItems[2];
-                    thisComp.fourthTab = thisComp.wizardItems[3];
-                    thisComp.fifthTab = thisComp.wizardItems[4];
-                    thisComp.sixthTab = thisComp.wizardItems[5];
-                    thisComp.seventhTab = thisComp.wizardItems[6];
-                    thisComp.setTab();
-                    thisComp.initializeTabIcons();
-                    thisComp.showProgress = false;
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                    thisComp.showProgress = false;
-                },
-                function () {
-                    thisComp.showProgress = false;
-                });
+                        thisComp.clinicModel = response;
+                        thisComp.wizardItems = thisComp.clinicModel.emrWizardList;
+                        thisComp.firstTab = thisComp.wizardItems[0];
+                        thisComp.secondTab = thisComp.wizardItems[1];
+                        thisComp.thirdTab = thisComp.wizardItems[2];
+                        thisComp.fourthTab = thisComp.wizardItems[3];
+                        thisComp.fifthTab = thisComp.wizardItems[4];
+                        thisComp.sixthTab = thisComp.wizardItems[5];
+                        thisComp.seventhTab = thisComp.wizardItems[6];
+                        thisComp.setTab();
+                        thisComp.initializeTabIcons();
+                        thisComp.showProgress = false;
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showProgress = false;
+                    },
+                    function () {
+                        thisComp.showProgress = false;
+                    });
         }
     }
     //var tempValue: EMRWizard = <EMRWizard>EMRWizard[this.emrValue];// used to vonvert string into enum integer value
 
-    initializeTabIcons()
-    {
+    initializeTabIcons() {
         this.firstTabIcon = this.getTabIcon(this.firstTab);//(this.wizardItems[0]);
         this.secondTabIcon = this.getTabIcon(this.secondTab);//(this.wizardItems[1]);
         this.thirdTabIcon = this.getTabIcon(this.thirdTab);//(this.wizardItems[2]);
@@ -171,10 +169,10 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
         this.fifthTabIcon = this.getTabIcon(this.fifthTab);//(this.wizardItems[4]);
         this.sixthTabIcon = this.getTabIcon(this.sixthTab);//(this.wizardItems[5]);
         this.seventhTabIcon = this.getTabIcon(this.seventhTab);//(this.wizardItems[6]);
-        
+
 
         //for (let entry of this.wizardItems) {
-           
+
         //    this
         //}
 
@@ -184,8 +182,7 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
         //}
     }
 
-    getTabIcon(nodeName: string)
-    {
+    getTabIcon(nodeName: string) {
         if (nodeName == 'Diagnosis')
             return 'fa fa-stethoscope';
         else if (nodeName == 'Medication')
@@ -214,7 +211,7 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
         this.seventhTabvalue = this.wizardItems.indexOf(this.seventhTab) + 1;
     }
 
-    setSelectedTab(tabNameId: any ) {
+    setSelectedTab(tabNameId: any) {
         //tabNameId = +tabNameId;
 
         this.isVitalSignsSelected = false;
@@ -352,7 +349,7 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
     }
     */
 
-    handleCheifComplaintSaved(eventArgs) {
+    handleCheifComplaintSaved(eventArgs: any) {
         if (eventArgs != undefined) {
 
             this.setClinicNoteId(eventArgs.clinicNoteId)
@@ -361,7 +358,7 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
         }
     }
 
-    setClinicNoteId(noteID) {
+    setClinicNoteId(noteID: any) {
         let vm = this;
         vm.noteId = noteID;
         if (this.noteId == null || this.noteId == undefined || this.noteId == 'new' || this.noteId == '')
@@ -371,6 +368,6 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
 
         vm.onNewNoteSaved.emit(true);
     }
-    
+
 
 }

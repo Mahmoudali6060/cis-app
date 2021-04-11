@@ -3,7 +3,7 @@
 @Component({
    
     selector: 'home-loading',
-    templateUrl: 'home-loading.component.html'
+    templateUrl: './home-loading.component.html'
 
 })
 

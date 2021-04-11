@@ -1,26 +1,26 @@
-﻿import {Component, SimpleChanges, OnChanges, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, SimpleChanges, OnChanges, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
-import { HijriMonthList, GregorianMonthList} from '../shared/MonthsListType.enum';
+import { HijriMonthList, GregorianMonthList } from '../shared/MonthsListType.enum';
 
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
 
 
 @Component({
-   
+
     selector: 'patient-account',
     templateUrl: 'patient-account.component.html',
 })
 
 export class PatientAccountComponent implements OnInit {
     selectBasicTab: boolean = true;
-    numbers: Number;
+    numbers!: Number;
     serviceId = 'new';
-    patientId: string | undefined;
+    patientId!: string;
     @Input() patientAccountToSave: any = { reachInfo: { mobile: "" } };
     @Output() onModelUpdated = new EventEmitter<any>();
     @Input() title: string = '';
@@ -29,12 +29,12 @@ export class PatientAccountComponent implements OnInit {
     selectedClinicId: string = "0";
     //patientAccountToSave: any = {};
     patientType: string = "";
-    monthValueString: string | undefined;
+    monthValueString!: string;
 
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
-    @ViewChild("patientAccountForm") patientAccountForm;
+    @ViewChild("fileInput") fileInput!: any;
+    @ViewChild("patientAccountForm") patientAccountForm!: any;
     utilityClass: UtilityClass = new UtilityClass();
     constructor(private patientService: PatientService
         , private sharedService: SharedService
@@ -57,9 +57,9 @@ export class PatientAccountComponent implements OnInit {
         }
 
     }
-  
 
-    intializePatientBirthDate(patientAccountToSaveData) {
+
+    intializePatientBirthDate(patientAccountToSaveData: any) {
         this.patientAccountToSave.dayValue = patientAccountToSaveData.dayValue;
         this.patientAccountToSave.monthValue = patientAccountToSaveData.monthValue;
         this.patientAccountToSave.yearValue = patientAccountToSaveData.yearValue;
@@ -75,47 +75,47 @@ export class PatientAccountComponent implements OnInit {
 
             this.patientService.createPatientAccount(this.patientAccountToSave)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.patientAccountToSave = response;
-                    thisComponent.raiseModelUpdated(thisComponent.patientAccountToSave);
+                        thisComponent.patientAccountToSave = response;
+                        thisComponent.raiseModelUpdated(thisComponent.patientAccountToSave);
 
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.clearWithParent();
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.clearWithParent();
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error);
-                    // thisComponent.clearWithParent();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error);
+                        // thisComponent.clearWithParent();
 
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
 
             this.patientService.updatePatientAccount(this.patientAccountToSave)
 
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.patientAccountToSave = response;
-                    thisComponent.patientAccountToSave.birthDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.patientAccountToSave.birthDate);
-                    thisComponent.raiseModelUpdated(thisComponent.patientAccountToSave);
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');                  //  thisComponent.clearWithParent();//we don't need clear
+                        thisComponent.patientAccountToSave = response;
+                        thisComponent.patientAccountToSave.birthDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.patientAccountToSave.birthDate);
+                        thisComponent.raiseModelUpdated(thisComponent.patientAccountToSave);
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');                  //  thisComponent.clearWithParent();//we don't need clear
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error);
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error);
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
 
         thisComponent.patientService.notifyOther({ option: 'call_child', value: thisComponent.patientAccountToSave });

@@ -39,7 +39,7 @@ export class NurseAddressComponent implements OnInit {
         this.getOrganizationAddress(vm);
     }
 
-    getOrganizationAddress(vm)
+    getOrganizationAddress(vm:any)
     {
         if (!isNaN(vm.model.id) && vm.model.id != 'new') {
             vm.showProgress = true;

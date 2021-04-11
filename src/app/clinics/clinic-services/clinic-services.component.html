@@ -37,7 +37,7 @@
             <div id="print-section" class="">
               <div class="row well">
                   <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedGroup" (onSelect)="nodeSelect()" #tree>
-                      <template let-node pTemplate="Service">
+                      <ng-template let-node pTemplate="Service">
                           <span class="nav-icon"><i class="fa fa-cube"></i></span>
                           &nbsp;
                           {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
@@ -51,8 +51,8 @@
                                      (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
                               <span class="lbl"></span>
                           </label>
-                      </template>
-                      <template let-node pTemplate="ServiceGroup">
+                      </ng-template>
+                      <ng-template let-node pTemplate="ServiceGroup">
                           <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                           &nbsp;
                           <span class="{{ isSelectedGroupNode ? 'bg-danger' : '' }}">
@@ -72,7 +72,7 @@
                                      (click)="changeActivation(node, $event)" disabled="{{ enableActivateBtn || isClinicAdmin ? '' :'disabled'}}" />
                               <span class="lbl"></span>
                           </label>
-                      </template>
+                      </ng-template>
                   </p-tree>
 
               </div>

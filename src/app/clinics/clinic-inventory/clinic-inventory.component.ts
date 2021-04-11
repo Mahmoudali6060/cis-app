@@ -1,26 +1,26 @@
-﻿import {Component, OnInit, Input} from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 @Component({
-   
+
     selector: 'clinic-inventory',
-    templateUrl: 'clinic-inventory.component.html'
+    templateUrl: './clinic-inventory.component.html'
 })
 
 export class ClinicInventoryComponent implements OnInit {
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
         , private accountService: AccountService
-) { }
+    ) { }
     selectInventoryTab: boolean = true;
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     userType: string = '';
     isClinicAdmin: boolean = false;
     userPermisions: UserPermissions = new UserPermissions();
@@ -40,10 +40,10 @@ export class ClinicInventoryComponent implements OnInit {
     updateAfterAdjust: boolean = false;
     @Input() updates: string = '';
 
-    updateAmount(updates) {
-           this.updateAfterAdjust = updates;
+    updateAmount(updates: any) {
+        this.updateAfterAdjust = updates;
     }
-    updateAmountAfterAdjust(value) {
+    updateAmountAfterAdjust(value: any) {
         this.updateAfterAdjust = value;
         this.getUpdatedProduct = value;
     }
@@ -56,7 +56,7 @@ export class ClinicInventoryComponent implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -92,7 +92,7 @@ export class ClinicInventoryComponent implements OnInit {
         }
 
     }
-    updateProductsList(getProduct) {
+    updateProductsList(getProduct: any) {
         this.getUpdatedProduct = getProduct;
     }
 }

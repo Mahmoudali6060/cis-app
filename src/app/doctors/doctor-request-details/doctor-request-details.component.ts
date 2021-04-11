@@ -1,27 +1,27 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TreeNode } from 'primeng/primeng';
 import { DoctorService } from '../shared/doctor.service'
 import { SharedService } from '../../shared/shared/shared.service';
-import {ClinicService} from '../../clinics/shared/clinic.service';
+import { ClinicService } from '../../clinics/shared/clinic.service';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { TranslateObjectsPipe } from '../../shared/pipes/translateObjects.pipe';
+import { TreeNode } from 'primeng/api';
 @Component({
-   
+
     selector: 'doctor-request-details',
-    templateUrl: 'doctor-request-details.component.html',
+    templateUrl: './doctor-request-details.component.html',
 })
 
 export class DoctorRequestDetailsComponent implements OnInit {
     selectBasicTab: boolean = true;
     Medical: any = {
         label: "المنتجات الطبية ",
-        labelTranslation:"Medical Products",
+        labelTranslation: "Medical Products",
         value: "Medical",
         type: "Medical",
         productGroupType: "Medical",
@@ -43,7 +43,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
 
     };
     translateObjects = new TranslateObjectsPipe(this.storage);
-    selectedClinicId: string | undefined;
+    selectedClinicId!: string;
     //isSelectedGroupNode = false;
     product: any = {};
     inventoryRequestModel: any = {};
@@ -53,13 +53,13 @@ export class DoctorRequestDetailsComponent implements OnInit {
     showProgress = false;
     productList: any[] = [];
     treeDataSourceItems: any[] = [];
-    @ViewChild("fileInput") fileInput;
-    selectedGroup: TreeNode;
-    doctorId: string | undefined;
-    unitType: string | undefined;
+    @ViewChild("fileInput") fileInput!: any;
+    selectedGroup!: TreeNode;
+    doctorId!: string;
+    unitType!: string;
     doctorName: string = "";
     //unitName: string = "";
-    filterString: string | undefined;
+    filterString!: string;
     leafType: string = 'Product';
     code: string = "";
     productName: string = "";
@@ -78,8 +78,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
         , private clinicService: ClinicService
         , public translate: TranslateService
         , private accountService: AccountService
-    )
-    { }
+    ) { }
 
 
     ngOnInit(): void {
@@ -91,7 +90,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
         this.inventoryRequestObject.clinicId = this.selectedClinicId;
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
@@ -106,31 +105,31 @@ export class DoctorRequestDetailsComponent implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getActiveProductsGroupsForTreeView(thisComponent.selectedClinicId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.Medical.children = [];
-                thisComponent.NonMedical.children = [];
+                    thisComponent.Medical.children = [];
+                    thisComponent.NonMedical.children = [];
 
-                for (let product of response) {
-                    if (product.parent == undefined && product.productGroupType == "Medical") {
-                        thisComponent.Medical.children.push(product);
+                    for (let product of response) {
+                        if (product.parent == undefined && product.productGroupType == "Medical") {
+                            thisComponent.Medical.children.push(product);
+
+                        }
+                        else if (product.parent == undefined && product.productGroupType == "NonMedical") {
+                            thisComponent.NonMedical.children.push(product);
+
+                        }
 
                     }
-                    else if (product.parent == undefined && product.productGroupType == "NonMedical") {
-                        thisComponent.NonMedical.children.push(product);
-
-                    }
-
-                }
-                thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, null, null, thisComponent.lstToTranslated);
-            },
-            function (error:any) { 
-                thisComponent.toastr.error( error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                    thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, '', null, thisComponent.lstToTranslated);
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
     onSubmit(): void {
@@ -142,20 +141,20 @@ export class DoctorRequestDetailsComponent implements OnInit {
         this.inventoryRequestObject.inventoryRequestStatus = 1;
         this.doctorService.createInventoryRequest(this.inventoryRequestObject)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                vm.inventoryRequestModel = response;
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.inventoryRequestModel = response;
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     clear(): void {
@@ -164,7 +163,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    nodeSelect(event:any) {
+    nodeSelect(event: any) {
         this.clear();
         this.inventoryRequestObject.unitName = null;
         if (event.node.type == "Product") {

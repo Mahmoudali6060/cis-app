@@ -29,26 +29,26 @@
         <p-column field="recorderName" [header]="'RecorderName' | translate" [sortable]="true"></p-column>
         <p-column field="recordingDateString" [header]="'RecordedDate' | translate" [sortable]="true"></p-column>
         <p-column [header]="'IsCurrent' | translate" styleClass="text-center"  *ngIf="allowEditing">
-            <template let-clinicNoteMedication="rowData" pTemplate="body">
+            <ng-template let-clinicNoteMedication="rowData" pTemplate="body">
                 <input id="ChkIsCurrentInGrid" name="ChkIsCurrent" class="ace ace-switch ace-switch-6"
                        type="checkbox" [checked]="clinicNoteMedication.isCurrent"
                        (click)="changeCurrentStatus(clinicNoteMedication.id,$event)" />
                 <span class="lbl"></span>
-            </template>
+            </ng-template>
         </p-column>
         <p-column [header]="'Edit' | translate" styleClass="text-center" *ngIf="allowEditing">
-            <template let-clinicNoteMedication="rowData" pTemplate="body">
+            <ng-template let-clinicNoteMedication="rowData" pTemplate="body">
                 <a class="pointer" (click)="showDetails(clinicNoteMedication)">
                     <img src="Images/edit-24.png" />
                 </a>
-            </template>
+            </ng-template>
         </p-column>
         <p-column [header]="'Delete' | translate" styleClass="text-center width50" *ngIf="allowEditing">
-            <template let-clinicNoteMedication="rowData" pTemplate="body">
+            <ng-template let-clinicNoteMedication="rowData" pTemplate="body">
                 <a class="pointer" (click)="deleteClinicNoteMedication(clinicNoteMedication)">
                     <img src="Images/delete-24.png" />
                 </a>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
 </div>

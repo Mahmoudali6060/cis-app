@@ -1,17 +1,17 @@
-﻿import {Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
-import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
 import { ClaimService } from '../shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'cashier-claim-services',
-    templateUrl: 'cashier-claim-services.component.html'
+    templateUrl: './cashier-claim-services.component.html'
 })
 
 export class CashierClaimServicesComponent implements OnInit, OnChanges {
@@ -30,29 +30,29 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
     selectedCharges: any[] = [];
     payment: any = { id: 0 };
     //paymentDate;
-    patientId;
+    patientId!: any;
     //patientClaimId;
     utilityClass: UtilityClass = new UtilityClass();
     editable: boolean = true;
-    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup: ElementRef;
-    @ViewChild('btnOverrideChargeModal') btnOverrideChargeModal: ElementRef;
-    @ViewChild('btnCancelOverrideChargeModal') btnCancelOverrideChargeModal: ElementRef;
-    @ViewChild('btnReleaseChargeModal') btnReleaseChargeModal: ElementRef;
-    @ViewChild('btnCancelReleaseChargeModal') btnCancelReleaseChargeModal: ElementRef;
-    @ViewChild('btnMarkSatisfiedModal') btnMarkSatisfiedModal: ElementRef;
-    @ViewChild('btnCancelMarkSatisfiedModal') btnCancelMarkSatisfiedModal: ElementRef;
+    @ViewChild("btnOpenPaymentPopup") btnOpenPaymentPopup!: ElementRef;
+    @ViewChild('btnOverrideChargeModal') btnOverrideChargeModal!: ElementRef;
+    @ViewChild('btnCancelOverrideChargeModal') btnCancelOverrideChargeModal!: ElementRef;
+    @ViewChild('btnReleaseChargeModal') btnReleaseChargeModal!: ElementRef;
+    @ViewChild('btnCancelReleaseChargeModal') btnCancelReleaseChargeModal!: ElementRef;
+    @ViewChild('btnMarkSatisfiedModal') btnMarkSatisfiedModal!: ElementRef;
+    @ViewChild('btnCancelMarkSatisfiedModal') btnCancelMarkSatisfiedModal!: ElementRef;
 
     @Input() showPrintButton = false;
     @Input() displayColumnDate = false;
-    @Input() passedCharges;
+    @Input() passedCharges: any = [];
     @Input() passedPatient = {};
-    @Input() isClaimCanceled;
+    @Input() isClaimCanceled!: any;
     @Output() onAmountUpdated = new EventEmitter<any>();
     @Output() onChargeSelected = new EventEmitter<any>();
 
     validtoSave: boolean = true;
-    newOverrideAmount;
-    selectedCharge;
+    newOverrideAmount!: any;
+    selectedCharge!: any;
     releaseChargeReason = '';
     satisfiedRemarks = '';
     isSatisfied: boolean = false;
@@ -87,7 +87,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
             //this.patientId = this.patientClaim.patientId;
             //this.patientClaimId = this.patientClaim.id;
         }
-   
+
     }
 
     ngOnInit(): void {
@@ -96,20 +96,20 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         vm.lstToTranslated = ['serviceName', 'serviceNameTranslation', 'diagnoseName', 'diagnoseNameTranslation'];
         this.claimService.getPatientPaymentWrapper()
             .subscribe(
-            function (response:any) {
-                vm.paymentTypes = response.paymentTypes;
-                vm.paymentMethods = response.paymentMethod;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.paymentTypes = response.paymentTypes;
+                    vm.paymentMethods = response.paymentMethod;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -130,7 +130,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         }
     }
 
-    updateSelectedCharges(charge, event) {
+    updateSelectedCharges(charge: any, event: any) {
 
         this.installmentList = [];
         //this.selectedCharges = [];
@@ -182,40 +182,40 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
 
         this.claimService.savePatientPayment(vm.payment)
             .subscribe(
-            function (response:any) {
-                vm.payment = response;
-                if (vm.payment.date)
-                    vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
-                // update selected charges to be paid
-                vm.selectedCharges.forEach(charge => {
-                    var selectedCharge = vm.passedCharges.find(c => c.id == charge.id);
-                    selectedCharge.patientPaymentId = response.id;
+                function (response: any) {
+                    vm.payment = response;
+                    if (vm.payment.date)
+                        vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
+                    // update selected charges to be paid
+                    vm.selectedCharges.forEach(charge => {
+                        var selectedCharge = vm.passedCharges.find((c: any) => c.id == charge.id);
+                        selectedCharge.patientPaymentId = response.id;
 
-                    // update charge remaining
-                    let updatedCharge = vm.payment.charges.find(c => c.id == selectedCharge.id);
-                    selectedCharge.patientRemaining = updatedCharge.patientRemaining;
+                        // update charge remaining
+                        let updatedCharge = vm.payment.charges.find((c: any) => c.id == selectedCharge.id);
+                        selectedCharge.patientRemaining = updatedCharge.patientRemaining;
+                    });
+                    vm.selectedCharges = [];
+
+                    //// update charge remaining
+                    for (let i = 0; i < response.charges.length; i++) {
+                        var selectedCharge = vm.passedCharges.find((c: any) => c.id == response.charges[i].id);
+                        selectedCharge.patientRemaining = response.charges[i].patientRemaining;
+
+                        //vm.passedCharges[i].patientRemaining = response.charges[i].patientRemaining;
+                    }
+
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.raiseAmountUpdated(null)
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
                 });
-                vm.selectedCharges = [];
-
-                //// update charge remaining
-                for (let i = 0; i < response.charges.length; i++) {
-                    var selectedCharge = vm.passedCharges.find(c => c.id == response.charges[i].id);
-                    selectedCharge.patientRemaining = response.charges[i].patientRemaining;
-
-                    //vm.passedCharges[i].patientRemaining = response.charges[i].patientRemaining;
-                }
-
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.raiseAmountUpdated(null)
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
     }
 
     validatePaymentInstallments(): boolean {
@@ -230,28 +230,28 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         return true;
     }
 
-    getPatientPaymentById(paymentId) {
+    getPatientPaymentById(paymentId: any) {
         let vm = this;
         vm.showProgress = true
         vm.editable = false;
 
         this.claimService.getPatientPaymentById(paymentId)
             .subscribe(
-            function (response:any) {
-                vm.payment = response;
-                vm.installmentList = response.installments;
-                //vm.selectedCharges = response.charges;
+                function (response: any) {
+                    vm.payment = response;
+                    vm.installmentList = response.installments;
+                    //vm.selectedCharges = response.charges;
 
-                if (vm.payment.date)
-                    vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                    if (vm.payment.date)
+                        vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
     clearPaymentandOpenPopup() {
@@ -306,7 +306,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
     }
 
 
-    updatePaymentType(index: number, typeId) {
+    updatePaymentType(index: number, typeId: any) {
         var selectedType = this.paymentTypes.find(t => t.id == typeId);
 
         if (selectedType == null || selectedType == undefined)
@@ -330,41 +330,41 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
 
         this.claimService.overrideCharge({ id: this.selectedCharge.id, newOverrideAmount: this.newOverrideAmount })
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: response.newOverrideAmount })
+                    vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: response.newOverrideAmount })
 
-                //update the selected charge
-                vm.selectedCharge.patientRemaining = response.patientRemaining;
-                vm.selectedCharge.isOverridden = response.isOverridden;
-                vm.selectedCharge.overrideIconName = response.overrideIconName;
+                    //update the selected charge
+                    vm.selectedCharge.patientRemaining = response.patientRemaining;
+                    vm.selectedCharge.isOverridden = response.isOverridden;
+                    vm.selectedCharge.overrideIconName = response.overrideIconName;
 
-                vm.selectedCharge.unitPrice = response.unitPrice;
-                vm.selectedCharge.netPriceWithoutDiscount = response.netPriceWithoutDiscount;
-                vm.selectedCharge.insuranceCompanyNetPriceWithoutVAT = response.insuranceCompanyNetPriceWithoutVAT;
-                vm.selectedCharge.coverageType = response.coverageType;
-                vm.selectedCharge.insuranceCompanyNetPriceWithoutVAT = response.insuranceCompanyNetPriceWithoutVAT;
-                vm.selectedCharge.companyDiscountAmount = response.companyDiscountAmount;
-                vm.selectedCharge.vatAmountForCompany = response.vatAmountForCompany;
-                vm.selectedCharge.insuranceCompanyNetPrice = response.insuranceCompanyNetPrice;
+                    vm.selectedCharge.unitPrice = response.unitPrice;
+                    vm.selectedCharge.netPriceWithoutDiscount = response.netPriceWithoutDiscount;
+                    vm.selectedCharge.insuranceCompanyNetPriceWithoutVAT = response.insuranceCompanyNetPriceWithoutVAT;
+                    vm.selectedCharge.coverageType = response.coverageType;
+                    vm.selectedCharge.insuranceCompanyNetPriceWithoutVAT = response.insuranceCompanyNetPriceWithoutVAT;
+                    vm.selectedCharge.companyDiscountAmount = response.companyDiscountAmount;
+                    vm.selectedCharge.vatAmountForCompany = response.vatAmountForCompany;
+                    vm.selectedCharge.insuranceCompanyNetPrice = response.insuranceCompanyNetPrice;
 
-                vm.selectedCharge.patientShareAmount = response.patientShareAmount;
-                vm.selectedCharge.vatAmountForPatient = response.vatAmountForPatient;
-                vm.selectedCharge.patientDiscountAmount = response.patientDiscountAmount;
-                vm.selectedCharge.actualNetPrice = response.actualNetPrice;
+                    vm.selectedCharge.patientShareAmount = response.patientShareAmount;
+                    vm.selectedCharge.vatAmountForPatient = response.vatAmountForPatient;
+                    vm.selectedCharge.patientDiscountAmount = response.patientDiscountAmount;
+                    vm.selectedCharge.actualNetPrice = response.actualNetPrice;
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.clear();
-                vm.closeOverrideChargeModal();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.clear();
+                    vm.closeOverrideChargeModal();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
 
@@ -374,31 +374,31 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
 
         this.claimService.releaseCharge({ id: this.selectedCharge.id, releaseReason: this.releaseChargeReason })
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: vm.selectedCharge.actualNetPrice })
-                //update the selected charge
-                vm.selectedCharge.releaseReason = response.releaseReason;
-                vm.selectedCharge.actualNetPrice = response.actualNetPrice;
-                vm.selectedCharge.patientRemaining = response.actualNetPrice;
-                vm.selectedCharge.isReleased = response.isReleased;
-                vm.selectedCharge.releaseIconName = response.releaseIconName;
-                vm.selectedCharge.patientPaymentId = response.patientPaymentId;
-                vm.selectedCharge.patientPayment = response.patientPayment;
+                    vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: vm.selectedCharge.actualNetPrice })
+                    //update the selected charge
+                    vm.selectedCharge.releaseReason = response.releaseReason;
+                    vm.selectedCharge.actualNetPrice = response.actualNetPrice;
+                    vm.selectedCharge.patientRemaining = response.actualNetPrice;
+                    vm.selectedCharge.isReleased = response.isReleased;
+                    vm.selectedCharge.releaseIconName = response.releaseIconName;
+                    vm.selectedCharge.patientPaymentId = response.patientPaymentId;
+                    vm.selectedCharge.patientPayment = response.patientPayment;
 
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.clear();
-                vm.closeReleaseChargeModal();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.clear();
+                    vm.closeReleaseChargeModal();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
 
@@ -408,42 +408,42 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
 
         this.claimService.markSatisfiedCharge({ id: this.selectedCharge.id, isSatisfied: this.isSatisfied, satisfiedRemarks: this.satisfiedRemarks })
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: response.actualNetPrice })
-                //update the selected charge
-                vm.selectedCharge.isSatisfied = response.isSatisfied;
-                vm.selectedCharge.satisfiedRemarks = response.satisfiedRemarks;
-                vm.selectedCharge.actualNetPrice = response.actualNetPrice;
-                vm.selectedCharge.isSatisfied = response.isSatisfied;
+                    vm.raiseAmountUpdated({ oldValue: vm.selectedCharge.actualNetPrice, newValue: response.actualNetPrice })
+                    //update the selected charge
+                    vm.selectedCharge.isSatisfied = response.isSatisfied;
+                    vm.selectedCharge.satisfiedRemarks = response.satisfiedRemarks;
+                    vm.selectedCharge.actualNetPrice = response.actualNetPrice;
+                    vm.selectedCharge.isSatisfied = response.isSatisfied;
 
-                vm.selectedCharge.companyShareString = response.companyShareString;
-                vm.selectedCharge.patientShareString = response.patientShareString;
-                vm.selectedCharge.netPrice = response.netPrice;
-                vm.selectedCharge.vatAmountForPatient = response.vatAmountForPatient;
-                vm.selectedCharge.actualNetPrice = response.actualNetPrice;
-                vm.selectedCharge.patientRemaining = response.patientRemaining;
-                vm.selectedCharge.netPatientDiscountPercentage = response.netPatientDiscountPercentage;
-                vm.selectedCharge.patientDiscountString = response.patientDiscountString;
+                    vm.selectedCharge.companyShareString = response.companyShareString;
+                    vm.selectedCharge.patientShareString = response.patientShareString;
+                    vm.selectedCharge.netPrice = response.netPrice;
+                    vm.selectedCharge.vatAmountForPatient = response.vatAmountForPatient;
+                    vm.selectedCharge.actualNetPrice = response.actualNetPrice;
+                    vm.selectedCharge.patientRemaining = response.patientRemaining;
+                    vm.selectedCharge.netPatientDiscountPercentage = response.netPatientDiscountPercentage;
+                    vm.selectedCharge.patientDiscountString = response.patientDiscountString;
 
-                vm.selectedCharge.coverageTypeIconName = response.coverageTypeIconName;
+                    vm.selectedCharge.coverageTypeIconName = response.coverageTypeIconName;
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.clear();
-                vm.closeMarkSatisfiedModal();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.clear();
+                    vm.closeMarkSatisfiedModal();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
 
-    openOverrideChargeModal(charge) {
+    openOverrideChargeModal(charge: any) {
         this.selectedCharge = charge;
 
         this.btnOverrideChargeModal.nativeElement.click();
@@ -463,11 +463,11 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         setTimeout(() => this.active = true, 0);
     }
 
-    raiseAmountUpdated(updates) {
+    raiseAmountUpdated(updates: any) {
         this.onAmountUpdated.emit(updates);
     }
 
-    openReleaseChargeModal(charge) {
+    openReleaseChargeModal(charge: any) {
         this.selectedCharge = charge;
         this.releaseChargeReason = charge.releaseReason;
 
@@ -478,7 +478,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         this.btnCancelReleaseChargeModal.nativeElement.click();
     }
 
-    openMarkSatisfiedModal(charge) {
+    openMarkSatisfiedModal(charge: any) {
         if (charge.coverageType == 'ConditionallyCovered') {
             this.selectedCharge = charge;
             this.isSatisfied = charge.isSatisfied;
@@ -491,7 +491,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         this.btnCancelMarkSatisfiedModal.nativeElement.click();
     }
 
-    changeSatisfied(event:any) {
+    changeSatisfied(event: any) {
         this.isSatisfied = event.target.checked;
     }
 
@@ -549,33 +549,33 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
 
         this.claimService.saveInstallment(vm.selectedInstallment)
             .subscribe(
-            function (response:any) {
-                vm.selectedInstallment = response;
+                function (response: any) {
+                    vm.selectedInstallment = response;
 
-                vm.updateSelectedInstallmentInList(vm.selectedInstallment, false);
+                    vm.updateSelectedInstallmentInList(vm.selectedInstallment, false);
 
-                if (vm.selectedInstallment.date)
-                    vm.selectedInstallment.date = vm.utilityClass.getDateTimeFromString(vm.selectedInstallment.date);
+                    if (vm.selectedInstallment.date)
+                        vm.selectedInstallment.date = vm.utilityClass.getDateTimeFromString(vm.selectedInstallment.date);
 
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-            },
-            function (error:any) { 
-                vm.updateSelectedInstallmentInList(vm.selectedInstallment, true);
-                vm.selectedInstallment.date = vm.selectedInstallmentDate;
-                if (vm.selectedInstallment.date)
-                    vm.selectedInstallment.date = vm.utilityClass.getDateTimeFromString(vm.selectedInstallment.date);
+                },
+                function (error: any) {
+                    vm.updateSelectedInstallmentInList(vm.selectedInstallment, true);
+                    vm.selectedInstallment.date = vm.selectedInstallmentDate;
+                    if (vm.selectedInstallment.date)
+                        vm.selectedInstallment.date = vm.utilityClass.getDateTimeFromString(vm.selectedInstallment.date);
 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
 
     }
-    updateSelectedInstallmentInList(updatedInstallment, isError) {
+    updateSelectedInstallmentInList(updatedInstallment: any, isError: any) {
         let vm = this;
         var selected = vm.installmentList.find(i => i.id == updatedInstallment.id);
         if (selected != undefined) {
@@ -592,7 +592,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         }
 
     }
-    getSelectedItem(item) {
+    getSelectedItem(item: any) {
         let vm = this;
         if (vm.installmentList.length > 0) {
 

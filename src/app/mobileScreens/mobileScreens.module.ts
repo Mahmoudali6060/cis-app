@@ -20,14 +20,14 @@ import { MobileAppointmentDetailsComponent }   from './mobile-appointment-detail
 import { MobileMapComponent }   from './mobile-map/mobile-map.component';
 
 
-import {CalendarModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/calendar';
 
 import { SharedModule } from '../shared/shared.module';
 import { AdministrationModule } from '../administration/administration.module';
 
 import { SecurityModule }   from '../security/security.module';
 import { AccountService }   from '../security/shared/account.service';
-import {GMapModule} from 'primeng/primeng';
+import {GMapModule} from 'primeng/gmap';
 
 @NgModule({
     imports: [

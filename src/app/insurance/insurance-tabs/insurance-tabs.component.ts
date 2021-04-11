@@ -1,11 +1,9 @@
-﻿import {Component, Input, OnInit, OnChanges, SimpleChanges} from '@angular/core';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
     selector: 'insurance-tabs',
-    templateUrl: 'insurance-tabs.component.html',
-
+    templateUrl: './insurance-tabs.component.html',
 })
 
 export class InsuranceTabsComponent implements OnChanges {

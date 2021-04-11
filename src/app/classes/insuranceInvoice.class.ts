@@ -8,22 +8,22 @@ export class InsuranceInvoice extends BaseEntity {
 
     status: InvoiceStatus | undefined;
     invoiceDate: Date | undefined;
-    invoiceDateString: string | undefined;
-    creatorId: number | undefined;
-    creatorName: string | undefined;
-    clinicId: number | undefined;
-    companyId: number | undefined;
-    companyName: string | undefined;
-    policyId: number | undefined;
-    policyName: string | undefined;
+    invoiceDateString!:string;
+    creatorId!: number;
+    creatorName!:string;
+    clinicId!: number;
+    companyId!: number;
+    companyName!:string;
+    policyId!: number;
+    policyName!:string;
     claims: Array<PatientClaim> | undefined;
     charges: Array<Charge> | undefined;
-    totalCredit: number | undefined;
-    chargeAmount: number | undefined;
-    netAmount: number | undefined;
-    cancellationReason: string | undefined;
+    totalCredit!: number;
+    chargeAmount!: number;
+    netAmount!: number;
+    cancellationReason!:string;
     cancellationDate: Date | undefined;
-    cancellationDateString: string | undefined;
+    cancellationDateString!:string;
     canceledBy: SecurityUser | undefined;
-    canceledById: number | undefined;
+    canceledById!: number;
 }

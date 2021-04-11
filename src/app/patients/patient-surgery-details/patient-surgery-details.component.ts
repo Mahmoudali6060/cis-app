@@ -1,29 +1,29 @@
-﻿import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from 'primeng/api';
 
 import { DoctorService } from '../../doctors/shared/doctor.service';
-import {ClinicService} from '../../clinics/shared/clinic.service';
+import { ClinicService } from '../../clinics/shared/clinic.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'patient-surgery-details',
     templateUrl: 'patient-surgery-details.component.html',
 })
 
 export class PatientSurgeryDetailsComponent implements OnInit {
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!: string;
     leafType: string = 'Service';
-    divisionId;
-    @Input() toSaveSurgery;
-    @Input() patientId: number | undefined;
+    divisionId!: any;
+    @Input() toSaveSurgery!: any;
+    @Input() patientId!: number;
     @Input() patientDOB: Date | undefined;
     @Output() onBack = new EventEmitter<any>();
     @Input() allServices: any[] = [];
@@ -31,13 +31,13 @@ export class PatientSurgeryDetailsComponent implements OnInit {
     active = true;
     selectedSurgeryNode: any;
     tempSelectedSurgeryNode: any;
-    clinicId;
+    clinicId!: any;
     servicesTreeDataSourceItems: any[] = [];
     getAllServices = true;
 
     showProgress = false;
     // allServices = [];
-    nodeToAdded: TreeNode;
+    nodeToAdded!: TreeNode;
     ttt = "aaa";
     isExist: boolean = false;
     constructor(private doctorService: DoctorService
@@ -45,8 +45,7 @@ export class PatientSurgeryDetailsComponent implements OnInit {
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public localStorage: LocalStorageService
-        , public translate: TranslateService)
-    { }
+        , public translate: TranslateService) { }
 
     ngOnInit(): void {
         this.divisionId = this._route.snapshot.params['divisionId'];
@@ -66,20 +65,20 @@ export class PatientSurgeryDetailsComponent implements OnInit {
         //get department services groups
         this.doctorService.getClinicDivisionServiceGroupsForTreeView(vm.divisionId)
             .subscribe(
-            function (response:any) {
-                vm.servicesTreeDataSourceItems = response;
-                if (vm.toSaveSurgery) {
-                    vm.addModelToServicesList(vm.toSaveSurgery);
-                    //  this.displaySelectedNode(thisComponent.toSaveSurgery.serviceId, "Service");
-                    vm.expandAll();
-                } 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.servicesTreeDataSourceItems = response;
+                    if (vm.toSaveSurgery) {
+                        vm.addModelToServicesList(vm.toSaveSurgery);
+                        //  this.displaySelectedNode(thisComponent.toSaveSurgery.serviceId, "Service");
+                        vm.expandAll();
+                    }
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     getAllServiceGroupsForTreeView(needAll: boolean, displayNode: boolean) {
         let vm = this;
@@ -87,26 +86,26 @@ export class PatientSurgeryDetailsComponent implements OnInit {
         /////////////////////////get all services groups
         this.doctorService.getServiceGroupsForTreeView(vm.clinicId)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                vm.allServices = response;
-                if (needAll) {
-                    vm.getAllServices = false;
-                    vm.servicesTreeDataSourceItems = response;
-                    if (displayNode || vm.selectedSurgeryNode != undefined)
-                        vm.displaySelectedNode(vm.toSaveSurgery.serviceId, vm.servicesTreeDataSourceItems);
+                    vm.allServices = response;
+                    if (needAll) {
+                        vm.getAllServices = false;
+                        vm.servicesTreeDataSourceItems = response;
+                        if (displayNode || vm.selectedSurgeryNode != undefined)
+                            vm.displaySelectedNode(vm.toSaveSurgery.serviceId, vm.servicesTreeDataSourceItems);
 
 
-                    vm.expandAll();
-                }
+                        vm.expandAll();
+                    }
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     addModelToServicesList(returnedModel: any) {
         if (this.servicesTreeDataSourceItems != null && this.servicesTreeDataSourceItems != undefined && this.servicesTreeDataSourceItems.length > 0) {
@@ -120,13 +119,13 @@ export class PatientSurgeryDetailsComponent implements OnInit {
             //}
 
         } else {
-            this.getAllServiceGroupsForTreeView(true,true);
+            this.getAllServiceGroupsForTreeView(true, true);
         }
 
     }
     addServiceToDepartmentList(node: TreeNode) {
-            this.servicesTreeDataSourceItems[0].children.push(node);
-            this.selectedSurgeryNode = node;
+        this.servicesTreeDataSourceItems[0].children.push(node);
+        this.selectedSurgeryNode = node;
     }
     displaySelectedNode(nodeId: string, services: any[]) {
         let vm = this
@@ -231,41 +230,41 @@ export class PatientSurgeryDetailsComponent implements OnInit {
             //Add new
             this.doctorService.createSurgery(this.toSaveSurgery)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.toSaveSurgery = response;
-                    vm.clear();
-                    vm.onBack.emit(response:any);
-                },
-                function (error:any) { 
-                    console.log(error)
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.toSaveSurgery = response;
+                        vm.clear();
+                        vm.onBack.emit(response);
+                    },
+                    function (error: any) {
+                        console.log(error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
         else {
             //update
             this.doctorService.updateSurgery(this.toSaveSurgery)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.toSaveSurgery = response;
-                    vm.clear();
-                    vm.onBack.emit(response:any);
-                },
-                function (error:any) { 
-                    console.log(error)
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.toSaveSurgery = response;
+                        vm.clear();
+                        vm.onBack.emit(response);
+                    },
+                    function (error: any) {
+                        console.log(error)
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
     }
 
@@ -276,7 +275,7 @@ export class PatientSurgeryDetailsComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    treeNodeSelected(event:any) {
+    treeNodeSelected(event: any) {
         if (event && event.node && event.node.code && event.node.code != '') {
             this.toSaveSurgery.surgeryCode = event.node.code;
         }

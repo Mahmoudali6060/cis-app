@@ -1,43 +1,43 @@
-﻿import {Component, OnInit, SimpleChanges, OnChanges, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, SimpleChanges, OnChanges, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
-import { HijriMonthList, GregorianMonthList} from '../shared/MonthsListType.enum';
+import { HijriMonthList, GregorianMonthList } from '../shared/MonthsListType.enum';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
-   
+
     selector: 'date-hijri-gregorian',
     templateUrl: 'date-hijri-gregorian.component.html',
 })
 
 export class DateHijriGregorian implements OnInit, OnChanges {
-    patientId: string | undefined;
+    patientId!: string;
     @Input() birthDateInfo: any = { birthDateType: "" };
     @Output() onModelUpdated = new EventEmitter<any>();
     @Input() title: string = '';
-    hagriDays = [];
-    private subscription: Subscription;
-    gregorianDays = [];
-    selctedDaysType = [];
-    GregorianMonths = [];
-    HijriMonths = [];
+    hagriDays: any = [];
+    private subscription!: Subscription;
+    gregorianDays: any = [];
+    selctedDaysType: any = [];
+    GregorianMonths: any = [];
+    HijriMonths: any = [];
     differ: any;
-    hagriYears = [];
-    gregorianYears = [];
-    selctedYearsType = [];
-    selctedMonthsType = [];
+    hagriYears: any = [];
+    gregorianYears: any = [];
+    selctedYearsType: any = [];
+    selctedMonthsType: any = [];
     isDatePartsChanged: boolean = false;
     HagriDateValues: Date = new Date();
     GregorianDateValues: Date = new Date();
     showProgress = false;
     @Output() onNewDateSaved = new EventEmitter<any>();
-    @ViewChild("fileInput") fileInput;
-    @ViewChild("patientAccountForm") patientAccountForm;
+    @ViewChild("fileInput") fileInput!: any;
+    @ViewChild("patientAccountForm") patientAccountForm!: any;
     utilityClass: UtilityClass = new UtilityClass();
     constructor(private patientService: PatientService
         , private sharedService: SharedService
@@ -57,14 +57,15 @@ export class DateHijriGregorian implements OnInit, OnChanges {
 
     ngOnInit(): void {
 
-        this.subscription = this.patientService.notifyObservable$.subscribe((res) => {
+        this.subscription = this.patientService.notifyObservable$.subscribe((res: any) => {
             if (res.hasOwnProperty('option') && res.option === 'call_child') {
                 this.birthDateInfo = res.value;
                 this.isHagri();
                 this.isGregorian();
             }
         });
-        this.hagriDays = []; let HagriDay = 0; while (this.hagriDays.push(++HagriDay) < 30);
+        this.hagriDays = [];
+        let HagriDay: number = 0; while (this.hagriDays.push(++HagriDay) < 30);
         this.gregorianDays = []; let gregorianDay = 0; while (this.gregorianDays.push(++gregorianDay) < 31);
         this.hagriYears = []; let HagriYear = 1318; while (this.hagriYears.push(++HagriYear) < 154);
         this.gregorianYears = []; let gregorianYear = 1900; while (this.gregorianYears.push(++gregorianYear) < 150);
@@ -109,20 +110,20 @@ export class DateHijriGregorian implements OnInit, OnChanges {
         thisComponent.isDatePartsChanged = false;
         this.patientService.checkIfCurrentBirthDateChanged(birthDateInfoChaned)
             .subscribe(
-            function (response:any) {
-                thisComponent.birthDateInfo = response;
-                if (thisComponent.birthDateInfo.birthDateType =="Hagri")
-                    thisComponent.setGregorianValues();
-                else
-                    thisComponent.setHijriValues();
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error);
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.birthDateInfo = response;
+                    if (thisComponent.birthDateInfo.birthDateType == "Hagri")
+                        thisComponent.setGregorianValues();
+                    else
+                        thisComponent.setHijriValues();
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error);
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
 
     }
 
@@ -136,13 +137,13 @@ export class DateHijriGregorian implements OnInit, OnChanges {
         return this.birthDateInfo && this.birthDateInfo.birthDateType && (this.birthDateInfo.birthDateType == 2 || this.birthDateInfo.birthDateType == "Gourgian");
     }
 
-    isDateChanged(dateValue: string, dateId) {
+    isDateChanged(dateValue: any, dateId: any) {
         if (dateId == "ddlDays") {
             this.birthDateInfo.dayValue = dateValue;
             this.isDatePartsChanged = true;
         }
         else if (dateId == "ddlMonths") {
-            let tempValue = this.birthDateInfo.birthDateType == 1 ? <HijriMonthList>HijriMonthList[dateValue] : <GregorianMonthList>GregorianMonthList[dateValue];
+            let tempValue = this.birthDateInfo.birthDateType == 1 ? HijriMonthList[dateValue] : GregorianMonthList[dateValue];
             this.birthDateInfo.monthValue = tempValue;
             this.isDatePartsChanged = true;
 
@@ -155,8 +156,7 @@ export class DateHijriGregorian implements OnInit, OnChanges {
         this.onNewDateSaved.emit(this.birthDateInfo);
     }
 
-    setHijriValues()
-    {
+    setHijriValues() {
 
         this.selctedDaysType = this.hagriDays;
         this.selctedMonthsType = this.HijriMonths;
@@ -172,8 +172,7 @@ export class DateHijriGregorian implements OnInit, OnChanges {
         }
     }
 
-    setGregorianValues()
-    {
+    setGregorianValues() {
         this.selctedDaysType = this.gregorianDays;
         this.selctedMonthsType = this.GregorianMonths;
         this.selctedYearsType = this.gregorianYears;

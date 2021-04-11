@@ -14,21 +14,21 @@
                 <p-tree [value]="diagnosisTreeDataSourceItems | filterbynameorcode:filterString : leafType | translateObjects  : 'label' : 'labelTranslation' : null"
                          [(selection)]="selectedDiagnoseNode"  selectionMode="single" (onNodeSelect)="treeNodeSelected($event)">
                     
-                    <template let-node pTemplate="ClinicDepartmentDiagnosisGroup">
+                    <ng-template let-node pTemplate="ClinicDepartmentDiagnosisGroup">
                         <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                         &nbsp;
                         {{node.label}}
-                    </template>
-                     <template let-node pTemplate="DiagnosisGroup">
+                    </ng-template>
+                     <ng-template let-node pTemplate="DiagnosisGroup">
                          <span class="nav-icon"><i class="fa fa-cubes"></i></span>
                          &nbsp; 
                          {{node.label}}
-                    </template>
-                    <template let-node pTemplate="Diagnose">
+                    </ng-template>
+                    <ng-template let-node pTemplate="Diagnose">
                         <span class="nav-icon"><i class="fa fa-cube"></i></span>
                         &nbsp;
                         {{node.label}}
-                    </template>
+                    </ng-template>
 
                 </p-tree>
             </div>

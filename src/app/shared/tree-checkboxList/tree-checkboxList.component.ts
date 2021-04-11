@@ -17,7 +17,7 @@ export class TreeCheckboxListComponent implements OnInit, OnChanges {
     leafList: any[] = [];
     lstToTranslated = ['label', 'labelTranslation', 'name', 'nameTranslation'];
     //@Output() onItemChanged = new EventEmitter<any[]>();
-    filterString: string | undefined;
+    filterString!:string;
     selectedGroup: any;
     showProgress = false;
     selectedItems: any[] = [];
@@ -37,9 +37,9 @@ export class TreeCheckboxListComponent implements OnInit, OnChanges {
         let vm = this;
         if (this.selectedItemsIDs && this.selectedItemsIDs.length > 0 && vm.items && vm.items.length > 0) {
             for (let id of this.selectedItemsIDs) {
-                let selectedItem = vm.items.find(item => item.id == id);
+                let selectedItem = vm.items.find((item :any)=> item.id == id);
                 if (selectedItem)
-                    vm.selectedItems.push(vm.items.find(item => item.id == id));
+                    vm.selectedItems.push(vm.items.find((item :any)=> item.id == id));
             }
         }
     }
@@ -57,7 +57,7 @@ export class TreeCheckboxListComponent implements OnInit, OnChanges {
             this.selectedItemsIDs.push(itemId);
 
             // add item to selected items list
-            this.selectedItems.push(this.items.find(item => item.id == itemId));
+            this.selectedItems.push(this.items.find((item :any)=> item.id == itemId));
         }
         else {
             var index = this.selectedItemsIDs.indexOf(itemId);
@@ -65,7 +65,7 @@ export class TreeCheckboxListComponent implements OnInit, OnChanges {
                 this.selectedItemsIDs.splice(index, 1);
 
             // remove item to selected items list
-            var obj = this.selectedItems.find(item => item.id == itemId);
+            var obj = this.selectedItems.find((item :any)=> item.id == itemId);
             var itemIndex = this.selectedItems.indexOf(obj);
             if (itemIndex > -1)
                 this.selectedItems.splice(itemIndex, 1);

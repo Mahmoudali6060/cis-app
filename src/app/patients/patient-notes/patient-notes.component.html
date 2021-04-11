@@ -15,18 +15,18 @@
         <p-column field="doctorName" [header]="'Doctor' | translate" [sortable]="true"></p-column>
         <p-column field="creationDateString" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
         <p-column [header]="'Prescription' | translate" styleClass="text-center width75">
-            <template let-note="rowData" pTemplate="body">
+            <ng-template let-note="rowData" pTemplate="body">
                 <a class="fa fa-print"  (click)="openPrescription(note.id , 'PrescriptionReport')">
                   
                 </a>
-            </template>
+            </ng-template>
         </p-column>
         <p-column [header]="'ViewDetails' | translate" styleClass="text-center width75">
-            <template let-note="rowData" pTemplate="body">
+            <ng-template let-note="rowData" pTemplate="body">
                 <a class="pointer" data-toggle="modal" data-target="#noteView" (click)="setClinicNoteId(note.id , note.appointmentId)" >
                     <img src="Images/details-24.jpg" />
                 </a>
-            </template>
+            </ng-template>
         </p-column>
     </p-dataTable>
 

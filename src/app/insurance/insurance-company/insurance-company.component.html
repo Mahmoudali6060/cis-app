@@ -43,7 +43,7 @@
             <p-column field="activePoliciesCount" [header]="'ActivePoliciesCount' | translate" [sortable]="true"></p-column>
 
             <p-column [header]="'ActiveQues' | translate" styleClass="text-center width70">
-                <template let-comp="rowData" pTemplate="body">
+                <ng-template let-comp="rowData" pTemplate="body">
                     <label>
                         <input id="ChkIsActiveInGrid"
                                disabled="{{ enableActivateBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
@@ -51,12 +51,12 @@
                                (click)="changeActivation(comp.id , $event)" />
                         <span class="lbl"></span>
                     </label>
-                </template>
+                </ng-template>
             </p-column>
             <p-column [header]="'ShowDetails' | translate" styleClass="text-center width100">
-                <template let-comp="rowData" pTemplate="body">
+                <ng-template let-comp="rowData" pTemplate="body">
                     <a class="pointer" [class.disabled]="!enableShowCompanyDetails ? true : null" [routerLink]="['/insurance/companyDetails/', comp.id]"><li style="color:#3CACE2;font-size:28px;" class="fa fa-eye fa-2x"></li> </a>
-                </template>
+                </ng-template>
             </p-column>
         </p-dataTable>
     </div>

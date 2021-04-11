@@ -88,26 +88,26 @@
                     <p-column field="nameTranslation" [header]="'NameEnglish' | translate" [sortable]="true"></p-column>
                     <p-column field="departmentName" [header]="'Department' | translate" [sortable]="true"></p-column>
                     <p-column [header]="'ActiveQues' | translate" styleClass="text-center width70">
-                        <template let-item="rowData" pTemplate="body">
+                        <ng-template let-item="rowData" pTemplate="body">
                             <label>
                                 <input id="ChkIsActiveInGrid" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
                                 <span class="lbl"></span>
                             </label>
-                        </template>
+                        </ng-template>
                     </p-column>
                     <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                        <template let-item="rowData" pTemplate="body">
+                        <ng-template let-item="rowData" pTemplate="body">
                             <a [class.disabled]="!enableMyAccountBtn ? true : null">
                                 <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" style="color: #32bea6;"></i>
                             </a>
-                        </template>
+                        </ng-template>
                     </p-column>
                     <!--<p-column [header]="'Delete' | translate" styleClass="text-center width50">
-                <template let-item="rowData" pTemplate="body">
+                <ng-template let-item="rowData" pTemplate="body">
                     <a data-toggle="modal" [class.disabled]="!enableMyAccountBtn ? true : null" data-target="#deleteConfirmation" class="pointer" (click)="selectItemToDelete(item.id)">
                         <img src="Images/DeleteRed.png" />
                     </a>
-                </template>
+                </ng-template>
             </p-column>-->
                 </p-dataTable>
             </div>

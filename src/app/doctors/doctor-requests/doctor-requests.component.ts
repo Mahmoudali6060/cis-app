@@ -1,30 +1,30 @@
-﻿import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DoctorService } from '../shared/doctor.service'
 import { SharedService } from '../../shared/shared/shared.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'doctor-requests',
-    templateUrl: 'doctor-requests.component.html',
+    templateUrl: './doctor-requests.component.html',
 })
 
 export class DoctorRequestsComponent implements OnInit {
-    inventoryRequestId: string | undefined;
+    inventoryRequestId!: string;
     doctorClinics = [];
     lstToTranslated: string[] = [];
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!: string;
     inventoryRequestModel: any = {};
-    doctorId: string | undefined;
-    clinicIdReq: string | undefined;
+    doctorId!: string;
+    clinicIdReq!: string;
     hasMultiClincs = false;
     clinics = [];
     selectedClinic: any = {};
@@ -35,9 +35,9 @@ export class DoctorRequestsComponent implements OnInit {
     key: PermissionKeyEnum = new PermissionKeyEnum();
     active = true;
     InventoryRequestObject: any = {};
-    @ViewChild('btnOpenDeleteRequestPopup') btnOpenDeleteRequestPopup: ElementRef;
+    @ViewChild('btnOpenDeleteRequestPopup') btnOpenDeleteRequestPopup!: ElementRef;
     showProgress = false;
-    allInventoryRequestObjects: any[];
+    allInventoryRequestObjects!: any[];
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
@@ -45,8 +45,7 @@ export class DoctorRequestsComponent implements OnInit {
         , public storage: LocalStorageService
         , public translate: TranslateService
         , private accountService: AccountService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['itemName', 'itemNameTranslation', 'unitName', 'unitNameTranslation'];
@@ -56,36 +55,36 @@ export class DoctorRequestsComponent implements OnInit {
         vm.showProgress = true;
         this.doctorService.getDoctorAppointmentsWrapper(this.doctorId)
             .subscribe(
-            function (response:any) {
-                vm.clinics = response;
-                if (vm.clinics.length > 1) {
-                    vm.hasMultiClincs = true;
-                } else if (vm.clinics.length == 1) {
-                    vm.hasMultiClincs = false;
-                    for (let item of vm.clinics) {
+                function (response: any) {
+                    vm.clinics = response;
+                    if (vm.clinics.length > 1) {
+                        vm.hasMultiClincs = true;
+                    } else if (vm.clinics.length == 1) {
+                        vm.hasMultiClincs = false;
+                        for (let item of vm.clinics) {
 
-                        vm.selectedClinic = item;
-                        vm.clinicId = vm.selectedClinic.id;
+                            vm.selectedClinic = item;
+                            vm.clinicId = vm.selectedClinic.id;
+                        }
+                        vm.loadTable(vm.clinicId);
+
                     }
-                    vm.loadTable(vm.clinicId);
 
-                }
-
-            },
-            function (error:any) { 
-                vm.toastr.error( error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
     }
-    setClinicId(value) {
+    setClinicId(value: any) {
         let vm = this;
         vm.clinicId = value;
         vm.loadTable(vm.clinicId);
@@ -107,26 +106,26 @@ export class DoctorRequestsComponent implements OnInit {
 
         this.doctorService.getAllInventoryRequests(vm.doctorId, clinicId)
             .subscribe(
-            function (response:any) {
-                vm.allInventoryRequestObjects = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.allInventoryRequestObjects = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    deleteInventoryRequestPopUp(id): void {
+    deleteInventoryRequestPopUp(id: any): void {
         let vm = this;
         vm.inventoryRequestId = id;
         this.btnOpenDeleteRequestPopup.nativeElement.click();
 
 
     }
-    deleteInventoryRequest(id): void {
+    deleteInventoryRequest(id: any): void {
         let vm = this;
         id = vm.inventoryRequestId;
         if (id == undefined || isNaN(id)) {
@@ -139,19 +138,19 @@ export class DoctorRequestsComponent implements OnInit {
         vm.showProgress = true;
         this.doctorService.deleteInventoryRequest(id)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.showProgress = false;
-                vm.loadTable(vm.clinicId);
-            },
-            function (error:any) { 
-                //console.log("Error happened" + error)
-                vm.toastr.error( error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.showProgress = false;
+                    vm.loadTable(vm.clinicId);
+                },
+                function (error: any) {
+                    //console.log("Error happened" + error)
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     handleUserInterfaceViews(user: any) {
         if (user.permissions != undefined) {

@@ -1,38 +1,38 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DoctorService } from '../shared/doctor.service'
 import { SharedService } from '../../shared/shared/shared.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-   
+
     selector: 'doctor-appointments',
-    templateUrl: 'doctor-appointments.component.html',
+    templateUrl: './doctor-appointments.component.html',
 })
 
 export class DoctorAppointmentsComponent implements OnInit {
 
     utilityClass: UtilityClass = new UtilityClass();
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!:string;
 
     active = true;
     model: any = {};
     appointmentCriteria: any = {};
     seenTime = "";
     display: boolean = false;
-    doctorAppointmentsList = [];
+    doctorAppointmentsList: any = [];
     matchedAppontments = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!: any;
     doctorId: string = "0";
     showActive: boolean = false;
     showEdit: boolean = false;
@@ -59,8 +59,7 @@ export class DoctorAppointmentsComponent implements OnInit {
         , public storage: LocalStorageService
         , private accountService: AccountService
         , public translate: TranslateService
-    )
-    {
+    ) {
         //'patientNameTranslation'
     }
 
@@ -73,34 +72,33 @@ export class DoctorAppointmentsComponent implements OnInit {
         vm.showProgress = true;
         this.doctorService.getDoctorAppointmentsWrapper(this.doctorId)
             .subscribe(
-            function (response:any) {
-                vm.clinics = response;
-                if (vm.clinics != undefined && vm.clinics.length != undefined )
-                {
-                    if (vm.clinics.length > 1) {
-                        vm.hasMultiClincs = true;
-                    } else if (vm.clinics.length == 1) {
-                        vm.hasMultiClincs = false;
-                        for (let item of vm.clinics) {
+                function (response: any) {
+                    vm.clinics = response;
+                    if (vm.clinics != undefined && vm.clinics.length != undefined) {
+                        if (vm.clinics.length > 1) {
+                            vm.hasMultiClincs = true;
+                        } else if (vm.clinics.length == 1) {
+                            vm.hasMultiClincs = false;
+                            for (let item of vm.clinics) {
 
-                            vm.selectedClinic = item;
-                            vm.clinicId = vm.selectedClinic.id;
+                                vm.selectedClinic = item;
+                                vm.clinicId = vm.selectedClinic.id;
+                            }
+                            vm.getDoctorAppointmentsForSelectedClinic(vm.clinicId);
+
                         }
-                        vm.getDoctorAppointmentsForSelectedClinic(vm.clinicId);
-
                     }
-                }
 
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
@@ -132,20 +130,20 @@ export class DoctorAppointmentsComponent implements OnInit {
         vm.showProgress = true;
         this.doctorService.getDoctorAppointments(this.doctorId, clinicId)
             .subscribe(
-            function (response:any) {
-                vm.doctorAppointmentsList = response;
+                function (response: any) {
+                    vm.doctorAppointmentsList = response;
 
-                vm.updateSerialNumber(vm.doctorAppointmentsList);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.updateSerialNumber(vm.doctorAppointmentsList);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
-    setClinicId(value) {
+    setClinicId(value: any) {
         let vm = this;
         this.clinicId = value;
         // vm.hasMultiClincs = false;
@@ -153,7 +151,7 @@ export class DoctorAppointmentsComponent implements OnInit {
         vm.getDoctorAppointmentsForSelectedClinic(this.clinicId);
 
     }
-    addSeenTime(appointment) {
+    addSeenTime(appointment: any) {
         let vm = this;
         vm.showProgress = true;
         appointment.isSeen = true;
@@ -164,35 +162,35 @@ export class DoctorAppointmentsComponent implements OnInit {
             //organization => this.model = organization,
             //error => this.errorMessage = <any>error);
             .subscribe(
-            function (response:any) {
-                //  vm.toastr.success('Saved Successfully', '');
-                vm.model = response;
-                if (vm.model.seenTime != undefined)
-                    vm.seenTime = vm.model.seenTimeString;
-                else {
-                    vm.seenTime = vm.translate.instant("Seen");
-                }
+                function (response: any) {
+                    //  vm.toastr.success('Saved Successfully', '');
+                    vm.model = response;
+                    if (vm.model.seenTime != undefined)
+                        vm.seenTime = vm.model.seenTimeString;
+                    else {
+                        vm.seenTime = vm.translate.instant("Seen");
+                    }
 
-                vm.updateModelWithSeenTime(vm.model.id);
-            },
-            function (error:any) { 
-                //console.log("Error happened" + error)
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-                appointment.isSeen = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                    vm.updateModelWithSeenTime(vm.model.id);
+                },
+                function (error: any) {
+                    //console.log("Error happened" + error)
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                    appointment.isSeen = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
     updateModelWithSeenTime(id: string) {
-        var appoitment = this.doctorAppointmentsList.find(a => a.id == id);
+        var appoitment = this.doctorAppointmentsList.find((a: any) => a.id == id);
         if (appoitment != undefined)
             appoitment.seenTimeString = this.model.seenTimeString;
     }
 
-    viewMrf(appointment) {
+    viewMrf(appointment: any) {
         if (appointment.isActivePatient)
             this.router.navigate(['/patient/mrf', appointment.patientId, appointment.id, appointment.clinicDivisionId]);
         else
@@ -210,7 +208,7 @@ export class DoctorAppointmentsComponent implements OnInit {
     showPatientDialog() {
         this.display = true;
     }
-    managePatientSelection(selectedPatientMrn) {
+    managePatientSelection(selectedPatientMrn: any) {
         this.appointmentCriteria.patientClinicMRN = selectedPatientMrn;
         this.display = false;
 
@@ -231,7 +229,7 @@ export class DoctorAppointmentsComponent implements OnInit {
             // check patient activation
             thisComponent.doctorService.getPatientByMrn(thisComponent.unifiedMrn)
                 .subscribe(
-                    function (response:any) {
+                    function (response: any) {
                         if (response != null && response != undefined && response.isActive) {
                             thisComponent.openPatientMrfByUnifiedMrn();
                         }
@@ -240,13 +238,13 @@ export class DoctorAppointmentsComponent implements OnInit {
                             thisComponent.toastr.warning(thisComponent.translate.instant('DeactivatedPatient'), '');
                         }
                     },
-                    function (error:any) { 
+                    function (error: any) {
                         thisComponent.toastr.error(error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
                         thisComponent.showProgress = false;
-                });
+                    });
         }
     }
 
@@ -255,13 +253,13 @@ export class DoctorAppointmentsComponent implements OnInit {
         let thisComponent = this;
         thisComponent.doctorService.getPatientMrfByUnifiedMrn(thisComponent.unifiedMrn)
             .subscribe(
-                function (response:any) {
+                function (response: any) {
                     if (response != null && response != undefined) {
                         let divId = thisComponent.storage.retrieve("DivisionID");
                         thisComponent.router.navigate(['/patient/mrf', response.id, "0", divId]);
                     }
                 },
-                function (error:any) { 
+                function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
                 },
@@ -277,27 +275,27 @@ export class DoctorAppointmentsComponent implements OnInit {
         this.showProgress = true;
         thisComponent.doctorService.searchForDoctorAppointments(thisComponent.appointmentCriteria)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                thisComponent.matchedAppontments = response;
-                thisComponent.tempDoctorAppointmentsList = thisComponent.doctorAppointmentsList;
-                thisComponent.doctorAppointmentsList = thisComponent.matchedAppontments;
-                thisComponent.updateSerialNumber(thisComponent.matchedAppontments);
-                //   if (thisComponent.matchedAppontments.length>0)
-                //thisComponent.display = false;
-                //thisComponent.displayPatientTable = true;
+                    thisComponent.matchedAppontments = response;
+                    thisComponent.tempDoctorAppointmentsList = thisComponent.doctorAppointmentsList;
+                    thisComponent.doctorAppointmentsList = thisComponent.matchedAppontments;
+                    thisComponent.updateSerialNumber(thisComponent.matchedAppontments);
+                    //   if (thisComponent.matchedAppontments.length>0)
+                    //thisComponent.display = false;
+                    //thisComponent.displayPatientTable = true;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
-    returnToDoctorAppointments(value) {
+    returnToDoctorAppointments(value: any) {
         if (value == "") {
             //  this.viewSearch = false;
             this.doctorAppointmentsList = this.tempDoctorAppointmentsList;

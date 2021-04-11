@@ -1,14 +1,13 @@
-﻿import {Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { SharedService } from '../../shared/shared/shared.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { DoctorService } from '../../doctors/shared/doctor.service';
 import { TranslateObjectsPipe } from '../../shared/pipes/translateObjects.pipe';
 @Component({
-   
+
     selector: 'patient-note-diagnosis',
     templateUrl: 'patient-note-diagnosis.component.html',
 })
@@ -20,10 +19,10 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
     departmentDiagnosis = [];
     //noteDiagnosis = [];
     noteDiagnosisList: any[] = [];
-    divisionId: string | undefined;
+    divisionId!: string;
     masterNoteDiagnosisList: any[] = [];
     diagnosisStatuses: any[] = [];
-    @Input() noteId: number | undefined;
+    @Input() noteId!: number;
 
     @Output() onDiagnosisSaved = new EventEmitter<any>();
 
@@ -35,8 +34,7 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
-        , public translate: TranslateService)
-    {
+        , public translate: TranslateService) {
         this.masterNoteDiagnosisList = [];
     }
 
@@ -53,18 +51,18 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
         //get department services groups
         this.doctorService.getPatientNoteDiagnoseWrapper()
             .subscribe(
-            function (response:any) {
-                vm.diagnosisStatuses = response.noteDiagnosisStatuses;
-                //vm.translateObjects.transform(vm.departmentDiagnosis, null, null, vm.lstToTranslated);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.diagnosisStatuses = response.noteDiagnosisStatuses;
+                    //vm.translateObjects.transform(vm.departmentDiagnosis, null, null, vm.lstToTranslated);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
-     }
+    }
     ngOnChanges() {
 
         if (this.noteId) {
@@ -79,16 +77,16 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
         //get department services groups
         this.doctorService.getClinicDivisionDiagnoseGroupsForTreeView(this.divisionId)
             .subscribe(
-            function (response:any) {
-                vm.departmentDiagnosis = response;
-                vm.translateObjects.transform(vm.departmentDiagnosis, null, null, vm.lstToTranslated);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.departmentDiagnosis = response;
+                    vm.translateObjects.transform(vm.departmentDiagnosis, '', null, vm.lstToTranslated);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     //getNoteDiagnosis()
@@ -113,10 +111,10 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
             vm.showProgress = true;
 
             this.doctorService.getClinicNoteDiagnosis(vm.noteId).subscribe(
-                function (response:any) {
+                function (response: any) {
                     vm.noteDiagnosisList = response;
                 },
-                function (error:any) { 
+                function (error: any) {
                     vm.toastr.error(error, '');
                 },
                 function () { // finally
@@ -130,19 +128,19 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
         vm.showProgress = true;
         this.doctorService.createClinicNoteDiagnose(this.masterNoteDiagnosisList)
             .subscribe(
-            function (response:any) {
-                vm.noteDiagnosisList = response;
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.onDiagnosisSaved.emit();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.noteDiagnosisList = response;
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.onDiagnosisSaved.emit();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
 }

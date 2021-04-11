@@ -1,22 +1,16 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import { TreeNode } from 'primeng/primeng';
-
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../shared/clinic.service';
+import { ClinicService } from '../shared/clinic.service';
 
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { TimeSlot } from '../../shared/shared/time-slot.model';
-import {CalendarModule} from 'primeng/primeng';
 //import {TimePicker} from 'primeng/primeng'
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';;
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';;
 
 @Component({
-   
+
     selector: 'clinic-appointment-details',
-    templateUrl: 'clinic-appointment-details.component.html'
+    templateUrl: './clinic-appointment-details.component.html'
 })
 
 export class ClinicAppointmentDetailsComponent implements OnInit {
@@ -32,20 +26,20 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
     selectAppointmentsTab: boolean = true;
     model: any = {};
     sessionModel: any = {};
-    sessionsList: any[];
-    sessionsListIfError: any[];
+    sessionsList!: any[];
+    sessionsListIfError!: any[];
     items: any[] = [];
     days: any[] = [];
     controlsCount: number = 1;
-    appointmentId;
-    doctorId;
-    clinicId;
-    doctorName;
+    appointmentId!: any;
+    doctorId!: any;
+    clinicId!: any;
+    doctorName!: any;
     active: boolean = true;
     strm: string = "tttt";
     utilityClass: UtilityClass = new UtilityClass();
     showProgress = false;
-    sessionIndex: number | undefined;
+    sessionIndex!: number;
     sessionIdToDeleted: string = '';
     @Output() onBack = new EventEmitter();
     displayCalendarSlots: boolean = false;
@@ -95,33 +89,33 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
         this.sessionsList.splice(this.sessionIndex, 1);
 
         if (this.sessionIdToDeleted != null && this.sessionIdToDeleted != undefined && this.sessionIdToDeleted != '')
-             this.deleteSessionFromDB();
+            this.deleteSessionFromDB();
 
     }
     deleteSessionFromDB() {
         let vm = this;
         this.clinicService.deleteAppointmentScheduleSession(this.sessionIdToDeleted)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant('DeletedSuccessfully');
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant('DeletedSuccessfully');
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                //var selectedObject = vm.sessionsList.find(o => o.id == vm.selectSessionToDelete);
-                //var index = vm.appointmentsList.indexOf(selectedObject);
-                //if (index > -1)
-                //    vm.appointmentsList.splice(index, 1);
+                    // remove delete object from collection
+                    //var selectedObject = vm.sessionsList.find(o => o.id == vm.selectSessionToDelete);
+                    //var index = vm.appointmentsList.indexOf(selectedObject);
+                    //if (index > -1)
+                    //    vm.appointmentsList.splice(index, 1);
 
-                // clear fields
-                //  vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    //  vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
     }
     ngOnInit(): void {
@@ -146,31 +140,31 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
         let thisComponent = this;
         this.clinicService.getAppointmentScheduleById(thisComponent.appointmentId)
             .subscribe(
-            function (response:any) {
-                thisComponent.model = response;
+                function (response: any) {
+                    thisComponent.model = response;
 
-                thisComponent.calculateCalendarSlots(thisComponent.model.slotDuration)
+                    thisComponent.calculateCalendarSlots(thisComponent.model.slotDuration)
 
-                thisComponent.sessionsList = response.sessions;
+                    thisComponent.sessionsList = response.sessions;
 
-                if (response.sessions == null) {
-                    thisComponent.sessionsList = [];
-                } else {
+                    if (response.sessions == null) {
+                        thisComponent.sessionsList = [];
+                    } else {
 
-                    thisComponent.updateSessionsTime(thisComponent.sessionsList);
-                }
+                        thisComponent.updateSessionsTime(thisComponent.sessionsList);
+                    }
 
-                if (thisComponent.model.startDate)
-                    thisComponent.model.startDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.startDate);
-                if (thisComponent.model.endDate)
-                    thisComponent.model.endDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.endDate);
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                    if (thisComponent.model.startDate)
+                        thisComponent.model.startDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.startDate);
+                    if (thisComponent.model.endDate)
+                        thisComponent.model.endDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.endDate);
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     updateSessionsTime(sessions: any[]) {
@@ -192,9 +186,8 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
 
         let results: any[] = this.validateSessionSlotsWithCalendarSlot();
 
-        if (results[0] == false)
-        {
-            thisComponent.toastr.error(results[1] , '');
+        if (results[0] == false) {
+            thisComponent.toastr.error(results[1], '');
             return;
         }
 
@@ -211,54 +204,53 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
             thisComponent.model.securityUserId = thisComponent.doctorId;
             this.clinicService.createAppointmentSchedule(this.model)
                 .subscribe(
-                function (response:any) {
-                    thisComponent.model = response;
-                    thisComponent.appointmentId = thisComponent.model.id
-                    thisComponent.toastr.success(thisComponent.translate.instant('SavedSuccessfully') , '');
-                    thisComponent.sessionsList = thisComponent.model.sessions;
-                    thisComponent.updateSessionsTime(thisComponent.sessionsList);
+                    function (response: any) {
+                        thisComponent.model = response;
+                        thisComponent.appointmentId = thisComponent.model.id
+                        thisComponent.toastr.success(thisComponent.translate.instant('SavedSuccessfully'), '');
+                        thisComponent.sessionsList = thisComponent.model.sessions;
+                        thisComponent.updateSessionsTime(thisComponent.sessionsList);
 
-                    thisComponent.model.startDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.startDate);
-                    thisComponent.model.endDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.endDate);
+                        thisComponent.model.startDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.startDate);
+                        thisComponent.model.endDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.endDate);
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
         else {
             //Update
             this.clinicService.updateAppointmentSchedule(this.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    thisComponent.toastr.success(thisComponent.translate.instant('SavedSuccessfully') , '');
+                        thisComponent.model = response;
+                        thisComponent.toastr.success(thisComponent.translate.instant('SavedSuccessfully'), '');
 
-                    thisComponent.sessionsList = thisComponent.model.sessions;
-                    thisComponent.updateSessionsTime(thisComponent.sessionsList);
+                        thisComponent.sessionsList = thisComponent.model.sessions;
+                        thisComponent.updateSessionsTime(thisComponent.sessionsList);
 
-                    thisComponent.model.startDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.startDate);
-                    thisComponent.model.endDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.endDate);
+                        thisComponent.model.startDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.startDate);
+                        thisComponent.model.endDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.endDate);
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
 
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
-    validateSessionSlotsWithCalendarSlot(): any[]
-    {
+    validateSessionSlotsWithCalendarSlot(): any[] {
         let msg: string = '';
         let sessionsNames: any[] = [];
         let valid = true;
@@ -266,22 +258,19 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
         this.calendarSlots = this.getFullDayTimeSlots(parseInt(this.model.slotDuration));
 
         // loop for all sessions and check if first slot match calendar slot or not 
-        for (let session of this.sessionsList)
-        {
+        for (let session of this.sessionsList) {
             let timeSlotDate: Date = new Date(session.startTime.getFullYear(), session.startTime.getMonth(), session.startTime.getDate(), session.startTime.getHours(), session.startTime.getMinutes());
             let timeSlot: TimeSlot = new TimeSlot(timeSlotDate);
 
             let selectedSlot = this.calendarSlots.find(s => s.name == timeSlot.name);
 
-            if (!selectedSlot)
-            {
+            if (!selectedSlot) {
                 valid = false;
                 sessionsNames.push(session.name);
             }
         }
 
-        if (!valid)
-        {
+        if (!valid) {
             msg = this.translate.instant('DoctorSlotsdontMatchCalendarSlots') + sessionsNames.toString();
         }
 
@@ -300,7 +289,7 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    getFullDayTimeSlots(daySlotDuration): TimeSlot[] {
+    getFullDayTimeSlots(daySlotDuration: any): TimeSlot[] {
         if (daySlotDuration == null || daySlotDuration == undefined) {
             daySlotDuration = 10;//Default
         }
@@ -329,7 +318,7 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
         return dayTimeSlotsList;
     }
 
-    calculateCalendarSlots(slotduration) {
+    calculateCalendarSlots(slotduration: any) {
         this.calendarSlots = [];
         if (slotduration)
             this.calendarSlots = this.getFullDayTimeSlots(parseInt(slotduration));

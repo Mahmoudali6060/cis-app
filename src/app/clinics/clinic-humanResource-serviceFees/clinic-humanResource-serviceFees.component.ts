@@ -1,22 +1,18 @@
-﻿import {Component, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+﻿import { Component, OnChanges, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../shared/clinic.service';
+import { TreeNode } from 'primeng/api';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
-import {ClinicService} from '../shared/clinic.service';
-
-import { TreeNode } from 'primeng/primeng';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
-   
     selector: 'clinic-humanResource-serviceFees',
-    templateUrl: 'clinic-humanResource-serviceFees.component.html'
+    templateUrl: './clinic-humanResource-serviceFees.component.html'
 })
 
 export class ClinicHumanResourceServiceFeesComponent implements OnChanges {
 
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Service';
 
     @Input() humanResourceWrapper: any;
@@ -28,7 +24,7 @@ export class ClinicHumanResourceServiceFeesComponent implements OnChanges {
     active: boolean = true;
     showProgress: boolean = false;
     servicesTree: any[] = [];
-    selectedNode: TreeNode;
+    selectedNode!: TreeNode;
     userServiceFees: any[] = [];
     serviceFeeModel: any = { id: 0 };
     isEditMode: boolean = false;
@@ -56,11 +52,11 @@ export class ClinicHumanResourceServiceFeesComponent implements OnChanges {
         if (this.selectedUserToEdit != undefined) {
             this.userServiceFees = this.selectedUserToEdit.serviceFees;
         }
-        
+
     }
 
     saveServiceFees(): void {
-        
+
         if (this.selectedNode != undefined && this.selectedNode.type == 'Service') {
             if (!this.isServiceDuplicated(this.selectedNode.data, this.serviceFeeModel.id)) {
                 let thisComponent = this;
@@ -75,49 +71,46 @@ export class ClinicHumanResourceServiceFeesComponent implements OnChanges {
                 this.serviceFeeModel.serviceId = this.selectedNode.data;
                 this.clinicService.updateHumanResource(thisComponent.selectedUserToEdit)
                     .subscribe(
-                    function (response:any) {
+                        function (response: any) {
 
-                        //thisComponent.selectedUserToEdit = response;
-                        //thisComponent.userServiceFees = response.serviceFees;
-                        thisComponent.raiseModelUpdated(response:any);
-                        thisComponent.clear();
+                            //thisComponent.selectedUserToEdit = response;
+                            //thisComponent.userServiceFees = response.serviceFees;
+                            thisComponent.raiseModelUpdated(response);
+                            thisComponent.clear();
 
-                        let msg = thisComponent.translate.instant("SavedSuccessfully");
-                        thisComponent.toastr.success(msg, '');
-                    },
-                    function (error:any) { 
-                        //console.log("Error happened" + error)
-                        thisComponent.toastr.error(error, '');
-                        thisComponent.showProgress = false;
-                    },
-                    function () {
-                        thisComponent.showProgress = false;
-                    });
+                            let msg = thisComponent.translate.instant("SavedSuccessfully");
+                            thisComponent.toastr.success(msg, '');
+                        },
+                        function (error: any) {
+                            //console.log("Error happened" + error)
+                            thisComponent.toastr.error(error, '');
+                            thisComponent.showProgress = false;
+                        },
+                        function () {
+                            thisComponent.showProgress = false;
+                        });
             }
-            else
-            {
+            else {
                 let msg = this.translate.instant("DuplicatedService");
                 this.toastr.error(msg, '');
             }
         }
-        else
-        {
+        else {
             let msg = this.translate.instant("EmptyService");
             this.toastr.error(msg, '');
         }
     }
 
-    editServiceFee(id)
-    {
+    editServiceFee(id: any) {
         this.isEditMode = true;
-        this.serviceFeeModel = this.selectedUserToEdit.serviceFees.find(itm => itm.id == id);
+        this.serviceFeeModel = this.selectedUserToEdit.serviceFees.find((itm: any) => itm.id == id);
         if (this.serviceFeeModel != undefined)
             this.selectServiceNode(this.serviceFeeModel.serviceId);
     }
 
-    isServiceDuplicated(serviceId, serviceFeeId): boolean {
+    isServiceDuplicated(serviceId: any, serviceFeeId: any): boolean {
         if (this.selectedUserToEdit != undefined) {
-            let duplicatedItem = this.selectedUserToEdit.serviceFees.find(itm => itm.serviceId == serviceId && itm.id != serviceFeeId);
+            let duplicatedItem = this.selectedUserToEdit.serviceFees.find((itm: any) => itm.serviceId == serviceId && itm.id != serviceFeeId);
             if (duplicatedItem != undefined)
                 return true;
         }
@@ -128,36 +121,35 @@ export class ClinicHumanResourceServiceFeesComponent implements OnChanges {
     clear() {
         this.serviceFeeModel = { id: 0 };
         this.isEditMode = false;
-        this.selectedNode = undefined;
+        this.selectedNode = {};
         this.active = false;
         setTimeout(() => this.active = true, 0);
     }
 
-    raiseModelUpdated(updatedModel) {
+    raiseModelUpdated(updatedModel: any) {
         this.onModelUpdated.emit(updatedModel);
     }
 
     private selectServiceNode(serviceId: number) {
-        for (let nod of this.servicesTree)
-        {
+        for (let nod of this.servicesTree) {
             this.checkChildNodes(nod, serviceId);
         }
     }
-    
+
     private checkChildNodes(node: TreeNode, serviceId: number) {
-        
+
         if (node.data == serviceId && node.type == "Service") {
             this.selectedNode = node;
 
             return;
         }
-        
+
         if (node.children) {
             node.children.forEach(childNode => {
                 this.checkChildNodes(childNode, serviceId);
             });
         }
-        
+
     }
-    
+
 }

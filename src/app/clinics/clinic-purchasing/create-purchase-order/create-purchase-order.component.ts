@@ -1,40 +1,40 @@
-﻿import {Component, OnInit} from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../../security/shared/account.service';
-import {UserPermissions} from '../../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'create-purchase-order',
-    templateUrl: 'create-purchase-order.component.html'
+    templateUrl: './create-purchase-order.component.html'
 })
 
 
 
 export class CreatePurchaseOrder implements OnInit {
-    
+
     lang: string = 'ar';
     selectPurchasingTab: boolean = true;
     purchaseOrderList: any[] = [];
     showProgress = false;
     controlsCount: number = 1;
     model: any = {};
-    productsList = [];
+    productsList: any = [];
     vendorsList = [];
-    clinicId;
-    clinicAdminId;
+    clinicId!: any;
+    clinicAdminId!: any;
     active = true;
     purchaseItem: any = {};
-    orderId;
-    useCurrent;
+    orderId!: any;
+    useCurrent!: any;
     isCurrent = false;
-    productId;
+    productId!: any;
     product: any;
     userType: string = '';
     isClinicAdmin: boolean = false;
@@ -53,7 +53,7 @@ export class CreatePurchaseOrder implements OnInit {
 
     ngOnInit(): void {
 
-        this.lang  = this.localStorage.retrieve('selectedlanguage');
+        this.lang = this.localStorage.retrieve('selectedlanguage');
 
         let thisComponent = this;
         this.purchaseOrderList = [];
@@ -78,7 +78,7 @@ export class CreatePurchaseOrder implements OnInit {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -88,19 +88,19 @@ export class CreatePurchaseOrder implements OnInit {
         let thisComponent = this;
         this.clinicService.getPurchasingOrderById(thisComponent.orderId)
             .subscribe(
-            function (response:any) {
-                thisComponent.model = response;
-                thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
-                if (thisComponent.useCurrent == 1) {
-                    thisComponent.updateOrderdQuantitywithCurrent();
-                }
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.model = response;
+                    thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
+                    if (thisComponent.useCurrent == 1) {
+                        thisComponent.updateOrderdQuantitywithCurrent();
+                    }
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     updateOrderdQuantitywithCurrent() {
@@ -123,18 +123,18 @@ export class CreatePurchaseOrder implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getPurchasingOrderWrapper(thisComponent.clinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.vendorsList = response.vendors;
-                // thisComponent.productsList = response.products;
+                function (response: any) {
+                    thisComponent.vendorsList = response.vendors;
+                    // thisComponent.productsList = response.products;
 
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
 
     getProductsUnderClinic() {
@@ -142,29 +142,29 @@ export class CreatePurchaseOrder implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getProductsUnderClinic(thisComponent.clinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.productsList = response;
-                if (thisComponent.productId > 0) {
-                    var product = thisComponent.productsList.find(p => p.id == thisComponent.productId)
-                    if (thisComponent.model != undefined) {
-                        thisComponent.model.vendorId = product.vendorId;
-                        thisComponent.purchaseItem.productId = product.id;
-                        thisComponent.purchaseItem.onHandQuantity = product.onHandQuantity;
-                        thisComponent.purchaseItem.unit = thisComponent.getProductUnitType(product);//check unit val unitName
-                        thisComponent.purchaseItem.orderedQuantity = product.orderedQuantity;
-                        thisComponent.purchaseOrderList.push(thisComponent.purchaseItem);
+                function (response: any) {
+                    thisComponent.productsList = response;
+                    if (thisComponent.productId > 0) {
+                        var product = thisComponent.productsList.find((p: any) => p.id == thisComponent.productId)
+                        if (thisComponent.model != undefined) {
+                            thisComponent.model.vendorId = product.vendorId;
+                            thisComponent.purchaseItem.productId = product.id;
+                            thisComponent.purchaseItem.onHandQuantity = product.onHandQuantity;
+                            thisComponent.purchaseItem.unit = thisComponent.getProductUnitType(product);//check unit val unitName
+                            thisComponent.purchaseItem.orderedQuantity = product.orderedQuantity;
+                            thisComponent.purchaseOrderList.push(thisComponent.purchaseItem);
+                        }
+
                     }
 
-                }
-
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
     }
     addPurchaseOrder() {
         this.purchaseItem = {};
@@ -185,26 +185,26 @@ export class CreatePurchaseOrder implements OnInit {
         let vm = this;
         this.clinicService.deletePurchaseItem(itemId)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                //var selectedObject = vm.sessionsList.find(o => o.id == vm.selectSessionToDelete);
-                //var index = vm.appointmentsList.indexOf(selectedObject);
-                //if (index > -1)
-                //    vm.appointmentsList.splice(index, 1);
+                    // remove delete object from collection
+                    //var selectedObject = vm.sessionsList.find(o => o.id == vm.selectSessionToDelete);
+                    //var index = vm.appointmentsList.indexOf(selectedObject);
+                    //if (index > -1)
+                    //    vm.appointmentsList.splice(index, 1);
 
-                // clear fields
-                //  vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    //  vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
 
     }
     updatePurchasingOrderWithUser(source: any[]) {
@@ -219,7 +219,7 @@ export class CreatePurchaseOrder implements OnInit {
         vm.model.totalPrice = total;
 
     }
-    setOldOrderdQuantity(item) {
+    setOldOrderdQuantity(item: any) {
         if (this.orderId.toLowerCase() == 'new')
             item.oldOrderedQuantity = item.orderedQuantity;
     }
@@ -236,22 +236,22 @@ export class CreatePurchaseOrder implements OnInit {
 
             this.clinicService.createPurchasingOrder(thisComponent.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.navigateToOrdersList();
+                        thisComponent.model = response;
+                        thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.navigateToOrdersList();
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
@@ -260,22 +260,22 @@ export class CreatePurchaseOrder implements OnInit {
 
             this.clinicService.editPurchasingOrder(thisComponent.model)
                 .subscribe(
-                function (response:any) {
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.model = response;
-                    thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
-                    thisComponent.navigateToOrdersList();
+                    function (response: any) {
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.model = response;
+                        thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
+                        thisComponent.navigateToOrdersList();
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
 
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
     createAndSendOrder(): void {
@@ -291,21 +291,21 @@ export class CreatePurchaseOrder implements OnInit {
 
             this.clinicService.createAndSendPurchasingOrder(thisComponent.model)
                 .subscribe(
-                function (response:any) {
+                    function (response: any) {
 
-                    thisComponent.model = response;
-                    thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.navigateToOrdersList();
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.model = response;
+                        thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.navigateToOrdersList();
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
 
         }
         else {
@@ -313,22 +313,22 @@ export class CreatePurchaseOrder implements OnInit {
             //Update
             this.clinicService.editAndSendPurchasingOrder(thisComponent.model)
                 .subscribe(
-                function (response:any) {
-                    let msg = thisComponent.translate.instant("SavedSuccessfully");
-                    thisComponent.toastr.success(msg, '');
-                    thisComponent.model = response;
-                    thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
-                    thisComponent.navigateToOrdersList();
+                    function (response: any) {
+                        let msg = thisComponent.translate.instant("SavedSuccessfully");
+                        thisComponent.toastr.success(msg, '');
+                        thisComponent.model = response;
+                        thisComponent.purchaseOrderList = thisComponent.model.purchaseItems;
+                        thisComponent.navigateToOrdersList();
 
-                },
-                function (error:any) { 
-                    thisComponent.toastr.error(error, '');
+                    },
+                    function (error: any) {
+                        thisComponent.toastr.error(error, '');
 
-                    thisComponent.showProgress = false;
-                },
-                function () {
-                    thisComponent.showProgress = false;
-                });
+                        thisComponent.showProgress = false;
+                    },
+                    function () {
+                        thisComponent.showProgress = false;
+                    });
         }
     }
 
@@ -348,9 +348,9 @@ export class CreatePurchaseOrder implements OnInit {
         return unitType;
     }
 
-    setOtherAttribute(value, index) {
+    setOtherAttribute(value: any, index: any) {
         let vm = this;
-        var product = vm.productsList.find(p => p.id == value);
+        var product = vm.productsList.find((p: any) => p.id == value);
         vm.purchaseOrderList[index].onHandQuantity = product.onHandQuantity;
 
         vm.purchaseOrderList[index].unit = this.getProductUnitType(product);
@@ -363,7 +363,7 @@ export class CreatePurchaseOrder implements OnInit {
         this.router.navigate(['/clinic/purchasing/all', this.clinicId]);
     }
 
-    calculateNet(index) {
+    calculateNet(index: any) {
         let vm = this;
         if (vm.purchaseOrderList[index].orderedQuantity > 0)
             vm.purchaseOrderList[index].net = vm.purchaseOrderList[index].orderedQuantity * vm.purchaseOrderList[index].purchasingPrice;

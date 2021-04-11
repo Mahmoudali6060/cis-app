@@ -1,48 +1,41 @@
-﻿import {Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
-import { TreeNode } from 'primeng/primeng';
-
+import { TreeNode } from 'primeng/api';
 import { DoctorService } from '../../doctors/shared/doctor.service';
-import {ClinicService} from '../../clinics/shared/clinic.service';
-import {TranslateService} from '@ngx-translate/core';
-
+import { ClinicService } from '../../clinics/shared/clinic.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
     selector: 'patient-allergy-details',
     templateUrl: 'patient-allergy-details.component.html',
 })
 
 export class PatientAllergyDetailsComponent implements OnInit {
     selectBasicTab: boolean = true;
-    filterString: string | undefined;
+    filterString!: string;
     leafType: string = 'Drug';
-    divisionId;
+    divisionId!: any;
     @Input() toSaveDrugAllergy: any;
-    @Input() patientId: number | undefined;
+    @Input() patientId!: number;
     @Output() onBack = new EventEmitter<any>();
-
     active = true;
     selectedDrugNode: any;
-    recorderId;
-    clinicId;
+    recorderId!: any;
+    clinicId!: any;
     drugsTreeDataSourceItems: any[] = [];
     getAllDrugs = true;
-
     showProgress = false;
     allDrugs = [];
-    nodeToAdded: TreeNode;
+    nodeToAdded!: TreeNode;
     ttt = "aaa";
     constructor(private doctorService: DoctorService
         , private clinicService: ClinicService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public localStorage: LocalStorageService, public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         this.divisionId = this._route.snapshot.params['divisionId'];
@@ -50,7 +43,7 @@ export class PatientAllergyDetailsComponent implements OnInit {
         this.selectedDrugNode = null;
         this.recorderId = this.localStorage.retrieve("UserID");
         this.clinicId = this.localStorage.retrieve("ClinicID");
-        this.getAllDrugGroupsForTreeView(false,false);
+        this.getAllDrugGroupsForTreeView(false, false);
         this.getClinicDepartmentDrugGroupsForTreeView();
 
     }
@@ -61,20 +54,20 @@ export class PatientAllergyDetailsComponent implements OnInit {
         //get department drug groups
         this.doctorService.getClinicDivisionDrugGroupsForTreeView(vm.divisionId)
             .subscribe(
-            function (response:any) {
-                vm.drugsTreeDataSourceItems = response;
-                if (vm.toSaveDrugAllergy) {
-                    vm.addModelToServicesList(vm.toSaveDrugAllergy);
-                    //   vm.displaySelectedNode(vm.toSaveDrugAllergy.drugId, "Drug");
-                    vm.expandAll();
-                }
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.drugsTreeDataSourceItems = response;
+                    if (vm.toSaveDrugAllergy) {
+                        vm.addModelToServicesList(vm.toSaveDrugAllergy);
+                        //   vm.displaySelectedNode(vm.toSaveDrugAllergy.drugId, "Drug");
+                        vm.expandAll();
+                    }
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     getAllDrugGroupsForTreeView(needAll: boolean, displayNode: boolean) {
         let vm = this;
@@ -82,24 +75,24 @@ export class PatientAllergyDetailsComponent implements OnInit {
         /////////////////////////get all drug groups
         this.clinicService.getDrugsGroupsForTree(vm.clinicId)
             .subscribe(
-            function (response:any) {
-                vm.allDrugs = response;
-                if (needAll) {
-                    vm.getAllDrugs = false;
-                    vm.drugsTreeDataSourceItems = response;
+                function (response: any) {
+                    vm.allDrugs = response;
+                    if (needAll) {
+                        vm.getAllDrugs = false;
+                        vm.drugsTreeDataSourceItems = response;
 
-                    if (displayNode || vm.selectedDrugNode != undefined)
-                        vm.displaySelectedNode(vm.toSaveDrugAllergy.drugId, vm.drugsTreeDataSourceItems);
+                        if (displayNode || vm.selectedDrugNode != undefined)
+                            vm.displaySelectedNode(vm.toSaveDrugAllergy.drugId, vm.drugsTreeDataSourceItems);
 
-                    vm.expandAll();
-                }
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                        vm.expandAll();
+                    }
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     addModelToServicesList(returnedModel: any) {
         if (this.drugsTreeDataSourceItems != null && this.drugsTreeDataSourceItems != undefined && this.drugsTreeDataSourceItems.length > 0) {
@@ -200,40 +193,39 @@ export class PatientAllergyDetailsComponent implements OnInit {
             vm.toSaveDrugAllergy.recorderID = vm.recorderId;
             this.doctorService.createDrugAllergy(this.toSaveDrugAllergy)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.toSaveDrugAllergy = response;
-                    vm.clear();
-                    vm.onBack.emit(response:any);
-                },
-                function (error:any) { 
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.toSaveDrugAllergy = response;
+                        vm.clear();
+                        vm.onBack.emit(response);
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
         else {
             //update
             this.doctorService.updateDrugAllergy(this.toSaveDrugAllergy)
                 .subscribe(
-                function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
-                    vm.toSaveDrugAllergy = response;
-                    vm.clear();
-                    vm.onBack.emit(response:any);
-                },
-                function (error:any) { 
-
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        let msg = vm.translate.instant("SavedSuccessfully");
+                        vm.toastr.success(msg, '');
+                        vm.toSaveDrugAllergy = response;
+                        vm.clear();
+                        vm.onBack.emit(response);
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
     }
 
@@ -245,7 +237,7 @@ export class PatientAllergyDetailsComponent implements OnInit {
     }
 
 
-    treeNodeSelected(event:any) {
+    treeNodeSelected(event: any) {
         if (event && event.node && event.node.code && event.node.code != '') {
             this.toSaveDrugAllergy.drugCode = event.node.code;
         }

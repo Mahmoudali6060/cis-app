@@ -1,13 +1,13 @@
-﻿import {Component, OnInit , ViewChild} from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {AdministrationService} from '../../administration/shared/administration.service';
-import {SystemAdminService} from '../shared/system-admin.service';
+import { AdministrationService } from '../../administration/shared/administration.service';
+import { SystemAdminService } from '../shared/system-admin.service';
 
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-   
+
     selector: 'systemAdmins-vendor-details',
     templateUrl: 'systemAdmins-vendor-details.component.html'
 })
@@ -19,7 +19,7 @@ export class SystemAdminVendorDetailsComponent implements OnInit {
     active: boolean = true;
     model: any = {};
     showProgress = false;
-    @ViewChild('divAddress') divAddress;
+    @ViewChild('divAddress') divAddress!: any;
 
     public constructor(private administrationService: AdministrationService,
         private route: ActivatedRoute,
@@ -42,16 +42,16 @@ export class SystemAdminVendorDetailsComponent implements OnInit {
         if (vendorId.toLowerCase() != 'new') {
             this.systemAdminService.getVendorById(vendorId)
                 .subscribe(
-                function (response:any) {
-                    thisComp.model = response;
-                },
-                function (error:any) { 
-                    thisComp.toastr.error(error, '');
-                    thisComp.showProgress = false;
-                },
-                function () {
-                    thisComp.showProgress = false;
-                });
+                    function (response: any) {
+                        thisComp.model = response;
+                    },
+                    function (error: any) {
+                        thisComp.toastr.error(error, '');
+                        thisComp.showProgress = false;
+                    },
+                    function () {
+                        thisComp.showProgress = false;
+                    });
         }
     }
 

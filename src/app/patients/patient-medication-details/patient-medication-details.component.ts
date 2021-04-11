@@ -1,7 +1,7 @@
 ﻿import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode } from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
 
 import { DoctorService } from '../../doctors/shared/doctor.service';
@@ -22,16 +22,16 @@ export class PatientMedicationDetailsComponent implements OnInit {
     showProgress = false;
     selectBasicTab: boolean = true;
 
-    filterString: string | undefined;
+    filterString!:string;
     leafType: string = 'Drug';
 
-    clinicId;
-    divisionId;
-    recorderId;
+    clinicId!:any;
+    divisionId!:any;
+    recorderId!:any;
 
     selectedMedicationNode: any;
-    @Input() patientId: number | undefined;
-    @Input() clinicNoteId: number | undefined;
+    @Input() patientId!: number;
+    @Input() clinicNoteId!: number;
     @Input() toSaveClinicNoteMedication: any;
     @Output() onBack = new EventEmitter<any>();
     medicationTreeDataSourceItems: any[] = [];
@@ -41,7 +41,7 @@ export class PatientMedicationDetailsComponent implements OnInit {
     clinicNoteDiagnosisList: any[] = [];
     getAllMedications = true;
     allDrugs = [];
-    nodeToAdded: TreeNode;
+    nodeToAdded!: TreeNode;
     ttt = "aaa";
     utilityClass: UtilityClass = new UtilityClass();
 
@@ -208,7 +208,7 @@ export class PatientMedicationDetailsComponent implements OnInit {
                     vm.toastr.success(msg, '');
                     vm.toSaveClinicNoteMedication = response;
                     vm.clear();
-                    vm.onBack.emit(response:any);
+                    vm.onBack.emit(response);
                 },
                 function (error:any) { 
                     console.log( error)
@@ -228,7 +228,7 @@ export class PatientMedicationDetailsComponent implements OnInit {
                     vm.toastr.success(msg, '');
                     vm.toSaveClinicNoteMedication = response;
                     vm.clear();
-                    vm.onBack.emit(response:any);
+                    vm.onBack.emit(response);
                 },
                 function (error:any) { 
                     console.log(error)

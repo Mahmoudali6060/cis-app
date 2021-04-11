@@ -60,12 +60,12 @@
             <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
             <!--<p-column field="unit" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
             <p-column [header]="'Unit' | translate">
-                <template let-item="rowData" pTemplate="body">
+                <ng-template let-item="rowData" pTemplate="body">
                     <label *ngIf="item.unitType === 'NumbersUnit'">{{ item.unit | translate}}</label>
                     <label *ngIf="item.unitType == 'HeightsUnit' || item.unitType == 'WeightsUnit' || item.unitType == 'VolumesUnit'">
                         {{ item.unit}}
                     </label>
-                </template>
+                </ng-template>
             </p-column>
             <p-column field="purchasingPrice" [header]="'PurchasePrice' | translate" [sortable]="true"></p-column>
             <p-column field="orderedQuantity" [header]="'OrderdQuant' | translate" [sortable]="true"></p-column>

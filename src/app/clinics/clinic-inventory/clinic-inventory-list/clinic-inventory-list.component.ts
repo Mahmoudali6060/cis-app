@@ -1,17 +1,17 @@
-﻿import {Component, OnInit, OnChanges, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {ClinicService} from '../../shared/clinic.service';
+import { ClinicService } from '../../shared/clinic.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 @Component({
-   
+
     selector: 'clinic-inventory-list',
-    templateUrl: 'clinic-inventory-list.component.html'
+    templateUrl: './clinic-inventory-list.component.html'
 })
 
-export class ClinicInventoryList implements OnInit, OnChanges{
+export class ClinicInventoryList implements OnInit, OnChanges {
     @Input() getUpdatedProduct: boolean = false;
     @Input() updateAfterAdjust: boolean = false;
     @Output() onAmountUpdatedAfterAdjust = new EventEmitter<any>();
@@ -22,10 +22,10 @@ export class ClinicInventoryList implements OnInit, OnChanges{
 
     inventoriesListDiv: string = 'InventoriesPrintingArea';
     activeProduct: any;
-    selectedClinicId: number | undefined;
+    selectedClinicId!: number;
     showProgress = false;
-    isActiveItem: boolean = null;
-    isNullQuantity: boolean = null;
+    isActiveItem: any = null;
+    isNullQuantity: any = null;
     clinicInventoriesList: any[] = [];
     lstToTranslated: string[] = [];
     ngOnInit(): void {
@@ -45,42 +45,40 @@ export class ClinicInventoryList implements OnInit, OnChanges{
             vm.getAllProducts();
         }
     }
-    getAllProducts()
-    {
-        this.lstToTranslated = ['name', 'nameTranslation', 'unitName','unitNameTranslation'];
+    getAllProducts() {
+        this.lstToTranslated = ['name', 'nameTranslation', 'unitName', 'unitNameTranslation'];
         this.selectedClinicId = this.localStorage.retrieve("ClinicID");
         let thisComponent = this;
         thisComponent.showProgress = true;
 
         this.clinicService.GetClinicProducts(this.selectedClinicId, thisComponent.isActiveItem, thisComponent.isNullQuantity)
             .subscribe(
-            function (response:any) {
-                thisComponent.clinicInventoriesList = response;
+                function (response: any) {
+                    thisComponent.clinicInventoriesList = response;
 
                     thisComponent.onAmountUpdatedAfterAdjust.emit(false);
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
 
     }
-    getAllActiveProducts(activeProduct) {
+    getAllActiveProducts(activeProduct: any) {
         if (activeProduct.checked == false) {
             this.isActiveItem = null;
             this.getAllProducts();
         }
-        else
-        {
+        else {
             this.isActiveItem = true;
             this.getAllProducts();
         }
     }
-    getAlluantityNulls(quantity) {
+    getAlluantityNulls(quantity: any) {
         if (quantity.checked == false) {
             this.isNullQuantity = null;
             this.getAllProducts();

@@ -21,7 +21,7 @@ export class NurseBasicComponent implements OnInit {
   
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput;
+    @ViewChild("fileInput") fileInput!:any;
 
     constructor(private organizationService: NurseService
         , private sharedService: SharedService
@@ -134,7 +134,7 @@ export class NurseBasicComponent implements OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    deleteOrganization(id): void {
+    deleteOrganization(id:any): void {
         let vm = this;
         if (id == undefined || isNaN(id)) {
             vm.toastr.warning('لايوجد جمعية مختارة لمسحها', '');

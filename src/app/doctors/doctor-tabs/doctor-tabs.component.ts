@@ -4,7 +4,7 @@ import {LocalStorageService} from 'ng2-webstorage';
 @Component({
    
     selector: 'doctor-tabs',
-    templateUrl: 'doctor-tabs.component.html',
+    templateUrl: './doctor-tabs.component.html',
    
 })
 

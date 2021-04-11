@@ -1,15 +1,14 @@
-﻿import {Component, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, Input} from '@angular/core';
+﻿import { Component, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 @Component({
-   
     selector: 'clinic-inventory-adjustment-history',
-    templateUrl: 'clinic-inventory-adjustment-history.component.html'
+    templateUrl: './clinic-inventory-adjustment-history.component.html'
 })
 
 export class ClinicInventoryAdjustmentHistory implements OnInit {
@@ -21,11 +20,11 @@ export class ClinicInventoryAdjustmentHistory implements OnInit {
     clinicInventoriesHistoryList: any[] = [];
     showProgress = false;
     selectInventoryTab: boolean = true;
-    selectedClinicId: number | undefined;
-    @Input()updates: string = '';
+    selectedClinicId!: number;
+    @Input() updates: string = '';
     lstToTranslated: string[] = [];
     ngOnInit(): void {
-        this.lstToTranslated = ['productName', 'productNameTranslation', 'recordedBy','recordedByTranslation'];
+        this.lstToTranslated = ['productName', 'productNameTranslation', 'recordedBy', 'recordedByTranslation'];
         this.getAllAdjustmentHistory();
     }
     ngOnChanges(changes: SimpleChanges) {
@@ -38,16 +37,16 @@ export class ClinicInventoryAdjustmentHistory implements OnInit {
         thisComponent.showProgress = true;
         this.clinicService.getAllQuantityAdjustment(this.selectedClinicId)
             .subscribe(
-            function (response:any) {
-                thisComponent.clinicInventoriesHistoryList = response;
-            },
-            function (error:any) { 
-                thisComponent.toastr.error(error, '');
-                thisComponent.showProgress = false;
-            },
-            function () { // finally
-                thisComponent.showProgress = false;
-            });
+                function (response: any) {
+                    thisComponent.clinicInventoriesHistoryList = response;
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () { // finally
+                    thisComponent.showProgress = false;
+                });
 
     }
 }

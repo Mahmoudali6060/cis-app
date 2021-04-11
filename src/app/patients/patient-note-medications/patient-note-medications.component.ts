@@ -1,15 +1,15 @@
-﻿import {Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, OnChanges, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SharedService } from '../../shared/shared/shared.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { DoctorService } from '../../doctors/shared/doctor.service';
 import { TranslateObjectsPipe } from '../../shared/pipes/translateObjects.pipe';
 
 @Component({
-   
+
     selector: 'patient-note-medications',
     templateUrl: 'patient-note-medications.component.html',
 })
@@ -21,13 +21,13 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
     departmentDrugs = [];
     noteDiagnosis = [];
     noteDrugsList: any[] = [];
-    divisionId: string | undefined;
+    divisionId!: string;
     masterNoteDrugsList: any[] = [];
     drugDosageUnitsList: any[] = [];
     drugFrequenciesList: any[] = [];
     durationUnitsList: any[] = [];
 
-    @Input() noteId: number | undefined;
+    @Input() noteId!: number;
     @Output() onMedicationSaved = new EventEmitter<any>();
 
     lstToTranslated: string[] = [];
@@ -37,8 +37,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
-        , public translate: TranslateService)
-    {
+        , public translate: TranslateService) {
         this.masterNoteDrugsList = [];
     }
 
@@ -51,7 +50,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-           
+
         if (this.noteId) {
             this.selectedLang = this.storage.retrieve("selectedLanguage");
             this.getNoteDiagnosis();
@@ -64,17 +63,17 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
         //get drop down lists initial values
         this.doctorService.getClinicNoteMedicationWrapper(0)
             .subscribe(
-            function (response:any) {
-                vm.drugDosageUnitsList = response.drugUnits;
-                vm.drugFrequenciesList = response.drugFrequencies;
-                vm.durationUnitsList = response.durationUnits;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.drugDosageUnitsList = response.drugUnits;
+                    vm.drugFrequenciesList = response.drugFrequencies;
+                    vm.durationUnitsList = response.durationUnits;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     getClinicDepartmentDrugGroupsForTreeView() {
@@ -82,32 +81,31 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
         //get department services groups
         this.doctorService.getClinicDivisionDrugGroupsForTreeView(this.divisionId)
             .subscribe(
-            function (response:any) {
-                vm.departmentDrugs = response;
-                vm.translateObjects.transform(vm.departmentDrugs, null, null, vm.lstToTranslated);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.departmentDrugs = response;
+                    vm.translateObjects.transform(vm.departmentDrugs, '', null, vm.lstToTranslated);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    getNoteDiagnosis()
-    {
+    getNoteDiagnosis() {
         let vm = this;
         this.doctorService.getNoteDiagnosis(this.noteId.toString())
             .subscribe(
-            function (response:any) {
-                vm.noteDiagnosis = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.noteDiagnosis = response;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     loadnoteDrugsList() {
@@ -116,10 +114,10 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
             vm.showProgress = true;
 
             this.doctorService.getClinicNoteMedications(vm.noteId).subscribe(
-                function (response:any) {
+                function (response: any) {
                     vm.noteDrugsList = response;
                 },
-                function (error:any) { 
+                function (error: any) {
                     vm.toastr.error(error, '');
                 },
                 function () { // finally
@@ -133,8 +131,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
 
         let msg = this.validateRequiredFields();
 
-        if (msg != '')
-        {
+        if (msg != '') {
             vm.toastr.error(msg, '');
             return;
         }
@@ -142,26 +139,24 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
         vm.showProgress = true;
         this.doctorService.createClinicNoteMedication(this.masterNoteDrugsList)
             .subscribe(
-            function (response:any) {
-                vm.noteDrugsList = response;
-                let msg = vm.translate.instant('SavedSuccessfully');
-                vm.toastr.success(msg, '');
-                vm.onMedicationSaved.emit();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.noteDrugsList = response;
+                    let msg = vm.translate.instant('SavedSuccessfully');
+                    vm.toastr.success(msg, '');
+                    vm.onMedicationSaved.emit();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
-    validateRequiredFields(): string
-    {
+    validateRequiredFields(): string {
         let msg = '';
-        for (let obj of this.masterNoteDrugsList)
-        {
+        for (let obj of this.masterNoteDrugsList) {
             if (obj.isSelected) {
                 if (obj.startDate == '' || obj.frequencyId == 0 || obj.relatedDiagnoseId == 0 ||
                     obj.durationUnit == 0 || obj.dosageUnitId == 0 ||

@@ -1,11 +1,8 @@
-﻿import { NgModule }      from '@angular/core';
-import { CommonModule }  from '@angular/common';
+﻿import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-//import { routing } from '../app.routing';
 import { ClinicRoutingModule } from './clinic.routing';
-
-import { ClinicTabComponent }   from './clinic-tab/clinic-tab.component';
+import { ClinicTabComponent } from './clinic-tab/clinic-tab.component';
 import { ClinicAccountComponent } from './clinic-account/clinic-account.component';
 import { ClinicAddressComponent } from './clinic-address/clinic-address.component';
 import { ClinicEMRMasterComponent } from './clinic-EMRMaster/clinic-EMRMaster.component';
@@ -14,8 +11,8 @@ import { ViewfeedbacksListComponent } from './clinic-feedback/view-feedbacks-lis
 import { ReplyToFeedbackComponent } from './clinic-feedback/reply-to-feedback/reply-to-feedback.component';
 import { ClinicInventoryComponent } from './clinic-inventory/clinic-inventory.component';
 import { ClinicInventoryList } from './clinic-inventory/clinic-inventory-list/clinic-inventory-list.component';
-import { ClinicInventoryAddQuantity   } from './clinic-inventory/clinic-inventory-add-quantity/clinic-inventory-add-quantity.component';
-import { ClinicInventoryAdjustQuantity   } from './clinic-inventory/clinic-inventory-adjust-quantity/clinic-inventory-adjust-quantity.component';
+import { ClinicInventoryAddQuantity } from './clinic-inventory/clinic-inventory-add-quantity/clinic-inventory-add-quantity.component';
+import { ClinicInventoryAdjustQuantity } from './clinic-inventory/clinic-inventory-adjust-quantity/clinic-inventory-adjust-quantity.component';
 import { ClinicInventoryAdjustmentHistory } from './clinic-inventory/clinic-inventory-adjustment-history/clinic-inventory-adjustment-history.component';
 import { DoctorInventoryRequestsComponent } from './clinic-inventory/doctor-inventory-requests/doctor-inventory-requests.component';
 import { ClinicPermissionsComponent } from './clinic-permissions/clinic-permissions.component';
@@ -30,9 +27,8 @@ import { ClinicSettingsComponent } from './clinic-settings/clinic-settings.compo
 import { ClinicStaffComponent } from './clinic-staff/clinic-staff.component';
 import { ClinicAppointmentsComponent } from './clinic-appointments/clinic-appointments.component';
 import { ClinicOrganizationMasterComponent } from './clinic-organizationMaster/clinic-organizationMaster.component';
-import { ClinicManageDiagnoseComponent } from './clinic-Diagnosis/manage-diagnose/clinic-manage-diagnose.component';
 import { ClinicManageDiagnosisGroupComponent } from './clinic-diagnosis/manage-diagnosis-group/clinic-manage-diagnosis-group.component';
-import { ClinicDiagnosisComponent } from './clinic-Diagnosis/clinic-Diagnosis.component';
+import { ClinicDiagnosisComponent } from './clinic-diagnosis/clinic-diagnosis.component';
 import { ClinicServicesComponent } from './clinic-services/clinic-services.component';
 import { ClinicServicePackagesComponent } from './clinic-servicePackages/clinic-servicePackages.component';
 import { ClinicServicePackageDetailsComponent } from './clinic-servicePackage-details/clinic-servicePackage-details.component';
@@ -48,7 +44,6 @@ import { ClinicManageRadiologyTestsGroupComponent } from './clinic-radiology-tes
 import { ClinicProductsComponent } from './clinic-products/clinic-products.component';
 import { ClinicTemplatesComponent } from './clinic-templates/clinic-templates.component';
 
-import { ClinicEMRMasterDiagnosisComponent } from './clinic-EMRMaster-Diagnosis/clinic-EMRMaster-Diagnosis.component';
 import { ClinicEMRMasterDrugsComponent } from './clinic-EMRMaster-drugs/clinic-EMRMaster-drugs.component';
 import { ClinicEMRMasterServicesComponent } from './clinic-EMRMaster-services/clinic-EMRMaster-services.component';
 import { ClinicEMRMasterLaboratoryTestsComponent } from './clinic-EMRMaster-laboratoryTests/clinic-EMRMaster-laboratoryTests.component';
@@ -58,25 +53,20 @@ import { ClinicHumanResourceComponent } from './clinic-humanResource/clinic-huma
 import { ClinicHumanResourceBasicComponent } from './clinic-humanResource-basic/clinic-humanResource-basic.component';
 import { ClinicHumanResourceServiceFeesComponent } from './clinic-humanResource-serviceFees/clinic-humanResource-serviceFees.component';
 import { ClinicHumanResourceServiceSlotsComponent } from './clinic-humanResource-serviceSlots/clinic-humanResource-serviceSlots.component';
-import { ClinicAppointmentDetailsComponent }from './clinic-appointment-details/clinic-appointment-details.component';
+import { ClinicAppointmentDetailsComponent } from './clinic-appointment-details/clinic-appointment-details.component';
 import { ClinicDashboardComponent } from './clinic-dashboard/clinic-dashboard.component';
-
 import { SharedModule } from '../shared/shared.module';
-
-import { ClinicService }   from './shared/clinic.service';
-import { SharedService }   from '../shared/shared/shared.service';
-
-import { SecurityModule }   from '../security/security.module';
-
-import { TreeModule, TreeNode } from 'primeng/primeng';
-import {OrderListModule} from 'primeng/primeng';
+import { SecurityModule } from '../security/security.module';
+import { TreeModule } from 'primeng/tree';
+import { OrderListModule } from 'primeng/orderlist';
 import { ClinicServiceGroupDetailsComponent } from './clinic-serviceGroup-details/clinic-serviceGroup-details.component';
-
 import { ClinicServiceDetailsComponent } from './clinic-service-details/clinic-service-details.component';
-import {CalendarModule} from 'primeng/primeng';
-import {DataTableModule} from 'primeng/primeng';
-import {ChartModule} from 'primeng/primeng';
-import {DialogModule} from 'primeng/primeng';
+import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { ChartModule } from 'primeng/chart';
+import { DialogModule } from 'primeng/dialog';
+import { ClinicManageDiagnoseComponent } from './clinic-diagnosis/manage-diagnose/clinic-manage-diagnose.component';
+import { ClinicEMRMasterDiagnosisComponent } from './clinic-EMRMaster-diagnosis/clinic-EMRMaster-diagnosis.component';
 
 @NgModule({
     imports: [
@@ -89,7 +79,7 @@ import {DialogModule} from 'primeng/primeng';
         TreeModule,
         OrderListModule,
         CalendarModule,
-        DataTableModule,
+        TableModule,
         ChartModule,
         DialogModule,
         //ToastModule

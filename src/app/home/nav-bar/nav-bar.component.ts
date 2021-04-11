@@ -11,7 +11,7 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
    
     selector: 'nav-bar',
-    templateUrl: 'nav-bar.component.html'
+    templateUrl: './nav-bar.component.html'
 
 })
 
@@ -40,7 +40,7 @@ export class NavBarComponent implements OnInit , OnChanges {
 
     userId: string = '';
     userType: string = '';
-    clinicId: string | undefined;
+    clinicId!:string;
     lang = 'en';
 
     public constructor(

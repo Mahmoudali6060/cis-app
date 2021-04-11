@@ -8,7 +8,7 @@ import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
 @Component({
    
     selector: 'drug-frequency',
-    templateUrl: 'drug-frequency.component.html'
+    templateUrl: './drug-frequency.component.html'
 })
 
 export class DrugFrequencyComponent implements OnChanges,OnInit {
@@ -22,7 +22,7 @@ export class DrugFrequencyComponent implements OnChanges,OnInit {
     model: any = { id: 0, isActive: true };
     showProgress = false;
     active = true;
-    allObjects: any[];
+    allObjects!: any[];
     itemToDeleteId: string = '';
     toPrintDiv: string = "print-section";
     lstToTranslated: string[] = [];
@@ -58,7 +58,7 @@ export class DrugFrequencyComponent implements OnChanges,OnInit {
 
                 // add object to collection in case of add new
                 if (vm.model.id == 0) {
-                    vm.allObjects.push(response:any);
+                    vm.allObjects.push(response);
                 }
 
                 vm.clear();
@@ -142,7 +142,7 @@ export class DrugFrequencyComponent implements OnChanges,OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    changeActivation(id, event) {
+    changeActivation(id:any, event:any) {
 
         this.editItem(id);
         this.model.isActive = event.target.checked;

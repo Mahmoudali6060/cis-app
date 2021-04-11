@@ -1,23 +1,23 @@
-﻿import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../../security/shared/account.service';
-import {UserPermissions} from '../../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
 @Component({
-   
+
     selector: 'purchase-order-view-details',
-    templateUrl: 'purchase-order-view-details.component.html'
+    templateUrl: './purchase-order-view-details.component.html'
 })
 
 export class PurchaseOrderViewDetails {
     selectPurchasingTab: boolean = true;
-    orderId;
+    orderId!: any;
     showProgress = false;
     itemsList: any[] = [];
     model: any = {};
@@ -25,7 +25,7 @@ export class PurchaseOrderViewDetails {
     isClosed = false;
     isEqualed: boolean | undefined;
     itemsMsge: string = '';
-    @ViewChild('btnConfirm') btnConfirm: ElementRef;
+    @ViewChild('btnConfirm') btnConfirm!: ElementRef;
     userType: string = '';
     isClinicAdmin: boolean = false;
     userPermisions: UserPermissions = new UserPermissions();
@@ -44,7 +44,7 @@ export class PurchaseOrderViewDetails {
 
     ngOnInit(): void {
         let vm = this;
-        this.lstToTranslated = ['productName', 'productNameTranslation', 'userName', 'userNameTranslation', 'unit','unitTranslation'];
+        this.lstToTranslated = ['productName', 'productNameTranslation', 'userName', 'userNameTranslation', 'unit', 'unitTranslation'];
         vm.showProgress = true;
         let id = this._route.snapshot.params['id'];
         this.orderId = `${id}`;
@@ -56,7 +56,7 @@ export class PurchaseOrderViewDetails {
 
         if (!this.isClinicAdmin) {
             if (this.accountService.userPermision._isScalar != undefined)
-                this.accountService.userPermision.subscribe(item => this.handleUserInterfaceViews(item));
+                this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
             else
                 this.handleUserInterfaceViews(this.accountService.userPermision);
         }
@@ -69,7 +69,7 @@ export class PurchaseOrderViewDetails {
     loadPurchasingOrder() {
         let vm = this;
         this.clinicService.getPurchasingOrderById(vm.orderId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.model = response;
                 vm.itemsList = vm.model.purchaseItems;
                 //vm.checkProductsInItemsList();
@@ -79,7 +79,7 @@ export class PurchaseOrderViewDetails {
                     vm.isClosed = true;
                 }
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -95,14 +95,13 @@ export class PurchaseOrderViewDetails {
         //navigate to current URL routerLink="/clinicPurchasing/orderDetails/1"
         this.router.navigate(['/clinic/purchasing/receiveOrder', id]);
     }
-    checkProductsInItemsList(id:any) {
+    checkProductsInItemsList(id: any) {
         let vm = this;
         for (let item of vm.itemsList) {
             vm.checkItem(item);
 
         }
-        if (vm.itemsMsge != '')
-        {
+        if (vm.itemsMsge != '') {
             vm.itemsMsge += "Do you want to usethe desired orderd quantities instead these orderd quantities that the order has. ";
             this.btnConfirm.nativeElement.click();
         }
@@ -126,14 +125,14 @@ export class PurchaseOrderViewDetails {
             }
 
         }
-       
+
     }
     useCurrentOrderdQuantity() {
         this.model.useCurrent = true;
-        this.router.navigate(['/clinic/purchasing/createOrder', this.model.id,1,0]);
+        this.router.navigate(['/clinic/purchasing/createOrder', this.model.id, 1, 0]);
     }
     useItemOrderdQuantity() {
-        this.router.navigate(['/clinic/purchasing/createOrder', this.model.id,0,0]);
+        this.router.navigate(['/clinic/purchasing/createOrder', this.model.id, 0, 0]);
     }
 
     handleUserInterfaceViews(user: any) {

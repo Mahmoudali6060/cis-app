@@ -74,14 +74,14 @@
                 <p-column field="coverageType" [header]="'CoverageType' | translate" [sortable]="true"></p-column>
                 <p-column field="specialPrice" [header]="'SpecialPrice' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'Edit' | translate" styleClass="text-center width60">
-                    <template let-coverage="rowData" pTemplate="body">
+                    <ng-template let-coverage="rowData" pTemplate="body">
                         <a [class.disabled]="!enableSaveCoverageDetails ? true : null">
                             <!--<img src="Images/Pencil-icon24.png" data-toggle="modal" data-target="#coverageDetailsPopup"
                                  (click)="selectCoverageDetails(coverage.id)" />-->
                             <i class="fa fa-pencil fa-2x" data-toggle="modal" data-target="#coverageDetailsPopup"
                                  (click)="selectCoverageDetails(coverage.id)" style="color: #32bea6;"></i>
                         </a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
         </div>

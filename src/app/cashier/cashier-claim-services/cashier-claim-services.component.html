@@ -19,10 +19,10 @@
             <p-column field="unitPrice" [header]="'UnitPrice' | translate" [sortable]="true" styleClass="text-center width50 nopadding"></p-column>
             <p-column field="netPriceWithoutDiscount" [header]="'TotalPrice' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
             <p-column [header]="'CoverageType' | translate" styleClass="text-center width70 nopadding">
-                <template let-item="rowData" pTemplate="body">
+                <ng-template let-item="rowData" pTemplate="body">
                     <img *ngIf="!isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" class="{{item.isCoverageTypeClickable ? 'pointer' : ''}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" (click)="openMarkSatisfiedModal(item)" />
                     <img *ngIf="isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
-                </template>
+                </ng-template>
             </p-column>
             <!--<p-column field="companyShareString" [header]="'CompanyShare' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
             <p-column field="patientShareString" [header]="'PatientShare' | translate" [sortable]="true" styleClass="text-center width70"></p-column>-->
@@ -41,7 +41,7 @@
 
             <p-column field="patientRemaining" [header]="'Remaining' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
             <p-column styleClass="text-center width60 nopadding">
-                <template let-item="rowData" pTemplate="body">
+                <ng-template let-item="rowData" pTemplate="body">
                     <div style="display:block">
                         <a [class.disabled]="!enablePriceOverrideBtn ? true : null">  <img *ngIf="!isClaimCanceled" src="Images/{{item.overrideIconName}}" class="pointer" title="Override Charge" alt="Override Charge" (click)="openOverrideChargeModal(item)" /></a>
                         <a [class.disabled]="!enablePriceOverrideBtn ? true : null"> <img *ngIf="isClaimCanceled" src="Images/{{item.overrideIconName}}" title="Override Charge" alt="Override Charge" /></a>
@@ -49,19 +49,19 @@
                         <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"> <img *ngIf="!isClaimCanceled" src="Images/{{item.releaseIconName}}" class="pointer" title="Release Charge" alt="Release Charge" (click)="openReleaseChargeModal(item)" /></a>
                         <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"><img *ngIf="isClaimCanceled" src="Images/{{item.releaseIconName}}" title="Release Charge" alt="Release Charge" /> </a>
                     </div>
-                </template>
+                </ng-template>
             </p-column>
             <p-column [header]="'Pay' | translate" styleClass="text-center width70">
-                <template pTemplate="header">
+                <ng-template pTemplate="header">
                     <button type="button" class="btn btn-primary" (click)="clearPaymentandOpenPopup()" [disabled]="isClaimCanceled || !enablePatientPaymentBtn">{{'Pay' | translate}}</button>
-                </template>
-                <template let-item="rowData" pTemplate="body">
+                </ng-template>
+                <ng-template let-item="rowData" pTemplate="body">
                     <input *ngIf="!item.patientPaymentId && !item.isSatisfied" type="checkbox" (change)="updateSelectedCharges(item, $event)" [disabled]="isClaimCanceled" />
                     <!--<a class="underLinelinkText pointer" *ngIf="!item.patientPaymentId" (click)="updateSelectedCharges(item)" [class.disabled]="isClaimCanceled || !enablePatientPaymentBtn">{{'Pay' | translate}}</a>-->
 
                     <a [class.disabled]="!viewPateintPayment ? true : null" *ngIf="item.patientPaymentId && !isClaimCanceled" data-toggle="modal" data-target="#PayService" class="underLinelinkText pointer" (click)="getPatientPaymentById(item.patientPaymentId)">{{'ViewPayment'| translate}}</a>
                     <a [class.disabled]="!viewPateintPayment ? true : null" *ngIf="item.patientPaymentId && isClaimCanceled">{{'ViewPayment'| translate}}</a>
-                </template>
+                </ng-template>
             </p-column>
         </p-dataTable>
     </div>

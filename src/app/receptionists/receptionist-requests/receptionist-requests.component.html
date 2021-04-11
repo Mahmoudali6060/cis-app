@@ -30,19 +30,19 @@
                 <p-column field="appointmentClassName" [header]="'Class' | translate" [sortable]="true"></p-column>
                 <p-column field="status" [header]="'Status' | translate" [sortable]="true" styleClass="text-danger"></p-column>
                 <p-column [header]="'Confirm' | translate" styleClass="text-center width70">
-                    <template let-request="rowData" pTemplate="body">
+                    <ng-template let-request="rowData" pTemplate="body">
                         <a class="pointer" (click)="confirmPatientRequest(request.id)" [class.disabled]="!enableConfirmLink ? true : null">
                             <img src="Images/ok-24.jpg" />
                         </a>
-                    </template>
+                    </ng-template>
                 </p-column>
                 <p-column [header]="'Cancel' | translate" styleClass="text-center width70">
-                    <template let-request="rowData" pTemplate="body">
+                    <ng-template let-request="rowData" pTemplate="body">
                         <a class="pointer" #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup"
                            (click)="selectRequestToBeCanceled(request.id)" [class.disabled]="!enableCancelLink ? true : null">
                             <img src="Images/cancel-24.png" />
                         </a>
-                    </template>
+                    </ng-template>
                 </p-column>
             </p-dataTable>
         </div>
