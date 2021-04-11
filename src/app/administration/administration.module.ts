@@ -11,7 +11,7 @@ import { DrugUnitComponent } from './drug-unit/drug-unit.component';
 import { DrugFrequencyComponent } from './drug-frequency/drug-frequency.component';
 import { AdministrationService } from './shared/administration.service';
 import { SharedModule } from '../shared/shared.module';
-import { TableModule } from 'primeng/table';
+import { DataTableModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -19,7 +19,7 @@ import { TableModule } from 'primeng/table';
         CommonModule,
         //routing,
         SharedModule,
-        TableModule
+        DataTableModule
     ],
     declarations: [BasicDataComponent,
         AdministrationTabsComponent,

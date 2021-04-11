@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'primeng/primeng';
 import { ReceptionistRoutingModule } from './receptionists.routing';
 import { ReceptionistsComponent } from './receptionists.component';
 import { ReceptionistTabsComponent } from './receptionist-tabs/receptionist-tabs.component';
@@ -17,10 +17,10 @@ import { ReceptionistAppointmentDetailsComponent } from './receptionist-appointm
 import { ReceptionistRequestsComponent } from './receptionist-requests/receptionist-requests.component';
 import { ReceptionistDivisionCalendarComponent } from './receptionist-division-calendar/receptionist-division-calendar.component';
 import { SharedModule } from '../shared/shared.module';
-import { CalendarModule } from 'primeng/calendar';
-import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/primeng';
+import { DialogModule } from 'primeng/primeng';
 import { PatientsModule } from '../patients/patients.module';
-import { TableModule } from 'primeng/table';
+import { DataTableModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -31,7 +31,7 @@ import { TableModule } from 'primeng/table';
         //routing,
         // ScheduleModule,
         TreeModule,
-        TableModule,
+        DataTableModule,
         DialogModule,
         CalendarModule,
         PatientsModule

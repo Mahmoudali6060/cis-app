@@ -23,10 +23,10 @@ import { SharedModule } from '../shared/shared.module';
 import { SharedService } from '../shared/shared/shared.service';
 import { InsuranceService } from './shared/insurance.service';
 
-import { CalendarModule } from 'primeng/calendar';
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
-import { TreeModule } from 'primeng/tree';
+import { CalendarModule } from 'primeng/primeng';
+import { DataTableModule } from 'primeng/primeng';
+import { DialogModule } from 'primeng/primeng';
+import { TreeModule } from 'primeng/primeng';
 
 import { PatientsModule } from '../patients/patients.module';
 
@@ -38,7 +38,7 @@ import { PatientsModule } from '../patients/patients.module';
         SharedModule,
         //routing,
         CalendarModule,
-        TableModule,
+        DataTableModule,
         PatientsModule,
         DialogModule,
 

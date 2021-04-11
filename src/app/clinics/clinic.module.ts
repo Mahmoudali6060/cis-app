@@ -57,14 +57,14 @@ import { ClinicAppointmentDetailsComponent } from './clinic-appointment-details/
 import { ClinicDashboardComponent } from './clinic-dashboard/clinic-dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { SecurityModule } from '../security/security.module';
-import { TreeModule } from 'primeng/tree';
-import { OrderListModule } from 'primeng/orderlist';
+import { TreeModule } from 'primeng/primeng';
+import { OrderListModule } from 'primeng/primeng';
 import { ClinicServiceGroupDetailsComponent } from './clinic-serviceGroup-details/clinic-serviceGroup-details.component';
 import { ClinicServiceDetailsComponent } from './clinic-service-details/clinic-service-details.component';
-import { CalendarModule } from 'primeng/calendar';
-import { TableModule } from 'primeng/table';
-import { ChartModule } from 'primeng/chart';
-import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/primeng';
+import { DataTableModule } from 'primeng/primeng';
+import { ChartModule } from 'primeng/primeng';
+import { DialogModule } from 'primeng/primeng';
 import { ClinicManageDiagnoseComponent } from './clinic-diagnosis/manage-diagnose/clinic-manage-diagnose.component';
 import { ClinicEMRMasterDiagnosisComponent } from './clinic-EMRMaster-diagnosis/clinic-EMRMaster-diagnosis.component';
 
@@ -79,7 +79,7 @@ import { ClinicEMRMasterDiagnosisComponent } from './clinic-EMRMaster-diagnosis/
         TreeModule,
         OrderListModule,
         CalendarModule,
-        TableModule,
+        DataTableModule,
         ChartModule,
         DialogModule,
         //ToastModule

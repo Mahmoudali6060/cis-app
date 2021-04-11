@@ -22,8 +22,8 @@ import { SharedService }   from '../shared/shared/shared.service';
 import { ClaimService }   from './shared/claim.service';
 import {AccountService} from   '../security/shared/account.service';
 
-import {TableModule} from 'primeng/table';
-import {CalendarModule} from 'primeng/calendar';
+import {DataTableModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
 import { PatientsModule } from '../patients/patients.module';
 
@@ -35,7 +35,7 @@ import { PatientsModule } from '../patients/patients.module';
         CashierRoutingModule,
         SharedModule,
         //routing,
-        TableModule,
+        DataTableModule,
         CalendarModule,
         DialogModule,
         PatientsModule

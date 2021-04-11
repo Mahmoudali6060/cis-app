@@ -18,9 +18,9 @@ import { ChangePasswordComponent } from './changePassword/change-password.compon
 import { RegistrationTypeComponent } from './registration-type/registration-type.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
-import {DialogModule} from 'primeng/dialog';
-import {TreeModule} from 'primeng/tree';
-import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/primeng';
+import {TreeModule} from 'primeng/primeng';
+import {DataTableModule} from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -31,7 +31,7 @@ import {TableModule} from 'primeng/table';
         SharedModule,
         DialogModule,
         TreeModule,
-        TableModule
+        DataTableModule
     ],
     declarations: [
         UserPermissionsComponent,
