@@ -25,7 +25,7 @@
                  <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
              </div>
 
-             <p-dataTable [value]="ordersList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+             <!-- <p-dataTable [value]="ordersList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                  <p-column field="refNo" [header]="'RerNo' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
                  <p-column field="dateString" [header]="'OrderDate' | translate" [sortable]="true"></p-column>
                  <p-column field="vendorName" [header]="'Vendor' | translate" [sortable]="true"></p-column>
@@ -41,8 +41,6 @@
                  </p-column>
                  <p-column [header]="'Edit' | translate" styleClass="text-center width70">
                      <ng-template let-order="rowData" pTemplate="body">
-                         <!--<a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin || order.orderStatus != 'Prepared'  ? true : null">{{ 'Edit' | translate}}</a>
-                <a href="http://google.com" class="disabled" disabled>Link</a>-->
                          <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="isClinicAdmin && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
                          <a class="disabled" *ngIf="isClinicAdmin && order.orderStatus != 'Prepared'" disabled>{{ 'Edit' | translate}}</a>
                          <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="enableDetailsLink && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
@@ -56,7 +54,6 @@
                  </p-column>
                  <p-column [header]="'ReceiveQuantity' | translate" styleClass="text-center width70">
                      <ng-template let-order="rowData" pTemplate="body">
-                         <!--<a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{order.id}}" [class.disabled]="!enableReceiveLink && !isClinicAdmin ? true : null">{{ 'ReceiveQuantity' | translate}}</a>-->
                          <a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{order.id}}" *ngIf="isClinicAdmin || enableReceiveLink">{{ 'ReceiveQuantity' | translate}}</a>
                          <a class="disabled" *ngIf="!isClinicAdmin && !enableReceiveLink" disabled>{{ 'ReceiveQuantity' | translate}}</a>
                      </ng-template>
@@ -66,13 +63,10 @@
                          <a class="underLinelinkText" (click)="closeOrder(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Close' | translate}}</a>
                      </ng-template>
                  </p-column>
-                 <!--<p-column [header]="'Delete' | translate" styleClass="text-center width70">
-            <ng-template let-order="rowData" pTemplate="body">
-                <a class="underLinelinkText" (click)="selectOrderToDelete(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Delete' | translate}}</a>
-            </ng-template>
-        </p-column>-->
-             </p-dataTable>
-         </div>
+             </p-dataTable> -->
+ 
+            </div>
+
 
         <div id="purchasingOrderListPrintDiv" class="row hidden">
             <table class="table table-responsive table-bordered table-hover table-striped">

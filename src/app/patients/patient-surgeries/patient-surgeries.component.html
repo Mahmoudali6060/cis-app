@@ -12,7 +12,7 @@
         <i class="glyphicon glyphicon-search"></i>
         <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
     </div>
-    <p-dataTable [value]="surgeriesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="surgeriesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="surgeryCode" [header]="'SurgeryCode' | translate" [sortable]="true"></p-column>
         <p-column field="surgeryName" [header]="'surgeryName' | translate"[sortable]="true"></p-column>
         <p-column field="dateTimeString" [header]="'Date' | translate" [sortable]="true"></p-column>
@@ -32,7 +32,7 @@
                     </a>
             </ng-template>
         </p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 <div id="divTable" class="padding5" *ngIf="isDetailsVisible">
     <patient-surgery-details [toSaveSurgery]="toSaveSurgery" [patientId]="patientId" [patientDOB] ="patientDOB" (onBack)="hideDetails($event)" [allServices]="allServices"></patient-surgery-details>

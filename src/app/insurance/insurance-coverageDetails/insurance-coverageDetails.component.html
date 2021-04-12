@@ -65,10 +65,8 @@
                 <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
             </div>
            
-            <p-dataTable [value]="coverageDetailsList | translateObjects  : 'name' : 'nameTranslation' : null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <!-- <p-dataTable [value]="coverageDetailsList | translateObjects  : 'name' : 'nameTranslation' : null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                 <p-column field="name" [header]="'DiagnosisandService' | translate" [sortable]="true"></p-column>
-                <!--<p-column field="maxCoverageAmount" [header]="'MaximumCoverageAmount' | translate" [sortable]="true"></p-column>-->
-                <!--<p-column field="deductibleAmount" [header]="'DeductibleAmount' | translate" [sortable]="true"></p-column>-->
                 <p-column field="deductiblePercentage" [header]="'DeductiblePercentage' | translate" [sortable]="true"></p-column>
                 <p-column field="discountPercentage" [header]="'DiscountPercentage' | translate" [sortable]="true"></p-column>
                 <p-column field="coverageType" [header]="'CoverageType' | translate" [sortable]="true"></p-column>
@@ -76,14 +74,12 @@
                 <p-column [header]="'Edit' | translate" styleClass="text-center width60">
                     <ng-template let-coverage="rowData" pTemplate="body">
                         <a [class.disabled]="!enableSaveCoverageDetails ? true : null">
-                            <!--<img src="Images/Pencil-icon24.png" data-toggle="modal" data-target="#coverageDetailsPopup"
-                                 (click)="selectCoverageDetails(coverage.id)" />-->
                             <i class="fa fa-pencil fa-2x" data-toggle="modal" data-target="#coverageDetailsPopup"
                                  (click)="selectCoverageDetails(coverage.id)" style="color: #32bea6;"></i>
                         </a>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
         </div>
 
         <div id="coverageDetailsPopup" class="modal fade" role="dialog">

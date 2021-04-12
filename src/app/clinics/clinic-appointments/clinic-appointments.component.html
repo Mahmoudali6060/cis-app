@@ -41,7 +41,7 @@
                 <input #gb class="inputSearch" type="text" pInputText size="50" [placeholder]="'Search' | translate">
             </div>
 
-            <p-dataTable [value]="appointmentsList | translateObjects  : 'fullName' : 'fullNameTranslation' : null " selectionMode="single"
+            <!-- <p-dataTable [value]="appointmentsList | translateObjects  : 'fullName' : 'fullNameTranslation' : null " selectionMode="single"
                          [paginator]="false" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]"
                          [responsive]="true" reorderableColumns="true" [globalFilter]="gb"
                          rowGroupMode="subheader" groupField="fullName"
@@ -49,9 +49,6 @@
                 <ng-template pTemplate="rowgroupheader" let-rowData>
                     {{rowData['fullName']}}
                 </ng-template>
-                <!--<p-column field="categoryFriendlyName" header="Permission Category" [sortable]="true"></p-column>-->
-                <!--<p-column field="name" header="Permission" [sortable]="false"></p-column>-->
-
                 <p-column field="startDateString" [header]="'StartDate' | translate" styleClass="text-center width50"></p-column>
                 <p-column field="endDateString" [header]="'EndDate' | translate" styleClass="text-center width50"></p-column>
                 <p-column field="slotDuration" [header]="'SlotDuration' | translate" styleClass="text-center width50"></p-column>
@@ -80,7 +77,7 @@
                         </a>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
         </div>
     </div>
     <div id="divDetails" class="padding5" *ngIf="isDetailsVisible">

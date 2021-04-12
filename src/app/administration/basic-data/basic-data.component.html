@@ -82,7 +82,7 @@
                 <i class="glyphicon glyphicon-search"></i>
                 <input #gb type="text" pInputText size="50" class="inputSearch" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" [placeholder]="'Search' | translate">
             </div>
-            <p-dataTable [value]="allObjects" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <!-- <p-dataTable [value]="allObjects" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                 <p-column field="name" [header]="'ArabicName' | translate" [sortable]="true"></p-column>
                 <p-column field="nameTranslation" [header]="'EnglishName' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'Active' | translate" styleClass="text-center width70">
@@ -91,9 +91,6 @@
                             <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" />
                             <span class="lbl"></span>
                         </label>
-
-
-
                     </ng-template>
                 </p-column>
                 <p-column [header]="'Edit' | translate" styleClass="text-center width50">
@@ -101,17 +98,9 @@
                         <a [class.disabled]="!enableMyAccountBtn ? true : null">
                             <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" title="Edit Department" style="color: #32bea6;"></i>
                         </a>
-
                     </ng-template>
                 </p-column>
-                <!--<p-column [header]="'Delete' | translate" styleClass="text-center width50">
-                    <ng-template let-item="rowData" pTemplate="body">
-                        <a data-toggle="modal" data-target="#deleteConfirmation" class="pointer" (click)="selectItemToDelete(item.id)" [class.disabled]="!enableMyAccountBtn ? true : null">
-                            <img src="Images/DeleteRed.png" />
-                        </a>
-                    </ng-template>
-                </p-column>-->
-            </p-dataTable>
+            </p-dataTable> -->
 
         </div>
 

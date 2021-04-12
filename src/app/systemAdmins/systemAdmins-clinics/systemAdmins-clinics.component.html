@@ -30,7 +30,7 @@
                <i class="glyphicon glyphicon-search"></i>
                <input #gb type="text" pInputText size="50" class="inputSearch" placeholder="Search...">
            </div>
-           <p-dataTable [value]="clinicsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+           <!-- <p-dataTable [value]="clinicsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                <p-column field="name" [header]="'NameArabic' | translate" [sortable]="true"></p-column>
                <p-column field="nameTranslation" [header]="'NameEnglish' | translate" [sortable]="true"></p-column>
                <p-column field="clinicLevelName" [header]="'ClinicLevel' | translate" [sortable]="true"></p-column>
@@ -74,7 +74,7 @@
                        </a>
                    </ng-template>
                </p-column>
-           </p-dataTable>
+           </p-dataTable> -->
 
 
            <div id="print-section" class="hidden">

@@ -41,10 +41,9 @@
                     <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
                 </div>
 
-                <p-dataTable [value]="allInventoryRequestObjects | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <!-- <p-dataTable [value]="allInventoryRequestObjects | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                     <p-column field="inventoryCode" [header]="'InventoryCode' | translate" [sortable]="true"></p-column>
                     <p-column field="itemName" [header]="'ItemName' | translate" [sortable]="true"></p-column>
-                    <!--<p-column field="unitName" [header]="'Unit' | translate"[sortable]="true"></p-column>-->
                     <p-column [header]="'Unit' | translate">
                         <ng-template let-product="rowData" pTemplate="body">
                             <label *ngIf="product.unitType === 'NumbersUnit'">{{ product.unitName | translate}}</label>
@@ -69,7 +68,7 @@
                         </ng-template>
                     </p-column>
 
-                </p-dataTable>
+                </p-dataTable> -->
             </div>
         </div>
     </div>

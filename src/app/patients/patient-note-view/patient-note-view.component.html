@@ -261,7 +261,7 @@
 <br />
 <h4>{{ 'Diagnosis' | translate}}</h4>
 <div class="row">
-    <p-dataTable [value]="model.diagnosis | translateObjects  : null : null : lstToTranslatedDiagnosis" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="model.diagnosis | translateObjects  : null : null : lstToTranslatedDiagnosis" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="diagnoseCode" [header]="'DiagnoseCode' | translate" [sortable]="true"></p-column>
         <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
         <p-column field="dateTimeString" [header]="'Date' | translate" [sortable]="true"></p-column>
@@ -269,13 +269,13 @@
         <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
         <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
         <p-column field="isCurrent" [header]="'CurrentPast' | translate" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 
 <br />
 <h4>{{ 'NewMedication' | translate}}</h4>
 <div class="row">
-    <p-dataTable [value]="model.medications | translateObjects  : null : null : lstToTranslatedMedications" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="model.medications | translateObjects  : null : null : lstToTranslatedMedications" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="drugCode" [header]="'MedicationCode' | translate" [sortable]="true"></p-column>
         <p-column field="drugName" [header]="'Name' | translate" [sortable]="true"></p-column>
         <p-column field="dosageQuantity" [header]="'DosageQuantity' | translate" [sortable]="true"></p-column>
@@ -288,13 +288,13 @@
         <p-column field="recorderName" [header]="'RecorderName' | translate" [sortable]="true"></p-column>
         <p-column field="recordingDateString" [header]="'RecordedDate' | translate" [sortable]="true"></p-column>
         <!--<p-column field="description" header="Status" [sortable]="true"></p-column>-->
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 
 <br />
 <h4>{{ 'Services' | translate}}</h4>
 <div class="row">
-    <p-dataTable [value]="model.services | translateObjects  : null : null : lstToTranslatedServices " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="model.services | translateObjects  : null : null : lstToTranslatedServices " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="serviceCode" [header]="'ServiceCode' | translate" [sortable]="true"></p-column>
         <p-column field="serviceName" [header]="'ServiceName' | translate" [sortable]="true"></p-column>
         <p-column field="servicePackageCode" [header]="'PackageCode' | translate" [sortable]="true"></p-column>
@@ -303,31 +303,31 @@
         <p-column field="discount" [header]="'Discount' | translate" [sortable]="true"></p-column>
         <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
         <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 
 <br />
 <h4>{{ 'LabTests' | translate}}</h4>
 <div class="row">
-    <p-dataTable [value]="model.labTests | translateObjects  : null : null : lstToTranslatedLabTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="model.labTests | translateObjects  : null : null : lstToTranslatedLabTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="labTestCode" [header]="'TestCode' | translate" [sortable]="true"></p-column>
         <p-column field="labTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
         <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
         <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
         <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 
 <br />
 <h4>{{ 'RadiologyTests' | translate}}</h4>
 <div class="row">
-    <p-dataTable [value]="model.radiologyTests | translateObjects  : null : null : lstToTranslatedRadiologyTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="model.radiologyTests | translateObjects  : null : null : lstToTranslatedRadiologyTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="radTestCode" [header]="'TestCode' | translate" [sortable]="true"></p-column>
         <p-column field="radTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
         <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
         <p-column field="diagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
         <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 
 

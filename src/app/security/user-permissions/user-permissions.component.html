@@ -109,7 +109,7 @@
                     <h4 class="h4Deco">{{ 'Permissions' | translate}}</h4>
                     <hr />
                     <div class="col-md-12">
-                        <p-dataTable [value]="permissionsList" selectionMode="single"
+                        <!-- <p-dataTable [value]="permissionsList" selectionMode="single"
                                      [paginator]="false" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]"
                                      [responsive]="true" reorderableColumns="true" [globalFilter]="gb"
                                      rowGroupMode="subheader" groupField="categoryFriendlyName"
@@ -117,7 +117,6 @@
                             <ng-template pTemplate="rowgroupheader" let-rowData>
                                 {{rowData['categoryFriendlyName']}}
                             </ng-template>
-                            <!--<p-column field="categoryFriendlyName" header="Permission Category" [sortable]="true"></p-column>-->
                             <p-column field="name" [header]="'Permissions' | translate" [sortable]="false"></p-column>
                             <p-column [header]="'FullControl' | translate"  styleClass="text-center width70">
                                 <ng-template let-permission="rowData" pTemplate="body">
@@ -167,7 +166,7 @@
                                            (change)="updateSelectedPermissions(permission.id,'allow', $event)" />
                                 </ng-template>
                             </p-column>
-                        </p-dataTable>
+                        </p-dataTable> -->
                     </div>
                 </div>
             </fieldset>

@@ -96,15 +96,13 @@
                     </div>
                 </div>
             </div>
-            <p-dataTable [value]="invoicesList | translateObjects  : null : null : lstToTranslated " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <!-- <p-dataTable [value]="invoicesList | translateObjects  : null : null : lstToTranslated " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                 <p-column field="id" [header]="'RefNo' | translate" [sortable]="true"></p-column>
                 <p-column field="creatorName" [header]="'CreatedBy' | translate" [sortable]="true"></p-column>
                 <p-column field="invoiceDateString" [header]="'InvoiceDate' | translate" [sortable]="true"></p-column>
                 <p-column field="companyName" [header]="'CompanyName' | translate" [sortable]="true"></p-column>
-
                 <p-column field="totalAmountForInsuranceCompanyWithoutVAT" [header]="'Amount' | translate" [sortable]="true"></p-column>
                 <p-column field="totalVatAmountForInsuranceCompany" [header]="'VATAmount' | translate" [sortable]="true"></p-column>
-
                 <p-column field="netAmount" [header]="'NetAmount' | translate" [sortable]="true"></p-column>
                 <p-column field="totalCredit" [header]="'TotalCredit' | translate" [sortable]="true"></p-column>
                 <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
@@ -113,7 +111,7 @@
                         <a class="pointer" [class.disabled]="!enableViewCompanyDetails ? true : null" [routerLink]="['/insurance/invoice/detail', invic.id]">{{ 'ShowDetails' | translate }} </a>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
             <div id="print-section" class="hidden">
                 <table class="table table-responsive table-hover">
                     <thead class="alert alert-info">

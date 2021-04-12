@@ -19,7 +19,7 @@
             <input #gb type="text" pInputText size="50" class="inputSearch" placeholder="Search...">
         </div>
 
-        <p-dataTable [value]="policiesList | translateObjects : 'name' : 'nameTranslation':null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <!-- <p-dataTable [value]="policiesList | translateObjects : 'name' : 'nameTranslation':null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
             <p-column field="name" [header]="'PolicyName' | translate" [sortable]="true"></p-column>
             <p-column field="code" [header]="'Code' | translate" [sortable]="true"></p-column>
             <p-column field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
@@ -47,7 +47,7 @@
                     <a [class.disabled]="!enableCopyPolicyBtn ? true : null"> <img src="Images/copy-24.png" class="pointer" (click)="displayCopyPolicyPopup(policy.id)" /></a>
                 </ng-template>
             </p-column>
-        </p-dataTable>
+        </p-dataTable> -->
     </div>
 </div>
 <div class="row " style="display:none;">

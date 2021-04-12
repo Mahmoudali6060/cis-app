@@ -55,10 +55,9 @@
             <i class="fa fa-search searchIcon"></i>
             <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
         </div>
-        <p-dataTable [value]="itemsList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <!-- <p-dataTable [value]="itemsList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
             <p-column field="productName" [header]="'Item' | translate" [sortable]="true"></p-column>
             <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
-            <!--<p-column field="unit" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
             <p-column [header]="'Unit' | translate">
                 <ng-template let-item="rowData" pTemplate="body">
                     <label *ngIf="item.unitType === 'NumbersUnit'">{{ item.unit | translate}}</label>
@@ -72,7 +71,7 @@
             <p-column field="net" [header]="'Net' | translate" [sortable]="true"></p-column>
             <p-column field="description" [header]="'Remark' | translate" [sortable]="true"></p-column>
             <p-column field="userName" [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
-        </p-dataTable>
+        </p-dataTable> -->
     </div>
 </div>
 <button data-toggle="modal" data-target="#confirm" type="button" style="display:none" #btnConfirm>

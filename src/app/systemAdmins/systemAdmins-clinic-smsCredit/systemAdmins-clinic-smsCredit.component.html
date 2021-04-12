@@ -33,11 +33,11 @@
         <i class="glyphicon glyphicon-search"></i>
         <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
     </div>
-    <p-dataTable [value]="smsCreditsList" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="smsCreditsList" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="credit"  [header]="'Credit' | translate" [sortable]="true"></p-column>
         <p-column field="previousRemaining"  [header]="'PreviousRemaining' | translate" [sortable]="true"></p-column>
         <p-column field="rechargeDateString"  [header]="'RechargeDate' | translate" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 
     <table id="print-section" class="hidden">
         <thead class="alert alert-info">

@@ -182,7 +182,7 @@
                 <i class="fa fa-search searchIcon"></i>
                 <input #searchTransactions type="text" pInputText size="50" placeholder="Search...">
             </div>
-            <p-dataTable [value]="allPatientPayments | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="searchTransactions">
+            <!-- <p-dataTable [value]="allPatientPayments | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="searchTransactions">
                 <p-column field="id" [header]="'TransactionRefNo' | translate" [sortable]="true"></p-column>
                 <p-column field="dateTimeString" [header]="'TransactionDate' | translate" [sortable]="true"></p-column>
                 <p-column field="paymentTypeName" [header]="'TransactionType' | translate" [sortable]="true"></p-column>
@@ -195,7 +195,7 @@
                         <a *ngIf="item.id" data-toggle="modal" [class.disabled]="!enableViewPatientPaymentBtn ? true : null" data-target="#PayService" class="underLinelinkText pointer" (click)="getPatientPaymentById(item.id)">View Payment</a>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
             <div class="row">
             </div>
         </div>

@@ -8,7 +8,7 @@
         <i class="glyphicon glyphicon-search"></i>
         <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
     </div>
-    <p-dataTable [value]="pateintMrfs | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="pateintMrfs | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="clinicName"   [header]="'ClinicName' | translate" [sortable]="true"></p-column>
         <p-column field="departmentName" [header]="'DepartmentName' | translate" [sortable]="true"></p-column>
         <p-column field="divisionName" [header]="'DivisionName' | translate" [sortable]="true"></p-column>
@@ -28,7 +28,7 @@
                 </a>
             </ng-template>
         </p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 
 </div>
 <!-- Modal -->

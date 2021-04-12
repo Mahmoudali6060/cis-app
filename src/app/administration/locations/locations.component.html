@@ -90,7 +90,7 @@
             <i class="fa fa-search searchIcon"></i>
             <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
         </div>
-        <p-dataTable [value]="allObjects | translateObjects  : null : null : lstToTranslated" sortField="countryName" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <!-- <p-dataTable [value]="allObjects | translateObjects  : null : null : lstToTranslated" sortField="countryName" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
             <p-column field="name" [header]="'LocatioName_ar' | translate" [sortable]="true"></p-column>
             <p-column field="nameTranslation" [header]="'LocatioName_en' | translate" [sortable]="true"></p-column>
             <p-column field="cityName" [header]="'City' | translate" [sortable]="true"></p-column>
@@ -109,14 +109,7 @@
                     <a [class.disabled]="!enableMyAccountBtn ? true : null" ><i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" style="color: #32bea6;"></i></a>
                 </ng-template>
             </p-column>
-            <!--<p-column [header]="'Delete' | translate" styleClass="text-center width50">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <a data-toggle="modal" [class.disabled]="!enableMyAccountBtn ? true : null"  data-target="#deleteConfirmation" class="pointer" (click)="selectItemToDelete(item.id)">
-                        <img src="Images/DeleteRed.png" />
-                    </a>
-                </ng-template>
-            </p-column>-->
-        </p-dataTable>
+        </p-dataTable> -->
 
         <div id="print-section" class="hidden">
             <table class="table table-responsive table-hover">

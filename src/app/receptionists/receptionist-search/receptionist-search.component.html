@@ -115,7 +115,7 @@
             <i class="fa fa-search searchIcon"></i>
             <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
         </div>
-        <p-dataTable [value]="matchedAppontments | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <!-- <p-dataTable [value]="matchedAppontments | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
             <p-column field="dateTime" [header]="'AppointmentDate' | translate" [sortable]="true"></p-column>
             <p-column field="appointmentClassName"  [header]="'Class' | translate" [sortable]="true"></p-column>
             <p-column field="arrivalTime"   [header]="'ArrivalTime' | translate" [sortable]="true"></p-column>
@@ -130,14 +130,13 @@
             <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate"  [sortable]="true"></p-column>
             <p-column  [header]="'Edit' | translate"  styleClass="text-center width50" >
                 <ng-template let-appointment="rowData" pTemplate="body">
-                    <!--<a class="pointer" data-toggle="modal" #val data-target="#appointmentDetailsModal" (click)="GetId(appointment)" >-->
                         <a class="pointer"  #val (click)="GetId(appointment)">
                             <img src="Images/details-24.jpg" />
                         </a>
                 </ng-template>
             </p-column>
 
-        </p-dataTable>
+        </p-dataTable> -->
 
     </div>
 </div>

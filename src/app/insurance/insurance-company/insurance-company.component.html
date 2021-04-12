@@ -37,11 +37,10 @@
             <i class="glyphicon glyphicon-search"></i>
             <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
         </div>
-        <p-dataTable [value]="insuranceCompaniesList " selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+        <!-- <p-dataTable [value]="insuranceCompaniesList " selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
             <p-column field="name" [header]="'NameArabic' | translate" [sortable]="true"></p-column>
             <p-column field="nameTranslation" [header]="'EnglishName' | translate" [sortable]="true"></p-column>
             <p-column field="activePoliciesCount" [header]="'ActivePoliciesCount' | translate" [sortable]="true"></p-column>
-
             <p-column [header]="'ActiveQues' | translate" styleClass="text-center width70">
                 <ng-template let-comp="rowData" pTemplate="body">
                     <label>
@@ -58,7 +57,7 @@
                     <a class="pointer" [class.disabled]="!enableShowCompanyDetails ? true : null" [routerLink]="['/insurance/companyDetails/', comp.id]"><li style="color:#3CACE2;font-size:28px;" class="fa fa-eye fa-2x"></li> </a>
                 </ng-template>
             </p-column>
-        </p-dataTable>
+        </p-dataTable> -->
     </div>
 
         <div id="print-section" class="hidden">

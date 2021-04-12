@@ -83,7 +83,7 @@
                     <i class="glyphicon glyphicon-search"></i>
                     <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
                 </div>
-                <p-dataTable [value]="allObjects | translateObjects  : null : null : lstToTranslated" sortField="departmentName" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <!-- <p-dataTable [value]="allObjects | translateObjects  : null : null : lstToTranslated" sortField="departmentName" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                     <p-column field="name" [header]="'NameArabic' | translate" [sortable]="true"></p-column>
                     <p-column field="nameTranslation" [header]="'NameEnglish' | translate" [sortable]="true"></p-column>
                     <p-column field="departmentName" [header]="'Department' | translate" [sortable]="true"></p-column>
@@ -102,14 +102,7 @@
                             </a>
                         </ng-template>
                     </p-column>
-                    <!--<p-column [header]="'Delete' | translate" styleClass="text-center width50">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <a data-toggle="modal" [class.disabled]="!enableMyAccountBtn ? true : null" data-target="#deleteConfirmation" class="pointer" (click)="selectItemToDelete(item.id)">
-                        <img src="Images/DeleteRed.png" />
-                    </a>
-                </ng-template>
-            </p-column>-->
-                </p-dataTable>
+                </p-dataTable> -->
             </div>
 
             <table class="table table-responsive table-hover table-bordered hidden">

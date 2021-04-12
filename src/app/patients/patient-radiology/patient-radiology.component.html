@@ -8,14 +8,11 @@
         </div>
     </div>
     <div class="padding2"></div>
-    <p-dataTable [value]="radTests | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="radTests | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="radTestCode"[header]="'TestCode' | translate" [sortable]="true"></p-column>
         <p-column field="radTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
-
         <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
-
         <p-column field="diagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
-
         <p-column [header]="'Edit' | translate" styleClass="text-center width50">
             <ng-template let-noteRadtest="rowData" pTemplate="body">
                 <a class="pointer" (click)="editItem(noteRadtest.id)">
@@ -31,7 +28,7 @@
                 </a>
             </ng-template>
         </p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 
 
 </div>

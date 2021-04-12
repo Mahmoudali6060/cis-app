@@ -105,7 +105,7 @@
                 <i class="glyphicon glyphicon-search"></i>
                 <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
             </div>
-            <p-dataTable [value]="claimsList | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <!-- <p-dataTable [value]="claimsList | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                 <p-column field="id" [header]="'ClaimRefNo' | translate" [sortable]="true"></p-column>
                 <p-column field="claimDateString" [header]="'ClaimDate' | translate" [sortable]="true"></p-column>
                 <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
@@ -122,7 +122,7 @@
                         <a [class.disabled]="!enableSearchForPateintClaim ? true : null" class="fa  fa-file-text-o pointer" (click)="openClaimReport(item.id , 'ClaimDetailsReport')"></a>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
         </div>
 
         <div class="row hidden" id="divPrintedArea">

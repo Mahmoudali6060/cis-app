@@ -74,14 +74,13 @@
                 </div>
             </div>
 
-            <p-dataTable [value]="doctorAppointmentsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <!-- <p-dataTable [value]="doctorAppointmentsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                 <p-column field="serialNumber" header="#" [sortable]="true" styleClass="width50"></p-column>
                 <p-column field="patientClinicMRN" [header]="'MRN' | translate"
                           [sortable]="true"></p-column>
                 <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
                 <p-column field="dateTimeFormat" [header]="'Time' | translate" [sortable]="true"></p-column>
                 <p-column field="appointmentClassName" [header]="'AppointmentType' | translate" [sortable]="true"></p-column>
-                <!--<p-column field="visitTypeName" [header]="'VisitType' | translate" [sortable]="true"></p-column>-->
                 <p-column field="receptionistRemarks" [header]="'ReceptionistRemarks' | translate" [sortable]="true"></p-column>
                 <p-column field="arrivalTimeString" [header]="'Arrival' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'Seen' | translate" styleClass="text-center">
@@ -98,7 +97,7 @@
                         </a>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
 
         </div>
 

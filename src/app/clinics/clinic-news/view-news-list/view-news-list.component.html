@@ -25,7 +25,7 @@
                 <i class="glyphicon glyphicon-search"></i>
                 <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
             </div>
-            <p-dataTable [value]="clinicNewsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+            <!-- <p-dataTable [value]="clinicNewsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                 <p-column field="creationDateString" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
                 <p-column field="name" [header]="'Title' | translate" [sortable]="true"></p-column>
                 <p-column [header]="'image' | translate" styleClass="text-center">
@@ -51,7 +51,7 @@
                         </a>
                     </ng-template>
                 </p-column>
-            </p-dataTable>
+            </p-dataTable> -->
         </div>
         <div class="padding5" *ngIf="isDetailsVisible">
             <clinic-add-news [selectedClinicNewsId]="selectedClinicNewsId" (onBack)="hideDetails($event)"></clinic-add-news>

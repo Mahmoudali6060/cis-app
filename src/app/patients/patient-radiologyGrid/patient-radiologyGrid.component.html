@@ -4,7 +4,7 @@
     <i class="glyphicon glyphicon-search"></i>
     <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
 </div>
-<p-dataTable [value]="allRadiologies | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+<!-- <p-dataTable [value]="allRadiologies | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
     <p-column styleClass="text-center width50">
         <ng-template let-noteRadiology="rowData" pTemplate="body">
             <input type="checkbox" [checked] ="noteRadiology.isSelected"
@@ -30,4 +30,4 @@
             <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteRadiology.description'></textarea>
         </ng-template>
     </p-column>
-</p-dataTable>
+</p-dataTable> -->

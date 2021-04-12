@@ -4,7 +4,7 @@
         <i class="fa fa-search searchIcon"></i>
         <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
     </div>
-    <p-dataTable [value]="allPackages | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="allPackages | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column styleClass="text-center width50">
             <ng-template let-noteService="rowData" pTemplate="body">
                 <input type="checkbox" [checked]="noteService.isSelected"
@@ -35,5 +35,5 @@
                 <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteService.description'></textarea>
             </ng-template>
         </p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>

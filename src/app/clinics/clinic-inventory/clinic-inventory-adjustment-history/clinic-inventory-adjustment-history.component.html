@@ -5,8 +5,7 @@
         <input class="inputSearch" #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
     </div>
 
-    <p-dataTable [value]="clinicInventoriesHistoryList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <!-- <p-column field="adjustmentDate" [header]="'AdjustmentDate' | translate" [sortable]="true" ></p-column>-->
+    <!-- <p-dataTable [value]="clinicInventoriesHistoryList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column [header]="'AdjustmentDate' | translate" sortBy="lastModificationDate">
             <ng-template let-data="rowData" pTemplate="body">
                 <span>{{data.lastModificationDateString }}</span>
@@ -19,5 +18,5 @@
         <p-column field="onHandQuantity" [header]="'OldQuantity' | translate" [sortable]="true"></p-column>
         <p-column field="adjustmentQuantity" [header]="'NewQuantity' | translate" [sortable]="true"></p-column>
         <p-column field="recordedBy" [header]="'AdjustedBy' | translate" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>

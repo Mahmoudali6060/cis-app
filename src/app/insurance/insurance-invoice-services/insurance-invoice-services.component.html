@@ -3,17 +3,15 @@
         <i class="glyphicon glyphicon-search"></i>
         <input #gb type="text" pInputText size="50" class="inputSearch"  placeholder="Search...">
     </div>
-    <p-dataTable [value]="invoiceChargesList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="invoiceChargesList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="claimNo" [header]="'ClaimRefNo' | translate" [sortable]="true"></p-column>
         <p-column field="claimDate" [header]="'ClaimDate' | translate" [sortable]="true"></p-column>
         <p-column field="policyName" [header]="'PolicyName' | translate" [sortable]="true"></p-column>
         <p-column field="serviceName" [header]="'ServiceName' | translate" [sortable]="true"></p-column>
         <p-column field="serviceCode" [header]="'ServiceCode' | translate" [sortable]="true"></p-column>
-
         <p-column field="insuranceCompanyNetPriceWithoutVAT" [header]="'ChargeAmount' | translate" [sortable]="true" styleClass="text-center width70 nopadding"></p-column>
         <p-column field="vatAmountForCompany" [header]="'VATAmount' | translate" [sortable]="true" styleClass="text-center width70 nopadding"></p-column>
         <p-column field="insuranceCompanyNetPrice" [header]="'TotalPrice' | translate" [sortable]="true" styleClass="text-center width60"></p-column>
-
         <p-column [header]="'RejectCharge' | translate" styleClass="text-center width70">
             <ng-template let-item="rowData" pTemplate="body">
                 <a [class.disabled]="!enableCancelCharge ? true : null">  <img *ngIf="!isInvoiceCanceled" src="Images/{{item.rejectForCompanyIconName}}" class="pointer" title="{{ 'RejectCharge' | translate}}" alt="{{ 'RejectCharge' | translate}}" (click)="openRejectChargeWindow(item)" /></a>
@@ -43,7 +41,7 @@
                 <a *ngIf="item.companyPaymentId && isInvoiceCanceled">{{ 'ViewPayment' | translate}}</a>
             </ng-template>
         </p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 
 <button type="button" #btnOpenPaymentPopup class="hidden" data-toggle="modal" data-target="#PayService"></button>

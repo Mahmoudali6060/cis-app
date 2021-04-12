@@ -30,7 +30,7 @@
         <input #gb type="text" pInputText size="50" placeholder="Search...">
     </div>-->
 
-    <p-dataTable [value]="clinicInventoriesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+    <!-- <p-dataTable [value]="clinicInventoriesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="code" [header]="'ItemCode' | translate" [sortable]="true"></p-column>
         <p-column field="name" [header]="'ItemName' | translate" [sortable]="true"></p-column>
         <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
@@ -40,7 +40,6 @@
         <p-column field="maxLevel" [header]="'MaxLevel' | translate" [sortable]="true"></p-column>
         <p-column field="minNet" [header]="'MinNet' | translate" [sortable]="true"></p-column>
         <p-column field="maxNet" [header]="'MaxNet' | translate" [sortable]="true"></p-column>
-        <!--<p-column field="unitName" [header]="'Unit' | translate" [sortable]="true"></p-column>-->
         <p-column [header]="'Unit' | translate">
             <ng-template let-product="rowData" pTemplate="body">
                 <label *ngIf="product.unitType === 'NumbersUnit'">{{ product.unitName | translate}}</label>
@@ -51,7 +50,7 @@
             </ng-template>
         </p-column>
         <p-column field="lastPurchasingPrice" [header]="'LastPurchasePrice' | translate" [sortable]="true"></p-column>
-    </p-dataTable>
+    </p-dataTable> -->
 </div>
 
 <div id="InventoriesPrintingArea" class="row hidden">

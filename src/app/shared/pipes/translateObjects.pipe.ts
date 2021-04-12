@@ -10,7 +10,7 @@ export class TranslateObjectsPipe implements PipeTransform {
         private storage: LocalStorageService
     ) { }
 
-    transform(value: any, primaryProperty: string, secondaryProperty: any | null, lstToTranslated: any[]): any {
+    transform(value: any, primaryProperty: string|null, secondaryProperty: any | null, lstToTranslated: any[]): any {
         let selectedLanguage = this.storage.retrieve("selectedLanguage");
 
         if (selectedLanguage == null || selectedLanguage == undefined)
