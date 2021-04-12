@@ -18,7 +18,7 @@
 
     <div  [ngClass]="{ 'pageContentStyle page-content': accountService.userLoggedIn }">
 
-        <nav-bar *ngIf="accountService.userLoggedIn" [userRole]="accountService.loggedInUserType" [userName]="accountService.loggedInUserName"
+        <nav-bar *ngIf="accountService.userLoggedIn" [userRoleEnum]="accountService.loggedInUserType" [userName]="accountService.loggedInUserName"
                  [notifications]="notifications" [unReadNotificationsNo]="noUnReadNotifications" [profileImagePath]="accountService.profileImagePath"></nav-bar>
 
 

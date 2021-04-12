@@ -72,7 +72,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        HomeModule,
+         HomeModule,
         //SystemAdminsModule,
         //CashiersModule,
         //ClinicsModule,

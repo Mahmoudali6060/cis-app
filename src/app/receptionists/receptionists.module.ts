@@ -2,7 +2,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TreeModule } from 'primeng/primeng';
 import { ReceptionistRoutingModule } from './receptionists.routing';
 import { ReceptionistsComponent } from './receptionists.component';
 import { ReceptionistTabsComponent } from './receptionist-tabs/receptionist-tabs.component';
@@ -30,8 +29,6 @@ import { DataTableModule } from 'primeng/primeng';
         SharedModule,
         //routing,
         // ScheduleModule,
-        TreeModule,
-        DataTableModule,
         DialogModule,
         CalendarModule,
         PatientsModule

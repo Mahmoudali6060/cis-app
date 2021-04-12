@@ -16,7 +16,6 @@ import { DoctorAppointmentsComponent } from './doctor-appointments/doctor-appoin
 import { DoctorRequestsComponent } from './doctor-requests/doctor-requests.component';
 import { DoctorReportsComponent } from './doctor-reports/doctor-reports.component';
 import { DoctorRequestDetailsComponent } from './doctor-request-details/doctor-request-details.component';
-import { TreeModule } from 'primeng/primeng';
 import { SharedModule } from '../shared/shared.module';
 import { PatientsModule } from '../patients/patients.module';
 import { PatienSearchComponent } from '../patients/patient-search/patient-search.component';
@@ -31,9 +30,7 @@ import { DialogModule } from 'primeng/primeng';
         CommonModule,
         DoctorRoutingModule,
         SharedModule,
-        TreeModule,
         //routing, 
-        DataTableModule,
         DialogModule,
         PatientsModule
     ],

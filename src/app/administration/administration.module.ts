@@ -19,7 +19,7 @@ import { DataTableModule } from 'primeng/primeng';
         CommonModule,
         //routing,
         SharedModule,
-        DataTableModule
+        
     ],
     declarations: [BasicDataComponent,
         AdministrationTabsComponent,

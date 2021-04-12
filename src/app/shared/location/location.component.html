@@ -17,7 +17,7 @@
     <div class="form-group">
         <label for="ddlRegion" class="control-label col-md-2">{{ 'Region' | translate}}</label>
         <div class="col-md-4">
-            <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="location.regionId" #ddlCity="ngModel" #r (change)="fillCities(r.value)">
+            <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="location.regionId" #ddlRegion="ngModel" #r (change)="fillCities(r.value)">
                 <option *ngFor="let region of filteredRegionsList" [value]="region.id">{{region.name}}</option>
             </select>
         </div>

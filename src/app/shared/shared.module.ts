@@ -22,7 +22,7 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
 import { SharedService } from './shared/shared.service';
 import { CharityRequestService } from './shared/charityRequest.service';
 // import {TableModule} from 'primeng';
-import { Table, TableModule } from 'primeng/table';
+import {  DataTableModule } from 'primeng/primeng';
 import { AllNotificationsComponent } from './all-notifications/all-notifications.component';
 import { TreeCheckboxListComponent } from './tree-checkboxList/tree-checkboxList.component';
 
@@ -32,9 +32,9 @@ import { UnAuthorizedComponent } from './unauthorized/unauthorized.component';
 import { SharedTabsComponent } from './shared-tabs/shared-tabs.component';
 
 
-import { GMapModule } from 'primeng/gmap';
+import { GMapModule } from 'primeng/primeng';
 import { TranslateModule } from '@ngx-translate/core';
-import { TreeModule } from 'primeng/tree';
+import { TreeModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -43,7 +43,7 @@ import { TreeModule } from 'primeng/tree';
         SharedRoutingModule,
         //routing,
         GMapModule,
-        TableModule,
+        DataTableModule,
         TranslateModule,
         TreeModule
     ],
@@ -92,7 +92,10 @@ import { TreeModule } from 'primeng/tree';
         AllNotificationsComponent,
         TranslateModule,
         SharedTabsComponent,
-        TreeCheckboxListComponent
+        TreeCheckboxListComponent,
+        DataTableModule,
+        GMapModule,
+        TreeModule
     ]
 })
 export class SharedModule { }

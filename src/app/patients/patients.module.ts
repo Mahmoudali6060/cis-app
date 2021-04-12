@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // import {EditorModule, SharedModule as SharedModuleNg} from 'primeng/primeng';
-import { TreeModule } from 'primeng/primeng';
 import { DataTableModule } from 'primeng/primeng';
 import { CalendarModule } from 'primeng/primeng';
 import { DialogModule } from 'primeng/primeng';
@@ -67,9 +66,7 @@ import { PatientServicePackagesGridComponent } from './patient-servicePackages-g
         SharedModule,
         // EditorModule,
         // SharedModuleNg,      
-        TreeModule,
         //routing,  
-        DataTableModule,
         CalendarModule,
         DialogModule,
 

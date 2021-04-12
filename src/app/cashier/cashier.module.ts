@@ -35,7 +35,6 @@ import { PatientsModule } from '../patients/patients.module';
         CashierRoutingModule,
         SharedModule,
         //routing,
-        DataTableModule,
         CalendarModule,
         DialogModule,
         PatientsModule

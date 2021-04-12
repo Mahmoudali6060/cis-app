@@ -39,7 +39,6 @@ import { DataTableModule } from 'primeng/primeng';
         AdministrationModule,
         //routing,
         CalendarModule,
-        DataTableModule
     ],
     declarations: [
         SystemAdminTabsComponent,

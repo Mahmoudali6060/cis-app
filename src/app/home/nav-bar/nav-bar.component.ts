@@ -1,21 +1,21 @@
-﻿import {Component, Input, OnInit , OnChanges, SimpleChanges} from '@angular/core';
+﻿import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { LocalStorageService } from 'ng2-webstorage';
 import { Router } from '@angular/router';
 
-import {AccountService} from '../../security/shared/account.service';
-import {UserTypeEnum} from '../../security/shared/user-type.enum';
+import { AccountService } from '../../security/shared/account.service';
+import { UserTypeEnum } from '../../security/shared/user-type.enum';
 
 import { NotificationService } from '../../shared/shared/notification.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-   
+
     selector: 'nav-bar',
     templateUrl: './nav-bar.component.html'
 
 })
 
-export class NavBarComponent implements OnInit , OnChanges {
+export class NavBarComponent implements OnInit, OnChanges {
 
     userRoleEnum: UserTypeEnum = new UserTypeEnum();
     @Input() userRole: string = '';
@@ -40,12 +40,12 @@ export class NavBarComponent implements OnInit , OnChanges {
 
     userId: string = '';
     userType: string = '';
-    clinicId!:string;
+    clinicId!: string;
     lang = 'en';
 
     public constructor(
         private localStorage: LocalStorageService,
-        private accountService: AccountService,
+        public accountService: AccountService,
         private router: Router,
         public notificationService: NotificationService,
         public translate: TranslateService
@@ -184,8 +184,7 @@ export class NavBarComponent implements OnInit , OnChanges {
 
             this.accountUrl = '/insurance/invoice';
         }
-        else
-        {
+        else {
             this.showLogin = true;
             this.showUserName = false;
             this.showPatientLinks = false;
@@ -214,7 +213,7 @@ export class NavBarComponent implements OnInit , OnChanges {
         this.localStorage.clear("UserID");
         this.localStorage.clear("AuthenticatedUserId");
 
-        this.accountService.changeLoginStatus(false, '', '', false,'');
+        this.accountService.changeLoginStatus(false, '', '', false, '');
 
         //navigate to home URL
         //this.router.navigate(['/home']);
@@ -222,7 +221,7 @@ export class NavBarComponent implements OnInit , OnChanges {
         location.reload();
     }
 
-    openNotification(notification:any) {
+    openNotification(notification: any) {
 
         //mark notification as read
         this.markMotificationasRead(notification.id)
@@ -234,23 +233,23 @@ export class NavBarComponent implements OnInit , OnChanges {
         //    this.router.navigate(['/volunteerProfile', notification.relatedVolunteerId]);
     }
 
-    markMotificationasRead(notificationId:any) {
+    markMotificationasRead(notificationId: any) {
         let vm = this;
 
         this.notificationService.markNotificationAsRead(notificationId)
             .subscribe(
-            function (response:any) {
-                // get notification by Id from the notifications List
-                //var selectedNotification = vm.notificationsList.find(not => not.id == notificationId);
-                //selectedNotification.isRead = true;
-            },
-            function (error:any) { 
-                //vm.toastr.error('Failed to update Notification - ' + error, '');
-                // vm.showProgress = false;
-            },
-            function () {
-                // vm.showProgress = false;
-            });
+                function (response: any) {
+                    // get notification by Id from the notifications List
+                    //var selectedNotification = vm.notificationsList.find(not => not.id == notificationId);
+                    //selectedNotification.isRead = true;
+                },
+                function (error: any) {
+                    //vm.toastr.error('Failed to update Notification - ' + error, '');
+                    // vm.showProgress = false;
+                },
+                function () {
+                    // vm.showProgress = false;
+                });
     }
 
     changeLanguage() {
@@ -337,7 +336,7 @@ export class NavBarComponent implements OnInit , OnChanges {
         this.removeStyleSheet('styles-rtl.css');
         this.removeStyleSheet('bootstrap-rtl.min.css');
 
-       
+
         this.loadCssToHTMlPage("css/styles-ltr.css");
         window.document.body.style.direction = "ltr";
     }
@@ -369,12 +368,12 @@ export class NavBarComponent implements OnInit , OnChanges {
 
         //head.insertBefore(link, style);
 
-       head.appendChild(link);
+        head.appendChild(link);
 
         //if (isLoaded) return;
 
-       // head.insertBefore(link, style);
-      
+        // head.insertBefore(link, style);
+
     }
 
     RemoveCssToHTMlPage(url: string): void {
@@ -392,12 +391,10 @@ export class NavBarComponent implements OnInit , OnChanges {
         }
     }
 
-    removeStyleSheet(stylesheetName: string)
-    {
+    removeStyleSheet(stylesheetName: string) {
         var elements = document.querySelectorAll('link[rel=stylesheet]');
         for (var i = 0; i < elements.length; i++) {
-            if (elements[i].attributes.getNamedItem('href')?.value.includes(stylesheetName))
-            {
+            if (elements[i].attributes.getNamedItem('href')?.value.includes(stylesheetName)) {
                 document.styleSheets[i].disabled = true;
             }
         }
@@ -407,9 +404,9 @@ export class NavBarComponent implements OnInit , OnChanges {
         let userId = this.localStorage.retrieve("AuthenticatedUserId");
         this.accountService.updateUserLanguage(userId, language)
             .subscribe(
-            function (response:any) { },
-            function (error:any) {  },
-            function () { });
+                function (response: any) { },
+                function (error: any) { },
+                function () { });
 
     }
 

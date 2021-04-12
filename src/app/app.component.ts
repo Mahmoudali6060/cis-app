@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
         private localStorage: LocalStorageService,
         private router: Router,
         private _route: ActivatedRoute,
-        private accountService: AccountService,
+        public accountService: AccountService,
         public notificationService: NotificationService,
         public translate: TranslateService) {
         // You need this small hack in order to catch application root view container ref

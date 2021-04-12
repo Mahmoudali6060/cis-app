@@ -27,7 +27,6 @@ import { AdministrationModule } from '../administration/administration.module';
 
 import { SecurityModule }   from '../security/security.module';
 import { AccountService }   from '../security/shared/account.service';
-import {GMapModule} from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -39,7 +38,6 @@ import {GMapModule} from 'primeng/primeng';
         AdministrationModule,
         //routing,
         CalendarModule,
-        GMapModule
      
     ],
     declarations: [

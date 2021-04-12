@@ -26,7 +26,6 @@ import { InsuranceService } from './shared/insurance.service';
 import { CalendarModule } from 'primeng/primeng';
 import { DataTableModule } from 'primeng/primeng';
 import { DialogModule } from 'primeng/primeng';
-import { TreeModule } from 'primeng/primeng';
 
 import { PatientsModule } from '../patients/patients.module';
 
@@ -38,11 +37,9 @@ import { PatientsModule } from '../patients/patients.module';
         SharedModule,
         //routing,
         CalendarModule,
-        DataTableModule,
         PatientsModule,
         DialogModule,
 
-        TreeModule,
     ],
     declarations: [
         InsuranceTabsComponent,

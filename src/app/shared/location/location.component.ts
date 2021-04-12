@@ -1,16 +1,16 @@
-﻿import {Component, OnInit, Input} from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
 import { SharedService } from '../shared/shared.service';
 
 @Component({
-   
-    selector: 'location',  
-    templateUrl:'location.component.html'
+
+    selector: 'location',
+    templateUrl: 'location.component.html'
 })
 
 export class LocationComponent implements OnInit {
-    @Input() location: any = {};
+    @Input() location: any;
     countriesList: any[] = [];
     filteredCitiesList: any[] = [];
     filteredRegionsList: any[] = [];
@@ -27,23 +27,23 @@ export class LocationComponent implements OnInit {
         //get address wrapper 
         this.sharedService.getAddressWrapper()
             .subscribe(
-            function (response:any) {
-                thisComponent.countriesList = response.countries;              
-                if (thisComponent.location.countryId > 0) {
-                    thisComponent.fillRegions(thisComponent.location.countryId);
-                }
+                function (response: any) {
+                    thisComponent.countriesList = response.countries;
+                    if (thisComponent.location.countryId > 0) {
+                        thisComponent.fillRegions(thisComponent.location.countryId);
+                    }
 
-                if (thisComponent.location.regionId > 0) {
-                    thisComponent.fillCities(thisComponent.location.regionId);
-                }                
-            },
-            function (error:any) { 
-                thisComponent.toastr.error( error, '');
-                thisComponent.showProgress = false;
-            },
-            function () {
-                thisComponent.showProgress = false;
-            });
+                    if (thisComponent.location.regionId > 0) {
+                        thisComponent.fillCities(thisComponent.location.regionId);
+                    }
+                },
+                function (error: any) {
+                    thisComponent.toastr.error(error, '');
+                    thisComponent.showProgress = false;
+                },
+                function () {
+                    thisComponent.showProgress = false;
+                });
     }
 
     fillRegions(id: string) {

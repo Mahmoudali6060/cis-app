@@ -57,7 +57,6 @@ import { ClinicAppointmentDetailsComponent } from './clinic-appointment-details/
 import { ClinicDashboardComponent } from './clinic-dashboard/clinic-dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { SecurityModule } from '../security/security.module';
-import { TreeModule } from 'primeng/primeng';
 import { OrderListModule } from 'primeng/primeng';
 import { ClinicServiceGroupDetailsComponent } from './clinic-serviceGroup-details/clinic-serviceGroup-details.component';
 import { ClinicServiceDetailsComponent } from './clinic-service-details/clinic-service-details.component';
@@ -76,10 +75,8 @@ import { ClinicEMRMasterDiagnosisComponent } from './clinic-EMRMaster-diagnosis/
         SharedModule,
         SecurityModule,
         //routing,
-        TreeModule,
         OrderListModule,
         CalendarModule,
-        DataTableModule,
         ChartModule,
         DialogModule,
         //ToastModule
