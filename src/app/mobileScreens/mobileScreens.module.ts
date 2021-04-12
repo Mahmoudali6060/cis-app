@@ -18,13 +18,8 @@ import { MobileFeedbackomponent }   from './mobile-feedback/mobile-feedback.comp
 import { MobileBookAppointmentComponent }   from './mobile-bookAppointment/mobile-bookAppointment.component';
 import { MobileAppointmentDetailsComponent }   from './mobile-appointment-details/mobile-appointment-details.component';
 import { MobileMapComponent }   from './mobile-map/mobile-map.component';
-
-
-import {CalendarModule} from 'primeng/primeng';
-
 import { SharedModule } from '../shared/shared.module';
 import { AdministrationModule } from '../administration/administration.module';
-
 import { SecurityModule }   from '../security/security.module';
 import { AccountService }   from '../security/shared/account.service';
 
@@ -35,10 +30,7 @@ import { AccountService }   from '../security/shared/account.service';
         MobileScreensRoutingModule,
         SharedModule,
         SecurityModule,
-        AdministrationModule,
-        //routing,
-        CalendarModule,
-     
+        AdministrationModule
     ],
     declarations: [
         MobileTabsComponent,

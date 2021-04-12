@@ -9,9 +9,7 @@ import { DistrictsComponent } from './districts/districts.component';
 import { LocationsComponent } from './locations/locations.component';
 import { DrugUnitComponent } from './drug-unit/drug-unit.component';
 import { DrugFrequencyComponent } from './drug-frequency/drug-frequency.component';
-import { AdministrationService } from './shared/administration.service';
 import { SharedModule } from '../shared/shared.module';
-import { DataTableModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [

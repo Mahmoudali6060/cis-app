@@ -18,8 +18,6 @@ import { ChangePasswordComponent } from './changePassword/change-password.compon
 import { RegistrationTypeComponent } from './registration-type/registration-type.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
-import {DialogModule} from 'primeng/primeng';
-import {DataTableModule} from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -28,7 +26,6 @@ import {DataTableModule} from 'primeng/primeng';
         SecurityRoutingModule,
         //routing,
         SharedModule,
-        DialogModule,
     ],
     declarations: [
         UserPermissionsComponent,

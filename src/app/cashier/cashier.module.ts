@@ -22,9 +22,7 @@ import { SharedService }   from '../shared/shared/shared.service';
 import { ClaimService }   from './shared/claim.service';
 import {AccountService} from   '../security/shared/account.service';
 
-import {DataTableModule} from 'primeng/primeng';
-import {CalendarModule} from 'primeng/primeng';
-import {DialogModule} from 'primeng/primeng';
+
 import { PatientsModule } from '../patients/patients.module';
 
 
@@ -34,9 +32,6 @@ import { PatientsModule } from '../patients/patients.module';
         CommonModule,
         CashierRoutingModule,
         SharedModule,
-        //routing,
-        CalendarModule,
-        DialogModule,
         PatientsModule
         //ToastModule
     ],

@@ -22,11 +22,6 @@ import { InsuranceCoverageDetailsComponent } from './insurance-coverageDetails/i
 import { SharedModule } from '../shared/shared.module';
 import { SharedService } from '../shared/shared/shared.service';
 import { InsuranceService } from './shared/insurance.service';
-
-import { CalendarModule } from 'primeng/primeng';
-import { DataTableModule } from 'primeng/primeng';
-import { DialogModule } from 'primeng/primeng';
-
 import { PatientsModule } from '../patients/patients.module';
 
 @NgModule({

@@ -21,8 +21,6 @@ import { PatientsModule } from '../patients/patients.module';
 import { PatienSearchComponent } from '../patients/patient-search/patient-search.component';
 import { DoctorService } from './shared/doctor.service';
 import { SharedService } from '../shared/shared/shared.service';
-import { DataTableModule } from 'primeng/primeng';
-import { DialogModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -30,8 +28,6 @@ import { DialogModule } from 'primeng/primeng';
         CommonModule,
         DoctorRoutingModule,
         SharedModule,
-        //routing, 
-        DialogModule,
         PatientsModule
     ],
     declarations: [

@@ -16,10 +16,7 @@ import { ReceptionistAppointmentDetailsComponent } from './receptionist-appointm
 import { ReceptionistRequestsComponent } from './receptionist-requests/receptionist-requests.component';
 import { ReceptionistDivisionCalendarComponent } from './receptionist-division-calendar/receptionist-division-calendar.component';
 import { SharedModule } from '../shared/shared.module';
-import { CalendarModule } from 'primeng/primeng';
-import { DialogModule } from 'primeng/primeng';
 import { PatientsModule } from '../patients/patients.module';
-import { DataTableModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [

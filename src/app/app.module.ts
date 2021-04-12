@@ -1,13 +1,13 @@
 import './rxjs-extensions';
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, Http} from '@angular/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { RouterModule }   from '@angular/router';
-import {APP_BASE_HREF} from '@angular/common';
+import { HttpModule, Http } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutingModule } from './app.routing';
 
-import { AppComponent }   from './app.component';
+import { AppComponent } from './app.component';
 //import { HomeComponent } from './home/home.component';
 //import { SearchComponent } from './home/search/search.component';
 //import { MostPopularComponent } from './home/most-popular/most-popular.component';
@@ -16,18 +16,18 @@ import { AppComponent }   from './app.component';
 //import { AdvancedSearchComponent } from './home/advanced-search/advanced-search.component';
 
 import { HomeModule } from './home/home.module';
-import { AdministrationService }   from './administration/shared/administration.service';
-import { SharedService }   from './shared/shared/shared.service';
-import { ClaimService }   from './cashier/shared/claim.service';
-import {AccountService} from   './security/shared/account.service';
-import { ClinicService }   from './clinics/shared/clinic.service';
-import { DoctorService }   from './doctors/shared/doctor.service';
-import { InsuranceService }   from './insurance/shared/insurance.service';
-import { NurseService }   from './nurses/shared/nurse.service';
-import { PatientService }   from './patients/shared/patient.service';
-import { ReceptionistService }   from './receptionists/shared/receptionist.service';
-import { SystemAdminService }   from './systemAdmins/shared/system-admin.service';
-import { VendorDetailGuard} from './systemAdmins/systemAdmins-vendor-basicData/vendor-guard.service';
+import { AdministrationService } from './administration/shared/administration.service';
+import { SharedService } from './shared/shared/shared.service';
+import { ClaimService } from './cashier/shared/claim.service';
+import { AccountService } from './security/shared/account.service';
+import { ClinicService } from './clinics/shared/clinic.service';
+import { DoctorService } from './doctors/shared/doctor.service';
+import { InsuranceService } from './insurance/shared/insurance.service';
+import { NurseService } from './nurses/shared/nurse.service';
+import { PatientService } from './patients/shared/patient.service';
+import { ReceptionistService } from './receptionists/shared/receptionist.service';
+import { SystemAdminService } from './systemAdmins/shared/system-admin.service';
+import { VendorDetailGuard } from './systemAdmins/systemAdmins-vendor-basicData/vendor-guard.service';
 //import { DoctorsModule } from './doctors/doctors.module';
 //import { NursesModule } from './nurses/nurses.module';
 //import { SystemAdminsModule } from './systemAdmins/systemAdmins.module';//finished
@@ -37,7 +37,7 @@ import { VendorDetailGuard} from './systemAdmins/systemAdmins-vendor-basicData/v
 //import { AdministrationModule } from './administration/administration.module';
 
 
-import {Ng2Webstorage} from 'ng2-webstorage';
+import { Ng2Webstorage } from 'ng2-webstorage';
 
 //import { ClinicsModule  } from './clinics/clinic.module';
 //import { CashiersModule } from './cashier/cashier.module';
@@ -49,13 +49,16 @@ import {Ng2Webstorage} from 'ng2-webstorage';
 
 //import { MobileScreensModule } from './mobileScreens/mobileScreens.module';
 
-import {NotificationService, ChannelConfig, SignalrWindow} from "./shared/shared/notification.service";
-import {remoteServerUrl} from './app.config';
+import { NotificationService, ChannelConfig, SignalrWindow } from "./shared/shared/notification.service";
+import { remoteServerUrl } from './app.config';
 
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 let channelConfig = new ChannelConfig();
 
@@ -72,7 +75,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-         HomeModule,
+        BrowserAnimationsModule,
+        HomeModule,
         //SystemAdminsModule,
         //CashiersModule,
         //ClinicsModule,
@@ -87,7 +91,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         //MobileScreensModule,
         AppRoutingModule,
         ToastrModule,
-        Ng2Webstorage,   
+        Ng2Webstorage,
 
 
         TranslateModule.forRoot({

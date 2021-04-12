@@ -1,13 +1,13 @@
-﻿import {Component, Input, OnInit, EventEmitter, ViewChild, ElementRef, Output, OnChanges } from '@angular/core';
-import { Router, ActivatedRoute} from '@angular/router';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, Input, OnInit, EventEmitter, ViewChild, ElementRef, Output, OnChanges } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from 'ng2-webstorage';
 import { SharedService } from '../shared/shared.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
-   
+
     selector: 'documents',
     templateUrl: 'documents.component.html'
 })
@@ -23,17 +23,17 @@ export class DocumentsComponent implements OnInit, OnChanges {
     @Input() isTemplateExist: boolean = false;
     @Input() docDetailsUrl: string = '';
     @Input('details') documentdetailsUrl: string = '';
-    patientAttachementId!:string;
+    patientAttachementId!: string;
     @Output() onModelUpdated = new EventEmitter<any>();
     @ViewChild('btnOpenDeleteAttachementPopup') btnOpenDeleteAttachementPopup: ElementRef | undefined;
     @ViewChild('btnOpenEditAttachmentPopup') btnOpenEditAttachmentPopup: ElementRef | undefined;
     @Input() title: string = '';
     @Input() fileType: boolean | undefined;
     @Input() showDocumentDetails: boolean | undefined;
-    @Input() btnUploadText!:string;
-    @Input() fileNameTxt!:string;
-    @Input() fileNameUploadTxt!:string;
-    @Input() parentType!:string;
+    @Input() btnUploadText!: string;
+    @Input() fileNameTxt!: string;
+    @Input() fileNameUploadTxt!: string;
+    @Input() parentType!: string;
     attachmentsList: any = [];
     @Input() parentId: string = '';
     imageData = null;
@@ -60,7 +60,7 @@ export class DocumentsComponent implements OnInit, OnChanges {
         //vm.parentId = vm.patientId;
         this.loadAttachementFiles();
     }
-    downloadFile(id:any) {
+    downloadFile(id: any) {
 
         var url = this.sharedService.prepareDownloadUrl(id);
 
@@ -90,19 +90,19 @@ export class DocumentsComponent implements OnInit, OnChanges {
         if (vm.parentId != "" && vm.parentId != undefined && vm.parentType != undefined && this.parentId.toString().toLowerCase() != 'new') {
             this.sharedService.getAllAttachments(vm.parentId, vm.parentType)
                 .subscribe(
-                function (response:any) {
-                    vm.attachmentsList = response;
-                },
-                function (error:any) { 
-                    vm.toastr.error(error, '');
-                    vm.showProgress = false;
-                },
-                function () {
-                    vm.showProgress = false;
-                });
+                    function (response: any) {
+                        vm.attachmentsList = response;
+                    },
+                    function (error: any) {
+                        vm.toastr.error(error, '');
+                        vm.showProgress = false;
+                    },
+                    function () {
+                        vm.showProgress = false;
+                    });
         }
 
-   }
+    }
 
     addAttachment() {
         //navigate to current URL
@@ -139,22 +139,21 @@ export class DocumentsComponent implements OnInit, OnChanges {
                 vm.showProgress = true;
                 this.sharedService.getAttachmentObject(vm.model.id)
                     .subscribe(
-                    function (response:any) {
-                        vm.model = response;
-                    },
-                    function (error:any) { 
-                        vm.toastr.error(error, '');
-                        vm.showProgress = false;
-                    },
-                    function () {
-                        vm.showProgress = false;
-                    });
+                        function (response: any) {
+                            vm.model = response;
+                        },
+                        function (error: any) {
+                            vm.toastr.error(error, '');
+                            vm.showProgress = false;
+                        },
+                        function () {
+                            vm.showProgress = false;
+                        });
             }
 
         }
     }
-    ShowDocumentsDetails(): void
-    {
+    ShowDocumentsDetails(): void {
         this.isDetailsVisible = true;
         //this.showSelectedTemplates = false;
         this.model = {};
@@ -165,21 +164,19 @@ export class DocumentsComponent implements OnInit, OnChanges {
 
     }
 
-    deletePatientAttachment(id:any): void {
+    deletePatientAttachment(id?: any): void {
         let msg = this.translate.instant("AreYouSureDelete");
         let result = confirm(msg);
         if (result == true)
             this.deleteAttachment(id);
-
-
     }
 
-    hideDetails(updatedSurgery:any) {
+    hideDetails(updatedSurgery: any) {
 
         this.isDetailsVisible = false;
 
     }
-    deleteAttachment(id:any): void {
+    deleteAttachment(id: any): void {
         let vm = this;
 
         if (id == undefined || isNaN(id)) {
@@ -191,19 +188,19 @@ export class DocumentsComponent implements OnInit, OnChanges {
         vm.showProgress = true;
         this.sharedService.deleteAttachment(id)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
-                vm.showProgress = false;
-                vm.loadAttachementFiles();
-            },
-            function (error:any) { 
-                //console.log("Error happened" + error)
-                vm.toastr.error(error, '');
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    vm.showProgress = false;
+                    vm.loadAttachementFiles();
+                },
+                function (error: any) {
+                    //console.log("Error happened" + error)
+                    vm.toastr.error(error, '');
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     raiseModelUpdated(model: any) {

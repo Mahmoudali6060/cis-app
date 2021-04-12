@@ -3,9 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // import {EditorModule, SharedModule as SharedModuleNg} from 'primeng/primeng';
-import { DataTableModule } from 'primeng/primeng';
-import { CalendarModule } from 'primeng/primeng';
-import { DialogModule } from 'primeng/primeng';
 import { PatientRoutingModule } from './patients.routing';
 import { PatientTabsComponent } from './patient-tabs/patient-tabs.component';
 import { PatientBasicComponent } from './patient-basic/patient-basic.component';
@@ -67,8 +64,6 @@ import { PatientServicePackagesGridComponent } from './patient-servicePackages-g
         // EditorModule,
         // SharedModuleNg,      
         //routing,  
-        CalendarModule,
-        DialogModule,
 
     ],
     declarations: [

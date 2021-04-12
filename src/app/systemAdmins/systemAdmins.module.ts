@@ -26,8 +26,6 @@ import { SharedModule } from '../shared/shared.module';
 import { AdministrationModule } from '../administration/administration.module';
 import { SystemAdminImportExportComponent } from './systemAdmins-import-export/systemAdmins-import-export.component';
 import { SecurityModule } from '../security/security.module';
-import { CalendarModule } from 'primeng/primeng';
-import { DataTableModule } from 'primeng/primeng';
 
 @NgModule({
     imports: [
@@ -38,7 +36,6 @@ import { DataTableModule } from 'primeng/primeng';
         SecurityModule,
         AdministrationModule,
         //routing,
-        CalendarModule,
     ],
     declarations: [
         SystemAdminTabsComponent,

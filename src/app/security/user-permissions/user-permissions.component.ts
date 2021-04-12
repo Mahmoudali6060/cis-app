@@ -24,8 +24,8 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
 
     permissionNames: PermissionNames = new PermissionNames();
     userGroupsList: any[] = [];
-    usersList: any[] | undefined;
-    permissionsList: any[] | undefined;
+    usersList!: any;
+    permissionsList!: any;
 
     userGroupfilterString!:string;
     userListfilterString!:string;

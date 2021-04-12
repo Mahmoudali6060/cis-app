@@ -1,10 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-//import { routing } from '../app.routing';
 import { SharedRoutingModule } from './shared.routing';
-
 import { AddressComponent } from './address/address.component';
 import { PrintComponent } from './print-page/print-page.component';
 import { ContactComponent } from './contact/contact.component';
@@ -19,22 +16,21 @@ import { LocationComponent } from './location/location.component';
 import { RegistrationResultComponent } from './registration-result/registration-result.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
-import { SharedService } from './shared/shared.service';
-import { CharityRequestService } from './shared/charityRequest.service';
-// import {TableModule} from 'primeng';
-import {  DataTableModule } from 'primeng/primeng';
 import { AllNotificationsComponent } from './all-notifications/all-notifications.component';
 import { TreeCheckboxListComponent } from './tree-checkboxList/tree-checkboxList.component';
-
 import { FilterByNameOrCodePipe } from './pipes/filterbynameorcode.pipe';
 import { TranslateObjectsPipe } from './pipes/translateObjects.pipe';
 import { UnAuthorizedComponent } from './unauthorized/unauthorized.component';
 import { SharedTabsComponent } from './shared-tabs/shared-tabs.component';
 
-
-import { GMapModule } from 'primeng/primeng';
 import { TranslateModule } from '@ngx-translate/core';
-import { TreeModule } from 'primeng/primeng';
+import { GMapModule } from 'primeng/gmap';
+import { TreeModule } from 'primeng/tree';
+import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
+import { OrderListModule } from 'primeng/orderlist';
+import { ChartModule } from 'primeng/chart';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     imports: [
@@ -43,9 +39,13 @@ import { TreeModule } from 'primeng/primeng';
         SharedRoutingModule,
         //routing,
         GMapModule,
-        DataTableModule,
         TranslateModule,
-        TreeModule
+        TreeModule,
+        CalendarModule,
+        DialogModule,
+        OrderListModule,
+        ChartModule,
+        TableModule
     ],
     declarations: [
         AddressComponent,
@@ -93,9 +93,13 @@ import { TreeModule } from 'primeng/primeng';
         TranslateModule,
         SharedTabsComponent,
         TreeCheckboxListComponent,
-        DataTableModule,
+        CalendarModule,
         GMapModule,
-        TreeModule
+        TreeModule,
+        DialogModule,
+        OrderListModule,
+        ChartModule,
+        TableModule
     ]
 })
 export class SharedModule { }
