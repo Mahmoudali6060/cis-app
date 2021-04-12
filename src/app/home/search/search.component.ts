@@ -14,7 +14,7 @@ export class SearchComponent {
 
     userRoleEnum: UserTypeEnum = new UserTypeEnum();
 
-    @Input() userRole: string = '';
+    @Input() userRole!: string;
     showReservation: boolean = false;
 
     ngOnChanges(changes: SimpleChanges) {

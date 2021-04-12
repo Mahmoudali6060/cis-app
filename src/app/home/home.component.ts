@@ -11,7 +11,7 @@ import { AccountService } from '../security/shared/account.service';
 
 export class HomeComponent implements OnInit {
 
-    userRole: string = '';
+    userRole!: string ;
     @ViewChild('btnhideBars')
     btnhideBars!: ElementRef;
 

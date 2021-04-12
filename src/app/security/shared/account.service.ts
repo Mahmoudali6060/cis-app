@@ -20,8 +20,8 @@ export class AccountService extends BaseService {
     webApiAdmURL = remoteServerUrl + 'administration';
 
     public userLoggedIn: boolean = false;
-    public loggedInUserName: string = '';
-    public loggedInUserType: string = '';
+    public loggedInUserName!: string ;
+    public loggedInUserType!: string ;
     public hasAdminPermission: boolean = false;
     public userPermision: any = [];
     public userPermisionsObserver: any;
