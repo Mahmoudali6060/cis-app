@@ -66,7 +66,7 @@ channelConfig.url = remoteServerUrl.replace("api/", "signalr")
 channelConfig.hubName = "CISHub";
 
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, "app/assets/i18n/", ".json");
+    return new TranslateHttpLoader(http, "assets/i18n/", ".json");
 }
 
 @NgModule({

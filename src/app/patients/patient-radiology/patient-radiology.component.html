@@ -16,7 +16,7 @@
         <p-column [header]="'Edit' | translate" styleClass="text-center width50">
             <ng-template let-noteRadtest="rowData" pTemplate="body">
                 <a class="pointer" (click)="editItem(noteRadtest.id)">
-                    <img src="Images/edit-24.png" />
+                    <img src="assets/images/edit-24.png" />
                 </a>
             </ng-template>
         </p-column>
@@ -24,7 +24,7 @@
             <ng-template let-noteRadtest="rowData" pTemplate="body">
                 <a data-toggle="modal" data-target="#deleteNoteRadTest" class="pointer"
                    (click)="selectRadTestToDelete(noteRadtest.id)">
-                    <img src="Images/DeleteRed.png" />
+                    <img src="assets/images/DeleteRed.png" />
                 </a>
             </ng-template>
         </p-column>

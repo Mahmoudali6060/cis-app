@@ -25,7 +25,7 @@
             <p-column [header]="'Action' | translate" styleClass="text-center">
                 <ng-template let-feedback="rowData" pTemplate="body">
                     <a class="pointer" routerLink="/clinic/feedback/replyToFeedback/{{feedback.id}}" [class.disabled]="!isClinicAdmin ? true : null">
-                        <img src="Images/edit-24.png" />
+                        <img src="assets/images/edit-24.png" />
                     </a>
                 </ng-template>
             </p-column>

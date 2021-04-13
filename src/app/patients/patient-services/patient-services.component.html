@@ -23,14 +23,14 @@
         <p-column [header]="'Edit' | translate" styleClass="text-center width50">
             <ng-template let-noteService="rowData" pTemplate="body">
                 <a class="pointer" (click)="editItem(noteService.id)">
-                    <img src="Images/edit-24.png" />
+                    <img src="assets/images/edit-24.png" />
                 </a>
             </ng-template>
         </p-column>
         <p-column [header]="'Delete' | translate" styleClass="text-center width70">
             <ng-template let-noteService="rowData" pTemplate="body">
                 <a class="pointer" (click)="deleteSelectedItem(noteService.id)">
-                    <img src="Images/delete-24.png" />
+                    <img src="assets/images/delete-24.png" />
                 </a>
             </ng-template>
         </p-column>

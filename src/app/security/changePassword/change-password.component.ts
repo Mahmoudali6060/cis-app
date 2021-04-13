@@ -17,7 +17,7 @@ export class ChangePasswordComponent {
     active: boolean = true;
     showProgress = false;
     @Input() userId: string = '';
-    @Input() userType: UserTypeEnum | undefined;
+    @Input() userType!: any;
     @Input() enableMyAccountBtn: boolean = false;
     @ViewChild('btnCloseChangePasswordPopup')
     btnCloseChangePasswordPopup!: ElementRef;

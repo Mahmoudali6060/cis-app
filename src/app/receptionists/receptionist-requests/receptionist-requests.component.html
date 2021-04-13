@@ -32,7 +32,7 @@
                 <p-column [header]="'Confirm' | translate" styleClass="text-center width70">
                     <ng-template let-request="rowData" pTemplate="body">
                         <a class="pointer" (click)="confirmPatientRequest(request.id)" [class.disabled]="!enableConfirmLink ? true : null">
-                            <img src="Images/ok-24.jpg" />
+                            <img src="assets/images/ok-24.jpg" />
                         </a>
                     </ng-template>
                 </p-column>
@@ -40,7 +40,7 @@
                     <ng-template let-request="rowData" pTemplate="body">
                         <a class="pointer" #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup"
                            (click)="selectRequestToBeCanceled(request.id)" [class.disabled]="!enableCancelLink ? true : null">
-                            <img src="Images/cancel-24.png" />
+                            <img src="assets/images/cancel-24.png" />
                         </a>
                     </ng-template>
                 </p-column>

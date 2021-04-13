@@ -31,12 +31,12 @@
                 <td>ملاحظات ملاحظات ملاحظات ملاحظات </td>
                 <td class="text-center" *ngIf="allowEditing">
                     <a class="pointer" (click)="showDetails()">
-                        <img src="Images/edit-24.png" />
+                        <img src="assets/images/edit-24.png" />
                     </a>
                 </td>
                 <td class="text-center" *ngIf="allowEditing">
                     <a class="pointer">
-                        <img src="Images/delete-24.png" />
+                        <img src="assets/images/delete-24.png" />
                     </a>
                 </td>
             </tr>
@@ -48,12 +48,12 @@
                 <td>ملاحظات ملاحظات ملاحظات ملاحظات </td>
                 <td class="text-center" *ngIf="allowEditing">
                     <a class="pointer" (click)="showDetails()">
-                        <img src="Images/edit-24.png" />
+                        <img src="assets/images/edit-24.png" />
                     </a>
                 </td>
                 <td class="text-center" *ngIf="allowEditing">
                     <a class="pointer">
-                        <img src="Images/delete-24.png" />
+                        <img src="assets/images/delete-24.png" />
                     </a>
                 </td>
             </tr>
@@ -71,7 +71,7 @@
         <p-column   [header]="'Edit' | translate" styleClass="text-center width50">
             <ng-template let-noteLabtest="rowData" pTemplate="body">
                 <a class="pointer" (click)="editItem(noteLabtest.id)">
-                    <img src="Images/edit-24.png" />
+                    <img src="assets/images/edit-24.png" />
                 </a>
             </ng-template>
         </p-column>
@@ -79,7 +79,7 @@
             <ng-template let-noteLabtest="rowData" pTemplate="body">
                 <a data-toggle="modal" data-target="#deleteNoteLabTest" class="pointer"
                    (click)="selectLabTestToDelete(noteLabtest.id)">
-                    <img src="Images/DeleteRed.png" />
+                    <img src="assets/images/DeleteRed.png" />
                 </a>
             </ng-template>
         </p-column>

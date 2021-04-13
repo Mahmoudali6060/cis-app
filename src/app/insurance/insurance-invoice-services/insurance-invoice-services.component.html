@@ -14,20 +14,20 @@
         <p-column field="insuranceCompanyNetPrice" [header]="'TotalPrice' | translate" [sortable]="true" styleClass="text-center width60"></p-column>
         <p-column [header]="'RejectCharge' | translate" styleClass="text-center width70">
             <ng-template let-item="rowData" pTemplate="body">
-                <a [class.disabled]="!enableCancelCharge ? true : null">  <img *ngIf="!isInvoiceCanceled" src="Images/{{item.rejectForCompanyIconName}}" class="pointer" title="{{ 'RejectCharge' | translate}}" alt="{{ 'RejectCharge' | translate}}" (click)="openRejectChargeWindow(item)" /></a>
-                <a> <img *ngIf="isInvoiceCanceled" [class.disabled]="!enableCancelCharge ? true : null" src="Images/{{item.rejectForCompanyIconName}}" title="{{ 'RejectCharge' | translate}}" alt="{{ 'RejectCharge' | translate}}" /></a>
+                <a [class.disabled]="!enableCancelCharge ? true : null">  <img *ngIf="!isInvoiceCanceled" src="assets/images/{{item.rejectForCompanyIconName}}" class="pointer" title="{{ 'RejectCharge' | translate}}" alt="{{ 'RejectCharge' | translate}}" (click)="openRejectChargeWindow(item)" /></a>
+                <a> <img *ngIf="isInvoiceCanceled" [class.disabled]="!enableCancelCharge ? true : null" src="assets/images/{{item.rejectForCompanyIconName}}" title="{{ 'RejectCharge' | translate}}" alt="{{ 'RejectCharge' | translate}}" /></a>
             </ng-template>
         </p-column>
         <p-column [header]="'ResubmitCharge' | translate" styleClass="text-center width70">
             <ng-template let-item="rowData" pTemplate="body">
-                <a [class.disabled]="!enableResubmitInvoice?  true : null"> <img *ngIf="!isInvoiceCanceled" src="Images/resubmit.png" class="pointer" title="{{ 'ResubmitCharge' | translate}}" alt="{{ 'ResubmitCharge' | translate}}" (click)="openResubmitChargeWindow(item)" /></a>
-                <a [class.disabled]="!enableResubmitInvoice?  true : null">  <img *ngIf="isInvoiceCanceled" src="Images/resubmit.png" title="{{ 'ResubmitCharge' | translate}}" alt="{{ 'ResubmitCharge' | translate}}" /></a>
+                <a [class.disabled]="!enableResubmitInvoice?  true : null"> <img *ngIf="!isInvoiceCanceled" src="assets/images/resubmit.png" class="pointer" title="{{ 'ResubmitCharge' | translate}}" alt="{{ 'ResubmitCharge' | translate}}" (click)="openResubmitChargeWindow(item)" /></a>
+                <a [class.disabled]="!enableResubmitInvoice?  true : null">  <img *ngIf="isInvoiceCanceled" src="assets/images/resubmit.png" title="{{ 'ResubmitCharge' | translate}}" alt="{{ 'ResubmitCharge' | translate}}" /></a>
             </ng-template>
         </p-column>
         <p-column [header]="'ReleaseCharge' | translate" styleClass="text-center width70">
             <ng-template let-item="rowData" pTemplate="body">
-                <a [class.disabled]="!enableReleaseCharge?  true : null">  <img *ngIf="!isInvoiceCanceled" src="Images/{{item.releaseForCompanyIconName}}" class="pointer" title="{{ 'ReleaseCharge' | translate}}" alt="{{ 'ReleaseCharge' | translate}}" (click)="openReleaseChargeWindow(item)" /></a>
-                <a [class.disabled]="!enableReleaseCharge?  true : null">  <img *ngIf="isInvoiceCanceled" src="Images/{{item.releaseForCompanyIconName}}" title="{{ 'ReleaseCharge' | translate}}" alt="{{ 'ReleaseCharge' | translate}}" /></a>
+                <a [class.disabled]="!enableReleaseCharge?  true : null">  <img *ngIf="!isInvoiceCanceled" src="assets/images/{{item.releaseForCompanyIconName}}" class="pointer" title="{{ 'ReleaseCharge' | translate}}" alt="{{ 'ReleaseCharge' | translate}}" (click)="openReleaseChargeWindow(item)" /></a>
+                <a [class.disabled]="!enableReleaseCharge?  true : null">  <img *ngIf="isInvoiceCanceled" src="assets/images/{{item.releaseForCompanyIconName}}" title="{{ 'ReleaseCharge' | translate}}" alt="{{ 'ReleaseCharge' | translate}}" /></a>
             </ng-template>
         </p-column>
         <p-column [header]="'Pay' | translate" styleClass="text-center width70">

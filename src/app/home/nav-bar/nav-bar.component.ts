@@ -39,7 +39,7 @@ export class NavBarComponent implements OnInit, OnChanges {
     @Input() unReadNotificationsNo: string = '0';
 
     userId: string = '';
-    userType: string = '';
+    userType!: any;
     clinicId!: string;
     lang = 'en';
 

@@ -74,7 +74,7 @@
                     <p-column [header]="'Edit' | translate"  styleClass="text-center width50">
                         <ng-template let-insurance="rowData" pTemplate="body">
                             <a class="pointer" (click)="setInsuranceIdValue(insurance.id)">
-                                <img src="Images/edit-24.png" />
+                                <img src="assets/images/edit-24.png" />
                             </a>
                         </ng-template>
                     </p-column>
@@ -82,7 +82,7 @@
                         <ng-template let-insurance="rowData" pTemplate="body">
                             <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer"
                                (click)="selectPatientInsuranceToDelete(insurance.id)">
-                                <img src="Images/DeleteRed.png" />
+                                <img src="assets/images/DeleteRed.png" />
                             </a>
                         </ng-template>
                     </p-column>

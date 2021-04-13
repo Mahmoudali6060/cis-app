@@ -19,8 +19,8 @@
             <p-column field="netPriceWithoutDiscount" [header]="'TotalPrice' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
             <p-column [header]="'CoverageType' | translate" styleClass="text-center width70 nopadding">
                 <ng-template let-item="rowData" pTemplate="body">
-                    <img *ngIf="!isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" class="{{item.isCoverageTypeClickable ? 'pointer' : ''}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" (click)="openMarkSatisfiedModal(item)" />
-                    <img *ngIf="isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
+                    <img *ngIf="!isClaimCanceled" src="assets/images/{{item.coverageTypeIconName}}" class="{{item.isCoverageTypeClickable ? 'pointer' : ''}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" (click)="openMarkSatisfiedModal(item)" />
+                    <img *ngIf="isClaimCanceled" src="assets/images/{{item.coverageTypeIconName}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
                 </ng-template>
             </p-column>
             <p-column field="insuranceCompanyNetPriceWithoutVAT" [header]="'PPPShare' | translate" [sortable]="true" styleClass="text-center width60 nopadding"></p-column>
@@ -36,11 +36,11 @@
             <p-column styleClass="text-center width60 nopadding">
                 <ng-template let-item="rowData" pTemplate="body">
                     <div style="display:block">
-                        <a [class.disabled]="!enablePriceOverrideBtn ? true : null">  <img *ngIf="!isClaimCanceled" src="Images/{{item.overrideIconName}}" class="pointer" title="Override Charge" alt="Override Charge" (click)="openOverrideChargeModal(item)" /></a>
-                        <a [class.disabled]="!enablePriceOverrideBtn ? true : null"> <img *ngIf="isClaimCanceled" src="Images/{{item.overrideIconName}}" title="Override Charge" alt="Override Charge" /></a>
+                        <a [class.disabled]="!enablePriceOverrideBtn ? true : null">  <img *ngIf="!isClaimCanceled" src="assets/images/{{item.overrideIconName}}" class="pointer" title="Override Charge" alt="Override Charge" (click)="openOverrideChargeModal(item)" /></a>
+                        <a [class.disabled]="!enablePriceOverrideBtn ? true : null"> <img *ngIf="isClaimCanceled" src="assets/images/{{item.overrideIconName}}" title="Override Charge" alt="Override Charge" /></a>
 
-                        <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"> <img *ngIf="!isClaimCanceled" src="Images/{{item.releaseIconName}}" class="pointer" title="Release Charge" alt="Release Charge" (click)="openReleaseChargeModal(item)" /></a>
-                        <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"><img *ngIf="isClaimCanceled" src="Images/{{item.releaseIconName}}" title="Release Charge" alt="Release Charge" /> </a>
+                        <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"> <img *ngIf="!isClaimCanceled" src="assets/images/{{item.releaseIconName}}" class="pointer" title="Release Charge" alt="Release Charge" (click)="openReleaseChargeModal(item)" /></a>
+                        <a [class.disabled]="!enableReleaseChargeClaimBtn ? true : null"><img *ngIf="isClaimCanceled" src="assets/images/{{item.releaseIconName}}" title="Release Charge" alt="Release Charge" /> </a>
                     </div>
                 </ng-template>
             </p-column>
@@ -198,13 +198,13 @@
                                     </td>
                                     <td class="text-center">
                                         <a *ngIf="isNewItem(item)">
-                                            <img src="Images/cancel-24.png" (click)="deleteInstallment(i)" class="pointer" />
+                                            <img src="assets/images/cancel-24.png" (click)="deleteInstallment(i)" class="pointer" />
                                         </a>
                                         <a *ngIf="!isNewItem(item) && (item.paymentType.key != 'PrePaid')" [title]="'ChangeMethod' | translate" data-toggle="modal" data-target="#changePaymentMethod" (click)="getSelectedItem(item)">
-                                            <img src="Images/Payment-Edit.png" class="pointer" />
+                                            <img src="assets/images/Payment-Edit.png" class="pointer" />
                                         </a>
                                         <a *ngIf="!isNewItem(item)" [title]="'ChangeDate' | translate" data-toggle="modal" data-target="#changePaymentDate" (click)="getSelectedItem(item)">
-                                            <img src="Images/Calendar-Edit.png" class="pointer" />
+                                            <img src="assets/images/Calendar-Edit.png" class="pointer" />
                                         </a>
                                         <a *ngIf="!isNewItem(item)" [title]="'Print' | translate" class="fa fa-print pointer" (click)="openReceiptReport(item.id , 'ReceiptReport')"></a>
                                     </td>
@@ -215,7 +215,7 @@
                                     <th colspan="4">
                                         <div>
                                             <a class="pointer" (click)="addInstallment()">
-                                                <img src="Images/AddImage.png" /> &nbsp;
+                                                <img src="assets/images/AddImage.png" /> &nbsp;
                                                 <span style="text-decoration:underline;">
                                                     {{ 'AddNew' | translate}}
                                                 </span>
@@ -487,8 +487,8 @@
                 <td class="text-center">{{item.unitPrice}}</td>
                 <td class="text-center">{{item.netPriceWithoutDiscount}}</td>
                 <td class="text-center">
-                    <img *ngIf="!isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" class="{{item.isCoverageTypeClickable ? 'pointer' : ''}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
-                    <img *ngIf="isClaimCanceled" src="Images/{{item.coverageTypeIconName}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
+                    <img *ngIf="!isClaimCanceled" src="assets/images/{{item.coverageTypeIconName}}" class="{{item.isCoverageTypeClickable ? 'pointer' : ''}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
+                    <img *ngIf="isClaimCanceled" src="assets/images/{{item.coverageTypeIconName}}" title="{{item.coverageType}}" alt="{{item.coverageType}}" />
                 </td>
 
                 <td class="text-center">{{item.insuranceCompanyNetPriceWithoutVAT}}</td>
@@ -503,10 +503,10 @@
 
                 <td class="text-center">{{item.patientRemaining}}</td>
                 <td class="text-center">
-                    <img *ngIf="item.isOverridden" src="Images/ok-24.jpg" class="pointer" title="Override Charge" alt="Overriden Charge" />
+                    <img *ngIf="item.isOverridden" src="assets/images/ok-24.jpg" class="pointer" title="Override Charge" alt="Overriden Charge" />
                 </td>
                 <td class="text-center">
-                    <img *ngIf="item.isReleased" src="Images/ok-24.jpg" class="pointer" title="Release Charge" alt="Released Charge" />
+                    <img *ngIf="item.isReleased" src="assets/images/ok-24.jpg" class="pointer" title="Release Charge" alt="Released Charge" />
                 </td>
             </tr>
         </tbody>

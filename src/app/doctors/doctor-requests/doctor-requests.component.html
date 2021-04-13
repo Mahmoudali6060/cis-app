@@ -63,7 +63,7 @@
                     <p-column [header]="'Delete' | translate" styleClass="text-center width70">
                         <ng-template let-request="rowData" pTemplate="body">
                             <a class="pointer" [class.disabled]="!enableDeleteInventoryRequest ? true : null">
-                                <img src="Images/delete-24.png" (click)="deleteInventoryRequestPopUp(request.id)" *ngIf="request.inventoryRequestStatus =='Requested'" />
+                                <img src="assets/images/delete-24.png" (click)="deleteInventoryRequestPopUp(request.id)" *ngIf="request.inventoryRequestStatus =='Requested'" />
                             </a>
                         </ng-template>
                     </p-column>
