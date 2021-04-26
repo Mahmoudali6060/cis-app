@@ -128,7 +128,7 @@
                         <label for="txtStartDate" class="control-label col-md-2">{{ 'StartDate' | translate}}</label>
                         <div class="col-md-6">
                             <p-calendar [(ngModel)]="newSubscription.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
 
                             <!--<input type="date" id="txtStartDate" name="txtStartDate" class="form-control"
                                    [(ngModel)]='newSubscription.startDate' #txtStartDate="ngModel" required />
@@ -141,7 +141,7 @@
                         <label for="txtEndDate" class="control-label col-md-2"> {{ 'EndDate' | translate}}</label>
                         <div class="col-md-6">
                             <p-calendar [(ngModel)]="newSubscription.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                             <!--<input type="date" id="txtEndDate" name="txtEndDate" class="form-control"
                                    [(ngModel)]='newSubscription.endDate' #txtEndDate="ngModel" required />
                             <div [hidden]="txtEndDate.valid || txtEndDate.pristine" class="alert alert-danger">

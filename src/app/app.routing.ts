@@ -1,5 +1,5 @@
 ﻿//import { ModuleWithProviders }  from '@angular/core';
-import { NgModule }  from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './home/login/login.component';
@@ -12,57 +12,58 @@ const appRoutes: Routes = [
 
     //General
     //{ path: 'home', component: HomeComponent },
-     { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent },
 
     //System Admins
     {
         path: 'systemAdmin',
-        loadChildren: 'app/systemAdmins/systemAdmins.module#SystemAdminsModule'
+        // loadChildren: () => import('./systemAdmins/systemAdmins.module#SystemAdminsModule'
+        loadChildren: () => import('./systemAdmins/systemAdmins.module').then(m => m.SystemAdminsModule),
     },
     //cashier
     {
         path: 'cashier',
-        loadChildren: 'app/cashier/cashier.module#CashiersModule'
+        loadChildren: () => import('./cashier/cashier.module').then(m => m.CashiersModule)
     },
     //clinic
     {
         path: 'clinic',
-        loadChildren: 'app/clinics/clinic.module#ClinicsModule'
+        loadChildren: () => import('./clinics/clinic.module').then(m => m.ClinicsModule)
     },
     //doctor
     {
         path: 'doctor',
-        loadChildren: 'app/doctors/doctors.module#DoctorsModule'
+        loadChildren: () => import('./doctors/doctors.module').then(m => m.DoctorsModule)
     },
     //shared
     {
         path: 'shared',
-        loadChildren: 'app/shared/shared.module#SharedModule'
+        loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule)
     },
     //receptionists
     {
         path: 'receptionist',
-        loadChildren: 'app/receptionists/receptionists.module#ReceptionistsModule'
+        loadChildren: () => import('./receptionists/receptionists.module').then(m => m.ReceptionistsModule)
     },
     //insurance
     {
         path: 'insurance',
-        loadChildren: 'app/insurance/insurance.module#InsuranceModule'
+        loadChildren: () => import('./insurance/insurance.module').then(m => m.InsuranceModule)
     },
     //nurses
     {
         path: 'nurse',
-        loadChildren: 'app/nurses/nurses.module#NursesModule'
+        loadChildren: () => import('./nurses/nurses.module').then(m => m.NursesModule)
     },
     //patients
     {
         path: 'patient',
-        loadChildren: 'app/patients/patients.module#PatientsModule'
+        loadChildren: () => import('./patients/patients.module').then(m => m.PatientsModule)
     },
     //security
     {
         path: 'security',
-        loadChildren: 'app/security/security.module#SecurityModule'
+        loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
     },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     //{ path: 'prototypeHome', component: PrototypeHomeComponent },

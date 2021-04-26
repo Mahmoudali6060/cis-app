@@ -1,7 +1,6 @@
 import './rxjs-extensions';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
@@ -90,7 +89,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         //AdministrationModule,
         //MobileScreensModule,
         AppRoutingModule,
-        ToastrModule,
+        // ToastrModule,
+        ToastrModule.forRoot(),
         Ng2Webstorage,
 
 
@@ -98,7 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
-                deps: [Http]
+                deps: [HttpClient]
             }
         })
 

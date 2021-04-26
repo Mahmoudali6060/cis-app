@@ -241,13 +241,13 @@
                             <label for="expiryDate" class="control-label col-md-2">  {{ 'ExpiryDate' | translate}}</label>
                             <div class="col-md-4">
                                 <p-calendar [(ngModel)]="model.expiryDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                            showIcon="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                                            [showIcon]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                             </div>
 
                             <label for="expiryDate" class="control-label col-md-2"> {{ 'ManufacturingDate' | translate}} </label>
                             <div class="col-md-4">
                                 <p-calendar [(ngModel)]="model.manufacturingDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                            showIcon="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                                            [showIcon]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                             </div>
 
                         </div>

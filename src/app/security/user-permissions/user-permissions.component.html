@@ -23,7 +23,7 @@
                             <th class="col-md-9" style="color:#c492ef;" colspan="2">{{ 'Users' | translate}}</th>
                         </tr>
                     </thead>
-                    <tr *ngFor="let usr of usersList | filterByName:userListfilterString" class="{{(usr.id == selectedUserId) ? 'success' : ''}}">
+                    <tr *ngFor="let usr of usersList | filterByName:userListfilterString" >
                         <td class="col-md-9"><a (click)="editUser(usr.id)" class="pointer">{{selectedLang === 'ar' ?  usr.name : usr.nameTranslation}}</a></td>
                     </tr>
                 </table>

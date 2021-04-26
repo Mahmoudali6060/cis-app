@@ -18,7 +18,7 @@
             <label for="txtPhysicalStartDate" class="control-label col-md-2"> {{ 'StartDate' | translate}}</label>
             <div class="col-md-2">
                 <p-calendar [(ngModel)]="model.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                            showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             <label for="txtPhysicalEndDate" class="control-label col-md-2"> {{ 'EndDate' | translate}}</label>
             <div class="col-md-2">
                 <p-calendar [(ngModel)]="model.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                            showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
             </div>
         </div>
 
@@ -79,11 +79,11 @@
                         </td>
                         <td class="col-md-1">
                             <p-calendar name="startTime{{i}}{{getControlNumber()}}" [(ngModel)]="session.startTime"
-                                        required="true" [timeOnly]="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                                        [required]="true" [timeOnly]="true" [ngModelOptions]="{standalone: true}"></p-calendar>
                         </td>
                         <td class="col-md-1">
                             <p-calendar name="endTime{{i}}{{getControlNumber()}}" [(ngModel)]="session.endTime"
-                                        required="true" [timeOnly]="true"></p-calendar>
+                                        [required]="true" [timeOnly]="true"></p-calendar>
                         </td>
                         <td class="col-md-1">
                             <input type="number" min="0" step="1" name="txtWaitIn{{i}}{{getControlNumber()}}" [(ngModel)]="session.waitIn" class="form-control" required />

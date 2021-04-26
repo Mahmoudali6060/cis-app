@@ -78,13 +78,13 @@ export class AccountService extends BaseService {
         var loginData = "grant_type=password&username=" + body.userName + "&password=" + body.password;
 
         return this.http.post(remoteServerUrl + "token", loginData, options) // ...using post request
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
     authenticateUser(body: any): any {
         return this.http.post(this.webApiURL + "/authenticateUser", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+           // .pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 

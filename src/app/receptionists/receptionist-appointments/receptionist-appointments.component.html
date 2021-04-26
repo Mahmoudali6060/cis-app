@@ -199,7 +199,7 @@
                                         [monthNavigator]="true"
                                         [yearNavigator]="true"
                                         dateFormat="dd/mm/yy"
-                                        showIcon="true" required="true"
+                                        [showIcon]="true" [required]="true"
                                         [ngModelOptions]="{standalone: true}"
                                         yearRange="2000:2050"
                                         (onSelect)="onDateSelect($event)"></p-calendar>
@@ -341,7 +341,7 @@
             </label>
             <div class="col-md-4">
                 <p-calendar name="arrivalTime" [(ngModel)]="arrivalTime"
-                            required="true" [timeOnly]="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                            [required]="true" [timeOnly]="true" [ngModelOptions]="{standalone: true}"></p-calendar>
             </div>
         </div>
         <div class="row">
@@ -372,7 +372,7 @@
                             [monthNavigator]="true"
                             [yearNavigator]="true"
                             dateFormat="dd/mm/yy"
-                            showIcon="true" required="true"
+                            [showIcon]="true" [required]="true"
                             [ngModelOptions]="{standalone: true}"
                             yearRange="2000:2050"></p-calendar>
             </div>
@@ -383,7 +383,7 @@
             </label>
             <div class="col-md-4">
                 <p-calendar name="reconfirmationTime" [(ngModel)]="reconfirmTime"
-                            required="true" [timeOnly]="true" [ngModelOptions]="{standalone: true}"></p-calendar>
+                            [required]="true" [timeOnly]="true" [ngModelOptions]="{standalone: true}"></p-calendar>
             </div>
         </div>
         <div class="form-group">
@@ -414,7 +414,7 @@
                             [yearNavigator]="true"
                             dateFormat="dd/mm/yy"
                             [disabled]="true"
-                            showIcon="true"
+                            [showIcon]="true"
                             [ngModelOptions]="{standalone: true}"
                             yearRange="2000:2050"></p-calendar>
             </div>
@@ -445,7 +445,7 @@
                             [monthNavigator]="true"
                             [yearNavigator]="true"
                             dateFormat="dd/mm/yy"
-                            showIcon="true" required="true"
+                            [showIcon]="true" [required]="true"
                             [ngModelOptions]="{standalone: true}"
                             yearRange="2000:2050"
                             (onSelect)="onDateSelect($event)"></p-calendar>
@@ -491,7 +491,7 @@
                                         [monthNavigator]="true"
                                         [yearNavigator]="true"
                                         dateFormat="dd/mm/yy"
-                                        showIcon="true" required="true"
+                                        [showIcon]="true" [required]="true"
                                         [ngModelOptions]="{standalone: true}"
                                         yearRange="2000:2050"
                                         (onSelect)="onOpneCloseSlotDateSelect($event)"></p-calendar>
@@ -565,7 +565,7 @@
                                         [monthNavigator]="true"
                                         [yearNavigator]="true"
                                         dateFormat="dd/mm/yy"
-                                        showIcon="true" required="true"
+                                        [showIcon]="true" [required]="true"
                                         [ngModelOptions]="{standalone: true}"
                                         yearRange="2000:2050"></p-calendar>
                         </div>
@@ -608,7 +608,7 @@
                                         [monthNavigator]="true"
                                         [yearNavigator]="true"
                                         dateFormat="dd/mm/yy"
-                                        showIcon="true" required="true"
+                                        [showIcon]="true" [required]="true"
                                         [ngModelOptions]="{standalone: true}"
                                         yearRange="2000:2050"
                                         (onSelect)="onDateSelect($event)"></p-calendar>
@@ -658,7 +658,7 @@
                         </label>
                         <div class="col-md-4">
                             <p-calendar [(ngModel)]="patientQucikAccount.birthDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        showIcon="true" required="true" [ngModelOptions]="{standalone: true}" yearRange="1900:2050"></p-calendar>
+                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="1900:2050"></p-calendar>
                         </div>
                         <label class="control-label col-md-2">
                             {{ 'Gender' | translate}}
@@ -741,7 +741,7 @@
                                 [monthNavigator]="true"
                                 [yearNavigator]="true"
                                 dateFormat="dd/mm/yy"
-                                showIcon="true" required="true"
+                                [showIcon]="true" [required]="true"
                                 [ngModelOptions]="{standalone: true}"
                                 yearRange="2000:2050"
                                 (onSelect)="onRepeatDateSelect($event)"></p-calendar>

@@ -13,7 +13,7 @@ import { AccountKit, AuthResponse } from '../login/ng2-account-kit-index';
 import { remoteServerUrl } from '../../app.config';
 
 @Component({
-   
+
     selector: 'login',
     templateUrl: './login.component.html'
 })
@@ -27,7 +27,7 @@ export class LoginComponent {
     userTypeEnum: UserTypeEnum = new UserTypeEnum();
     userEmail: string = '';
     serverUrl: string = remoteServerUrl.replace("api/", "");
-    constructor(private accountService: AccountService,
+    constructor(public accountService: AccountService,
         private toastr: ToastrService,
         private localStorage: LocalStorageService,
         private router: Router
@@ -36,9 +36,9 @@ export class LoginComponent {
     fbLogin(authenticatedUser: any): void {
         var strMobileNumber = '';
         var strMobileCodeNumber = '';
-        if (authenticatedUser && authenticatedUser.reachInfo && authenticatedUser.reachInfo.mobile) {
-            strMobileNumber = authenticatedUser.reachInfo.mobile;
-            strMobileCodeNumber = authenticatedUser.reachInfo.countryCode;
+        if (authenticatedUser) {
+            strMobileNumber = authenticatedUser.reachInfo?.mobile;
+            strMobileCodeNumber = authenticatedUser.reachInfo?.countryCode;
         }
         else {
             let msg = this.translate.instant("ContactInformation");
@@ -47,13 +47,13 @@ export class LoginComponent {
 
         let msgAuthorize = this.translate.instant("AuthorizeAdministrationPages");
 
-        AccountKit.login('PHONE', { countryCode: strMobileCodeNumber, phoneNumber: strMobileNumber }).then(
-            (response: AuthResponse) => {
+        // AccountKit.login('PHONE', { countryCode: strMobileCodeNumber, phoneNumber: strMobileNumber }).then(
+        //     (response: AuthResponse) => {
                 this.generateAccessToken(authenticatedUser);
 
-            },
-            (error: any) => this.toastr.error(msgAuthorize, '')
-        );
+        //     },
+        //     (error: any) => this.toastr.error(msgAuthorize, '')
+        // );
     }
 
     onLogin(): void {
@@ -225,16 +225,16 @@ export class LoginComponent {
 
     adjustUIForArabic() {
         this.localStorage.store('selectedLanguage', 'ar');
-        this.loadCssToHTMlPage("css/bootstrap-rtl.min.css");
-        this.loadCssToHTMlPage("css/styles-rtl.css");
+        this.loadCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
+        this.loadCssToHTMlPage("src/assets/css/styles-rtl.css");
         window.document.body.style.direction = "rtl";
     }
 
     adjustUIForEnglish() {
         this.localStorage.store('selectedLanguage', 'en');
-        this.RemoveCssToHTMlPage("css/bootstrap-rtl.min.css");
-        this.RemoveCssToHTMlPage("css/styles-rtl.css");
-        this.loadCssToHTMlPage("css/styles-ltr.css");
+        this.RemoveCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
+        this.RemoveCssToHTMlPage("src/assets/css/styles-rtl.css");
+        this.loadCssToHTMlPage("src/assets/css/styles-ltr.css");
         window.document.body.style.direction = "ltr";
     }
 

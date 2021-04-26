@@ -54,7 +54,7 @@
 
 </div>
 <div id="divTable" class="padding5" *ngIf="isDetailsVisible">
-    <document-details [parentType]="parentType" [isTemplateExist]="isTemplateExist" [fileType]="fileType" [fileNameTxt]='fileNameTxt' [fileNameUploadTxt]='fileNameUploadTxt' [attachementId]="patientAttachementId" [parentId]="parentId" [showSelectedTemplates]="showSelectedTemplates" [model]="model" [title]="Attachment" (onBack)="hideDetails($event)" (onAttachementSaved)="loadAttachementFiles()" [allowEditing]='allowEditing'></document-details>
+    <document-details [parentType]="parentType" [isTemplateExist]="isTemplateExist" [fileType]="fileType" [fileNameTxt]='fileNameTxt' [fileNameUploadTxt]='fileNameUploadTxt' [attachementId]="patientAttachementId" [parentId]="parentId" [showSelectedTemplates]="showSelectedTemplates" [model]="model"  (onBack)="hideDetails($event)" (onAttachementSaved)="loadAttachementFiles()" [allowEditing]='allowEditing'></document-details>
 </div>
 
 <!--<button type="button" data-toggle="modal" data-target="#patientAttachementPopup" #btnOpenEditAttachmentPopup class="hidden"></button>-->
