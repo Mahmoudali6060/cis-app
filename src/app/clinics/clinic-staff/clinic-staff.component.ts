@@ -12,5 +12,5 @@ import { LocalStorageService } from 'ng2-webstorage';
 
 export class ClinicStaffComponent {
     selectStaffTab: boolean = true;
-
+    showProgress: boolean = true;
 }

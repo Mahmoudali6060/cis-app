@@ -26,7 +26,7 @@ export class SystemAdminAccountComponent implements OnInit {
    // userType = new UserTypeEnum().SysAdmin;
     hasRequester: boolean = false;
     public constructor(private sharedService: SharedService
-        , private accountService: AccountService
+        , public accountService: AccountService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService

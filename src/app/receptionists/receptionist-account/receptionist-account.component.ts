@@ -11,7 +11,7 @@ import { UserTypeEnum } from '../../security/shared/user-type.enum';
 
 export class ReceptionistAccountComponent implements OnInit {
 
-    public constructor(private accountService: AccountService) { }
+    public constructor(public accountService: AccountService) { }
 
     ngOnInit(): void {
 

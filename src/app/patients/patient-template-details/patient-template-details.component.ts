@@ -1,12 +1,12 @@
-﻿import {Component, OnInit, ViewChild, Output, Input, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Output, Input, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
     selector: 'patient-template-details',
@@ -26,7 +26,7 @@ export class PatientTemplateDetailsComponent implements OnInit {
     isTemplateExist: boolean = true;
     showSelectedTemplates: boolean = true;
     showBackBtn: boolean = false;
-    parentType: string ="DoctorAppliedTemplate";
+    parentType: string = "DoctorAppliedTemplate";
     attachmentsList: any = [];
     parentId: string = '';
     active = true;
@@ -34,18 +34,18 @@ export class PatientTemplateDetailsComponent implements OnInit {
 
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput!:any;
+    @ViewChild("fileInput") fileInput!: any;
 
     isReceptionist: boolean = false;
-
+    Attachment: any;
+    patientAttachementId!: any;
     constructor(private organizationService: PatientService
         , private sharedService: SharedService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
 

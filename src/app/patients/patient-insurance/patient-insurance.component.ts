@@ -158,7 +158,7 @@ export class PatientInsuranceComponent implements OnInit, OnChanges {
                 });
     }
 
-    private navigateToPackages() {
+    public navigateToPackages() {
         //routerLink="/receptionistPatients/1"
         this.router.navigate(['/receptionist/patients', this.selectedClinicId]);
     }

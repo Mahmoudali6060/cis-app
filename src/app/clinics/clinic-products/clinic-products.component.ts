@@ -23,7 +23,7 @@ export class ClinicProductsComponent implements OnInit {
         private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
         //, private translateObjects: TranslateObjectsPipe
     ) { }
 

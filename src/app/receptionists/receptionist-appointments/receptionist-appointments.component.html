@@ -116,7 +116,7 @@
                 </div>
 
                 <div *ngIf="!isDivisionSelected">
-                    <p-schedule #pSchedule
+                    <!-- <p-schedule #pSchedule
                                 [events]="events"
                                 [header]="header"
                                 [editable]="false"
@@ -131,7 +131,7 @@
                                 allDayText=""
                                 (onEventClick)="handleEventClick($event)"
                                 (onViewRender)="handleloadEvents($event)"
-                                (onNavLinkDayClick)="handleNavDayClick($event)"></p-schedule>
+                                (onNavLinkDayClick)="handleNavDayClick($event)"></p-schedule> -->
                 </div>
                 <div *ngIf="isDivisionSelected">
                     <receptionist-division-calendar [divisonId]="divisonId" [divisonName]="divisonName"></receptionist-division-calendar>
@@ -187,7 +187,7 @@
                             {{selectedDivisionName}}
                         </div>
                         <div class="col-md-6">
-                            <a class="pointer" *ngIf="!appointmentModel.id==0" (click)="openPatientProfile()">{{ 'OpenPatientFile' | translate}}</a>
+                            <a class="pointer" *ngIf="appointmentModel.id!=0" (click)="openPatientProfile()">{{ 'OpenPatientFile' | translate}}</a>
                         </div>
                     </div>
                     <div class="form-group">
@@ -325,16 +325,8 @@
         </div>
     </form>
 </div>
-<p-dialog id="addArrivalTime" header="{{title}}" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isAddArrivalTime">
+<!-- <p-dialog id="addArrivalTime" header="{{title}}" [(visible)]="display" [width]="600" [modal]="modal" [responsive]="true" *ngIf="isAddArrivalTime">
     <form *ngIf="active" class="form-horizontal well">
-        <!--<div class="form-group">
-            <div class="col-md-2 text-right">
-                {{ 'Arrived' | translate}}
-            </div>
-            <div class="col-md-4">
-                <input type="checkbox" id="chkArrived" name="chkArrived" [(ngModel)]="appointmentModel.arrived" #chkArrived="ngModel" (click)="handleIsArrivedValue($event)" class="form-control" />
-            </div>
-        </div>-->
         <div class="form-group">
             <label class="control-label col-md-4">
                 {{ ' ArrivalTime' | translate}}
@@ -350,8 +342,8 @@
             </div>
         </div>
     </form>
-</p-dialog>
-<p-dialog id="reconfirmAppointment" header="{{title1}}" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isReconfirmedAppointment">
+</p-dialog> -->
+<!-- <p-dialog id="reconfirmAppointment" header="{{title1}}" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isReconfirmedAppointment">
     <form *ngIf="active" class="form-horizontal well">
         <div class="form-group">
             <label class="control-label col-md-2">
@@ -400,8 +392,8 @@
             </div>
         </div>
     </form>
-</p-dialog>
-<p-dialog id="cancelAppointment" header="{{title2}}" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isCancelledAppointment">
+</p-dialog> -->
+<!-- <p-dialog id="cancelAppointment" header="{{title2}}" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isCancelledAppointment">
     <form class="form-horizontal well">
 
         <div class="form-group">
@@ -433,7 +425,7 @@
             </div>
         </div>
     </form>
-</p-dialog>
+</p-dialog> -->
 <!--<p-dialog id="rescheduleAppointment" header="Reschedule Appointment" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isRescheduledAppointment">
     <form *ngIf="active" class="form-horizontal well">
         <div class="form-group">
@@ -726,7 +718,7 @@
     </div>
 </div>
 
-<p-dialog id="repeatAppointment" header="Repeat Appointment" [(visible)]="displayRepeatAppointmentPopup" [width]="750" modal="modal" responsive="true" *ngIf="displayRepeatAppointmentPopup">
+<!-- <p-dialog id="repeatAppointment" header="Repeat Appointment" [(visible)]="displayRepeatAppointmentPopup" [width]="750" modal="modal" responsive="true" *ngIf="displayRepeatAppointmentPopup">
     <form *ngIf="active" class="form-horizontal well" name="repeatAppointmentFrm" #repeatAppointmentFrm="ngForm">
         <div class="modal-body">
             <div *ngIf="showProgress">
@@ -772,15 +764,6 @@
                     </table>
                 </div>
 
-                <!--<div class="col-md-2">
-                    {{ 'VisitType' | translate}}
-                </div>
-                <div class="col-md-4">
-                    <select class="form-control" id="ddlVisitType" name="ddlVisitType" required
-                            [(ngModel)]="repeatedAppointmentModel.visitTypeId" #ddlVisitType="ngModel">
-                        <option *ngFor="let itm of visitTypesList" [value]="itm.id">{{itm.name}}</option>
-                    </select>
-                </div>-->
                 <label class="control-label col-md-2">
                     {{ 'Service' | translate}}
                 </label>
@@ -791,20 +774,6 @@
                     </select>
                 </div>
             </div>
-            <!--<div class="row">
-                <div class="col-md-2 text-right">
-                    Confirmed
-                </div>
-                <div class="col-md-1">
-                    <input type="checkbox" id="chkConfirmed" name="chkConfirmed" [(ngModel)]="appointmentModel.confirmed" #chkConfirmed="ngModel" />
-                </div>
-                <div class="col-md-2 text-right">
-                    Reconfirm
-                </div>
-                <div class="col-md-4">
-                    <input type="checkbox" id="chkReconfirmAppointment" name="chkReconfirmAppointment" (click)="showReconfirmDialog()" />
-                </div>
-            </div>-->
             <div class="form-group">
                 <label class="control-label col-md-1">
                     {{ 'FLag' | translate}}
@@ -831,11 +800,11 @@
             </div>
         </div>
     </form>
-</p-dialog>
+</p-dialog> -->
 
-<p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="displayPatientAdvancedSearch" resizable="true" width="800" responsive="true" height="auto">
+<!-- <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="displayPatientAdvancedSearch" [resizable]="true" [width]="800" [responsive]="true" [height]="auto">
     <patient-search [showEdit]="showEditPatient" [showSelect]="showSelectPatient" (patientSelected)="managePatientSelection($event)"></patient-search>
-</p-dialog>
+</p-dialog> -->
 
 
 

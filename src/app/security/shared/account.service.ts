@@ -174,7 +174,7 @@ export class AccountService extends BaseService {
     //this code is added to get the permission roles of athenticated user
     getRoles(authenticatedId: string): any {
         return this.http.get(`${this.webApiURL + "/getRoles"}/${authenticatedId}`, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
     getAllCountryCodes(): any {

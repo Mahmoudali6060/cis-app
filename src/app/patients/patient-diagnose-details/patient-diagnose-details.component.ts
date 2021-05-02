@@ -26,7 +26,7 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
     active = true;
     selectedDiagnoseNode: any;
     clinicId!: any;
-    diagnosisTreeDataSourceItems: any[] = [];
+    diagnosisTreeDataSourceItems!: any[];
     getAllDiagnosis = true;
     showProgress = false;
     allDiagnosis = [];

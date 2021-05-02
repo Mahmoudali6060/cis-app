@@ -19,7 +19,7 @@ export class DoctorBasicComponent implements OnInit {
     active = true;
     model: any = {};
 
-    classifications = [];
+    classifications: any = [];
     showProgress = false;
     @ViewChild("fileInput") fileInput!: any;
 
@@ -42,5 +42,8 @@ export class DoctorBasicComponent implements OnInit {
 
     }
 
+    imageChanged(event?: any) {
+
+    }
 
 }

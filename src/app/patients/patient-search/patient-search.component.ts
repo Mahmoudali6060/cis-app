@@ -49,7 +49,7 @@ export class PatienSearchComponent implements OnInit {
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
 
     ngOnInit(): void {

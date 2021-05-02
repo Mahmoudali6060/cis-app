@@ -15,7 +15,7 @@ import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 export class ClinicDrugsComponent implements OnInit {
 
-    filterString!:string;
+    filterString!: string;
     leafType: string = 'Drug';
     selectedLang = 'ar';
 
@@ -23,7 +23,7 @@ export class ClinicDrugsComponent implements OnInit {
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     selectedClinicId!: number;
     selectDrugsTab: boolean = true;
@@ -38,11 +38,11 @@ export class ClinicDrugsComponent implements OnInit {
     childName: string = '';
     rbSelections = [{ value: 1, text: this.groupName }, { value: 2, text: this.childName }];
     selectedAction = 1;
-    txtHeaderModal = "";
-    toSaveDrugsGroupId = '';
-    toSaveDrugId = '';
-    parentDrugsGroupId = '';
-    parentDrugsGroupName = '';
+    txtHeaderModal: any;
+    toSaveDrugsGroupId: any;
+    toSaveDrugId: any;
+    parentDrugsGroupId: any;
+    parentDrugsGroupName: any;
     isRoot = false;
     enableCheckBox = false;
     selctedNode: any;

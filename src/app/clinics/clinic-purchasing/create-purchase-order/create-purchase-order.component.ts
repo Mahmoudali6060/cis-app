@@ -48,7 +48,7 @@ export class CreatePurchaseOrder implements OnInit {
         , private router: Router
         , private _route: ActivatedRoute
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
 
     ngOnInit(): void {

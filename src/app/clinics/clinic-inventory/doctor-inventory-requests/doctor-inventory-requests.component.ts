@@ -22,7 +22,7 @@ export class DoctorInventoryRequestsComponent implements OnInit {
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     utilityClass: UtilityClass = new UtilityClass();
     inventoriesListDiv: string = 'incomingRequestsPrintingArea';

@@ -17,7 +17,7 @@ import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 export class ClinicLaboratoryTestsComponent implements OnInit {
 
     selectedLang = 'ar';
-    filterString!:string;
+    filterString!: string;
     leafType: string = 'LaboratoryTest';
     groupName: string = '';
     childName: string = '';
@@ -33,7 +33,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     selectedClinicId!: number;
     selectLaboratoryTestsTab: boolean = true;
@@ -47,10 +47,10 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
     rbSelections = [{ value: 1, text: this.groupName }, { value: 2, text: this.childName }];
     selectedAction = 1;
     txtHeaderModal = "";
-    toSaveLaboratoryTestsGroupId = '';
-    toSaveLaboratoryTestId = '';
-    parentLaboratoryTestsGroupId = '';
-    parentLaboratoryTestsGroupName = '';
+    toSaveLaboratoryTestsGroupId: any;
+    toSaveLaboratoryTestId: any;
+    parentLaboratoryTestsGroupId: any;
+    parentLaboratoryTestsGroupName: any;
     isRoot = false;
     enableCheckBox = false;
     selctedNode: any;
@@ -61,7 +61,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
     @ViewChild('btnClosePopup') btnClosePopup!: ElementRef;
     lstToTranslated: string[] = [];
     treeDataSourceItems!: any[];
-
+    selectedParentGroupId: any;
     ngOnInit(): void {
         this.selectedLang = this.localStorage.retrieve("selectedLanguage");
         this.lstToTranslated = ['label', 'labelTranslation'];

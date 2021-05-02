@@ -17,14 +17,14 @@ export class PatientNoteServicesComponent implements OnInit, OnChanges {
 
     selectedLang = 'ar';
     showProgress = false;
-    departmentServices = [];
-    noteDiagnosis = [];
+    departmentServices:any = [];
+    noteDiagnosis:any = [];
     noteServicesList: any[] = [];
     noteServicePackagesList: any[] = [];
     divisionId!: string;
     masterNoteServicesList: any[] = [];
     masterNoteServicePackagesList: any[] = [];
-    departmentServicePackages = [];
+    departmentServicePackages:any = [];
     rbSelections = [{ value: 1, text: 'Service' }, { value: 2, text: 'ServicePackage' }];
     isService = true;
     selectedAction = 1;

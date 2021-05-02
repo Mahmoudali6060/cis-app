@@ -33,7 +33,7 @@ export class ClinicDiagnosisComponent implements OnInit {
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     selectedClinicId!: number;
     selectDiagnosisTab: boolean = true;

@@ -18,9 +18,10 @@ export class ClinicTemplatesComponent implements OnInit {
     model: any;
     type = 'TemplateFileType';
     patientAttachementId = '';
-    selectedClinicId!:string;
+    selectedClinicId!: string;
     isTemplatesSelected = true;
-
+    Template: any;
+    showProgress: any = true;
     constructor(public toastr: ToastrService,
         private localStorage: LocalStorageService
         , private clinicService: ClinicService

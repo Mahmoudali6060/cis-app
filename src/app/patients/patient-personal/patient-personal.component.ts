@@ -214,7 +214,8 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
     raiseModelUpdated(model: any) {
         this.onModelUpdated.emit(model);
     }
-    private navigateToPackages() {
+
+    navigateToPackages() {
         //routerLink="/receptionistPatients/1"
         this.router.navigate(['/receptionist/patients', this.selectedClinicId]);
     }

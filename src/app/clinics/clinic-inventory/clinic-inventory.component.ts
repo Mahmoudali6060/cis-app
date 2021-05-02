@@ -17,7 +17,7 @@ import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 export class ClinicInventoryComponent implements OnInit {
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
     selectInventoryTab: boolean = true;
     selectedClinicId!: number;
@@ -39,7 +39,7 @@ export class ClinicInventoryComponent implements OnInit {
     getUpdatedProduct: boolean = false;
     updateAfterAdjust: boolean = false;
     @Input() updates: string = '';
-
+    showProgress: boolean = true;
     updateAmount(updates: any) {
         this.updateAfterAdjust = updates;
     }

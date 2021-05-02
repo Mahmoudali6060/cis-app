@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { TreeNode } from "primeng/primeng";
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
@@ -14,6 +13,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../security/shared/account.service';
 import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+import { TreeNode } from 'primeng/api';
 @Component({
 
     selector: 'clinic-appointments',
@@ -66,7 +66,7 @@ export class ClinicAppointmentsComponent implements OnInit {
         private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
 
     ngOnInit(): void {

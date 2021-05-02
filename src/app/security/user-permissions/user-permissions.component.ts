@@ -47,7 +47,7 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
     @ViewChild('btnCloseReconfirm')
     btnCloseReconfirm!: ElementRef;
 
-    constructor(private accountService: AccountService,
+    constructor(public accountService: AccountService,
         private toastr: ToastrService,
         private localStorage: LocalStorageService,
         private router: Router

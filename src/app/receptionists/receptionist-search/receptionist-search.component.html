@@ -13,9 +13,9 @@
             </div>
             <button type="button" (click)="showDialog()" class="btn btn-primary col-md-2">{{'FindPatient' | translate}}</button>
 
-            <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" resizable="true" width="800" responsive="true" height="auto">
+            <!-- <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" [resizable]="true" width="800" [responsive]="true" height="auto">
                 <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
-            </p-dialog>
+            </p-dialog> -->
 
 
 

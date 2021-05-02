@@ -11,7 +11,7 @@ import { AccountService } from '../../security/shared/account.service';
 
 export class PrototypeHomeComponent implements OnInit {
 
-    public constructor(private accountService: AccountService) { }
+    public constructor(public accountService: AccountService) { }
     
     ngOnInit(): void {
         

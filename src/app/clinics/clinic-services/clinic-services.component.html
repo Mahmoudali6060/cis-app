@@ -1,4 +1,4 @@
-﻿<div *ngIf="showProgress">
+﻿<div >
     <loading></loading>
 </div>
 
@@ -194,7 +194,7 @@
                             <label for="txtclinicFee" class="control-label col-md-3"> {{ 'ClinicFees' | translate}}</label>
                             <div class="col-md-3">
                                 <input type="number" id="txtclinicFee" name="txtclinicFee" class="form-control" [(ngModel)]='model.clinicFee'
-                                       #txtclinicFee="ngModel" required on-keyup="sum(c.value,'0')" #c  [disabled]="model.id > 0 && !enableServiceInput && !isClinicAdmin" />
+                                       #txtclinicFee="ngModel" required on-keyup="sum()" #c  [disabled]="model.id > 0 && !enableServiceInput && !isClinicAdmin" />
                                 <div [hidden]="txtclinicFee.valid || txtclinicFee.pristine" class="alert alert-danger">
                                     {{ 'RequiredField' | translate}}
                                 </div>
@@ -204,7 +204,7 @@
                             <label for="txtResourceFee" class="control-label col-md-3"> {{ 'ResourceFees' | translate}}</label>
                             <div class="col-md-3">
                                 <input type="number" id="txtResourceFee" name="txtResourceFee" class="form-control" [(ngModel)]='model.resourceFee'
-                                       #txtResourceFee="ngModel" required on-keyup="sum('0',r.value)" #r [disabled]="model.id > 0 && !enableServiceInput && !isClinicAdmin" />
+                                       #txtResourceFee="ngModel" required on-keyup="sum()" #r [disabled]="model.id > 0 && !enableServiceInput && !isClinicAdmin" />
                                 <div [hidden]="txtResourceFee.valid || txtResourceFee.pristine" class="alert alert-danger">
                                     {{ 'RequiredField' | translate}}
                                 </div>

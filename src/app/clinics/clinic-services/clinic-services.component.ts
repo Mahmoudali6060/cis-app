@@ -18,7 +18,7 @@ export class ClinicServicesComponent implements OnInit {
         private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     selectedLang = 'ar';
     filterString!:string;
@@ -146,7 +146,7 @@ export class ClinicServicesComponent implements OnInit {
         }
     }
 
-    nodeSelect(event: any) {
+    nodeSelect(event?: any) {
         event.node.label;
     }
 

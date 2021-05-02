@@ -21,7 +21,7 @@ export class ResetPasswordComponent {
    // @Input() userType: UserTypeEnum;
     @Input() enableMyAccountBtn: boolean = false;
 
-    constructor(private accountService: AccountService
+    constructor(public accountService: AccountService
         , public toastr: ToastrService
         , public translate: TranslateService) { }
 

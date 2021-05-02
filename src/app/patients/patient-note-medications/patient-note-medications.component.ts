@@ -18,7 +18,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
 
     selectedLang = 'ar';
     showProgress = false;
-    departmentDrugs = [];
+    departmentDrugs!:any ;
     noteDiagnosis = [];
     noteDrugsList: any[] = [];
     divisionId!: string;

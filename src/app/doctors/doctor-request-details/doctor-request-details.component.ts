@@ -19,6 +19,7 @@ import { TreeNode } from 'primeng/api';
 
 export class DoctorRequestDetailsComponent implements OnInit {
     selectBasicTab: boolean = true;
+    isDetailsVisible:any=true;
     Medical: any = {
         label: "المنتجات الطبية ",
         labelTranslation: "Medical Products",
@@ -44,7 +45,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
     };
     translateObjects = new TranslateObjectsPipe(this.storage);
     selectedClinicId!: string;
-    //isSelectedGroupNode = false;
+    isSelectedGroupNode:any = false;
     product: any = {};
     inventoryRequestModel: any = {};
     active = true;
@@ -77,7 +78,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
         , public storage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
 
 

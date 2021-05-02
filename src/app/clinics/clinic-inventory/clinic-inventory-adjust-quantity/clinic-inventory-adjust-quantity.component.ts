@@ -16,7 +16,7 @@ export class ClinicInventoryAdjustQuantity {
     selectInventoryTab: boolean = true;
     @Input() title: string = '';
     @Output() onAmountUpdated = new EventEmitter<any>();
-
+    isDetailsVisible: boolean = true;
     constructor(private sharedService: SharedService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
@@ -50,7 +50,7 @@ export class ClinicInventoryAdjustQuantity {
 
     };
     selectedClinicId!: string;
-    //isSelectedGroupNode = false;
+    isSelectedGroupNode: boolean = false;
     model: any = {};
     inventoryRequestModel: any = {};
     active = true;
@@ -61,14 +61,14 @@ export class ClinicInventoryAdjustQuantity {
     productList: any[] = [];
     treeDataSourceItems: any[] = [];
     selectedGroup!: TreeNode;
-    recordedId!:string;
+    recordedId!: string;
     doctorName: string = "";
     //unitName: string = "";
-    filterString!:string;
+    filterString!: string;
     leafType: string = 'Product';
     code: string = "";
     productName: string = "";
-    clinicIdReq!:string;
+    clinicIdReq!: string;
     lstToTranslated: string[] = [];
     translateObjects = new TranslateObjectsPipe(this.storage);
     ngOnInit(): void {

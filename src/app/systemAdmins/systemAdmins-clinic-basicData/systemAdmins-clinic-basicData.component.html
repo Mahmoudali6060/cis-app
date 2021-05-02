@@ -1,4 +1,4 @@
-﻿<div *ngIf="showProgress">
+﻿<div >
     <loading></loading>
 </div>
 
@@ -108,7 +108,7 @@
                 <input type="checkbox" class="ace ace-switch ace-switch-6"
                        id="chkIsAdmin" name="chkIsAdmin"
                        [(ngModel)]="model.ownerIsAdmin" #chkIsAdmin="ngModel"
-                       (change)="ownerIsAdminChanged" />
+                       (change)="ownerIsAdminChanged()" />
                 <span class="lbl"></span>
             </label>
         </div>

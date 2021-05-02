@@ -19,7 +19,7 @@ export class ReceptionistBasicComponent implements OnInit {
     active = true;
     model: any = {};
 
-    classifications = [];
+    classifications: any = [];
     showProgress = false;
     @ViewChild("fileInput") fileInput!: any;
 

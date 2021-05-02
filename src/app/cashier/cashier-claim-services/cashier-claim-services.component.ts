@@ -42,10 +42,10 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
     @ViewChild('btnMarkSatisfiedModal') btnMarkSatisfiedModal!: ElementRef;
     @ViewChild('btnCancelMarkSatisfiedModal') btnCancelMarkSatisfiedModal!: ElementRef;
 
-    @Input() showPrintButton = false;
-    @Input() displayColumnDate = false;
+    @Input() showPrintButton:boolean = false;
+    @Input() displayColumnDate :boolean= false;
     @Input() passedCharges: any = [];
-    @Input() passedPatient = {};
+    @Input() passedPatient :any= {};
     @Input() isClaimCanceled!: any;
     @Output() onAmountUpdated = new EventEmitter<any>();
     @Output() onChargeSelected = new EventEmitter<any>();
@@ -73,7 +73,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
     constructor(public toastr: ToastrService,
         private claimService: ClaimService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
         , public storage: LocalStorageService) { }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -511,7 +511,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
         this.controlsCount++;
     }
 
-    deleteInstallment(index: number, itemId: string): void {
+    deleteInstallment(index: number): void {
         this.installmentList.splice(index, 1);
     }
 

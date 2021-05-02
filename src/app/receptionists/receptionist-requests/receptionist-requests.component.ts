@@ -1,19 +1,19 @@
-﻿import {Component, OnInit, ViewChild, Output, EventEmitter} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { ReceptionistService } from '../shared/receptionist.service';
 import { SharedService } from '../../shared/shared/shared.service';
 
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 @Component({
-   
+
     selector: 'receptionist-requests',
     templateUrl: 'receptionist-requests.component.html',
 })
@@ -21,7 +21,7 @@ import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
 export class ReceptionistRequestsComponent implements OnInit {
 
     selectBasicTab: boolean = true;
-    filterString!:string;
+    filterString!: string;
 
     active = true;
     model: any = {};
@@ -30,12 +30,12 @@ export class ReceptionistRequestsComponent implements OnInit {
     isPending = true;
     @Output() onBookAppointment = new EventEmitter();
 
-    patientRequestList: any[];
+    patientRequestList!: any[];
     clinicId = "0";
-    selectedRequestToBeCanceled;
+    selectedRequestToBeCanceled!: any;
     lstToTranslated: string[] = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput!:any;
+    @ViewChild("fileInput") fileInput!: any;
     userPermisions: UserPermissions = new UserPermissions();
     key: PermissionKeyEnum = new PermissionKeyEnum();
     enableCancelLink: boolean = false;
@@ -49,8 +49,7 @@ export class ReceptionistRequestsComponent implements OnInit {
         , public accountService: AccountService
         , public translate: TranslateService
 
-    )
-    {
+    ) {
 
         //this.lstToTranslated = ['visitTypeName', 'visitNameTranslation', 'appointmentClassName', 'classNameTranslation', 'patientName', 'patientNameTranslation', 'doctorName', 'doctorNameTranslation'];
     }
@@ -64,17 +63,17 @@ export class ReceptionistRequestsComponent implements OnInit {
         vm.loadPatientRequests();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe((item :any)=> this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
     loadPatientRequests() {
         let vm = this;
         this.receptionistService.getAllPatientRequests(vm.clinicId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.patientRequestList = response;
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -85,13 +84,13 @@ export class ReceptionistRequestsComponent implements OnInit {
     confirmPatientRequest(requestId: string) {
         let vm = this;
         this.receptionistService.confirmPatientRequest(requestId).subscribe(
-            function (response:any) {
-                    let msg = vm.translate.instant("SavedSuccessfully");
-                    vm.toastr.success(msg, '');
+            function (response: any) {
+                let msg = vm.translate.instant("SavedSuccessfully");
+                vm.toastr.success(msg, '');
                 if (response != undefined)
-                    vm.updatePatientRequest(response:any);
+                    vm.updatePatientRequest(response);
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -124,11 +123,11 @@ export class ReceptionistRequestsComponent implements OnInit {
             requestToCanceled.cancelationReason = vm.model.cancelationReason;
         }
         this.receptionistService.cancelPatientRequest(requestToCanceled).subscribe(
-            function (response:any) {
+            function (response: any) {
                 if (response != undefined)
-                    vm.updatePatientRequest(response:any);
+                    vm.updatePatientRequest(response);
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -176,6 +175,10 @@ export class ReceptionistRequestsComponent implements OnInit {
 
             }
         }
+
+    }
+
+    close() {
 
     }
 

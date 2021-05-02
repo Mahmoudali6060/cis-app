@@ -80,7 +80,7 @@ export class PatientAddressComponent implements OnInit, OnChanges {
     raiseModelUpdated(model: any) {
         this.onModelUpdated.emit(model);
     }
-    private navigateToPackages() {
+    public navigateToPackages() {
         //routerLink="/receptionistPatients/1"
         this.router.navigate(['/receptionist/patients', this.selectedClinicId]);
     }

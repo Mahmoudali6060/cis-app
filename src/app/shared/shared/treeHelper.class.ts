@@ -25,7 +25,7 @@
     private getActiveChildNodes(node: any, ParentTempNode: any) {
 
         if (node.children) {
-            node.children.forEach(childNode => {
+            node.children.forEach((childNode:any) => {
                 if (childNode.isActive) {
                     var tempNode: any = {};
                     tempNode = { data: childNode.data, label: childNode.label, labelTranslation: childNode.labelTranslation, type: childNode.type, isActive: childNode.isActive, expanded: true, parent: childNode.parent };

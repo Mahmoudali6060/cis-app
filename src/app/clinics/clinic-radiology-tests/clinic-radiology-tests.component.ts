@@ -29,7 +29,7 @@ export class ClinicRadiologyTestsComponent implements OnInit {
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     selectedClinicId!: number;
     selectRadiologyTestsTab: boolean = true;
@@ -46,10 +46,10 @@ export class ClinicRadiologyTestsComponent implements OnInit {
     rbSelections = [{ value: 1, text: this.groupName }, { value: 2, text: this.childName }];
     selectedAction = 1;
     txtHeaderModal = "";
-    toSaveRadiologyTestsGroupId = '';
-    toSaveRadiologyTestId = '';
-    parentRadiologyTestsGroupId = '';
-    parentRadiologyTestsGroupName = '';
+    toSaveRadiologyTestsGroupId:any ;
+    toSaveRadiologyTestId:any;
+    parentRadiologyTestsGroupId:any;
+    parentRadiologyTestsGroupName :any;
     isRoot = false;
     enableCheckBox = false;
     selctedNode: any;

@@ -19,7 +19,7 @@ export class ReceptionistPatientsComponent implements OnInit {
     enableEditPatientBtn: boolean = false;
     enableActivatePatientBtn: boolean = false;
     constructor(
-        private accountService: AccountService) { }
+        public accountService: AccountService) { }
 
     ngOnInit() {
         if (this.accountService.userPermision._isScalar != undefined)

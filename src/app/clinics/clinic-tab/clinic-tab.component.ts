@@ -42,7 +42,7 @@ export class ClinicTabComponent implements OnInit, OnChanges {
     clinicId: string = '';
 
     constructor(private storage: LocalStorageService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     key: ClinicModulesEnum = new ClinicModulesEnum();
     hasPurshasingAndInventory: boolean = false;

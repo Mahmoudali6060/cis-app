@@ -40,7 +40,7 @@ export class DoctorAppointmentsComponent implements OnInit {
     showClose: boolean = false;
     // viewSearch: boolean = false;
     hasMultiClincs = false;
-    clinics = [];
+    clinics:any = [];
     selectedClinic: any = {};
     clinicId = '';
     disabled: boolean = true;
@@ -57,7 +57,7 @@ export class DoctorAppointmentsComponent implements OnInit {
         , private _route: ActivatedRoute
         , private router: Router
         , public storage: LocalStorageService
-        , private accountService: AccountService
+        , public accountService: AccountService
         , public translate: TranslateService
     ) {
         //'patientNameTranslation'

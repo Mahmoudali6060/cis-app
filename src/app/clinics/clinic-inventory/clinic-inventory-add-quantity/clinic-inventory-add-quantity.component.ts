@@ -16,6 +16,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
     @Input() enableSaveBtn: boolean = false;
     @Input() isClinicAdmin: boolean = false;
     selectInventoryTab: boolean = true;
+    isDetailsVisible: boolean = true;
     constructor(private sharedService: SharedService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
@@ -45,7 +46,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
         children: []
     };
     selectedClinicId!: string;
-    //isSelectedGroupNode = false;
+    isSelectedGroupNode: boolean = false;
     hideOnHandQuantity: boolean = true;
     showOnHandQuantity: boolean = false;
     model: any = {};
@@ -58,10 +59,10 @@ export class ClinicInventoryAddQuantity implements OnInit {
     productList: any[] = [];
     treeDataSourceItems: any[] = [];
     selectedGroup!: TreeNode;
-    doctorId!:string;
+    doctorId!: string;
     doctorName: string = "";
     //unitName: string = "";
-    filterString!:string;
+    filterString!: string;
     leafType: string = 'Product';
     code: string = "";
     productName: string = "";

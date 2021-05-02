@@ -35,8 +35,8 @@ export class ReceptionistSearchComponent implements OnInit {
     showClose: boolean = true;
 
     appointmentId: any;
-    matchedPatients = [];
-    matchedAppontments = [];
+    matchedPatients: any = [];
+    matchedAppontments: any = [];
     active = true;
     model: any = {};
 

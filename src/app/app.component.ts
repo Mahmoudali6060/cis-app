@@ -206,16 +206,16 @@ export class AppComponent implements OnInit {
 
     adjustUIForArabic() {
         this.localStorage.store('selectedLanguage', 'ar');
-        this.loadCssToHTMlPage("css/bootstrap-rtl.min.css");
-        this.loadCssToHTMlPage("css/styles-rtl.css");
+        this.loadCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
+        this.loadCssToHTMlPage("src/assets/css/styles-rtl.css");
         window.document.body.style.direction = "rtl";
     }
 
     adjustUIForEnglish() {
         this.localStorage.store('selectedLanguage', 'en');
-        this.RemoveCssToHTMlPage("css/bootstrap-rtl.min.css");
-        this.RemoveCssToHTMlPage("css/styles-rtl.css");
-        this.loadCssToHTMlPage("css/styles-ltr.css");
+        this.RemoveCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
+        this.RemoveCssToHTMlPage("src/assets/css/styles-rtl.css");
+        this.loadCssToHTMlPage("src/assets/css/styles-ltr.css");
         window.document.body.style.direction = "ltr";
     }
 

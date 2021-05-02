@@ -27,7 +27,7 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
     @ViewChild('patientVitalSignsComp') patientVitalSignsComp: any;
     @Input() activeTabIndex: number = 0;
     @Input() patientId = '1';
-    @Input() noteId = '';
+    @Input() noteId!: any;
     @Input() departmentId!: string;
     @Input() selectedAppointmentId!: number;
     @Input() hasEditednote: boolean = false;
@@ -50,7 +50,7 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
     @Input() allowEditing: boolean = true;
     @Output() onNewNoteSaved = new EventEmitter<any>();
 
-    //isBasicInfoSelected: boolean = false;
+    isBasicInfoSelected: boolean = false;
     //isSurgeriesSelected: boolean = false;
     //isAllergiesSelected: boolean = false;
     //isAttachmentsSelected: boolean = false;

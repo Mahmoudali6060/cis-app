@@ -32,7 +32,7 @@ export class PatientNotesComponent implements OnChanges, OnInit {
     @ViewChild("btnAddNewNote") btnAddNewNote!: ElementRef;;
     @ViewChild("patientClinicalNoteComp") patientClinicalNoteComp: any;
 
-    selectedAppointmentId: string = '';
+    selectedAppointmentId: any;
     selectedNote: any = {};
 
     appointmentId = '';

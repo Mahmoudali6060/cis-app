@@ -39,7 +39,7 @@ export class PurchaseOrderViewDetails {
         , private _route: ActivatedRoute
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
 
     ngOnInit(): void {

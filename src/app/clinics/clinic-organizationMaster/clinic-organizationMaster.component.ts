@@ -61,7 +61,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
         private toastr: ToastrService,
         private _route: ActivatedRoute
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     ngOnInit(): void {
         this.selectedLang = this.storage.retrieve("selectedLanguage");

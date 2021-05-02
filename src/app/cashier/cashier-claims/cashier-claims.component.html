@@ -31,9 +31,9 @@
                             <a class="pointer" (click)="showDialog()">{{ 'PatientAdvancedSearch' | translate}}</a>
                         </div>
 
-                        <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" resizable="true" width="800" responsive="true" height="auto">
+                        <!-- <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" resizable="true" width="800" responsive="true" height="auto">
                             <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
-                        </p-dialog>
+                        </p-dialog> -->
 
                         <label for="txtName" class="col-md-2 control-label">{{ 'DoctorName' | translate}}</label>
                         <div class="col-md-3">

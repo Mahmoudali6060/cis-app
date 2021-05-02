@@ -40,7 +40,7 @@ export class ReceivePurchaseOrder {
         , private localStorage: LocalStorageService
         , private clinicService: ClinicService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
 
     ngOnInit(): void {

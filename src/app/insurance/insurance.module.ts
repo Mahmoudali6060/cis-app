@@ -31,9 +31,7 @@ import { PatientsModule } from '../patients/patients.module';
         InsuranceRoutingModule,
         SharedModule,
         //routing,
-        CalendarModule,
-        PatientsModule,
-        DialogModule,
+        PatientsModule
 
     ],
     declarations: [

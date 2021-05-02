@@ -29,7 +29,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
     showProgress = false;
     @ViewChild("fileInput") fileInput!: any;
     isRadTest = true;
-    radTests: any[] = [];
+    radTests: any | undefined;
     noteDiagnosis: any[] = [];
     selectedGroupNode!: TreeNode;
     radTestCode = '';
@@ -149,14 +149,14 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
     }
     displaySelectedParentGroupNode(radTestId: string) {
         let vm = this
-        vm.radTests.forEach(node => {
+        vm.radTests.forEach((node: any) => {
             vm.displaySelectedNodeRecursive(node, radTestId);
 
             //if (node.data == parentId)
             //    vm.selectedFile = node;
         });
     }
-    getRadiologyTestsGroupsForTreeView(needAll: boolean) {
+    getRadiologyTestsGroupsForTreeView(needAll: boolean | undefined) {
         let vm = this;
         vm.isAll = false;
         /////////////////////////get all services groups

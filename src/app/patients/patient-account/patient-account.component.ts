@@ -36,6 +36,7 @@ export class PatientAccountComponent implements OnInit {
     @ViewChild("fileInput") fileInput!: any;
     @ViewChild("patientAccountForm") patientAccountForm!: any;
     utilityClass: UtilityClass = new UtilityClass();
+    isAttachmentsSelected: boolean = true;
     constructor(private patientService: PatientService
         , private sharedService: SharedService
         , public toastr: ToastrService
@@ -142,7 +143,11 @@ export class PatientAccountComponent implements OnInit {
     }
 
 
-    private navigateToPackages() {
+    public onSubmit() {
+
+    }
+
+    public navigateToPackages() {
         //routerLink="/receptionistPatients/1"
         this.router.navigate(['/receptionist/patients', this.selectedClinicId]);
     }

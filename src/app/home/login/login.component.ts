@@ -47,13 +47,13 @@ export class LoginComponent {
 
         let msgAuthorize = this.translate.instant("AuthorizeAdministrationPages");
 
-        // AccountKit.login('PHONE', { countryCode: strMobileCodeNumber, phoneNumber: strMobileNumber }).then(
-        //     (response: AuthResponse) => {
+        AccountKit.login('PHONE', { countryCode: strMobileCodeNumber, phoneNumber: strMobileNumber }).then(
+            (response: AuthResponse) => {
                 this.generateAccessToken(authenticatedUser);
 
-        //     },
-        //     (error: any) => this.toastr.error(msgAuthorize, '')
-        // );
+            },
+            (error: any) => this.toastr.error(msgAuthorize, '')
+        );
     }
 
     onLogin(): void {

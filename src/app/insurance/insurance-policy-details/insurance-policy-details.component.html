@@ -122,9 +122,9 @@
                                     <input type="text" class="form-control" [(ngModel)]='policyPatientModel.patientMrn' id="txtMrn" name="txtMrn" #txtMrn="ngModel" required />
                                     <a class="pointer" (click)="showDialog()">{{ 'PatientAdvancedSearch' | translate}}</a>
                                 </div>
-                                <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="patientSearchVisible" resizable="true" width="800" responsive="true" height="auto">
+                                <!-- <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="patientSearchVisible" resizable="true" width="800" responsive="true" height="auto">
                                     <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
-                                </p-dialog>
+                                </p-dialog> -->
                                 <label for="txtName" class="col-md-2 control-label">{{ 'MembershipNumber' | translate}}</label>
                                 <div class="col-md-3">
                                     <input type="text" class="form-control" [(ngModel)]='policyPatientModel.cardNumber' id="txtMembershipNumber" name="txtMembershipNumber" #txtMembershipNumber="ngModel" required />

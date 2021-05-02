@@ -73,7 +73,7 @@ export class ReplyToFeedbackComponent {
         if (this.selectedFeedbackId && this.selectedFeedbackId > 0) {
             thisComponent.showProgress = true;
             this.toSaveReply.feedbackId = this.selectedFeedbackId;
-            this.toSaveReply.repliedById = this.recorderId!:any;
+            this.toSaveReply.repliedById = this.recorderId;
             if (this.selectedFeedback)
                 this.toSaveReply.status = this.selectedFeedback.status;
 

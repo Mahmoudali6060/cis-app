@@ -36,7 +36,7 @@ export class ClinicEMRMasterComponent implements OnInit {
         private storage: LocalStorageService,
         private toastr: ToastrService
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     ngOnInit(): void {
         let vm = this;

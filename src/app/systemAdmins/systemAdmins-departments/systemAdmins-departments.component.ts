@@ -15,7 +15,7 @@ export class SystemAdminDepartmentsComponent implements OnInit {
     objectType: string = 'Cis.Core.Department';
     title: string = 'Departments';
 
-    public constructor(private accountService: AccountService) { }
+    public constructor(public accountService: AccountService) { }
 
     ngOnInit(): void {
 

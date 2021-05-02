@@ -18,7 +18,7 @@ export class SecurityComponent implements OnInit {
     clinicId = '';
     userType: string = '';
     isClinicAdmin: boolean = false;
-    constructor(private accountService: AccountService,
+    constructor(public accountService: AccountService,
         private toastr: ToastrService,
         private localStorage: LocalStorageService
     ) {

@@ -43,7 +43,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
     selectedLang = 'ar';
 
 
-    constructor(private accountService: AccountService,
+    constructor(public accountService: AccountService,
         private toastr: ToastrService,
         private localStorage: LocalStorageService,
         private router: Router

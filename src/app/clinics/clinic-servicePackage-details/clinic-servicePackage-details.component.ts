@@ -56,7 +56,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
         private router: Router,
         private _route: ActivatedRoute
         , public translate: TranslateService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     ngOnInit(): void {
         let thisComponent = this;
@@ -385,7 +385,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
             });
         }
     }
-    private navigateToPackages() {
+    public navigateToPackages() {
         this.router.navigate(['/clinic/servicePackages', this.selectedClinicId]);
     }
     sum() {

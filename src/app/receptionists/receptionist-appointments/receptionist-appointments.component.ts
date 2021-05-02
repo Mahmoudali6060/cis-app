@@ -162,7 +162,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         private localStorage: LocalStorageService
         , private router: Router
         , public translate: TranslateService
-        , private accountService: AccountService) {
+        , public accountService: AccountService) {
         this.cancellationDate = this.utilityClass.getUtcDate(new Date());
     }
 
@@ -759,7 +759,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
         return dateTime;
     }
-    saveOrUpdateAppointment(updateArrivalTime: boolean) {
+    saveOrUpdateAppointment(updateArrivalTime?: boolean|undefined) {
 
         this.appointmentModel.clinicId = this.clinicId;
         this.appointmentModel.clinicDivisionId = this.selectedDivisionId;

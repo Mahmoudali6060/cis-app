@@ -32,6 +32,7 @@ import { OrderListModule } from 'primeng/orderlist';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 
+
 @NgModule({
     imports: [
         FormsModule,

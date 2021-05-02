@@ -32,7 +32,7 @@ export class PatientSurgeryDetailsComponent implements OnInit {
     selectedSurgeryNode: any;
     tempSelectedSurgeryNode: any;
     clinicId!: any;
-    servicesTreeDataSourceItems: any[] = [];
+    servicesTreeDataSourceItems!: any[];
     getAllServices = true;
 
     showProgress = false;

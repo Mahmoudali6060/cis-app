@@ -26,7 +26,7 @@ export class DoctorRequestsComponent implements OnInit {
     doctorId!: string;
     clinicIdReq!: string;
     hasMultiClincs = false;
-    clinics = [];
+    clinics:any = [];
     selectedClinic: any = {};
     clinicId = '';
     enableDeleteInventoryRequest: boolean = false;
@@ -44,7 +44,7 @@ export class DoctorRequestsComponent implements OnInit {
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
 
     ngOnInit(): void {
@@ -125,7 +125,7 @@ export class DoctorRequestsComponent implements OnInit {
 
 
     }
-    deleteInventoryRequest(id: any): void {
+    deleteInventoryRequest(id?: any): void {
         let vm = this;
         id = vm.inventoryRequestId;
         if (id == undefined || isNaN(id)) {

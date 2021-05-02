@@ -53,7 +53,7 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-        , private accountService: AccountService
+        , public accountService: AccountService
     ) { }
 
     ngOnInit(): void {

@@ -45,5 +45,8 @@ export class ReceptionistAppointmentDetailsComponent implements OnInit {
 
     }
 
+    onSubmit(){
+        
+    }
 
 }

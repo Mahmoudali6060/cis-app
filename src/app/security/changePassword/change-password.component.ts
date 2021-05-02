@@ -21,7 +21,7 @@ export class ChangePasswordComponent {
     @Input() enableMyAccountBtn: boolean = false;
     @ViewChild('btnCloseChangePasswordPopup')
     btnCloseChangePasswordPopup!: ElementRef;
-    constructor(private accountService: AccountService
+    constructor(public accountService: AccountService
         , public toastr: ToastrService
         , public translate: TranslateService) { }
 

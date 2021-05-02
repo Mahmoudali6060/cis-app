@@ -18,7 +18,7 @@ import { TreeHelerClass } from '../../shared/shared/treeHelper.class';
 
 export class ClinicEMRMasterServicesComponent implements OnInit, OnChanges {
 
-    filterString!:string;
+    filterString!: string;
     leafType: string = 'Service';
     selectedLang = 'ar';
 
@@ -44,7 +44,7 @@ export class ClinicEMRMasterServicesComponent implements OnInit, OnChanges {
     treeHelper: TreeHelerClass = new TreeHelerClass();
     selectedServicesIDs: any[] = [];
     groupType = 'ServiceGroup';
-
+    selectedItem: any;
     public constructor(private clinicService: ClinicService,
         private storage: LocalStorageService,
         private toastr: ToastrService,

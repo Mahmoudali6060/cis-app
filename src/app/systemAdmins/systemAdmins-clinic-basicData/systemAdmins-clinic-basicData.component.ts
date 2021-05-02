@@ -171,4 +171,8 @@ export class SystemAdminClinicBasicDataComponent implements OnInit {
         }
 
     }
+
+    ownerIsAdminChanged(){
+        
+    }
 }

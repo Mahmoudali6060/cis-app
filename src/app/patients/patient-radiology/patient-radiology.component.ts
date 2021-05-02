@@ -1,10 +1,10 @@
-﻿import {Component, OnInit, ViewChild, Input} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DoctorService } from '../../doctors/shared/doctor.service';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { SharedService } from '../../shared/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
     selector: 'patient-radiology',
@@ -16,28 +16,27 @@ export class PatientRadiologyComponent implements OnInit {
     lstToTranslated: string[] = [];
     isDetailsVisible: boolean = false;
     @Input() allowEditing: boolean = true;
-    @Input() noteId!: number;
+    @Input() noteId!: any;
     active = true;
     radTests: any[] = [];
     radTestToBeDeleted: any;
     noteRadtId: any;
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput!:any;
-
+    @ViewChild("fileInput") fileInput!: any;
+    filterString!: any;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['radTestName', 'radTestNameTranslation', 'diagnoseName', 'diagnoseNameTranslation'];
         let vm = this;
-              vm.showProgress = true;
+        vm.showProgress = true;
         vm.loadNoteRadTestList();
     }
     selectRadTestToDelete(id: string) {
@@ -53,32 +52,32 @@ export class PatientRadiologyComponent implements OnInit {
         vm.showProgress = true;
         this.doctorService.deleteClinicNoteRadTest(this.radTestToBeDeleted)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
-                // remove delete object from collection
-                var selectedObject = vm.radTests.find(o => o.id == vm.radTestToBeDeleted);
-                var index = vm.radTests.indexOf(selectedObject);
-                if (index > -1)
-                    vm.radTests.splice(index, 1);
-            },
-            function (error:any) { 
-                vm.toastr.error( error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
+                    // remove delete object from collection
+                    var selectedObject = vm.radTests.find(o => o.id == vm.radTestToBeDeleted);
+                    var index = vm.radTests.indexOf(selectedObject);
+                    if (index > -1)
+                        vm.radTests.splice(index, 1);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
     loadNoteRadTestList() {
         let vm = this;
         if (vm.noteId && vm.noteId > 0) {
             this.doctorService.getClinicNoteRadTests(vm.noteId).subscribe(
-                function (response:any) {
+                function (response: any) {
                     vm.radTests = response;
                 },
-                function (error:any) { 
-                    vm.toastr.error( error, '');
+                function (error: any) {
+                    vm.toastr.error(error, '');
                 },
                 function () { // finally
                     vm.showProgress = false;
@@ -87,7 +86,7 @@ export class PatientRadiologyComponent implements OnInit {
 
     }
 
-    showDetails(id: string) {
+    showDetails(id?: string) {
         this.isDetailsVisible = true;
         this.noteRadtId = id;
     }

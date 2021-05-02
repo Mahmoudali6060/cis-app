@@ -56,7 +56,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
 
     enableAttachmentBtn: boolean = false;
     isPatientSelected: boolean = false;
-    selectedPatientId!:string;
+    selectedPatientId!: string;
     parentType: string = "PatientFileType";
     showDocumentDetails: boolean = true;
     btnUploadText = this.translate.instant("UploadFile");
@@ -68,11 +68,11 @@ export class CashierPatientTransactionsComponent implements OnInit {
     lastModifierId: string = '';
     transactionWrapperModel: any = {};
     PrePaidRemarks: string = '';
-
+    Attachement: any;
     constructor(public toastr: ToastrService,
         private claimService: ClaimService,
         private localStorage: LocalStorageService,
-        private accountService: AccountService,
+        public accountService: AccountService,
         public translate: TranslateService) { }
 
     ngOnInit(): void {

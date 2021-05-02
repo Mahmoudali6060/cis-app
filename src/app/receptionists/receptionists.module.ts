@@ -17,8 +17,7 @@ import { ReceptionistRequestsComponent } from './receptionist-requests/reception
 import { ReceptionistDivisionCalendarComponent } from './receptionist-division-calendar/receptionist-division-calendar.component';
 import { SharedModule } from '../shared/shared.module';
 import { PatientsModule } from '../patients/patients.module';
-import { DialogModule } from 'primeng/dialog';
-import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
     imports: [
@@ -28,8 +27,7 @@ import { CalendarModule } from 'primeng/calendar';
         SharedModule,
         //routing,
         // ScheduleModule,
-        DialogModule,
-        CalendarModule,
+      
         PatientsModule
 
 

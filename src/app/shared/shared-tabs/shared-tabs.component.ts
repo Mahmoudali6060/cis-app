@@ -95,7 +95,7 @@ export class SharedTabsComponent implements OnChanges {
     hasBillingAndInsurance: boolean = false;
     moduleKey: ClinicModulesEnum = new ClinicModulesEnum();
     constructor(private localStorage: LocalStorageService
-        , private accountService: AccountService) { }
+        , public accountService: AccountService) { }
 
     ngOnInit(): void {
         let thisComponent = this;

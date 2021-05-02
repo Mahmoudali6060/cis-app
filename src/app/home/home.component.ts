@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
     public constructor(
         private _route: ActivatedRoute,
-        private accountService: AccountService) { }
+        public accountService: AccountService) { }
 
 
     ngOnInit(): void {

@@ -1,12 +1,12 @@
-﻿import {Component, OnInit, ViewChild, Input} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
     selector: 'patient-templates',
@@ -17,10 +17,10 @@ export class PatientTemplatesComponent implements OnInit {
     selectBasicTab: boolean = true;
     isDetailsVisible: boolean = false;
     @Input() allowEditing: boolean = true;
-     active = true;
+    active = true;
     classifications = [];
     showProgress = false;
-    @ViewChild("fileInput") fileInput!:any;
+    @ViewChild("fileInput") fileInput!: any;
     isDoctor: boolean = false;
     isReceptionist: boolean = false;
     previousTab: string = '';
@@ -29,21 +29,21 @@ export class PatientTemplatesComponent implements OnInit {
     btnUploadText = this.translate.instant("ApplyTemplate");
     fileNameUploadTxt = this.translate.instant("AppliedTemplate");
     fileType: boolean = false;
-    isTemplateExist: boolean = true;
+    isTemplateExist: any = true;
 
     @Input() noteId!: number;
     model: any;
     type = 'DoctorAppliedTemplate';
     patientAttachementId = '';
+    Template: any;
 
-        constructor(private organizationService: PatientService
+    constructor(private organizationService: PatientService
         , private sharedService: SharedService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
         , public storage: LocalStorageService
         , public translate: TranslateService
-    )
-    { }
+    ) { }
 
     ngOnInit(): void {
 
@@ -69,5 +69,8 @@ export class PatientTemplatesComponent implements OnInit {
         this.isDetailsVisible = false;
     }
 
+    updateModel(event: any) {
+
+    }
 
 }
