@@ -27,7 +27,7 @@ export class AdministrationService extends BaseService {
 
     getAll(type: string): any {
         return this.http.get(`${this.webApiURL + "/getAll"}/${type}`, this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
             ////.catch((error: any) => this.handleError(error));
     }
 
@@ -125,13 +125,13 @@ export class AdministrationService extends BaseService {
 
     getDivisionsWrapper(): any {
         return this.http.get(this.webApiURL + "/divisionWrapper", this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
             ////.catch((error: any) => this.handleError(error));
     }
 
     getAllDivisions(): any {
         return this.http.get(this.webApiURL + "/divisions", this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
             ////.catch((error: any) => this.handleError(error));
     }
 
@@ -175,7 +175,7 @@ export class AdministrationService extends BaseService {
 
     getAllClinics(): any {
         return this.http.get(this.webApiURL + "/getAllClinics", this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
             ////.catch((error: any) => this.handleError(error));
     }
 
@@ -206,7 +206,7 @@ export class AdministrationService extends BaseService {
     ///import,export,component getConfigFilesPath
     fillConfigFilesDropDownList(): any {
         return this.http.get(this.webApiURL + "/getConfigFilesPath", this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
             ////.catch((error: any) => this.handleError(error));
     }
 
@@ -289,7 +289,7 @@ export class AdministrationService extends BaseService {
 
     getSystemSetting(): any {
         return this.http.get(this.webApiURL + "/getSystemSetting", this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
             ////.catch((error: any) => this.handleError(error));
     }
 

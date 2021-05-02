@@ -20,7 +20,7 @@ export class SystemAdminClinicsComponent implements OnInit {
     lstToTranslated: string[] = [];
     filterString!: string;
     clinicsList!: any[];
-    showProgress = false;
+    showProgress:boolean = false;
     selectClinicsTab: boolean = true;
     newSubscription: any = {};
     newSubscriptionToSave: any = {};

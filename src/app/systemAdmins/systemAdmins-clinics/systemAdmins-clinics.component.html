@@ -1,8 +1,8 @@
-﻿<div >
+﻿<div *ngIf="showProgress">
     <loading></loading>
 </div>
 
-<div class="row"> 
+<div class="row">
 
     <systemAdmins-tabs [isClinicsSelected]='selectClinicsTab'></systemAdmins-tabs>
 
@@ -13,24 +13,28 @@
                 {{ 'Clinics' | translate}}
             </div>
         </div>
-   <div class="row well">
-       <div class="row ">
-           <div class="col-md-4 col-md-offset-8">
-               <div class="float-right btnMarginLeft"><print-page [section]='toPrintDiv'></print-page></div>
-               <button class="btn btn-primary float-right btnMarginRight" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" routerLink="/systemAdmin/clinicDetails/new">{{ 'New' | translate}}</button>
-           </div>
-       </div>
+        <div class="row well">
+            <div class="row ">
+                <div class="col-md-4 col-md-offset-8">
+                    <div class="float-right btnMarginLeft">
+                        <print-page [section]='toPrintDiv'></print-page>
+                    </div>
+                    <button class="btn btn-primary float-right btnMarginRight"
+                        disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                        routerLink="/systemAdmin/clinicDetails/new">{{ 'New' | translate}}</button>
+                </div>
+            </div>
 
-       <div class="padding5">
-           <div class="row text-right nopadding">
-           </div>
-           <div class="padding2"></div>
+            <div class="padding5">
+                <div class="row text-right nopadding">
+                </div>
+                <div class="padding2"></div>
 
-           <div class="inner-addon left-addon">
-               <i class="glyphicon glyphicon-search"></i>
-               <input #gb type="text" pInputText size="50" class="inputSearch" placeholder="Search...">
-           </div>
-           <!-- <p-dataTable [value]="clinicsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
+                <div class="inner-addon left-addon">
+                    <i class="glyphicon glyphicon-search"></i>
+                    <input #gb type="text" pInputText size="50" class="inputSearch" placeholder="Search...">
+                </div>
+                <!-- <p-dataTable [value]="clinicsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                <p-column field="name" [header]="'NameArabic' | translate" [sortable]="true"></p-column>
                <p-column field="nameTranslation" [header]="'NameEnglish' | translate" [sortable]="true"></p-column>
                <p-column field="clinicLevelName" [header]="'ClinicLevel' | translate" [sortable]="true"></p-column>
@@ -77,39 +81,39 @@
            </p-dataTable> -->
 
 
-           <div id="print-section" class="hidden">
-               <table class="table table-responsive table-hover">
-                   <thead class="alert alert-info">
-                       <tr>
-                           <th>{{ 'NameArabic' | translate}}</th>
-                           <th>{{ 'NameEnglish' | translate}}</th>
-                           <th>{{ 'ClinicLevel' | translate}}</th>
-                           <th>{{ 'CreationDate' | translate}}</th>
-                           <th>{{ 'StartDate' | translate}}</th>
-                           <th>{{ 'EndDate' | translate}}</th>
-                           <th>{{ 'Address' | translate}}</th>
-                           <th>{{ 'Active' | translate}}</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <tr *ngFor="let item of clinicsList">
-                           <td>{{item.name}}</td>
-                           <td>{{item.nameTranslation}}</td>
-                           <td>{{item.clinicLevelName}}</td>
-                           <td>{{item.creationDateString}}</td>
-                           <td>{{item.startDateString}}</td>
-                           <td>{{item.endDateString}}</td>
-                           <td>{{item.addressString}}</td>
-                           <td>
-                               <img *ngIf="item.isActive" src="assets/images/ok-24.jpg" />
-                           </td>
-                       </tr>
-                   </tbody>
-               </table>
-           </div>
-       </div>
+                <div id="print-section" class="hidden">
+                    <table class="table table-responsive table-hover">
+                        <thead class="alert alert-info">
+                            <tr>
+                                <th>{{ 'NameArabic' | translate}}</th>
+                                <th>{{ 'NameEnglish' | translate}}</th>
+                                <th>{{ 'ClinicLevel' | translate}}</th>
+                                <th>{{ 'CreationDate' | translate}}</th>
+                                <th>{{ 'StartDate' | translate}}</th>
+                                <th>{{ 'EndDate' | translate}}</th>
+                                <th>{{ 'Address' | translate}}</th>
+                                <th>{{ 'Active' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of clinicsList">
+                                <td>{{item.name}}</td>
+                                <td>{{item.nameTranslation}}</td>
+                                <td>{{item.clinicLevelName}}</td>
+                                <td>{{item.creationDateString}}</td>
+                                <td>{{item.startDateString}}</td>
+                                <td>{{item.endDateString}}</td>
+                                <td>{{item.addressString}}</td>
+                                <td>
+                                    <img *ngIf="item.isActive" src="assets/images/ok-24.jpg" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-   </div>
+        </div>
     </div>
 </div>
 
@@ -122,13 +126,15 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">{{ 'Subscription' | translate}}</h4>
             </div>
-            <form *ngIf="active" class="form-horizontal" name="renewForm" (ngSubmit)="renewSubcscription()" #renewForm="ngForm">
+            <form *ngIf="active" class="form-horizontal" name="renewForm" (ngSubmit)="renewSubcscription()"
+                #renewForm="ngForm">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="txtStartDate" class="control-label col-md-2">{{ 'StartDate' | translate}}</label>
                         <div class="col-md-6">
-                            <p-calendar [(ngModel)]="newSubscription.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="newSubscription.startDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
 
                             <!--<input type="date" id="txtStartDate" name="txtStartDate" class="form-control"
                                    [(ngModel)]='newSubscription.startDate' #txtStartDate="ngModel" required />
@@ -140,8 +146,9 @@
                     <div class="form-group">
                         <label for="txtEndDate" class="control-label col-md-2"> {{ 'EndDate' | translate}}</label>
                         <div class="col-md-6">
-                            <p-calendar [(ngModel)]="newSubscription.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="newSubscription.endDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                             <!--<input type="date" id="txtEndDate" name="txtEndDate" class="form-control"
                                    [(ngModel)]='newSubscription.endDate' #txtEndDate="ngModel" required />
                             <div [hidden]="txtEndDate.valid || txtEndDate.pristine" class="alert alert-danger">
@@ -150,10 +157,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="txtRemainingBalance">{{ 'NoOfUsers' | translate}}</label>
+                        <label class="control-label col-md-2" for="txtRemainingBalance">{{ 'NoOfUsers' |
+                            translate}}</label>
                         <div class="col-md-4">
                             <input type="number" id="txtNoUsers" name="txtNoUsers" class="form-control"
-                                   [(ngModel)]='newSubscription.numberOfUsers' #txtNoUsers="ngModel" required />
+                                [(ngModel)]='newSubscription.numberOfUsers' #txtNoUsers="ngModel" required />
                             <div [hidden]="txtNoUsers.valid || txtNoUsers.pristine" class="alert alert-danger">
                                 {{ 'RequiredField' | translate}}
                             </div>
@@ -162,12 +170,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"
-                            [disabled]="!renewForm.form.valid || !enableMyAccountBtn ">
+                        [disabled]="!renewForm.form.valid || !enableMyAccountBtn ">
                         {{ 'Add' | translate}}
                     </button>
-                    <button type="button"
-                            disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal"
-                            #btnSubscriptionModalClose>
+                    <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary"
+                        data-dismiss="modal" #btnSubscriptionModalClose>
                         {{ 'Cancel' | translate}}
                     </button>
                 </div>
@@ -185,12 +192,14 @@
                 <h4 class="modal-title">{{ 'AddCredit' | translate}}</h4>
             </div>
 
-            <form *ngIf="active" class="form-horizontal" name="smsCreditForm" (ngSubmit)="addSmsCredit()" #smsCreditForm="ngForm">
+            <form *ngIf="active" class="form-horizontal" name="smsCreditForm" (ngSubmit)="addSmsCredit()"
+                #smsCreditForm="ngForm">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="txtCredit" class="control-label col-md-3"> {{ 'Credit' | translate}}</label>
                         <div class="col-md-4">
-                            <input type="number" id="txtCredit" name="txtCredit" class="form-control" [(ngModel)]='newCredit.credit' #txtCredit="ngModel" required />
+                            <input type="number" id="txtCredit" name="txtCredit" class="form-control"
+                                [(ngModel)]='newCredit.credit' #txtCredit="ngModel" required />
                             <div [hidden]="txtCredit.valid || txtCredit.pristine" class="alert alert-danger">
                                 {{ 'RequiredField' | translate}}
                             </div>
@@ -205,12 +214,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"
-                            [disabled]="!smsCreditForm.form.valid || !enableMyAccountBtn">
+                        [disabled]="!smsCreditForm.form.valid || !enableMyAccountBtn">
                         {{ 'Add' | translate}}
                     </button>
-                    <button type="button" class="btn btn-primary"
-disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
-                            data-dismiss="modal" #btnSmsCreditModalClose>
+                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                        data-dismiss="modal" #btnSmsCreditModalClose>
                         {{ 'Cancel' | translate}}
                     </button>
                 </div>

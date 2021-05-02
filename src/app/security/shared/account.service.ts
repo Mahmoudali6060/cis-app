@@ -123,7 +123,7 @@ export class AccountService extends BaseService {
 
     getSecurityUserById(id: string): any {
         return this.http.get(`${this.webApiURL}/getSecurityUserById/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
@@ -192,7 +192,7 @@ export class AccountService extends BaseService {
     ///to get clinic modules
     getClinicModules(clinicId: string): any {
         return this.http.get(`${this.webApiURL + "/getClinicModules"}/${clinicId}`, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 

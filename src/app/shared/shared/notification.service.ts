@@ -274,7 +274,7 @@ export class NotificationService extends BaseService {
 
     getNotifications(actionName: string, id: string): any {
         return this.http.get(this.webApiURL + '/' + actionName + (id === '' ? '' : '/' + id), this.requestOptions)
-            .pipe(this.extractData)
+            // .pipe(this.extractData)
         //.catch((error: any) => this.handleError(error));
     }
 
