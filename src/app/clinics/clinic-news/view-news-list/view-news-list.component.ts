@@ -26,7 +26,7 @@ export class ViewNewsListComponent implements OnInit {
     @ViewChild('btnClosePopup') btnClosePopup!: ElementRef;
     selectNewsTab: boolean = true;
     selectedClinicId!: number;
-    selectedClinicNewsId!:string;
+    selectedClinicNewsId!: any;
     active: boolean = true;
     showProgress = false;
     clinicNewsList: ClinicNews[] = [];

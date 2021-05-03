@@ -30,7 +30,7 @@ export class CashierClaimDetailsComponent implements OnInit {
     enableReprocessBtn: boolean = false;
     enableCancelClaim: boolean = false;
     enableEditClaimDate: boolean = false;
-
+    showTime:any;
 
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService

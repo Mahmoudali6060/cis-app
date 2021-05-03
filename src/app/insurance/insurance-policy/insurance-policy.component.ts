@@ -34,7 +34,7 @@ export class InsurancePolicyComponent implements OnInit {
     selectedPolicyId: any;
     showProgress = false;
     active: boolean = true;
-    policyCopyModel = { id: 0 };
+    policyCopyModel: any = { id: 0 };
     selectedPolicyToCopyId: any;
     policyPatients: any[] = [];
 

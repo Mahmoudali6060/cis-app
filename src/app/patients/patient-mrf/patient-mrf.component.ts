@@ -18,7 +18,7 @@ import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 export class PatientMrfComponent implements OnInit {
     selectAddressTab: boolean = true;
-    selectedPatientId!: string;
+    selectedPatientId!: any;
     active = true;
     selectedPatient: any = {};
     showProgress = false;
@@ -67,8 +67,10 @@ export class PatientMrfComponent implements OnInit {
     enableNewAppointmentBtn: boolean = false;
     enableSaveNewAppointmentBtn: boolean = false;
     enableNewNoteBtn: boolean = false;
-    defaultAppointmentId: string = '';
-
+    defaultAppointmentId: any;
+    selectedAppointmentId: any;
+    doctorName: any;
+    Attachement: any;
     constructor(private patientService: PatientService,
         public toastr: ToastrService,
         private _route: ActivatedRoute
@@ -264,6 +266,9 @@ export class PatientMrfComponent implements OnInit {
 
     }
 
+    updateModel(event: any) {
+
+    }
     openAddNewNote() {
         if (this.noteId == '')
             this.noteId = 'new';

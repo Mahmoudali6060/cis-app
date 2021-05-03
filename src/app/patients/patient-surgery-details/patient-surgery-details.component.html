@@ -8,7 +8,7 @@
                 <div class="row nopadding">
                     <input   [placeholder]="'SearchNameOrCode' | translate" class="form-control" [(ngModel)]="filterString" name="txtFilterString" #txtFilterString="ngModel" />
                 </div>
-                <p-tree [value]="servicesTreeDataSourceItems | filterbynameorcode:filterString : leafType  | translateObjects  : 'label' : 'labelTranslation' : null" selectionMode="single"
+                <p-tree [value]="servicesTreeDataSourceItems | filterbynameorcode:filterString : leafType  | translateObjects  : 'label' : 'labelTranslation'" selectionMode="single"
                         [(selection)]="selectedSurgeryNode" (onNodeSelect)="treeNodeSelected($event)">
                     <ng-template let-node pTemplate="ServiceGroup">
                         <span class="nav-icon"><i class="fa fa-cubes"></i></span>

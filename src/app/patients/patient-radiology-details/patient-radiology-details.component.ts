@@ -156,7 +156,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
             //    vm.selectedFile = node;
         });
     }
-    getRadiologyTestsGroupsForTreeView(needAll: boolean | undefined) {
+    getRadiologyTestsGroupsForTreeView(needAll?: boolean | undefined) {
         let vm = this;
         vm.isAll = false;
         /////////////////////////get all services groups

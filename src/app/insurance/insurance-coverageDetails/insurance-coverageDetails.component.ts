@@ -59,7 +59,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
     groupType = 'ServiceGroup';
     diagnosisGroup = 'DiagnosisGroup';
     clinicID!: any;
-
+    selectedPolicy: any;
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router
@@ -159,7 +159,8 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
         });
     }
 
-    selectPolicy(id: number) {
+    selectPolicy(id: any) {
+        id = this.selectedPolicy;
         this.coverageDetailsList = [];
         this.policyId = 0;
 

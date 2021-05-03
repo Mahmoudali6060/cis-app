@@ -5,26 +5,26 @@ import { Router } from '@angular/router';
 import { NurseService } from './shared/nurse.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
-    selector: 'nurses',  
-    templateUrl:'nurses.component.html'
-    
+
+    selector: 'nurses',
+    templateUrl: 'nurses.component.html'
+
 })
 
-export class NursesComponent implements OnInit {    
+export class NursesComponent implements OnInit {
 
-    filterString!:string;
+    filterString!: string;
     organizationsList!: any[];
     showProgress = false;
-
+    volunteersList: any;
     constructor(private organizationService: NurseService
         , public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router
-    ){ }
+    ) { }
 
     ngOnInit(): void {
         /*let vm = this;
@@ -52,6 +52,10 @@ export class NursesComponent implements OnInit {
 
         //navigate to current URL
         this.router.navigate(['/organizationBasic', id]);
+    }
+
+    editVolunteer(id: any) {
+
     }
 
 }

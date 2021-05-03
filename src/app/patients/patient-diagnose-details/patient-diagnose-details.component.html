@@ -11,7 +11,7 @@
                 <div class="row nopadding">
                     <input [placeholder]="'SearchNameOrCode' | translate" class="form-control" [(ngModel)]="filterString" name="txtFilterString" #txtFilterString="ngModel" />
                 </div>
-                <p-tree [value]="diagnosisTreeDataSourceItems | filterbynameorcode:filterString : leafType | translateObjects  : 'label' : 'labelTranslation' : null"
+                <p-tree [value]="diagnosisTreeDataSourceItems | filterbynameorcode:filterString : leafType | translateObjects  : 'label' : 'labelTranslation'"
                          [(selection)]="selectedDiagnoseNode"  selectionMode="single" (onNodeSelect)="treeNodeSelected($event)">
                     
                     <ng-template let-node pTemplate="ClinicDepartmentDiagnosisGroup">

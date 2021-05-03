@@ -51,9 +51,9 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
     @Output() onNewNoteSaved = new EventEmitter<any>();
 
     isBasicInfoSelected: boolean = false;
-    //isSurgeriesSelected: boolean = false;
-    //isAllergiesSelected: boolean = false;
-    //isAttachmentsSelected: boolean = false;
+    isSurgeriesSelected: boolean = false;
+    isAllergiesSelected: boolean = false;
+    isAttachmentsSelected: boolean = false;
     firstTab!: string;
     secondTab!: string;
     thirdTab!: string;
@@ -73,8 +73,6 @@ export class PatientClinicalNoteComponent implements OnChanges, OnInit {
 
     isDiagnosisSelected: boolean = false;
     isMedicationSelected: boolean = false;
-    isSurgeriesSelected: boolean = false;
-    isAllergiesSelected: boolean = false;
     isServicesSelected: boolean = false;
     isLaboratorySelected: boolean = false;
     isRadiologySelected: boolean = false;

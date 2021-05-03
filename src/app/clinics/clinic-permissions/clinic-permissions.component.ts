@@ -11,6 +11,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 })
 
 export class ClinicPermissionsComponent {
+    showProgress!: boolean;
     selectPermissionsTab: boolean = true;
 
 }

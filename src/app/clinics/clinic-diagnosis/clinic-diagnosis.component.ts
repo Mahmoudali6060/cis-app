@@ -19,7 +19,7 @@ import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 export class ClinicDiagnosisComponent implements OnInit {
 
-    filterString!:string;
+    filterString!: string;
     leafType: string = 'Diagnose';
     userPermisions: UserPermissions = new UserPermissions();
     key: PermissionKeyEnum = new PermissionKeyEnum();
@@ -45,12 +45,12 @@ export class ClinicDiagnosisComponent implements OnInit {
     diagnosisGroup: string = '';
     diagnose: string = '';
     rbSelections = [{ value: 1, text: this.diagnosisGroup }, { value: 2, text: this.diagnose }];
-    selectedAction = 1;
-    txtHeaderModal = "";
-    toSaveDiagnosisGroupId = '';
-    toSaveDiagnoseId = '';
-    parentDiagnosisGroupId = '';
-    parentDiagnosisGroupName = '';
+    selectedAction: any = 1;
+    txtHeaderModal: any = "";
+    toSaveDiagnosisGroupId: any = '';
+    toSaveDiagnoseId: any = '';
+    parentDiagnosisGroupId: any = '';
+    parentDiagnosisGroupName: any = '';
     isRoot = false;
     enableCheckBox = false;
     selctedNode: any;
@@ -196,7 +196,7 @@ export class ClinicDiagnosisComponent implements OnInit {
         this.selctedNode = node;
     }
 
-    passParentGroupInfo(node: any) {
+    passParentGroupInfo(node?: any) {
         this.parentDiagnosisGroupId = node.data;
 
         if (this.selectedLang == 'ar')

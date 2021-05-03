@@ -298,7 +298,7 @@ export class ClinicProductsComponent implements OnInit {
         }
     }
 
-    nodeSelect(event: any) {
+    nodeSelect(event?: any) {
         event.node.label;
     }
 

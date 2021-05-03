@@ -31,7 +31,7 @@ export class PatientTemplatesComponent implements OnInit {
     fileType: boolean = false;
     isTemplateExist: any = true;
 
-    @Input() noteId!: number;
+    @Input() noteId!: any;
     model: any;
     type = 'DoctorAppliedTemplate';
     patientAttachementId = '';

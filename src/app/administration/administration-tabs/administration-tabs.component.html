@@ -1,5 +1,4 @@
-﻿
-<div class="row">
+﻿<div class="row">
     <!--<div class="col-md-2 nopadding">
         <ul class="nav nav-pills nav-stacked alert alert-info padding5 pointer">
             <li [ngClass]="{'active': selected == 1}" (click)="setObjectType('Country' , 1 , 'الدول')">
@@ -59,7 +58,8 @@
         <systemAdmins-tabs [isDemoghraphicsSelected]="selectDempghraphicTab"></systemAdmins-tabs>
     </div>-->
 
-    <select id="ddlObjects" name="ddlObjects" class="form-control" (change)="setObjectType(dd.value , dd.text)" #dd >
+    <select id="ddlObjects" name="ddlObjects" class="form-control" (change)="setObjectType($event)"
+        [(ngModel)]="selectedObject">
         <option value="Country" selected>{{ 'Countries' | translate}}</option>
         <option value="Region">{{ 'Regions' | translate}}</option>
         <option value="City">{{ 'Cities' | translate}}</option>
@@ -71,10 +71,9 @@
     <region *ngIf="isRegion" [objectType]='objectType' [title]="title"></region>
     <city *ngIf="isCity" [objectType]='objectType' [title]="title"></city>
     <drug-unit *ngIf="isDrugUnit" [objectType]='objectType' [title]="title"></drug-unit>
-    <div class="row" *ngIf="underConstruction" >
+    <div class="row" *ngIf="underConstruction">
         <h4>
-           &nbsp;&nbsp; {{ 'UnderConstruction' | translate}}
+            &nbsp;&nbsp; {{ 'UnderConstruction' | translate}}
         </h4>
     </div>
 </div>
-

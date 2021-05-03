@@ -138,7 +138,7 @@ export class PatientLabDetailsComponent implements OnInit, OnChanges {
             vm.displaySelectedNodeRecursive(node, labTestId);
         });
     }
-    getAllLabTestsGroupsForTreeView(needAll: boolean) {
+    getAllLabTestsGroupsForTreeView(needAll?: boolean) {
         let vm = this;
         vm.isAll = false;
         /////////////////////////get all services groups

@@ -1,11 +1,11 @@
-﻿import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
+﻿import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrModule } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'cashier-reports',
     templateUrl: './cashier-reports.component.html'
 })
@@ -14,9 +14,10 @@ export class CashierReportsComponent {
 
 
     clinicId = '';
+    showProgress!: boolean;
+
     constructor(private _route: ActivatedRoute
-        , public storage: LocalStorageService)
-    { }
+        , public storage: LocalStorageService) { }
 
     ngOnInit(): void {
 

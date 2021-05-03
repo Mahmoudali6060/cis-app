@@ -99,6 +99,11 @@ export class ReceptionistRequestsComponent implements OnInit {
 
 
     }
+
+    cancelServiceGroup(){
+
+    }
+    
     updatePatientRequest(res: any) {
         var request = this.patientRequestList.find(r => r.id == res.id);
         request.status = res.status;

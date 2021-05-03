@@ -20,27 +20,28 @@
         </div>
     </div>
 
-   <div class="row well">
-<div class="row">
-    <div class="col-md-6">
-        <div class="row form-group">
-            <label class="txtAlign control-label col-md-4" for="ddlObjects">{{title}}</label>
-            <div class="col-md-8">
-                <select id="ddlObjects" class="form-control" name="ddlObjects" (change)="setObjectType(d.value , d.text)" #d>
-                    <option *ngFor="let obj of objectsList | translateObjects" [value]="obj.value" [title]="obj.name">{{obj.name}}</option>
-                </select>
+    <div class="row well">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row form-group">
+                    <label class="txtAlign control-label col-md-4" for="ddlObjects">{{title}}</label>
+                    <div class="col-md-8">
+                        <select id="ddlObjects" class="form-control" name="ddlObjects"
+                            (change)="setObjectType($event)" [(ngModel)]="selectedObject">
+                            <option *ngFor="let obj of objectsList | translateObjects" [value]="obj.value"
+                                [title]="obj.name">{{obj.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
         </div>
+        <basic-data *ngIf="isOther" [objectType]='objectType' [title]="title"></basic-data>
+        <region *ngIf="isRegion" [objectType]='objectType' [title]="title"></region>
+        <city *ngIf="isCity" [objectType]='objectType' [title]="title"></city>
+        <locations *ngIf="isLocation" [objectType]='objectType' [title]="title"></locations>
+        <drug-unit *ngIf="isDrugUnit" [objectType]='objectType' [title]="title"></drug-unit>
+        <drug-frequency *ngIf="isDrugFrequency" [objectType]='objectType' [title]="title"></drug-frequency>
 
     </div>
 </div>
-       <basic-data *ngIf="isOther" [objectType]='objectType' [title]="title"></basic-data>
-       <region *ngIf="isRegion" [objectType]='objectType' [title]="title"></region>
-       <city *ngIf="isCity" [objectType]='objectType' [title]="title"></city>
-       <locations *ngIf="isLocation" [objectType]='objectType' [title]="title"></locations>
-       <drug-unit *ngIf="isDrugUnit" [objectType]='objectType' [title]="title"></drug-unit>
-       <drug-frequency *ngIf="isDrugFrequency" [objectType]='objectType' [title]="title"></drug-frequency>
-
-   </div>
-    </div>
-

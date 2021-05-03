@@ -39,7 +39,7 @@
                             </strong>
                         </div>
                         <div class="col-md-3">
-                            {{(patientClaim  | translateObjects  : 'cancelByName' : 'cancelByNameTranslation' : null).cancelByName}}
+                            {{(patientClaim  | translateObjects  : 'cancelByName' : 'cancelByNameTranslation').cancelByName}}
                         </div>
                         <div class="col-md-3">
                             <strong>
@@ -78,7 +78,7 @@
                             </strong>
                         </div>
                         <div class="col-md-3">
-                            {{(patientClaim  | translateObjects  : 'doctorName' : 'doctorNameTranslation' : null).doctorName}}
+                            {{(patientClaim  | translateObjects  : 'doctorName' : 'doctorNameTranslation').doctorName}}
                         </div>
                     </div>
                     <div class="row borderBottom">
@@ -126,7 +126,7 @@
                             </strong>
                         </div>
                         <div class="col-md-3">
-                            {{(patientClaim  | translateObjects  : 'insuranceCompany' : 'insuranceCompanyTranslation' : null).insuranceCompany}}
+                            {{(patientClaim  | translateObjects  : 'insuranceCompany' : 'insuranceCompanyTranslation').insuranceCompany}}
                         </div>
                         <div class="col-md-3">
                             <strong>
@@ -144,7 +144,7 @@
                             </strong>
                         </div>
                         <div class="col-md-3">
-                            {{(patientClaim  | translateObjects  : 'insurancePolicy' : 'insurancePolicyTranslation' : null).insurancePolicy}}
+                            {{(patientClaim  | translateObjects  : 'insurancePolicy' : 'insurancePolicyTranslation').insurancePolicy}}
                         </div>
                         <div class="col-md-3">
                             <strong>
@@ -278,7 +278,6 @@
                                         [monthNavigator]="true"
                                         [yearNavigator]="true"
                                         dateFormat="dd/mm/yy"
-                                        showTime="showTime"
                                         [showIcon]="true" [required]="true"
                                         [ngModelOptions]="{standalone: true}"
                                         yearRange="2000:2050"></p-calendar>

@@ -13,7 +13,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 
 export class PatientLaboratoryComponent implements OnInit {
     selectBasicTab: boolean = true;
-    @Input() noteId!: number;
+    @Input() noteId!: any;
     isDetailsVisible: boolean = false;
     @Input() allowEditing: boolean = true;
     @Input() usedInClinicNoteMedications: boolean = false;
@@ -25,7 +25,7 @@ export class PatientLaboratoryComponent implements OnInit {
     classifications = [];
     showProgress = false;
     @ViewChild("fileInput") fileInput!: any;
-
+    filterString: any;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
@@ -92,7 +92,7 @@ export class PatientLaboratoryComponent implements OnInit {
                 });
     }
 
-    showDetails(id: string) {
+    showDetails(id?: string) {
         this.isDetailsVisible = true;
         this.noteLabTestId = id;
     }

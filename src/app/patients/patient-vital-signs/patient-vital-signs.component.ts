@@ -213,18 +213,18 @@ export class PatientVitalSignsComponent implements OnInit, OnChanges {
         //}
     }
 
-    getHeight(height: number) {
+    getHeight(height: any) {
         this.heightValue = height;
         this.CaluclateBMI();
 
     }
 
-    getWeight(weight: number) {
+    getWeight(weight: any) {
         this.weightvalue = weight;
         this.CaluclateBMI();
 
     }
-    getWeightType(weightTypeId: string) {
+    getWeightType(weightTypeId: any) {
         for (let weightType of this.weightList) {
             if (weightType.id == weightTypeId) {
                 this.weightType = weightType.key;

@@ -19,7 +19,7 @@
         <div>
             <div class="row well">
                 <div class="">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DiagnosisAndGroupsPopup" (click)="passParentGroupInfo('','')" disabled="{{ enableAddRootBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'AddRootDiagnoseGroup' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DiagnosisAndGroupsPopup" (click)="passParentGroupInfo()" disabled="{{ enableAddRootBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'AddRootDiagnoseGroup' | translate}}</button>
                     <button type="button" class="hidden" #btnAddDiagnosisGroup data-toggle="modal" data-target="#DiagnosisAndGroupsPopup"></button>
                     <button type="button" class="btn btn-primary" (click)="expandAll()">{{ 'ExpandAll' | translate}}</button>
                     <button type="button" class="btn btn-primary" (click)="collapseAll()">{{ 'CollapseAll' | translate}}</button>

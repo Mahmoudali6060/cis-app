@@ -5,26 +5,26 @@ import { Router } from '@angular/router';
 import { ReceptionistService } from './shared/receptionist.service';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
-    selector: 'receptionists',  
-    templateUrl:'receptionists.component.html'
-    
+
+    selector: 'receptionists',
+    templateUrl: 'receptionists.component.html'
+
 })
 
-export class ReceptionistsComponent implements OnInit {    
+export class ReceptionistsComponent implements OnInit {
 
-    filterString!:string;
+    filterString!: string;
     organizationsList!: any[];
     showProgress = false;
-
+    volunteersList:any;
     constructor(private organizationService: ReceptionistService
         , public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router
-    ){ }
+    ) { }
 
     ngOnInit(): void {
         /*let vm = this;
@@ -54,4 +54,7 @@ export class ReceptionistsComponent implements OnInit {
         this.router.navigate(['/organizationBasic', id]);
     }
 
+    editVolunteer(id: any) {
+
+    }
 }

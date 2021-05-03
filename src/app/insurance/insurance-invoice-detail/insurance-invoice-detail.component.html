@@ -31,7 +31,7 @@
                     </strong>
                 </div>
                 <div class="col-md-3">
-                    {{(selectedInvoice.canceledBy  | translateObjects  : 'name' : 'nameTranslation' : null).name}}
+                    {{(selectedInvoice.canceledBy  | translateObjects  : 'name' : 'nameTranslation').name}}
                 </div>
                 <div class="col-md-3">
                     <strong>
@@ -69,7 +69,7 @@
                     </strong>
                 </div>
                 <div class="col-md-4">
-                    :{{(selectedInvoice| translateObjects  : 'creatorName' : 'creatorNameTranslation' : null).creatorName}}
+                    :{{(selectedInvoice| translateObjects  : 'creatorName' : 'creatorNameTranslation' ).creatorName}}
 
 
                 </div>
@@ -89,7 +89,7 @@
                     </strong>
                 </div>
                 <div class="col-md-4">
-                    :{{(selectedInvoice| translateObjects  : 'companyName' : 'companyNameTranslation' : null).companyName}}
+                    :{{(selectedInvoice| translateObjects  : 'companyName' : 'companyNameTranslation' ).companyName}}
                 </div>
             </div>
             <div class="row borderBottom">
@@ -125,7 +125,7 @@
                     </strong>
                 </div>
                 <div class="col-md-4">
-                    :{{(selectedInvoice| translateObjects  : 'lastModifierName' : 'lastModifierNameTranslation' : null).lastModifierName}}
+                    :{{(selectedInvoice| translateObjects  : 'lastModifierName' : 'lastModifierNameTranslation').lastModifierName}}
                 </div>
             </div>
             <!--<div class="row borderBottom">

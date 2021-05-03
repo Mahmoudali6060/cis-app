@@ -16,7 +16,7 @@ export class PatientNoteLaboratoryComponent implements OnInit, OnChanges {
 
     selectedLang = 'ar';
     showProgress = false;
-    departmentLaboratories = [];
+    departmentLaboratories: any = [];
     noteDiagnosis = [];
     noteLaboratoriesList: any[] = [];
     divisionId!: string;

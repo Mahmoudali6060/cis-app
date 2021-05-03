@@ -1,7 +1,7 @@
-﻿import {Component, Input} from '@angular/core';
+﻿import { Component, Input } from '@angular/core';
 
 @Component({
-   
+
     selector: 'administration-tabs',
     templateUrl: './administration-tabs.component.html'
 })
@@ -19,13 +19,15 @@ export class AdministrationTabsComponent {
     isDrugUnit: boolean | undefined;
     isDrugFrequency: boolean | undefined;
     selectDempghraphicTab: boolean = true;
-
+    selectedObject: any
     // will be removed in implementation
     underConstruction: boolean = false;
 
-    setObjectType(value: string,  title: string) {
+    setObjectType(event: any) {
+        let value = this.selectedObject;
+        let title = event.title;
         this.objectType = 'Cis.Core.' + value;
-       // this.selected = tabNo;
+        // this.selected = tabNo;
         this.title = title;
 
         if (value == "Region") {
@@ -54,8 +56,7 @@ export class AdministrationTabsComponent {
             this.isDrugUnit = true;
             this.isDrugFrequency = false;
         }
-        else if (value =='DrugFrequency')
-        {
+        else if (value == 'DrugFrequency') {
             this.underConstruction = true;
             this.isOther = false;
             this.isRegion = false;
@@ -73,6 +74,6 @@ export class AdministrationTabsComponent {
             this.isDrugUnit = false;
             this.isDrugFrequency = false;
         }
-       
+
     }
 }

@@ -17,7 +17,7 @@ export class PatientNoteRadiologyComponent implements OnInit, OnChanges {
 
     selectedLang = 'ar';
     showProgress = false;
-    departmentRadiologies = [];
+    departmentRadiologies:any = [];
     noteDiagnosis = [];
     noteRadiologiesList: any[] = [];
     divisionId!: string;

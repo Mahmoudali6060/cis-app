@@ -1,8 +1,8 @@
-﻿import {Component, Input} from '@angular/core';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, Input } from '@angular/core';
+import { LocalStorageService } from 'ng2-webstorage';
 
 @Component({
-   
+
     selector: 'systemAdmins-basicData',
     templateUrl: 'systemAdmins-basicData.component.html'
 })
@@ -10,7 +10,7 @@ import {LocalStorageService} from 'ng2-webstorage';
 export class SystemAdminsBasicDataComponent {
     public constructor(
         public storage: LocalStorageService
-       ) { }
+    ) { }
     // default selected object
     objectType: string = 'Cis.Core.Country';
     title: string = 'Countries';
@@ -22,9 +22,10 @@ export class SystemAdminsBasicDataComponent {
     isDrugUnit: boolean | undefined;
     isDrugFrequency: boolean | undefined;
     selectDemoghraphicTab: boolean = true;
-
-
-    setObjectType(value: string,  title: string) {
+    showProgress!: boolean;
+    selectedObject: any;
+    setObjectType(event: any) {
+        let value = this.selectedObject;
         this.objectType = 'Cis.Core.' + value;
         // this.selected = tabNo;
         //this.title = title;
@@ -53,8 +54,7 @@ export class SystemAdminsBasicDataComponent {
             this.isDrugUnit = true;
             this.isDrugFrequency = false;
         }
-        else if (value =='DrugFrequency')
-        {
+        else if (value == 'DrugFrequency') {
             this.isOther = false;
             this.isRegion = false;
             this.isCity = false;
@@ -81,31 +81,30 @@ export class SystemAdminsBasicDataComponent {
 
     }
 
-    getObjectTitle(selectedValue:any)
-    {
+    getObjectTitle(selectedValue: any) {
         var selectedObject = this.objectsList.find(obj => obj.value == selectedValue);
 
         this.title = selectedObject.name;
     }
 
     objectsList: any[] = [
-        { 'value': 'Country', 'name': 'الدول', 'nameTranslation': 'Countries'},
-        { 'value': 'Region', 'name': 'المناطق', 'nameTranslation': 'Regions'},
+        { 'value': 'Country', 'name': 'الدول', 'nameTranslation': 'Countries' },
+        { 'value': 'Region', 'name': 'المناطق', 'nameTranslation': 'Regions' },
         { 'value': 'City', 'name': 'المدن', 'nameTranslation': 'Cities' },
-        { 'value': 'Location', 'name': 'الموقع', 'nameTranslation': 'Location'},
+        { 'value': 'Location', 'name': 'الموقع', 'nameTranslation': 'Location' },
         { 'value': 'Nationality', 'name': 'الجنسيات', 'nameTranslation': 'Nationalities' },
         { 'value': 'Religion', 'name': 'الديانات', 'nameTranslation': 'Religions' },
         { 'value': 'MaritalStatus', 'name': 'الحالة الاجتماعية ', 'nameTranslation': 'Marital Status' },
-        { 'value': 'AttachmentType', 'name': 'نوع المرفق', 'nameTranslation': 'Attachment Type'},
+        { 'value': 'AttachmentType', 'name': 'نوع المرفق', 'nameTranslation': 'Attachment Type' },
         { 'value': 'VendorCategory', 'name': 'تصنيف المورد', 'nameTranslation': 'Vendor Category' },
-        { 'value': 'PhysicalResourceType', 'name': 'أنواع الموارد غير البشرية', 'nameTranslation': 'Physical Resources Type'},
+        { 'value': 'PhysicalResourceType', 'name': 'أنواع الموارد غير البشرية', 'nameTranslation': 'Physical Resources Type' },
         { 'value': 'HumanResourceType', 'name': 'أنواع الموارد البشرية', 'nameTranslation': 'Human Resource Types' },
-        { 'value': 'EducationLevel', 'name': 'المستوى التعليمي', 'nameTranslation': 'Education Level'},
+        { 'value': 'EducationLevel', 'name': 'المستوى التعليمي', 'nameTranslation': 'Education Level' },
         { 'value': 'VolumeUnit', 'name': 'وحدة الحجم', 'nameTranslation': 'Volume Unit' },
         { 'value': 'HeightUnit', 'name': 'وحدة الطول', 'nameTranslation': 'Height Unit' },
-        { 'value': 'WeightUnit', 'name': 'وحدة الوزن', 'nameTranslation': 'Weight Unit'},
-        { 'value': 'DrugUnit', 'name': 'وحدة العقار', 'nameTranslation': 'Drug Unit'},
-        { 'value': 'DrugFrequency', 'name': 'تكرارية العقار ', 'nameTranslation': 'Drug Frequency'},
-        { 'value': 'IDType', 'name': 'نوع الهوية', 'nameTranslation': 'ID Type'},
+        { 'value': 'WeightUnit', 'name': 'وحدة الوزن', 'nameTranslation': 'Weight Unit' },
+        { 'value': 'DrugUnit', 'name': 'وحدة العقار', 'nameTranslation': 'Drug Unit' },
+        { 'value': 'DrugFrequency', 'name': 'تكرارية العقار ', 'nameTranslation': 'Drug Frequency' },
+        { 'value': 'IDType', 'name': 'نوع الهوية', 'nameTranslation': 'ID Type' },
         { 'value': 'ClinicLevel', 'name': 'مستويات العيادة', 'nameTranslation': 'Clinic Levels' }];
 }

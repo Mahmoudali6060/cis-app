@@ -29,7 +29,7 @@ export class ClinicEMRWizardComponent implements OnInit {
     selectClinicsTab: boolean = true;
     showProgress = false;
     active: boolean = true;
-    wizardItems!: EMRWizard;
+    wizardItems!: EMRWizard[];
 
     constructor(private administrationService: AdministrationService,
         private localStorage: LocalStorageService,

@@ -56,6 +56,8 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
     @ViewChild('btnResubmitChargeModal') btnResubmitChargeModal!: ElementRef;
     @ViewChild('btnCancelResubmitChargeModal') btnCancelResubmitChargeModal!: ElementRef;
 
+    enableReleaseChargeboolean: boolean = true;
+
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
         , private activatedRoute: ActivatedRoute
