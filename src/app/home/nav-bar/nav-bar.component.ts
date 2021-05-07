@@ -218,7 +218,7 @@ export class NavBarComponent implements OnInit, OnChanges {
         //navigate to home URL
         //this.router.navigate(['/home']);
         this.router.navigate(['/login']);
-        location.reload();
+        //location.reload();
     }
 
     openNotification(notification: any) {

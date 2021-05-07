@@ -2,6 +2,7 @@
 import { LocalStorageService } from 'ng2-webstorage';
 import { Router } from '@angular/router';
 import { UtilityClass } from '../../shared/shared/utility.class';
+import { HttpHeaders } from '@angular/common/http';
 export class BaseService {
 
     public headers: any;
@@ -10,26 +11,33 @@ export class BaseService {
 
     constructor(public localStorage: LocalStorageService, public router: Router) {
 
-        //var accessToken = "Bearer " + localStorage.retrieve("AccessToken");
+        // var accessToken = "Bearer " + localStorage.retrieve("AccessToken");
 
-        //this.headers = new Headers({
+        // this.headers = new Headers({
         //    'Content-Type': 'application/json',
         //    'Authorization': accessToken
-        //});
+        // });
 
-        //this.requestOptions = new RequestOptions({ headers: this.headers });
+        // this.requestOptions = new RequestOptions({ headers: this.headers });
     }
     //this code is added to comment location.reload()
     get requestOptions(): any {
+        debugger;
+        // var accessToken = "Bearer " + this.localStorage.retrieve("AccessToken");
 
+        // this.headers = new Headers({
+        //     'Content-Type': 'application/json',
+        //     'Authorization': accessToken
+        // });
+
+        // return new RequestOptions({ headers: this.headers });
         var accessToken = "Bearer " + this.localStorage.retrieve("AccessToken");
-
-        this.headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': accessToken
-        });
-
-        return new RequestOptions({ headers: this.headers });
+        const options = {
+            headers: new HttpHeaders()
+                .append('Content-Type', 'application/json')
+                .append('Authorization', accessToken)
+        }
+        return options;
     }
 
     public extractData(res: any) {

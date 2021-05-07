@@ -22,7 +22,7 @@ export class SharedService extends BaseService {
 
     getAddressWrapper(): any {
         return this.http.get(this.webApiURL + "address" + "/addressWrapper", this.requestOptions)
-              .pipe(this.extractData);
+            //   .pipe(this.extractData);
             // //.catch((error: any) => this.handleError(error));
     }
 
@@ -31,13 +31,13 @@ export class SharedService extends BaseService {
         input.append("file", fileToUpload);
 
         return this.http.post(this.webApiURL + "attachment" + "/upload", input)
-            .pipe(this.extractData);
+            //.pipe(this.extractData);
             // catch((error: any) => this.handleError(error));
     }
 
     getAllAttachments(id: string, type: string):any {
         return this.http.get(`${this.webApiURL + "attachment" + "/attachments"}/${id}/${type}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
     }
 
@@ -53,14 +53,14 @@ export class SharedService extends BaseService {
     /////Mohammed
     getAttachmentWrapper(): any {
         return this.http.get(`${this.webApiURL + "attachment" + "/attachmentWrapper"}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
     }
 
 
     getLocationById(id: string): any {
         return this.http.get(`${this.webApiURL + "address/getLocation"}/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
     }
 
@@ -70,7 +70,7 @@ export class SharedService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(this.webApiURL + "address/saveLocation", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
     }
 
@@ -78,25 +78,25 @@ export class SharedService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.put(this.webApiURL + "address/updateLocation", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)//.pipe((res: Response) => res.json()) // ...and calling .json() on the response to return data
+            //.pipe(this.extractData)////.pipe((res: Response) => res.json()) // ...and calling .json() on the response to return data
             // //.catch((error: any) => this.handleError(error));
     }
 
     deleteLocation(id: string): any {
         return this.http.delete(`${this.webApiURL}address/deleteLocation/${id}`, this.requestOptions) // ...using delete request
-            .pipe();
+            //.pipe();
             // //.catch((error: any) => this.handleError(error));
     }
 
     deleteAttachment(id: string): any {
         return this.http.delete(`${this.webApiURL}attachment/delete/${id}`, this.requestOptions) // ...using delete request
-            .pipe();
+            //.pipe();
             // //.catch((error: any) => this.handleError(error));
     }
 
     getAttachmentObject(id: string): any {
         return this.http.get(`${this.webApiURL + "attachment/get"}/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
     }
 
@@ -104,12 +104,12 @@ export class SharedService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(this.webApiURL + "attachment/saveAttachment", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
     }
     getPatientType(): any {
         return this.http.get(this.webApiURLPatient + "/getAllPatientType", this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
 
     }
@@ -117,7 +117,7 @@ export class SharedService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.put(this.webApiURL + "attachment/updateAttachment", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             // //.catch((error: any) => this.handleError(error));
     }
 
