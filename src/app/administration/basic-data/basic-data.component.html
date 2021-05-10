@@ -6,15 +6,19 @@
 
     <div class="row ">
         <div class="row ">
-            <form novalidate class="form-horizontal" *ngIf="active" name="basicDataForm" (ngSubmit)="onSubmit()" #basicDataForm="ngForm">
+            <form novalidate class="form-horizontal" *ngIf="active" name="basicDataForm" (ngSubmit)="onSubmit()"
+                #basicDataForm="ngForm">
 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="control-label col-md-4 col-sm-4" for="txtName">{{ 'ArabicName' | translate}}</label>
+                            <label class="control-label col-md-4 col-sm-4" for="txtName">{{ 'ArabicName' |
+                                translate}}</label>
                             <div class="col-md-8 col-sm-8">
-                                <input type="text" id="txtArabicName" name="txtArabicName" class="form-control" [(ngModel)]='model.name' #txtArabicName="ngModel" required />
-                                <div [hidden]="txtArabicName.valid || txtArabicName.pristine" class="alert alert-danger">
+                                <input type="text" id="txtArabicName" name="txtArabicName" class="form-control"
+                                    [(ngModel)]='model.name' #txtArabicName="ngModel" required />
+                                <div [hidden]="txtArabicName.valid || txtArabicName.pristine"
+                                    class="alert alert-danger">
                                     {{ 'RequiredField' | translate}}
                                 </div>
                             </div>
@@ -22,10 +26,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-4" for="txtEnglishName">{{ 'EnglishName' | translate}}</label>
+                            <label class="control-label col-md-4 col-sm-4" for="txtEnglishName">{{ 'EnglishName' |
+                                translate}}</label>
                             <div class="col-md-8 col-sm-8">
-                                <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control" [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
-                                <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine" class="alert alert-danger">
+                                <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control"
+                                    [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
+                                <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine"
+                                    class="alert alert-danger">
                                     {{ 'RequiredField' | translate}}
                                 </div>
                             </div>
@@ -35,9 +42,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-4 col-sm-4" for="txtArabicDescription">{{ 'Description' | translate}} </label>
+                            <label class="control-label col-md-4 col-sm-4" for="txtArabicDescription">{{ 'Description' |
+                                translate}} </label>
                             <div class="col-md-8 col-sm-8">
-                                <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control" [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
+                                <textarea type="text" id="txtArabicDescription" name="txtArabicDescription"
+                                    class="form-control" [(ngModel)]='model.description'
+                                    #txtArabicDescription="ngModel"></textarea>
                             </div>
                         </div>
                     </div>
@@ -46,16 +56,20 @@
                             <label class="control-label col-md-4" for="ChkIsActive">{{ 'Active' | translate}} </label>
                             <div class="col-md-8">
                                 <label>
-                                    <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
+                                    <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6"
+                                        type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
                                     <span class="lbl"></span>
                                 </label>
                             </div>
                         </div>
                         <div class="form-group" *ngIf="isExempted">
-                            <label class="control-label col-md-4" for="ChkIsExemptedFromVAT ">{{ 'ExemptedFromVAT' | translate}} </label>
+                            <label class="control-label col-md-4" for="ChkIsExemptedFromVAT ">{{ 'ExemptedFromVAT' |
+                                translate}} </label>
                             <div class="col-md-8">
                                 <label>
-                                    <input id="ChkIsExemptedFromVAT" name="ChkIsExemptedFromVAT" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.exemptedFromVAT" #ChkIsExemptedFromVAT="ngModel" />
+                                    <input id="ChkIsExemptedFromVAT" name="ChkIsExemptedFromVAT"
+                                        class="ace ace-switch ace-switch-6" type="checkbox"
+                                        [(ngModel)]="model.exemptedFromVAT" #ChkIsExemptedFromVAT="ngModel" />
                                     <span class="lbl"></span>
                                 </label>
                             </div>
@@ -63,8 +77,10 @@
                     </div>
                 </div>
                 <div class="col-md-4  nopadding">
-                    <button type="submit" class="btn btn-primary" [disabled]="!basicDataForm.form.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
-                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" (click)="clear()">{{ 'New' | translate}}</button>
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="!basicDataForm.form.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                        (click)="clear()">{{ 'New' | translate}}</button>
 
                 </div>
                 <br /><br />
@@ -80,8 +96,11 @@
 
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
-                <input #gb type="text" pInputText size="50" class="inputSearch" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" [placeholder]="'Search' | translate">
+                <input #gb type="text" pInputText size="50" class="inputSearch"
+                    disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" [placeholder]="'Search' | translate">
             </div>
+
+
             <!-- <p-dataTable [value]="allObjects" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                 <p-column field="name" [header]="'ArabicName' | translate" [sortable]="true"></p-column>
                 <p-column field="nameTranslation" [header]="'EnglishName' | translate" [sortable]="true"></p-column>
@@ -101,6 +120,143 @@
                     </ng-template>
                 </p-column>
             </p-dataTable> -->
+
+
+            <!---New Table-->
+            <p-table #dt [value]="allObjects" [(selection)]="selectedCustomers" dataKey="id"
+                styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                [globalFilterFields]="['name','country.name','representative.name','status']">
+                <!-- <ng-template pTemplate="caption">
+                    <div class="table-header">
+                        List of Customers
+                    </div>
+                </ng-template> -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem"></th>
+                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="representative.name">Representative <p-sortIcon
+                                field="representative.name">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="activity">Activity <p-sortIcon field="activity"></p-sortIcon>
+                        </th>
+                        <th style="width: 8rem"></th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr class="p-selectable-row">
+                        <td>
+                            <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                        </td>
+                        <td>
+                            {{customer.name}}
+                        </td>
+                        <td>
+                            <span class="image-text">{{customer.country.name}}</span>
+                        </td>
+                        <td>
+                            <span class="image-text">{{customer.representative.name}}</span>
+                        </td>
+                        <td>
+                            {{customer.date}}
+                        </td>
+                        <td>
+                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                        </td>
+                        <td>
+                            <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
+                        </td>
+                        <td style="text-align: center">
+                            <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
+
+            <!---New Table-->
+            <!-- <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id"
+                styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                [globalFilterFields]="['name','country.name','representative.name','status']">
+                <ng-template pTemplate="caption">
+                    <div class="table-header">
+                        List of Customers
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem"></th>
+                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="representative.name">Representative <p-sortIcon
+                                field="representative.name">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="activity">Activity <p-sortIcon field="activity"></p-sortIcon>
+                        </th>
+                        <th style="width: 8rem"></th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-customer>
+                    <tr class="p-selectable-row">
+                        <td>
+                            <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                        </td>
+                        <td>
+                            {{customer.name}}
+                        </td>
+                        <td>
+                            <span class="image-text">{{customer.country.name}}</span>
+                        </td>
+                        <td>
+                            <span class="image-text">{{customer.representative.name}}</span>
+                        </td>
+                        <td>
+                            {{customer.date}}
+                        </td>
+                        <td>
+                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
+                        </td>
+                        <td>
+                            <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
+                        </td>
+                        <td style="text-align: center">
+                            <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No customers found.</td>
+                    </tr>
+                </ng-template>
+            </p-table> -->
+            <!--End Table-->
 
         </div>
 
@@ -147,5 +303,3 @@
         -->
     </div>
 </div>
-
-

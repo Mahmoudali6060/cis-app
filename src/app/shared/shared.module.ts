@@ -24,6 +24,7 @@ import { UnAuthorizedComponent } from './unauthorized/unauthorized.component';
 import { SharedTabsComponent } from './shared-tabs/shared-tabs.component';
 
 import { TranslateModule } from '@ngx-translate/core';
+
 import { GMapModule } from 'primeng/gmap';
 import { TreeModule } from 'primeng/tree';
 import { CalendarModule } from 'primeng/calendar';
@@ -31,7 +32,14 @@ import { DialogModule } from 'primeng/dialog';
 import { OrderListModule } from 'primeng/orderlist';
 import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
-
+import {SliderModule} from 'primeng/slider';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {ButtonModule} from 'primeng/button';
+import {ToastModule} from 'primeng/toast';
+import {InputTextModule} from 'primeng/inputtext';
+import {ProgressBarModule} from 'primeng/progressbar';
+import {DropdownModule} from 'primeng/dropdown';
 
 @NgModule({
     imports: [
@@ -46,7 +54,15 @@ import { TableModule } from 'primeng/table';
         DialogModule,
         OrderListModule,
         ChartModule,
-        TableModule
+        TableModule,
+        SliderModule,
+        MultiSelectModule,
+        ContextMenuModule,
+        ButtonModule,
+        ToastModule,
+        InputTextModule,
+        ProgressBarModule,
+        DropdownModule
     ],
     declarations: [
         AddressComponent,
@@ -100,7 +116,15 @@ import { TableModule } from 'primeng/table';
         DialogModule,
         OrderListModule,
         ChartModule,
-        TableModule
+        TableModule,
+        SliderModule,
+        MultiSelectModule,
+        ContextMenuModule,
+        ButtonModule,
+        ToastModule,
+        InputTextModule,
+        ProgressBarModule,
+        DropdownModule
     ]
 })
 export class SharedModule { }

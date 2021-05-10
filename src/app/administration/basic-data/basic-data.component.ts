@@ -1,10 +1,14 @@
-﻿import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
+﻿import { Component, Input, OnChanges, SimpleChanges, OnInit, ViewChild } from '@angular/core';
 import { AdministrationService } from '../shared/administration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
+import { PrimeNGConfig } from 'primeng/api';
+import { CustomerService } from './customer.service';
+
 @Component({
 
     selector: 'basic-data',
@@ -25,11 +29,19 @@ export class BasicDataComponent implements OnChanges {
     toPrintDiv: string = "print-section";
     lstToTranslated: string[] = [];
     isExempted: boolean = false;
+
+    customers!: any[];
+    selectedCustomers!: any[];
+    representatives!: any[];
+    statuses!: any[];
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
     constructor(private administrationService: AdministrationService,
         public toastr: ToastrService,
         private _route: ActivatedRoute,
-        public localStorage: LocalStorageService
-        , public translate: TranslateService) { }
+        public localStorage: LocalStorageService,
+        public translate: TranslateService,
+        private customerService: CustomerService) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['name', 'nameTranslation'];
@@ -40,6 +52,36 @@ export class BasicDataComponent implements OnChanges {
         if (this.objectType.toLocaleLowerCase() == 'cis.core.nationality')
             this.isExempted = true;
 
+
+        /////////////////
+
+        this.customerService.getCustomersLarge().then(customers => {
+            this.customers = customers;
+            this.loading = false;
+        });
+
+        this.representatives = [
+            { name: "Amy Elsner", image: 'amyelsner.png' },
+            { name: "Anna Fali", image: 'annafali.png' },
+            { name: "Asiya Javayant", image: 'asiyajavayant.png' },
+            { name: "Bernardo Dominic", image: 'bernardodominic.png' },
+            { name: "Elwin Sharvill", image: 'elwinsharvill.png' },
+            { name: "Ioni Bowcher", image: 'ionibowcher.png' },
+            { name: "Ivan Magalhaes", image: 'ivanmagalhaes.png' },
+            { name: "Onyama Limba", image: 'onyamalimba.png' },
+            { name: "Stephen Shaw", image: 'stephenshaw.png' },
+            { name: "XuXue Feng", image: 'xuxuefeng.png' }
+        ];
+
+        this.statuses = [
+            { label: 'Unqualified', value: 'unqualified' },
+            { label: 'Qualified', value: 'qualified' },
+            { label: 'New', value: 'new' },
+            { label: 'Negotiation', value: 'negotiation' },
+            { label: 'Renewal', value: 'renewal' },
+            { label: 'Proposal', value: 'proposal' }
+        ]
+        // this.primengConfig.ripple = true;
     }
 
     //get data according to selected type
@@ -154,6 +196,41 @@ export class BasicDataComponent implements OnChanges {
         this.editItem(id);
         this.model.isActive = event.target.checked;
         this.onSubmit();
+    }
+
+
+    onActivityChange(event: any) {
+        const value = event.target.value;
+        if (value && value.trim().length) {
+            const activity = parseInt(value);
+
+            if (!isNaN(activity)) {
+                this.table.filter(activity, 'activity', 'gte');
+            }
+        }
+    }
+
+    onDateSelect(value: any) {
+        this.table.filter(this.formatDate(value), 'date', 'equals')
+    }
+
+    formatDate(date: any) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return date.getFullYear() + '-' + month + '-' + day;
+    }
+
+    onRepresentativeChange(event: any) {
+        this.table.filter(event.value, 'representative', 'in')
     }
 
 }
