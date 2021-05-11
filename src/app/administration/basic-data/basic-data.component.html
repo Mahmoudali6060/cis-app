@@ -96,89 +96,50 @@
 
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
-                <input #gb type="text" pInputText size="50" class="inputSearch"
-                    disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" [placeholder]="'Search' | translate">
+                <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
             </div>
 
-
-            <!-- <p-dataTable [value]="allObjects" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                <p-column field="name" [header]="'ArabicName' | translate" [sortable]="true"></p-column>
-                <p-column field="nameTranslation" [header]="'EnglishName' | translate" [sortable]="true"></p-column>
-                <p-column [header]="'Active' | translate" styleClass="text-center width70">
-                    <ng-template let-item="rowData" pTemplate="body">
-                        <label>
-                            <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" />
-                            <span class="lbl"></span>
-                        </label>
-                    </ng-template>
-                </p-column>
-                <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                    <ng-template let-item="rowData" pTemplate="body">
-                        <a [class.disabled]="!enableMyAccountBtn ? true : null">
-                            <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" title="Edit Department" style="color: #32bea6;"></i>
-                        </a>
-                    </ng-template>
-                </p-column>
-            </p-dataTable> -->
-
-
             <!---New Table-->
-            <p-table #dt [value]="allObjects" [(selection)]="selectedCustomers" dataKey="id"
-                styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-                [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+            <p-table #dt [value]="allObjects" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading" [paginator]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
-                [globalFilterFields]="['name','country.name','representative.name','status']">
-                <!-- <ng-template pTemplate="caption">
-                    <div class="table-header">
-                        List of Customers
-                    </div>
-                </ng-template> -->
+                [globalFilterFields]="['name','nameTranslation']">
+                
                 <ng-template pTemplate="header">
                     <tr>
-                        <th style="width: 3rem"></th>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                        <th pSortableColumn="name">{{'ArabicName' | translate}} <p-sortIcon field="name"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon>
+                        <th pSortableColumn="nameTranslation">{{'EnglishName' | translate}} <p-sortIcon
+                                field="nameTranslation"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="representative.name">Representative <p-sortIcon
-                                field="representative.name">
-                            </p-sortIcon>
+                        <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
                         </th>
-                        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon>
+                        <th style="width: 8rem">
                         </th>
-                        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="activity">Activity <p-sortIcon field="activity"></p-sortIcon>
-                        </th>
-                        <th style="width: 8rem"></th>
                     </tr>
 
                 </ng-template>
-                <ng-template pTemplate="body" let-customer>
+                <ng-template pTemplate="body" let-object>
                     <tr class="p-selectable-row">
                         <td>
-                            <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                            {{object.name}}
                         </td>
                         <td>
-                            {{customer.name}}
+                            <span>{{object.nameTranslation}}</span>
                         </td>
                         <td>
-                            <span class="image-text">{{customer.country.name}}</span>
-                        </td>
-                        <td>
-                            <span class="image-text">{{customer.representative.name}}</span>
-                        </td>
-                        <td>
-                            {{customer.date}}
-                        </td>
-                        <td>
-                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
-                        </td>
-                        <td>
-                            <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
+                            <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                type="checkbox" [checked]="object.isActive"
+                                (click)="changeActivation(object.id , $event)"
+                                disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" />
+                            <span class="lbl"></span>
                         </td>
                         <td style="text-align: center">
-                            <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
+                            <a [class.disabled]="!enableMyAccountBtn ? true : null">
+                                <i class="fa fa-pencil fa-2x" (click)="editItem(object.id)" title="Edit Department"
+                                    style="color: #32bea6;"></i>
+                            </a>
                         </td>
                     </tr>
                 </ng-template>
@@ -188,74 +149,6 @@
                     </tr>
                 </ng-template>
             </p-table>
-            <!--End Table-->
-
-            <!---New Table-->
-            <!-- <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id"
-                styleClass="p-datatable-customers" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-                [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
-                [globalFilterFields]="['name','country.name','representative.name','status']">
-                <ng-template pTemplate="caption">
-                    <div class="table-header">
-                        List of Customers
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 3rem"></th>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="representative.name">Representative <p-sortIcon
-                                field="representative.name">
-                            </p-sortIcon>
-                        </th>
-                        <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="activity">Activity <p-sortIcon field="activity"></p-sortIcon>
-                        </th>
-                        <th style="width: 8rem"></th>
-                    </tr>
-
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr class="p-selectable-row">
-                        <td>
-                            <p-tableCheckbox [value]="customer"></p-tableCheckbox>
-                        </td>
-                        <td>
-                            {{customer.name}}
-                        </td>
-                        <td>
-                            <span class="image-text">{{customer.country.name}}</span>
-                        </td>
-                        <td>
-                            <span class="image-text">{{customer.representative.name}}</span>
-                        </td>
-                        <td>
-                            {{customer.date}}
-                        </td>
-                        <td>
-                            <span [class]="'customer-badge status-' + customer.status">{{customer.status}}</span>
-                        </td>
-                        <td>
-                            <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
-                        </td>
-                        <td style="text-align: center">
-                            <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <td colspan="8">No customers found.</td>
-                    </tr>
-                </ng-template>
-            </p-table> -->
             <!--End Table-->
 
         </div>

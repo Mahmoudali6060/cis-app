@@ -7,7 +7,6 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Table } from 'primeng/table';
 import { PrimeNGConfig } from 'primeng/api';
-import { CustomerService } from './customer.service';
 
 @Component({
 
@@ -29,19 +28,13 @@ export class BasicDataComponent implements OnChanges {
     toPrintDiv: string = "print-section";
     lstToTranslated: string[] = [];
     isExempted: boolean = false;
-
-    customers!: any[];
-    selectedCustomers!: any[];
-    representatives!: any[];
-    statuses!: any[];
     loading: boolean = true;
     @ViewChild('dt') table!: Table;
     constructor(private administrationService: AdministrationService,
         public toastr: ToastrService,
         private _route: ActivatedRoute,
         public localStorage: LocalStorageService,
-        public translate: TranslateService,
-        private customerService: CustomerService) { }
+        public translate: TranslateService) { }
 
     ngOnInit(): void {
         this.lstToTranslated = ['name', 'nameTranslation'];
@@ -51,36 +44,6 @@ export class BasicDataComponent implements OnChanges {
 
         if (this.objectType.toLocaleLowerCase() == 'cis.core.nationality')
             this.isExempted = true;
-
-
-        /////////////////
-
-        this.customerService.getCustomersLarge().then(customers => {
-            this.customers = customers;
-            this.loading = false;
-        });
-
-        this.representatives = [
-            { name: "Amy Elsner", image: 'amyelsner.png' },
-            { name: "Anna Fali", image: 'annafali.png' },
-            { name: "Asiya Javayant", image: 'asiyajavayant.png' },
-            { name: "Bernardo Dominic", image: 'bernardodominic.png' },
-            { name: "Elwin Sharvill", image: 'elwinsharvill.png' },
-            { name: "Ioni Bowcher", image: 'ionibowcher.png' },
-            { name: "Ivan Magalhaes", image: 'ivanmagalhaes.png' },
-            { name: "Onyama Limba", image: 'onyamalimba.png' },
-            { name: "Stephen Shaw", image: 'stephenshaw.png' },
-            { name: "XuXue Feng", image: 'xuxuefeng.png' }
-        ];
-
-        this.statuses = [
-            { label: 'Unqualified', value: 'unqualified' },
-            { label: 'Qualified', value: 'qualified' },
-            { label: 'New', value: 'new' },
-            { label: 'Negotiation', value: 'negotiation' },
-            { label: 'Renewal', value: 'renewal' },
-            { label: 'Proposal', value: 'proposal' }
-        ]
         // this.primengConfig.ripple = true;
     }
 
@@ -133,9 +96,11 @@ export class BasicDataComponent implements OnChanges {
                 function (error: any) {
                     vm.toastr.error(error, '');
                     vm.showProgress = false;
+                    vm.loading = false;
                 },
                 function () {
                     vm.showProgress = false;
+                    vm.loading = false;
                 });
     }
 
