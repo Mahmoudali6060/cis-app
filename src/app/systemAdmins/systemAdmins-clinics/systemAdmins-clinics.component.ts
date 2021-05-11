@@ -7,6 +7,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 
 import { AdministrationService } from '../../administration/shared/administration.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -20,7 +21,7 @@ export class SystemAdminClinicsComponent implements OnInit {
     lstToTranslated: string[] = [];
     filterString!: string;
     clinicsList!: any[];
-    showProgress:boolean = false;
+    showProgress: boolean = false;
     selectClinicsTab: boolean = true;
     newSubscription: any = {};
     newSubscriptionToSave: any = {};
@@ -34,6 +35,8 @@ export class SystemAdminClinicsComponent implements OnInit {
     enableMyAccountBtn: boolean = false;
     @ViewChild('btnSubscriptionModalClose') btnSubscriptionModalClose!: ElementRef;
     @ViewChild('btnSmsCreditModalClose') btnSmsCreditModalClose!: ElementRef;
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
 
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
@@ -64,9 +67,11 @@ export class SystemAdminClinicsComponent implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 });
     }
 
