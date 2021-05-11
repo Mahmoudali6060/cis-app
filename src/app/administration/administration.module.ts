@@ -10,7 +10,6 @@ import { LocationsComponent } from './locations/locations.component';
 import { DrugUnitComponent } from './drug-unit/drug-unit.component';
 import { DrugFrequencyComponent } from './drug-frequency/drug-frequency.component';
 import { SharedModule } from '../shared/shared.module';
-import { CustomerService } from './basic-data/customer.service';
 
 @NgModule({
     imports: [
@@ -30,7 +29,6 @@ import { CustomerService } from './basic-data/customer.service';
         DrugFrequencyComponent,
     ],
     providers: [
-        CustomerService
     ],
     exports: [BasicDataComponent,
         AdministrationTabsComponent,
