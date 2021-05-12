@@ -8,6 +8,7 @@ import { AccountService } from '../../security/shared/account.service';
 import { ClaimService } from '../shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 @Component({
 
     selector: 'cashier-claim-services',
@@ -70,6 +71,8 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
     isPrePaid: boolean = false;
     oldPaymentMethodId: string = '';
     selectedInstallmentDate = '';
+    @ViewChild('dt') table!: Table;
+    
     constructor(public toastr: ToastrService,
         private claimService: ClaimService
         , public translate: TranslateService
