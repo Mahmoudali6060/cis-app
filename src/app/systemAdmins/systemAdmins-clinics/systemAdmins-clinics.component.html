@@ -32,9 +32,9 @@
 
                 <div class="inner-addon left-addon">
                     <i class="glyphicon glyphicon-search"></i>
-                    <input #gb type="text" pInputText size="50" class="inputSearch" 
-                     disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
-                    (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate">
+                    <input #gb type="text" pInputText size="50" class="inputSearch"
+                        disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate">
                 </div>
                 <!---New Table-->
                 <p-table #dt [value]="clinicsList | translateObjects  : null : null : lstToTranslated" dataKey="id"
@@ -100,24 +100,27 @@
                                 {{clinic.addressString}}
                             </td>
 
-                            <td style="text-align: center">
+                            <td>
                                 <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
                                     class="btn btn-success nopadding" data-toggle="modal"
                                     data-target="#newSubscriptionModal" (click)="selectClinic(clinic.id)">
                                     {{ 'Renew' | translate}}
                                 </button>
-
+                            </td>
+                            <td>
                                 <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
                                     class="btn btn-danger nopadding" data-toggle="modal" data-target="#newSMSCredit"
                                     (click)="selectClinic(clinic.id)">
                                     {{ 'Add' | translate}}
                                 </button>
-
+                            </td>
+                            <td>
                                 <input id="ChkIsActiveInGrid" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
                                     name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox"
                                     [checked]="clinic.isActive" (click)="changeActivation(clinic.id , $event)" />
                                 <span class="lbl"></span>
-
+                            </td>
+                            <td>
                                 <a [class.disabled]="!enableMyAccountBtn ? true : null">
                                     <i class="fa fa-pencil fa-2x"
                                         [routerLink]="['/systemAdmin/clinicDetails/', clinic.id]"
@@ -135,7 +138,7 @@
                 </p-table>
                 <!--End Table-->
 
-             
+
 
                 <div id="print-section" class="hidden">
                     <table class="table table-responsive table-hover">
