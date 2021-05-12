@@ -82,27 +82,6 @@
             <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
                 (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
         </div>
-        <!-- <p-dataTable [value]="allObjects | translateObjects  : null : null : lstToTranslated" sortField="countryName" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="name" [header]="'RegionName_ar' | translate" [sortable]="true"></p-column>
-            <p-column field="nameTranslation" [header]="'RegionName_en' | translate" [sortable]="true"></p-column>
-            <p-column field="countryName" [header]="'Country' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'Active' | translate" styleClass="text-center width70">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <label>
-                        <input id="ChkIsActiveInGrid" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
-                        <span class="lbl"></span>
-                    </label>
-                </ng-template>
-            </p-column>
-            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                <ng-template let-item="rowData" pTemplate="body">
-    <a [class.disabled]="!enableMyAccountBtn ? true : null" > <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" style="color: #32bea6;"></i></a>
-  
-
-                </ng-template>
-            </p-column>
-        </p-dataTable> -->
-
         <!---New Table-->
         <p-table #dt [value]="allObjects | translateObjects  : null : null : lstToTranslated" dataKey="id"
             [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]"
