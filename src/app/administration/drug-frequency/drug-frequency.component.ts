@@ -1,17 +1,18 @@
-﻿import {Component, Input, OnChanges, SimpleChanges, OnInit} from '@angular/core';
-import {AdministrationService} from '../shared/administration.service';
+﻿import { Component, Input, OnChanges, SimpleChanges, OnInit, ViewChild } from '@angular/core';
+import { AdministrationService } from '../shared/administration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 @Component({
-   
+
     selector: 'drug-frequency',
     templateUrl: './drug-frequency.component.html'
 })
 
-export class DrugFrequencyComponent implements OnChanges,OnInit {
+export class DrugFrequencyComponent implements OnChanges, OnInit {
 
     @Input() objectType: string = '';
     @Input() title: string = '';
@@ -26,6 +27,8 @@ export class DrugFrequencyComponent implements OnChanges,OnInit {
     itemToDeleteId: string = '';
     toPrintDiv: string = "print-section";
     lstToTranslated: string[] = [];
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
     constructor(private administrationService: AdministrationService,
         public toastr: ToastrService,
         private _route: ActivatedRoute,
@@ -52,42 +55,45 @@ export class DrugFrequencyComponent implements OnChanges,OnInit {
 
         this.administrationService.saveDrugFrequency(this.model)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // add object to collection in case of add new
-                if (vm.model.id == 0) {
-                    vm.allObjects.push(response);
-                }
+                    // add object to collection in case of add new
+                    if (vm.model.id == 0) {
+                        vm.allObjects.push(response);
+                    }
 
-                vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     loadTable(): void {
         let vm = this;
-        vm.model = { id: 0, isActive: true};
+        vm.model = { id: 0, isActive: true };
         vm.showProgress = true;
         this.administrationService.getAllDrugFrequences()
             .subscribe(
-            function (response:any) {
-                vm.allObjects = response;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.allObjects = response;
+                    vm.loading = false;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                    vm.loading = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                    vm.loading = false;
+                });
     }
 
     editItem(id: string): void {
@@ -114,26 +120,26 @@ export class DrugFrequencyComponent implements OnChanges,OnInit {
         vm.showProgress = true;
         this.administrationService.deleteItem(this.itemToDeleteId, this.objectType)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                var selectedObject = vm.allObjects.find(o => o.id == vm.itemToDeleteId);
-                var index = vm.allObjects.indexOf(selectedObject);
-                if (index > -1)
-                    vm.allObjects.splice(index, 1);
+                    // remove delete object from collection
+                    var selectedObject = vm.allObjects.find(o => o.id == vm.itemToDeleteId);
+                    var index = vm.allObjects.indexOf(selectedObject);
+                    if (index > -1)
+                        vm.allObjects.splice(index, 1);
 
-                // clear fields
-                vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     clear(): void {
@@ -142,7 +148,7 @@ export class DrugFrequencyComponent implements OnChanges,OnInit {
         setTimeout(() => this.active = true, 0);
     }
 
-    changeActivation(id:any, event:any) {
+    changeActivation(id: any, event: any) {
 
         this.editItem(id);
         this.model.isActive = event.target.checked;
