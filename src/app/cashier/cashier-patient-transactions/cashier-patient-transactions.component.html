@@ -18,15 +18,18 @@
 
         <div class="row well">
             <div class="txtRight col-md-4 col-md-offset-8 ">
-                <button class="btn btn-primary" data-toggle="collapse" data-target="#SearchForPatient">{{ 'Search' | translate}}</button>
-            </div>        </div>
+                <button class="btn btn-primary" data-toggle="collapse" data-target="#SearchForPatient">{{ 'Search' |
+                    translate}}</button>
+            </div>
+        </div>
         <div id="SearchForPatient" class="collapse fa-border well">
             <div class="padding5 marginTop35">
                 <div class="row form-horizontal">
                     <div class="form-group">
                         <label for="txtMRNRes" class="col-md-2 control-label">{{ 'PatientMRN' | translate}}</label>
                         <div class="col-md-3">
-                            <input type="text" class="form-control" [(ngModel)]='searchCriteria.patientClinicMRN' id="txtMRNRes" name="txtMRNRes" />
+                            <input type="text" class="form-control" [(ngModel)]='searchCriteria.patientClinicMRN'
+                                id="txtMRNRes" name="txtMRNRes" />
                             <a class="pointer" (click)="showDialog()">{{ 'PatientAdvancedSearch' | translate}}</a>
                         </div>
 
@@ -36,18 +39,22 @@
                         <label for="txtName" class="col-md-2 control-label">{{ 'DoctorName' | translate}}</label>
                         <div class="col-md-3">
                             <!--<input type="text" class="form-control" [(ngModel)]='searchCriteria.doctorName' />-->
-                            <select name="ddlsDoctorsList" [(ngModel)]='searchCriteria.doctorId' class="form-control" #ddlsDoctorsList>
+                            <select name="ddlsDoctorsList" [(ngModel)]='searchCriteria.doctorId' class="form-control"
+                                #ddlsDoctorsList>
                                 <option value="0" selected>{{ 'Select' | translate}}</option>
-                                <option *ngFor="let item of doctorsList | translateObjects" [value]="item.id">{{item.name}}</option>
+                                <option *ngFor="let item of doctorsList | translateObjects" [value]="item.id">
+                                    {{item.name}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="txtName" class="col-md-2 control-label">{{ 'Date' | translate}}</label>
                         <div class="col-md-3">
-                            <select id="ddlDateFilters" name="ddlDateFilters" (change)="selectDateFilter(ddlDateFilters.value)" class="form-control" #ddlDateFilters>
+                            <select id="ddlDateFilters" name="ddlDateFilters"
+                                (change)="selectDateFilter(ddlDateFilters.value)" class="form-control" #ddlDateFilters>
                                 <option>{{ 'Select' | translate}}</option>
-                                <option *ngFor="let item of dateFiltersList | translateObjects" [value]="item.value">{{item.text| translate}}</option>
+                                <option *ngFor="let item of dateFiltersList | translateObjects" [value]="item.value">
+                                    {{item.text| translate}}</option>
                             </select>
                         </div>
                         <label for="txtName" class="col-md-2 control-label">{{ 'Type' | translate}}</label>
@@ -55,9 +62,9 @@
                             <table>
                                 <tr>
                                     <td *ngFor="let item of claimSearchTypeList">
-                                        <input type="radio" name="claimSearchType" (click)="selectClaimSearchType(item.value)"
-                                               value={{item.value}}
-                                               [checked]="item.value == defaultClaimSearch">&nbsp;{{item.text| translate}}
+                                        <input type="radio" name="claimSearchType"
+                                            (click)="selectClaimSearchType(item.value)" value={{item.value}}
+                                            [checked]="item.value == defaultClaimSearch">&nbsp;{{item.text| translate}}
                                         &nbsp;&nbsp;
                                     </td>
                                 </tr>
@@ -67,9 +74,10 @@
                                 <table>
                                     <tr>
                                         <td *ngFor="let item of chargeStatusList">
-                                            <input type="radio" name="chargeStatus" (click)="selectChargeStatus(item.value)"
-                                                   value={{item.value}}
-                                                   [checked]="item.value == defaultChargeStatus">&nbsp;{{item.text| translate}}
+                                            <input type="radio" name="chargeStatus"
+                                                (click)="selectChargeStatus(item.value)" value={{item.value}}
+                                                [checked]="item.value == defaultChargeStatus">&nbsp;{{item.text|
+                                            translate}}
                                             &nbsp;&nbsp;
                                         </td>
                                     </tr>
@@ -86,18 +94,22 @@
                     <div class="form-group" *ngIf="isPeriodOfTimeVisible">
                         <label for="txtName" class="col-md-2 control-label">{{ 'From' | translate}}</label>
                         <div class="col-md-3">
-                            <p-calendar [(ngModel)]="searchCriteria.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="searchCriteria.startDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                         </div>
                         <label for="txtName" class="col-md-2 control-label">{{ 'To' | translate}}</label>
                         <div class="col-md-3">
-                            <p-calendar [(ngModel)]="searchCriteria.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="searchCriteria.endDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-4 col-md-offset-2">
-                            <button type="button" class="btn btn-primary" disabled="{{ enableSearchForPatient ? '' :'disabled'}}" (click)="getPatientTransactions()">{{ 'Search' | translate}}</button>
+                            <button type="button" class="btn btn-primary"
+                                disabled="{{ enableSearchForPatient ? '' :'disabled'}}"
+                                (click)="getPatientTransactions()">{{ 'Search' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -111,12 +123,12 @@
             <div class="row well">
                 <div class="row">
                     <div class="col-md-8">
-                            <label class="labelSucess labelSize btn label-success">
-                                {{ 'UnifiedMRN' | translate}} : {{patient != null ? patient.unifiedMRN : ''}}
-                            </label>
-                            <label class="labelSucess labelSize btn label-pink">
-                                {{ 'ClinicMRN' | translate}} : {{patient != null ? patient.clinicMRN : ''}}
-                            </label>
+                        <label class="labelSucess labelSize btn label-success">
+                            {{ 'UnifiedMRN' | translate}} : {{patient != null ? patient.unifiedMRN : ''}}
+                        </label>
+                        <label class="labelSucess labelSize btn label-pink">
+                            {{ 'ClinicMRN' | translate}} : {{patient != null ? patient.clinicMRN : ''}}
+                        </label>
                         <h3 class="h3Deco">
                             {{patient != null ? patient.name : '' }}
                         </h3>
@@ -136,16 +148,20 @@
                             <div class="forum-meta-info">
                                 <ul style="list-style-type:none;">
                                     <li>
-                                        <label class="labelStyle"> <strong>{{ 'PrePaidBalance' | translate}}:</strong> &nbsp;{{prePaidBalanceAmount}}</label>
+                                        <label class="labelStyle"> <strong>{{ 'PrePaidBalance' | translate}}:</strong>
+                                            &nbsp;{{prePaidBalanceAmount}}</label>
                                     </li>
                                     <li>
-                                        <label class="labelStyle"> <strong>{{ 'Pending' | translate}}:</strong>&nbsp;{{pendingAmount}} </label>
+                                        <label class="labelStyle"> <strong>{{ 'Pending' |
+                                                translate}}:</strong>&nbsp;{{pendingAmount}} </label>
                                     </li>
                                     <li>
-                                        <label class="labelStyle"> <strong> {{ 'AmountToPay' | translate}}:</strong>&nbsp; {{amountToPay}} </label>
+                                        <label class="labelStyle"> <strong> {{ 'AmountToPay' |
+                                                translate}}:</strong>&nbsp; {{amountToPay}} </label>
                                     </li>
                                     <li>
-                                        <label class="labelStyle"> <strong> {{ 'Net' | translate}}:</strong>&nbsp; {{ pendingAmount - prePaidBalanceAmount }} </label>
+                                        <label class="labelStyle"> <strong> {{ 'Net' | translate}}:</strong>&nbsp; {{
+                                            pendingAmount - prePaidBalanceAmount }} </label>
                                     </li>
                                 </ul>
                             </div>
@@ -153,25 +169,27 @@
                     </div>
                 </div>
                 <div class="row text-right">
-                    <button type="button" disabled="{{ enableRefundClaimBtn ? '' :'disabled'}}" class="btn btn-primary" data-toggle="modal" data-target="#refund">{{ 'Refund' | translate}}</button>
-                    <button type="button" disabled="{{ (patient != null && patient.id != undefined) ? '' :'disabled'}}" class="btn btn-success" data-toggle="modal" data-target="#patientPrepaidPayment">{{ 'Payments' | translate}}</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pateitnAttachments" disabled="{{ (enableAttachmentBtn && isPatientSelected) ? '' :'disabled'}}">{{ 'Attachments' | translate}}</button>
+                    <button type="button" disabled="{{ enableRefundClaimBtn ? '' :'disabled'}}" class="btn btn-primary"
+                        data-toggle="modal" data-target="#refund">{{ 'Refund' | translate}}</button>
+                    <button type="button" disabled="{{ (patient != null && patient.id != undefined) ? '' :'disabled'}}"
+                        class="btn btn-success" data-toggle="modal" data-target="#patientPrepaidPayment">{{ 'Payments' |
+                        translate}}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#pateitnAttachments"
+                        disabled="{{ (enableAttachmentBtn && isPatientSelected) ? '' :'disabled'}}">{{ 'Attachments' |
+                        translate}}</button>
                 </div>
 
             </div>
         </div>
 
-      
+
         <br />
         <br />
 
         <div class="row" *ngIf="allCharges.length">
-            <cashier-claim-services [showPrintButton]="displayPrintButton"
-                                    [displayColumnDate]="displayColumnDate"
-                                    [passedCharges]="allCharges"
-                                    [passedPatient]="patient"
-                                    (onAmountUpdated)="updateAmount($event)"
-                                    (onChargeSelected)="updateAmountToPay($event)"></cashier-claim-services>
+            <cashier-claim-services [showPrintButton]="displayPrintButton" [displayColumnDate]="displayColumnDate"
+                [passedCharges]="allCharges" [passedPatient]="patient" (onAmountUpdated)="updateAmount($event)"
+                (onChargeSelected)="updateAmountToPay($event)"></cashier-claim-services>
         </div>
 
         <div class="row" *ngIf="allPatientPayments.length">
@@ -180,22 +198,82 @@
 
             <div class="ui-widget-header searchWidget">
                 <i class="fa fa-search searchIcon"></i>
-                <input #searchTransactions type="text" pInputText size="50" placeholder="Search...">
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    [placeholder]="'Search' | translate" />
             </div>
-            <!-- <p-dataTable [value]="allPatientPayments | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="searchTransactions">
-                <p-column field="id" [header]="'TransactionRefNo' | translate" [sortable]="true"></p-column>
-                <p-column field="dateTimeString" [header]="'TransactionDate' | translate" [sortable]="true"></p-column>
-                <p-column field="paymentTypeName" [header]="'TransactionType' | translate" [sortable]="true"></p-column>
-                <p-column field="paymentMethodName" [header]="'TransactionMethod' | translate" [sortable]="true"></p-column>
-                <p-column field="amount" [header]="'Amount' | translate" [sortable]="true"></p-column>
-                <p-column field="chargesAsString" [header]="'Charges' | translate" [sortable]="true"></p-column>
-                <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-                <p-column [header]="Details" styleClass="text-center width70 hidden">
-                    <ng-template let-item="rowData" pTemplate="body">
-                        <a *ngIf="item.id" data-toggle="modal" [class.disabled]="!enableViewPatientPaymentBtn ? true : null" data-target="#PayService" class="underLinelinkText pointer" (click)="getPatientPaymentById(item.id)">View Payment</a>
-                    </ng-template>
-                </p-column>
-            </p-dataTable> -->
+
+            <!---New Table-->
+            <p-table #dt [value]="allPatientPayments | translateObjects  : null : null : lstToTranslated" dataKey="id"
+                [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]"
+                [loading]="loading" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                [globalFilterFields]="['id','dateTimeString']">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id">{{'TransactionRefNo' | translate}} <p-sortIcon field="id"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="dateTimeString">{{'TransactionDate' | translate}} <p-sortIcon
+                                field="dateTimeString"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="paymentTypeName">{{'TransactionType' | translate}} <p-sortIcon
+                                field="paymentTypeName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="paymentMethodName">{{'TransactionMethod' | translate}} <p-sortIcon
+                                field="paymentMethodName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="amount">{{'Amount' | translate}} <p-sortIcon field="amount"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="chargesAsString">{{'chargesAsString' | translate}} <p-sortIcon
+                                field="chargesAsString"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="description">{{'description' | translate}} <p-sortIcon field="description">
+                            </p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Details' | translate}} </span>
+                        </th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            {{item.id}}
+                        </td>
+                        <td>
+                            <span>{{item.dateTimeString}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.paymentTypeName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.paymentMethodName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.amount}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.chargesAsString}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.description}}</span>
+                        </td>
+                        <td>
+                            <a *ngIf="item.id" data-toggle="modal"
+                                [class.disabled]="!enableViewPatientPaymentBtn ? true : null" data-target="#PayService"
+                                class="underLinelinkText pointer" (click)="getPatientPaymentById(item.id)">View
+                                Payment</a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
+
             <div class="row">
             </div>
         </div>
@@ -228,7 +306,8 @@
                                 <div class="forum-meta-info">
                                     <ul>
                                         <li>
-                                            <label>{{ 'PrePaidBalance' | translate}}:</label>&nbsp; {{prePaidBalanceAmount}}
+                                            <label>{{ 'PrePaidBalance' | translate}}:</label>&nbsp;
+                                            {{prePaidBalanceAmount}}
                                         </li>
                                         <li>
                                             <label>{{ 'Pending' | translate}}: </label>&nbsp;{{pendingAmount}}
@@ -237,7 +316,8 @@
                                             <label>{{ 'AmountToPay' | translate}}: </label>&nbsp; {{amountToPay}}
                                         </li>
                                         <li>
-                                            <label>{{ 'Net' | translate}}: </label>&nbsp; {{ pendingAmount - prePaidBalanceAmount }}
+                                            <label>{{ 'Net' | translate}}: </label>&nbsp; {{ pendingAmount -
+                                            prePaidBalanceAmount }}
                                         </li>
                                     </ul>
                                 </div>
@@ -280,7 +360,8 @@
 
 
 <div class="hidden">
-    <button type="button" #btnOpenPaymentPopup class="btn btn-primary" data-toggle="modal" data-target="#PayService"></button>
+    <button type="button" #btnOpenPaymentPopup class="btn btn-primary" data-toggle="modal"
+        data-target="#PayService"></button>
 </div>
 
 <div id="PayService" class="modal fade" role="dialog">
@@ -296,16 +377,19 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'TransactionRefNo' | translate}}</label>
                         <div class="col-md-6">
-                            <input name="txtReferenceNo" class="form-control" [(ngModel)]='payment.id' #txtReferenceNo="ngModel" disabled />
+                            <input name="txtReferenceNo" class="form-control" [(ngModel)]='payment.id'
+                                #txtReferenceNo="ngModel" disabled />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'TransactionDate' | translate}}</label>
                         <div class="col-md-6">
-                            <input name="txtPaymentDate" class="form-control" [(ngModel)]="payment.dateTimeString" #txtPaymentDate="ngModel" disabled />
+                            <input name="txtPaymentDate" class="form-control" [(ngModel)]="payment.dateTimeString"
+                                #txtPaymentDate="ngModel" disabled />
                         </div>
                         <div class="col-md-1">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePaymentDate">{{ 'Change' | translate}}</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#changePaymentDate">{{ 'Change' | translate}}</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -315,36 +399,43 @@
                                     [(ngModel)]="payment.paymentTypeId" #ddlTransactionTypes="ngModel" required>
                                 <option *ngFor="let type of paymentTypes" [value]="type.id">{{type.name}}</option>
                             </select>-->
-                            <input name="txtPaymentType" class="form-control" [(ngModel)]="payment.paymentTypeName" #txtPaymentType="ngModel" disabled />
+                            <input name="txtPaymentType" class="form-control" [(ngModel)]="payment.paymentTypeName"
+                                #txtPaymentType="ngModel" disabled />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'TransactionMethod' | translate}}</label>
                         <div class="col-md-6">
-                            <select disabled class="form-control" name="ddlTransactionMethods" [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
-                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
+                            <select disabled class="form-control" name="ddlTransactionMethods"
+                                [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
+                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">
+                                    {{method.name}}</option>
                             </select>
                         </div>
                         <div class="col-md-1">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePaymentMethod">Change</button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#changePaymentMethod">Change</button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'TransactionAmount' | translate}}</label>
                         <div class="col-md-6">
-                            <input type="number" class="form-control" name="txtAmount" [(ngModel)]="payment.amount" #txtAmount="ngModel" required readonly disabled />
+                            <input type="number" class="form-control" name="txtAmount" [(ngModel)]="payment.amount"
+                                #txtAmount="ngModel" required readonly disabled />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'Charges' | translate}}</label>
                         <div class="col-md-6">
-                            <textarea disabled name="txtCharges" class="form-control" [(ngModel)]='payment.chargesAsString' #txtCharges="ngModel"></textarea>
+                            <textarea disabled name="txtCharges" class="form-control"
+                                [(ngModel)]='payment.chargesAsString' #txtCharges="ngModel"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'Remarks' | translate}}</label>
                         <div class="col-md-6">
-                            <textarea disabled name="txtRemarks" class="form-control" [(ngModel)]='payment.description' #txtRemarks="ngModel"></textarea>
+                            <textarea disabled name="txtRemarks" class="form-control" [(ngModel)]='payment.description'
+                                #txtRemarks="ngModel"></textarea>
                         </div>
                     </div>
                 </div>
@@ -367,21 +458,27 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">{{'NewPaymentDate' | translate}}</label>
                         <div class="col-md-6">
-                            <p-calendar [(ngModel)]="payment.date" [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="false" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="payment.date" [showTime]="true" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="false"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{'ChangeReason' | translate}}</label>
                         <div class="col-md-6">
-                            <textarea name="txtchangeDateReason" class="form-control" [(ngModel)]='payment.changeDateReason' #txtchangeDateReason="ngModel" required></textarea>
+                            <textarea name="txtchangeDateReason" class="form-control"
+                                [(ngModel)]='payment.changeDateReason' #txtchangeDateReason="ngModel"
+                                required></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!changePaymentDateForm.form.valid || !enableChangePaymentDateBtn" (click)="savePatientPayment()">Confirm Change</button>
-                        <button type="button" disabled="{{ enableChangePaymentDateBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">Ignore</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!changePaymentDateForm.form.valid || !enableChangePaymentDateBtn"
+                            (click)="savePatientPayment()">Confirm Change</button>
+                        <button type="button" disabled="{{ enableChangePaymentDateBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" data-dismiss="modal">Ignore</button>
                     </div>
                 </div>
             </form>
@@ -398,27 +495,35 @@
                 <h4 class="modal-title">{{ 'ChangePaymentMethod' | translate}} </h4>
             </div>
 
-            <form *ngIf="active" class="form-horizontal" name="changePaymentMethodForm" #changePaymentMethodForm="ngForm">
+            <form *ngIf="active" class="form-horizontal" name="changePaymentMethodForm"
+                #changePaymentMethodForm="ngForm">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'NewPaymentMethod' | translate}} </label>
                         <div class="col-md-6">
-                            <select class="form-control" name="ddlTransactionMethods" [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
-                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
+                            <select class="form-control" name="ddlTransactionMethods"
+                                [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
+                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">
+                                    {{method.name}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{ 'ChangeReason' | translate}}</label>
                         <div class="col-md-6">
-                            <textarea name="txtMethodChangeReason" class="form-control" [(ngModel)]='payment.changeMethodReason' #txtMethodChangeReason="ngModel" required></textarea>
+                            <textarea name="txtMethodChangeReason" class="form-control"
+                                [(ngModel)]='payment.changeMethodReason' #txtMethodChangeReason="ngModel"
+                                required></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!changePaymentMethodForm.form.valid ||!enableChangePaymentDateBtn " (click)="savePatientPayment()">{{ 'ConfirmChange' | translate}}</button>
-                        <button type="button" disabled="{{ enableChangePaymentDateBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!changePaymentMethodForm.form.valid ||!enableChangePaymentDateBtn "
+                            (click)="savePatientPayment()">{{ 'ConfirmChange' | translate}}</button>
+                        <button type="button" disabled="{{ enableChangePaymentDateBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
                     </div>
                 </div>
             </form>
@@ -440,20 +545,25 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">{{'Amount' | translate}}</label>
                         <div class="col-md-6">
-                            <input type="number" min="0" name="txtRefundAmount" class="form-control" [(ngModel)]='refundModel.amount' #txtRefundAmount="ngModel" required />
+                            <input type="number" min="0" name="txtRefundAmount" class="form-control"
+                                [(ngModel)]='refundModel.amount' #txtRefundAmount="ngModel" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{'RefundReason' | translate}}</label>
                         <div class="col-md-6">
-                            <textarea name="txtRefundReason" class="form-control" [(ngModel)]='refundModel.remarks' #txtRefundReason="ngModel" required></textarea>
+                            <textarea name="txtRefundReason" class="form-control" [(ngModel)]='refundModel.remarks'
+                                #txtRefundReason="ngModel" required></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!refundForm.form.valid || !enableRefundClaimBtn" (click)="refundFromPrepaid()">{{'Confirm' | translate}}</button>
-                        <button type="button" disabled="{{ enableRefundClaimBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{'Cancel' | translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!refundForm.form.valid || !enableRefundClaimBtn"
+                            (click)="refundFromPrepaid()">{{'Confirm' | translate}}</button>
+                        <button type="button" disabled="{{ enableRefundClaimBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" data-dismiss="modal">{{'Cancel' | translate}}</button>
                     </div>
                 </div>
             </form>
@@ -470,14 +580,9 @@
                 <h4 class="modal-title">{{ 'PatientAttachments' | translate}}</h4>
             </div>
             <div class="modal-body">
-                <documents [parentId]="selectedPatientId"
-                           [title]="Attachement"
-                           [parentType]='parentType'
-                           [showDocumentDetails]="showDocumentDetails"
-                           [btnUploadText]="btnUploadText"
-                           [fileType]="fileType"
-                           [fileNameTxt]='fileNameTxt'
-                           [fileNameUploadTxt]='fileNameUploadTxt'></documents>
+                <documents [parentId]="selectedPatientId" [title]="Attachement" [parentType]='parentType'
+                    [showDocumentDetails]="showDocumentDetails" [btnUploadText]="btnUploadText" [fileType]="fileType"
+                    [fileNameTxt]='fileNameTxt' [fileNameUploadTxt]='fileNameUploadTxt'></documents>
             </div>
         </div>
 
@@ -497,30 +602,36 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">{{'Amount' | translate}}</label>
                         <div class="col-md-6">
-                            <input type="number" min="0" name="txtPrepaidAmount" class="form-control" [(ngModel)]='prepaidAmount' #txtPrepaidAmount="ngModel" required />
+                            <input type="number" min="0" name="txtPrepaidAmount" class="form-control"
+                                [(ngModel)]='prepaidAmount' #txtPrepaidAmount="ngModel" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{'TransactionMethod' | translate}}</label>
                         <div class="col-md-6">
-                            <select class="form-control" name="ddlPaymentMethods"
-                                    [(ngModel)]="paymentMethodId" required>
+                            <select class="form-control" name="ddlPaymentMethods" [(ngModel)]="paymentMethodId"
+                                required>
                                 <option class="emptyOption" value="" selected></option>
-                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
+                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">
+                                    {{method.name}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">{{'Remarks' | translate}}</label>
                         <div class="col-md-6">
-                            <textarea name="txtPrePaidRemarks" class="form-control" [(ngModel)]='PrePaidRemarks' #txtPrePaidRemarks="ngModel" required></textarea>
+                            <textarea name="txtPrePaidRemarks" class="form-control" [(ngModel)]='PrePaidRemarks'
+                                #txtPrePaidRemarks="ngModel" required></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!prepaidPaymentForm.form.valid" (click)="updatePrepaidBalance()">{{'Add' | translate}}</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{'Cancel' | translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!prepaidPaymentForm.form.valid" (click)="updatePrepaidBalance()">{{'Add' |
+                            translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">{{'Cancel' |
+                            translate}}</button>
                     </div>
                 </div>
             </form>

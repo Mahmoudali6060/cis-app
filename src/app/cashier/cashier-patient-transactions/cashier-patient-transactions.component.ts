@@ -8,6 +8,7 @@ import { AccountService } from '../../security/shared/account.service';
 import { ClaimService } from '../shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { TranslateService } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -69,6 +70,8 @@ export class CashierPatientTransactionsComponent implements OnInit {
     transactionWrapperModel: any = {};
     PrePaidRemarks: string = '';
     Attachement: any;
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService,
         private claimService: ClaimService,
         private localStorage: LocalStorageService,
@@ -253,9 +256,13 @@ export class CashierPatientTransactionsComponent implements OnInit {
                 function (error: any) {
                     vm.toastr.error(error, '');
                     vm.showProgress = false;
+                    vm.loading = false;
+
                 },
                 function () { // finally
                     vm.showProgress = false;
+                    vm.loading = false;
+
                 });
     }
 
