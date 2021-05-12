@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../security/shared/account.service';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { ClaimService } from '../shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class'
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -20,7 +21,7 @@ export class CashierClaimsComponent implements OnInit {
     contentStyle: any = { height: 400 };
     claimDiv: string = 'divPrintedArea';
     clinicId!: number;
-    filterString!:string;
+    filterString!: string;
     claimsList: any[] = [];
     showProgress = false;
     toPrintDiv: string = "print-section";
@@ -47,6 +48,8 @@ export class CashierClaimsComponent implements OnInit {
     key: PermissionKeyEnum = new PermissionKeyEnum();
     enableSearchForPateintClaim: boolean = false;
     enableQuickRegistrationBtn: boolean = false;
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
 
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
@@ -81,9 +84,11 @@ export class CashierClaimsComponent implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 });
     }
 
