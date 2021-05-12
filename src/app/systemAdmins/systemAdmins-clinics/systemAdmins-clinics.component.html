@@ -135,52 +135,7 @@
                 </p-table>
                 <!--End Table-->
 
-                <!-- <p-dataTable [value]="clinicsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-               <p-column field="name" [header]="'NameArabic' | translate" [sortable]="true"></p-column>
-               <p-column field="nameTranslation" [header]="'NameEnglish' | translate" [sortable]="true"></p-column>
-               <p-column field="clinicLevelName" [header]="'ClinicLevel' | translate" [sortable]="true"></p-column>
-               <p-column  styleClass="text-center width100" field="creationDateString" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
-               <p-column   styleClass="text-center width100" field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
-               <p-column   styleClass="text-center width100" field="endDateString" [header]="'EndDate' | translate" [sortable]="true"></p-column>
-               <p-column field="addressString" [header]="'Address' | translate" [sortable]="true"></p-column>
-               <p-column [header]="'Renew' | translate" styleClass="text-center width101">
-                   <ng-template let-clinic="rowData" pTemplate="body">
-                       <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-success nopadding"
-                               data-toggle="modal" data-target="#newSubscriptionModal"
-                               (click)="selectClinic(clinic.id)">
-                           {{ 'Renew' | translate}}
-                       </button>
-                   </ng-template>
-               </p-column>
-               <p-column [header]="'SMSCredit' | translate" styleClass="text-center width100">
-                   <ng-template let-clinic="rowData" pTemplate="body">
-                       <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-danger nopadding"
-                               data-toggle="modal" data-target="#newSMSCredit"
-                               (click)="selectClinic(clinic.id)">
-                           {{ 'Add' | translate}}
-                       </button>
-                   </ng-template>
-               </p-column>
-               <p-column [header]="'ActiveQues' | translate" styleClass="text-center width70">
-                   <ng-template let-clinic="rowData" pTemplate="body">
-                       <label>
-                           <input id="ChkIsActiveInGrid" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
-                                  type="checkbox" [checked]="clinic.isActive"
-                                  (click)="changeActivation(clinic.id , $event)" />
-                           <span class="lbl"></span>
-                       </label>
-
-                   </ng-template>
-               </p-column>
-               <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                   <ng-template let-clinic="rowData" pTemplate="body">
-                       <a [class.disabled]="!enableMyAccountBtn ? true : null">
-                           <i class="fa fa-pencil fa-2x" [routerLink]="['/systemAdmin/clinicDetails/', clinic.id]" style="color: #32bea6;"></i>
-                       </a>
-                   </ng-template>
-               </p-column>
-           </p-dataTable> -->
-
+             
 
                 <div id="print-section" class="hidden">
                     <table class="table table-responsive table-hover">
