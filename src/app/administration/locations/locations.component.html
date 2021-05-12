@@ -5,13 +5,16 @@
 <div class="row nopadding">
     <div class="padding5">
         <div class="row">
-            <form novalidate class="form-horizontal" *ngIf="active" name="locationform" (ngSubmit)="onSubmit()" #locationform="ngForm">
+            <form novalidate class="form-horizontal" *ngIf="active" name="locationform" (ngSubmit)="onSubmit()"
+                #locationform="ngForm">
                 <div class="form-group">
                     <label for="ddlCountry" class="control-label col-md-2 col-sm-2">{{ 'Country' | translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <select class="form-control" id="ddlCountry" name="ddlCountry" [(ngModel)]="model.countryId" #ddlCountry="ngModel" #d (change)="fillRegions(d.value)" required>
+                        <select class="form-control" id="ddlCountry" name="ddlCountry" [(ngModel)]="model.countryId"
+                            #ddlCountry="ngModel" #d (change)="fillRegions(d.value)" required>
                             <option class="emptyOption" value="" selected></option>
-                            <option *ngFor="let item of countriesList | translateObjects" [value]="item.id">{{item.name}}</option>
+                            <option *ngFor="let item of countriesList | translateObjects" [value]="item.id">
+                                {{item.name}}</option>
                         </select>
                         <div [hidden]="ddlCountry.valid || ddlCountry.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
@@ -20,9 +23,11 @@
 
                     <label for="ddlRegion" class="control-label col-md-2 col-sm-2">{{ 'Region' | translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="model.regionId" #ddlRegion="ngModel" #r (change)="fillcities(r.value)" required>
+                        <select class="form-control" id="ddlRegion" name="ddlRegion" [(ngModel)]="model.regionId"
+                            #ddlRegion="ngModel" #r (change)="fillcities(r.value)" required>
                             <option class="emptyOption" value="" selected></option>
-                            <option *ngFor="let region of regionsList | translateObjects" [value]="region.id">{{region.name}}</option>
+                            <option *ngFor="let region of regionsList | translateObjects" [value]="region.id">
+                                {{region.name}}</option>
                         </select>
                         <div [hidden]="ddlRegion.valid || ddlRegion.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
@@ -32,17 +37,21 @@
                 <div class="form-group">
                     <label for="ddlCity" class="control-label col-md-2 col-sm-2">{{ 'City' | translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <select class="form-control" id="ddlCity" name="ddlCity" [(ngModel)]="model.cityId" #ddlCity="ngModel" required>
+                        <select class="form-control" id="ddlCity" name="ddlCity" [(ngModel)]="model.cityId"
+                            #ddlCity="ngModel" required>
                             <option class="emptyOption" value="" selected></option>
-                            <option *ngFor="let city of citiesList | translateObjects" [value]="city.id">{{city.name}}</option>
+                            <option *ngFor="let city of citiesList | translateObjects" [value]="city.id">{{city.name}}
+                            </option>
                         </select>
                         <div [hidden]="ddlCity.valid || ddlCity.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
                     </div>
-                    <label class="control-label col-md-2 col-sm-2" for="txtName">{{ 'LocatioName_ar' | translate}}</label>
+                    <label class="control-label col-md-2 col-sm-2" for="txtName">{{ 'LocatioName_ar' |
+                        translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <input type="text" id="txtArabicName" name="txtArabicName" class="form-control" [(ngModel)]='model.name' #txtArabicName="ngModel" required />
+                        <input type="text" id="txtArabicName" name="txtArabicName" class="form-control"
+                            [(ngModel)]='model.name' #txtArabicName="ngModel" required />
                         <div [hidden]="txtArabicName.valid || txtArabicName.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
@@ -50,17 +59,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2" for="txtEnglishName">{{ 'LocatioName_en' | translate}}</label>
+                    <label class="control-label col-md-2 col-sm-2" for="txtEnglishName">{{ 'LocatioName_en' |
+                        translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control" [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
+                        <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control"
+                            [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
                         <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
                     </div>
 
-                    <label class="control-label col-md-2 col-sm-2" for="txtArabicDescription">{{ 'Description' | translate}}</label>
+                    <label class="control-label col-md-2 col-sm-2" for="txtArabicDescription">{{ 'Description' |
+                        translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control" [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
+                        <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control"
+                            [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
                     </div>
                 </div>
 
@@ -68,15 +81,19 @@
                     <label class="control-label col-md-2" for="ChkIsActive">{{ 'Active' | translate}}</label>
                     <div class="col-md-4">
                         <label>
-                            <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
+                            <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6"
+                                type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
                             <span class="lbl"></span>
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-4">
-                        <button type="submit" class="btn btn-primary" [disabled]="!locationform.form.valid || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
-                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="!locationform.form.valid || !enableMyAccountBtn">{{ 'Save' |
+                            translate}}</button>
+                        <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
                     </div>
                 </div>
 
@@ -88,28 +105,77 @@
         <br />
         <div class="ui-widget-header searchWidget">
             <i class="fa fa-search searchIcon"></i>
-            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+            <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
         </div>
-        <!-- <p-dataTable [value]="allObjects | translateObjects  : null : null : lstToTranslated" sortField="countryName" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="name" [header]="'LocatioName_ar' | translate" [sortable]="true"></p-column>
-            <p-column field="nameTranslation" [header]="'LocatioName_en' | translate" [sortable]="true"></p-column>
-            <p-column field="cityName" [header]="'City' | translate" [sortable]="true"></p-column>
-            <p-column field="regionName" [header]="'Region' | translate" [sortable]="true"></p-column>
-            <p-column field="countryName" [header]="'Country' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'Active' | translate" styleClass="text-center width70">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <label>
-                        <input id="ChkIsActiveInGrid"  disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
+
+        <!---New Table-->
+        <p-table #dt [value]="allObjects | translateObjects  : null : null : lstToTranslated" dataKey="id"
+            [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]"
+            [loading]="loading" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['name','nameTranslation','cityName','regionName','countryName']">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">{{'LocatioName_ar' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="nameTranslation">{{'LocatioName_en' | translate}} <p-sortIcon
+                            field="nameTranslation"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="cityName">{{'City' | translate}} <p-sortIcon field="cityName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="regionName">{{'Region' | translate}} <p-sortIcon field="regionName">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="countryName">{{'Country' | translate}} <p-sortIcon field="countryName">
+                        </p-sortIcon>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
+                    </th>
+                    <th style="width: 8rem">
+                    </th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        <span>{{item.nameTranslation}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.cityName}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.regionName}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.countryName}}</span>
+                    </td>
+                    <td>
+                        <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                            type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)"
+                            disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" />
                         <span class="lbl"></span>
-                    </label>
-                </ng-template>
-            </p-column>
-            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <a [class.disabled]="!enableMyAccountBtn ? true : null" ><i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" style="color: #32bea6;"></i></a>
-                </ng-template>
-            </p-column>
-        </p-dataTable> -->
+                    </td>
+                    <td style="text-align: center">
+                        <a [class.disabled]="!enableMyAccountBtn ? true : null">
+                            <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" title="Edit Department"
+                                style="color: #32bea6;"></i>
+                        </a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
 
         <div id="print-section" class="hidden">
             <table class="table table-responsive table-hover">
@@ -162,7 +228,3 @@
         -->
     </div>
 </div>
-
-
-
-

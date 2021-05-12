@@ -1,10 +1,11 @@
-﻿import {Component, Input, OnChanges, SimpleChanges, OnInit, AfterContentChecked} from '@angular/core';
+﻿import {Component, Input, OnChanges, SimpleChanges, OnInit, AfterContentChecked, ViewChild} from '@angular/core';
 import {AdministrationService} from '../shared/administration.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 @Component({
    
     selector: 'locations',
@@ -28,7 +29,9 @@ export class LocationsComponent implements OnChanges, OnInit, AfterContentChecke
     citiesList!: any[];
     toPrintDiv: string = "print-section";
     lstToTranslated: string[] = [];
-
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+    
     constructor(private administrationService: AdministrationService,
         public toastr: ToastrService,
         private _route: ActivatedRoute,
@@ -124,9 +127,11 @@ export class LocationsComponent implements OnChanges, OnInit, AfterContentChecke
             function (error:any) { 
                 vm.toastr.error(error, '');
                 vm.showProgress = false;
+                vm.loading = false;
             },
             function () {
                 vm.showProgress = false;
+                vm.loading = false;
             });
     }
 
