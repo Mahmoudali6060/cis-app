@@ -5,57 +5,69 @@
 <div class="nopadding">
     <div class="padding5">
         <div class="row">
-            <form novalidate class="form-horizontal" *ngIf="active" name="basicDataForm" (ngSubmit)="onSubmit()" #basicDataForm="ngForm">
-                
+            <form novalidate class="form-horizontal" *ngIf="active" name="basicDataForm" (ngSubmit)="onSubmit()"
+                #basicDataForm="ngForm">
+
                 <div class="form-group">
                     <label class="control-label col-md-2 col-sm-2" for="txtName">{{ 'ArabicName' | translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <input type="text" id="txtArabicName" name="txtArabicName" class="form-control" [(ngModel)]='model.name' #txtArabicName="ngModel" required />
+                        <input type="text" id="txtArabicName" name="txtArabicName" class="form-control"
+                            [(ngModel)]='model.name' #txtArabicName="ngModel" required />
                         <div [hidden]="txtArabicName.valid || txtArabicName.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
                     </div>
-                    <label class="control-label col-md-2 col-sm-2" for="txtEnglishName">{{ 'EnglishName' | translate}}</label>
+                    <label class="control-label col-md-2 col-sm-2" for="txtEnglishName">{{ 'EnglishName' |
+                        translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control" [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
+                        <input type="text" id="txtEnglishName" name="txtEnglishName" class="form-control"
+                            [(ngModel)]='model.nameTranslation' #txtEnglishName="ngModel" required />
                         <div [hidden]="txtEnglishName.valid || txtEnglishName.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2" for="txtSerialNumber">{{ 'SerialNumber' | translate}}</label>
+                    <label class="control-label col-md-2 col-sm-2" for="txtSerialNumber">{{ 'SerialNumber' |
+                        translate}}</label>
                     <div class="col-md-4 col-sm-4">
-                        <input type="text" id="txtSerialNumber" name="txtSerialNumber" class="form-control" [(ngModel)]='model.serialNumber' #txtSerialNumber="ngModel" required />
+                        <input type="text" id="txtSerialNumber" name="txtSerialNumber" class="form-control"
+                            [(ngModel)]='model.serialNumber' #txtSerialNumber="ngModel" required />
                         <div [hidden]="txtSerialNumber.valid || txtSerialNumber.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
                     </div>
-                    <label class="control-label col-md-2 col-sm-2" for="txtCreationDate">{{ 'CreationDate' | translate}}</label>
+                    <label class="control-label col-md-2 col-sm-2" for="txtCreationDate">{{ 'CreationDate' |
+                        translate}}</label>
                     <div class="col-md-2 col-sm-3">
-                        <input type="date" id="txtCreationDate" name="txtCreationDate" class="form-control" [(ngModel)]='model.creationDate' #txtCreationDate="ngModel" required />
+                        <input type="date" id="txtCreationDate" name="txtCreationDate" class="form-control"
+                            [(ngModel)]='model.creationDate' #txtCreationDate="ngModel" required />
                         <div [hidden]="txtCreationDate.valid || txtCreationDate.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-2 col-sm-2" for="txtArabicDescription">{{ 'Description' | translate}} </label>
+                    <label class="control-label col-md-2 col-sm-2" for="txtArabicDescription">{{ 'Description' |
+                        translate}} </label>
                     <div class="col-md-4 col-sm-4">
-                        <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control" [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
+                        <textarea type="text" id="txtArabicDescription" name="txtArabicDescription" class="form-control"
+                            [(ngModel)]='model.description' #txtArabicDescription="ngModel"></textarea>
                     </div>
                     <label class="control-label col-md-2" for="ChkIsActive">{{ 'Active' | translate}}</label>
                     <div class="col-md-4">
                         <label>
-                            <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6" type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
+                            <input id="ChkIsActive" name="ChkIsActive" class="ace ace-switch ace-switch-6"
+                                type="checkbox" [(ngModel)]="model.isActive" #ChkIsActive="ngModel" />
                             <span class="lbl"></span>
                         </label>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary" [disabled]="!basicDataForm.form.valid  || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
-                    <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
- class="btn btn-primary" (click)="clear()">{{ 'New' | translate}}</button>
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="!basicDataForm.form.valid  || !enableMyAccountBtn">{{ 'Save' | translate}}</button>
+                    <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary"
+                        (click)="clear()">{{ 'New' | translate}}</button>
                 </div>
                 <br /><br />
                 <div class="floatBtn">
@@ -67,30 +79,76 @@
         <br />
         <div class="ui-widget-header searchWidget">
             <i class="fa fa-search searchIcon"></i>
-            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+            <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
         </div>
-        <!-- <p-dataTable [value]="allObjects" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="name" [header]="'Unit_ar' | translate" [sortable]="true"></p-column>
-            <p-column field="nameTranslation" [header]="'Unit_en' | translate" [sortable]="true"></p-column>
-            <p-column field="serialNumber" [header]="'SerialNumber' | translate" [sortable]="true"></p-column>
-            <p-column field="creationDate" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
-            <p-column field="lastModificationDate" [header]="'ModificationDate' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'Active' | translate" styleClass="text-center width70">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <label>
-                        <input id="ChkIsActiveInGrid" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox"
-                               [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
+       
+        <!---New Table-->
+        <p-table #dt [value]="allObjects" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['name','nameTranslation','serialNumber','creationDate','lastModificationDate']">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">{{'Unit_ar' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="nameTranslation">{{'Unit_en' | translate}} <p-sortIcon field="nameTranslation"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="serialNumber">{{'SerialNumber' | translate}} <p-sortIcon field="serialNumber">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="creationDate">{{'CreationDate' | translate}} <p-sortIcon field="creationDate">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="lastModificationDate">{{'ModificationDate' | translate}} <p-sortIcon
+                            field="lastModificationDate"></p-sortIcon>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
+                    </th>
+                    <th style="width: 8rem">
+                    </th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        <span>{{item.nameTranslation}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.serialNumber}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.creationDate}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.lastModificationDate}}</span>
+                    </td>
+                    <td>
+                        <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                            type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)"
+                            disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" />
                         <span class="lbl"></span>
-                    </label>
-                </ng-template>
-            </p-column>
-            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <a [class.disabled]="!enableMyAccountBtn ? true : null" > <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" style="color: #32bea6;"></i></a>
-                </ng-template>
-            </p-column>
-           
-        </p-dataTable> -->
+                    </td>
+                    <td style="text-align: center">
+                        <a [class.disabled]="!enableMyAccountBtn ? true : null">
+                            <i class="fa fa-pencil fa-2x" (click)="editItem(item.id)" title="Edit Department"
+                                style="color: #32bea6;"></i>
+                        </a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
 
         <div id="print-section" class="hidden">
             <table class="table table-responsive table-hover">
@@ -141,5 +199,3 @@
     -->
     </div>
 </div>
-
-
