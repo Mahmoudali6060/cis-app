@@ -1,10 +1,11 @@
-﻿import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClinicService } from '../../shared/clinic.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 @Component({
 
     selector: 'clinic-inventory-list',
@@ -28,6 +29,9 @@ export class ClinicInventoryList implements OnInit, OnChanges {
     isNullQuantity: any = null;
     clinicInventoriesList: any[] = [];
     lstToTranslated: string[] = [];
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+
     ngOnInit(): void {
         this.getAllProducts();
     }
@@ -61,9 +65,11 @@ export class ClinicInventoryList implements OnInit, OnChanges {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 });
 
 
