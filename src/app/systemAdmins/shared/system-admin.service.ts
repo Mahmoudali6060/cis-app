@@ -51,7 +51,7 @@ export class SystemAdminService extends BaseService {
    
     getVendorById(id: string): any {
         return this.http.get(`${this.administrationWebApiURL}/getVendorById/${id}`,this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
@@ -60,7 +60,7 @@ export class SystemAdminService extends BaseService {
 
 
         return this.http.post(this.administrationWebApiURL + "/createVendor", body, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 

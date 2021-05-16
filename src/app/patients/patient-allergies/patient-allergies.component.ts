@@ -7,6 +7,7 @@ import { DoctorService } from '../../doctors/shared/doctor.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Table } from 'primeng/table/table';
 
 @Component({
 
@@ -28,7 +29,9 @@ export class PatientAllergiesComponent implements OnInit {
     drugAllergiesList!: any;// = [];
     toSaveDrugAllergy: any;
     showProgress = false;
-
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+    
     constructor(private doctorService: DoctorService
         , public toastr: ToastrService
         , private _route: ActivatedRoute
@@ -49,9 +52,13 @@ export class PatientAllergiesComponent implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error('' + thisComponent.patientId + ' - ' + error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
+
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
+
                 });
     }
     addNewDrugAllergy() {

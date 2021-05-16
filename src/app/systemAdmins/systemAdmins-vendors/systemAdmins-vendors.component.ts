@@ -1,9 +1,10 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 import { SystemAdminService } from '../shared/system-admin.service';
+import { Table } from 'primeng/table/table';
 @Component({
 
     selector: 'systemAdmins-vendors',
@@ -20,6 +21,9 @@ export class SystemAdminVendorsComponent implements OnInit {
     vendors!: any[];
     toPrintDiv: string = "print-section";
     enableMyAccountBtn: boolean = false;
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+
     constructor(public toastr: ToastrService
         , private systemAdminService: SystemAdminService
         , public translate: TranslateService
@@ -36,9 +40,13 @@ export class SystemAdminVendorsComponent implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
+
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
+
                 });
 
         let userType = this.storage.retrieve("UserType");
