@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClinicService } from '../../shared/clinic.service';
 
@@ -9,6 +9,7 @@ import { AccountService } from '../../../security/shared/account.service';
 import { UserPermissions } from '../../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
 import { UtilityClass } from '../../../shared/shared/utility.class';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -51,7 +52,9 @@ export class DoctorInventoryRequestsComponent implements OnInit {
     isDurationVisible: boolean = false;
     isPeriodOfTimeVisible: boolean = false;
     durationLabel: string = this.translate.instant('Duration');
-
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+    
 
     ngOnInit(): void {
         this.lstToTranslated = ['itemName', 'itemNameTranslation', 'doctorName', 'doctorNameTranslation', 'departmentName', 'departmentNameTranslation', 'unitName', 'unitNameTranslation'];
@@ -85,9 +88,13 @@ export class DoctorInventoryRequestsComponent implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
+    
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
+    
                 });
 
 
