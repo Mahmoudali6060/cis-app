@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -14,6 +14,7 @@ import { AccountService } from '../../security/shared/account.service';
 import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { TreeNode } from 'primeng/api';
+import { Table } from 'primeng/table';
 @Component({
 
     selector: 'clinic-appointments',
@@ -29,7 +30,7 @@ export class ClinicAppointmentsComponent implements OnInit {
     doctorId: string = "0";
     doctorName: string = "";
     slotDurations: any[] = [];
-    appointmentsList: any[] = [];
+    appointmentsList!: any[];
     daysList: any[] = [];
     appointmentId = '';
     selectedFiles!: TreeNode;
@@ -51,6 +52,8 @@ export class ClinicAppointmentsComponent implements OnInit {
     enableDeleteBtn: boolean = false;
     lstToTranslated: string[] = [];
     lstToBeTranslated: string[] = [];
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
     showDetails(id: string) {
         this.isDetailsVisible = true;
         this.appointmentId = id;
@@ -129,9 +132,12 @@ export class ClinicAppointmentsComponent implements OnInit {
             },
             function (error: any) {
                 vm.toastr.error(error, '');
+                vm.loading = false;
             },
             function () { // finally
                 vm.showProgress = false;
+                vm.loading = false;
+
             });
 
     }
