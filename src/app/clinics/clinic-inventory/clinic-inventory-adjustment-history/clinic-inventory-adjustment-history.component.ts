@@ -1,10 +1,11 @@
-﻿import { Component, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, Input } from '@angular/core';
+﻿import { Component, OnInit, OnChanges, SimpleChanges, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from 'ng2-webstorage';
 import { ClinicService } from '../../shared/clinic.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'clinic-inventory-adjustment-history',
@@ -23,6 +24,9 @@ export class ClinicInventoryAdjustmentHistory implements OnInit {
     selectedClinicId!: number;
     @Input() updates: string = '';
     lstToTranslated: string[] = [];
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+    
     ngOnInit(): void {
         this.lstToTranslated = ['productName', 'productNameTranslation', 'recordedBy', 'recordedByTranslation'];
         this.getAllAdjustmentHistory();
@@ -43,9 +47,11 @@ export class ClinicInventoryAdjustmentHistory implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 });
 
     }
