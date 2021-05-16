@@ -4,6 +4,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { ClinicService } from '../shared/clinic.service';
 import { TreeNode } from 'primeng/api';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'clinic-humanResource-serviceSlots',
@@ -27,6 +28,8 @@ export class ClinicHumanResourceServiceSlotsComponent implements OnChanges {
     isEditMode: boolean = false;
     lstToTranslated: string[] = [];
     lstToBeTranslated: string[] = [];
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
     constructor(private clinicService: ClinicService,
         public toastr: ToastrService,
         public localStorage: LocalStorageService
