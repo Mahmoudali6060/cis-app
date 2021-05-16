@@ -8,6 +8,7 @@ import { ClinicService } from '../../shared/clinic.service';
 import { Reply } from '../../../classes/reply.class';
 import { Feedback } from '../../../classes/feedback.class';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'view-feedbacks-list',
@@ -35,7 +36,8 @@ export class ViewfeedbacksListComponent implements OnInit {
     selectedClinicId!: number;
     userType: string = '';
     isClinicAdmin: boolean = false;
-
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
     ngOnInit(): void {
         this.lstToTranslated = ['patientName', 'patientNameTranslation', 'lastReplyingUserName', 'lastReplyingUserNameTranslation'];
         this.selectedClinicId = this.localStorage.retrieve("ClinicID");
@@ -54,9 +56,11 @@ export class ViewfeedbacksListComponent implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 });
 
     }

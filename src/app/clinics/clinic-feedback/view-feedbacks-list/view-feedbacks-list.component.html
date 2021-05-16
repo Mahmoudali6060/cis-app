@@ -8,29 +8,89 @@
             <a>{{ 'Clinic' | translate}}</a> &nbsp;/
             {{ 'Feedback' | translate}}
         </div>
-    <div class="row well" style="background-color: #f6f7f9 !important;">
-        <div class="inner-addon left-addon">
-            <i class="glyphicon glyphicon-search"></i>
-            <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
-        </div>
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    [placeholder]="'Search' | translate" />
+            </div>
+            <!---New Table-->
+            <p-table #dt [value]="clinicFeedbacksList" dataKey="id" [rowHover]="true" [rows]="10"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading"
+                [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [filterDelay]="0"
+                [globalFilterFields]="['dateString','patientName','patientMobileNumber','message','status','lastReplyingUserName','lastReplyingDateString']">
 
-        <!-- <p-dataTable [value]="clinicFeedbacksList | translateObjects  : null : null : lstToTranslated " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="dateString" [header]="'FeedbackDate' | translate" [sortable]="true"></p-column>
-            <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
-            <p-column field="patientMobileNumber" [header]="'Contact' | translate" [sortable]="true"></p-column>
-            <p-column field="message" [header]="'Message' | translate" [sortable]="true"></p-column>
-            <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
-            <p-column field="lastReplyingUserName" [header]="'LastReplyBy' | translate" [sortable]="true"></p-column>
-            <p-column field="lastReplyingDateString" [header]="'LastReplyDate' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'Action' | translate" styleClass="text-center">
-                <ng-template let-feedback="rowData" pTemplate="body">
-                    <a class="pointer" routerLink="/clinic/feedback/replyToFeedback/{{feedback.id}}" [class.disabled]="!isClinicAdmin ? true : null">
-                        <img src="assets/images/edit-24.png" />
-                    </a>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="dateString">{{'FeedbackDate' | translate}} <p-sortIcon field="dateString">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="patientName">{{'PatientName' | translate}} <p-sortIcon field="patientName">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="patientMobileNumber">{{'Contact' | translate}} <p-sortIcon
+                                field="patientMobileNumber">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="message">{{'Message' | translate}} <p-sortIcon field="message">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="status">{{'Status' | translate}} <p-sortIcon field="status">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="lastReplyingUserName">{{'LastReplyBy' | translate}} <p-sortIcon
+                                field="lastReplyingUserName">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="lastReplyingDateString">{{'LastReplyDate' | translate}} <p-sortIcon
+                                field="lastReplyingDateString">
+                            </p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Action' | translate}} </span>
+                        </th>
+                    </tr>
+
                 </ng-template>
-            </p-column>
-        </p-dataTable> -->
-    </div>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            {{item.dateString}}
+                        </td>
+                        <td>
+                            {{item.patientName}}
+                        </td>
+                        <td>
+                            {{item.patientMobileNumber}}
+                        </td>
+                        <td>
+                            {{item.message}}
+                        </td>
+                        <td>
+                            {{item.status}}
+                        </td>
+                        <td>
+                            {{item.lastReplyingUserName}}
+                        </td>
+                        <td>
+                            {{item.lastReplyingDateString}}
+                        </td>
+                        <td style="text-align: center">
+                            <a class="pointer" routerLink="/clinic/feedback/replyToFeedback/{{item.id}}"
+                                [class.disabled]="!isClinicAdmin ? true : null">
+                                <img src="assets/images/edit-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
+
+        </div>
     </div>
 </div>
-
