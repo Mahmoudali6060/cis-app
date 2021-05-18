@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 
@@ -7,6 +7,7 @@ import { AdministrationService } from '../../administration/shared/administratio
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Table } from 'primeng/table/table';
 
 @Component({
 
@@ -25,7 +26,9 @@ export class SystemAdminDivisionsComponent implements OnInit {
     departmentsList!: any[];
     selectDivisionsTab: boolean = true;
     enableMyAccountBtn: boolean = false;
-
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+    
     constructor(private administrationService: AdministrationService,
         public toastr: ToastrService,
         public localStorage: LocalStorageService
@@ -93,9 +96,11 @@ export class SystemAdminDivisionsComponent implements OnInit {
                 function (error: any) {
                     vm.toastr.error(error, '');
                     vm.showProgress = false;
+                    vm.loading = false;
                 },
                 function () {
                     vm.showProgress = false;
+                    vm.loading = false;
                 });
     }
 

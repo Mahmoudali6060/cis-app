@@ -28,8 +28,80 @@
 
                 <div class="inner-addon left-addon">
                     <i class="glyphicon glyphicon-search"></i>
-                    <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+                    <!-- <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate"> -->
+                    <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
+
                 </div>
+                <!---New Table-->
+            <p-table #dt [value]="vendors" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['name','nameTranslation']">
+            
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">{{'ArabicName' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="nameTranslation">{{'EnglishName' | translate}} <p-sortIcon
+                            field="nameTranslation"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="code">{{'Code' | translate}} <p-sortIcon
+                        field="code"></p-sortIcon>
+                </th>
+                <th pSortableColumn="creationDate">{{'CreationDate' | translate}} <p-sortIcon
+                    field="creationDate"></p-sortIcon>
+                </th>   
+                    
+                    <th><span styleClass="text-center width70">{{'ActiveQues' | translate}} </span>
+                    </th>
+                    <th><span styleClass="width:8rem">{{'Edit' | translate}} </span>
+                    </th>
+                    
+                    <!-- <th style="width: 8rem">
+                    </th> -->
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-object>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{object.name}}
+                    </td>
+                    <td>
+                        <span>{{object.nameTranslation}}</span>
+                    </td>
+                    <td>
+                        {{object.code}}
+                    </td>
+                    <td>
+                        {{object.creationDate}}
+                    </td>
+                    <td>
+                        <label>
+                            <input id="ChkIsActiveInGrid"
+                                   disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                                   name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                   type="checkbox" [checked]="object.isActive"
+                                   (click)="changeActivation(object.id , $event)" />
+                            <span class="lbl"></span>
+                        </label>
+                    </td>
+                    <td style="text-align: center">
+                        <a [class.disabled]="!enableMyAccountBtn ? true : null">
+                            <i class="fa fa-pencil fa-2x" [routerLink]="['/systemAdmin/vendorDetails/', object.id]" style="color: #32bea6;"></i>
+                        </a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
+
                 <!-- <p-dataTable [value]="vendors" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
                     <p-column field="name" [header]="'NameArabic' | translate" [sortable]="true"></p-column>
                     <p-column field="nameTranslation" [header]="'NameEnglish' | translate" [sortable]="true"></p-column>

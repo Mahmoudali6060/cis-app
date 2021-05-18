@@ -11,8 +11,73 @@
 
        <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-search"></i>
-        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
-    </div>
+        <!-- <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate"> -->
+        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
+
+        </div>    
+         <!---New Table-->
+        <p-table #dt [value]="drugAllergiesList | translateObjects  : null : null : lstToTranslated" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['drugCode','description']">
+            
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="drugCode">{{'DrugCode' | translate}} <p-sortIcon field="drugCode"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="drugName">{{'DrugName' | translate}} <p-sortIcon field="drugName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="description">{{'Description' | translate}} <p-sortIcon field="description"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="recorderName">{{'RecorderName' | translate}} <p-sortIcon field="recorderName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="recordingDateString">{{'RecordingDate' | translate}} <p-sortIcon field="recordingDateString"></p-sortIcon>
+                    </th>
+
+                    <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                    </th>
+                    <th><span styleClass="width: 8rem">{{'Delete'| translate}} </span>
+                    </th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-object>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{object.drugCode}}
+                    </td>
+                    <td>
+                        {{object.drugName}}
+                    </td>
+                    <td>
+                        {{object.description}}
+                    </td>
+                    <td>
+                        {{object.recorderName}}
+                    </td>
+                    <td>
+                        {{object.recordingDateString}}
+                    </td>
+                    <td>
+                        <a class="pointer" (click)="showDetails(object)" [class.disabled]="!enable ? true : null">
+                            <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
+                        </a>
+                    </td>
+                    <td style="text-align: center">
+                        <a class="pointer" (click)="deleteDrugAllergy(object)" [class.disabled]="!enable ? true : null" >
+                            <i  class="glyphicon glyphicon-remove iconClose"></i>
+                        </a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
+
     <!-- <p-dataTable [value]="drugAllergiesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
         <p-column field="drugCode"  [header]="'DrugCode' | translate" [sortable]="true"></p-column>
         <p-column field="drugName" [header]="'DrugName' | translate" [sortable]="true"></p-column>
