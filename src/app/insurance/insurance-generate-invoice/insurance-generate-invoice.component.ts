@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../security/shared/account.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { InsuranceService } from '../shared/insurance.service';
 import { UtilityClass } from '../../shared/shared/utility.class'
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -41,6 +42,7 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
     prepaidBalance!: any;
     totalAmount!: any;
     lstToTranslated: string[] = [];
+    @ViewChild('dt') table!: Table;
 
     constructor(
         private toastr: ToastrService,
