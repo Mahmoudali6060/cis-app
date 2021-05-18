@@ -4,7 +4,7 @@
 <div class="row well">
     <div class="row text-right nopadding">
         <button disabled="{{ enableCopyPolicyBtn ? '' :'disabled'}}" type="button" class="btn btn-primary"
-                (click)="displayPolicyDetailsPopupForNew()">
+            (click)="displayPolicyDetailsPopupForNew()">
             {{ 'New' | translate}}
         </button>
     </div>
@@ -13,46 +13,86 @@
 <div class="row">
 
     <div class="padding2"></div>
-    <div  class="row well" style="background-color: #f6f7f9 !important;">
+    <div class="row well" style="background-color: #f6f7f9 !important;">
         <div class="inner-addon left-addon">
             <i class="glyphicon glyphicon-search"></i>
-            <input #gb type="text" pInputText size="50" class="inputSearch" placeholder="Search...">
+            <input pInputText type="text" #gb (input)="dt.filterGlobal($event.target.value, 'contains')"
+                [placeholder]="'Search' | translate" />
         </div>
+        <!---New Table-->
+        <p-table #dt [value]="policiesList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['name','code','startDateString','endDateString']">
 
-        <!-- <p-dataTable [value]="policiesList | translateObjects : 'name' : 'nameTranslation':null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="name" [header]="'PolicyName' | translate" [sortable]="true"></p-column>
-            <p-column field="code" [header]="'Code' | translate" [sortable]="true"></p-column>
-            <p-column field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
-            <p-column field="endDateString" [header]="'EndDate' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'Active' | translate" styleClass="text-center width70">
-                <ng-template let-policy="rowData" pTemplate="body">
-                    <label>
-                        <input id="ChkIsActiveInGrid" disabled="{{ enableUpdatePolicyBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
-                               type="checkbox" [checked]="policy.isActive"
-                               (click)="changeActivation(policy.id , $event)" />
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">{{'PolicyName' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="code">{{'Code' | translate}} <p-sortIcon field="code"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="startDateString">{{'StartDate' | translate}} <p-sortIcon
+                            field="startDateString"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="endDateString">{{'EndDate' | translate}} <p-sortIcon field="endDateString">
+                        </p-sortIcon>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'Copy' | translate}} </span>
+                    </th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        <span>{{item.code}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.startDateString}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.endDateString}}</span>
+                    </td>
+                    <td>
+                        <input id="ChkIsActiveInGrid" disabled="{{ enableUpdatePolicyBtn ? '' :'disabled'}}"
+                            name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox"
+                            [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
                         <span class="lbl"></span>
-                    </label>
-                </ng-template>
-            </p-column>
-            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                <ng-template let-policy="rowData" pTemplate="body">
-                    <a [class.disabled]="!enableViewPolicyDetailsBtn? true : null">
-                        <i class="fa fa-pencil fa-2x" (click)="displayPolicyDetailsPopup(policy.id)" style="color: #32bea6;"></i>
-                    </a>
+                    </td>
+                    <td style="text-align: center">
+                        <a [class.disabled]="!enableViewPolicyDetailsBtn? true : null">
+                            <i class="fa fa-pencil fa-2x" (click)="displayPolicyDetailsPopup(item.id)"
+                                style="color: #32bea6;"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a [class.disabled]="!enableCopyPolicyBtn ? true : null"> <img src="assets/images/copy-24.png"
+                                class="pointer" (click)="displayCopyPolicyPopup(item.id)" /></a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
 
-                </ng-template>
-            </p-column>
-            <p-column [header]="'Copy' | translate" styleClass="text-center width50">
-                <ng-template let-policy="rowData" pTemplate="body">
-                    <a [class.disabled]="!enableCopyPolicyBtn ? true : null"> <img src="assets/images/copy-24.png" class="pointer" (click)="displayCopyPolicyPopup(policy.id)" /></a>
-                </ng-template>
-            </p-column>
-        </p-dataTable> -->
     </div>
 </div>
 <div class="row " style="display:none;">
-    <button #btnDisplayPolicyDetailsPopup type="button" class="btn btn-primary" data-toggle="modal" data-target="#policyDetailsPopup"></button>
-    <button #btnDisplayPolicyCopyPopup type="button" class="btn btn-primary" data-toggle="modal" data-target="#policyCopyPopup"></button>
+    <button #btnDisplayPolicyDetailsPopup type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#policyDetailsPopup"></button>
+    <button #btnDisplayPolicyCopyPopup type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#policyCopyPopup"></button>
 </div>
 <!-- Policy Details Modal -->
 <div id="policyDetailsPopup" class="modal fade" role="dialog" data-backdrop="static">
@@ -64,12 +104,10 @@
                 <h4 class="modal-title">{{ 'PolicyDetails' | translate}}</h4>
             </div>
             <div class="modal-body">
-                <insurance-policy-details [companyId]="companyId"
-                                          [companyName]="companyName"
-                                          [policyId]="selectedPolicyId"
-                                          [policyPatients]="policyPatients"
-                                          (onPolicyAdded)="handlePolicyAdded($event)"
-                                          (onPolicyUpdated)="handlePolicyUpdated($event)"></insurance-policy-details>
+                <insurance-policy-details [companyId]="companyId" [companyName]="companyName"
+                    [policyId]="selectedPolicyId" [policyPatients]="policyPatients"
+                    (onPolicyAdded)="handlePolicyAdded($event)" (onPolicyUpdated)="handlePolicyUpdated($event)">
+                </insurance-policy-details>
             </div>
         </div>
     </div>
@@ -83,30 +121,39 @@
                 <h4 class="modal-title">{{ 'PolicyCopy' | translate}}</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" *ngIf="active" name="policyCopyForm" (ngSubmit)="copyPolicy()" #policyCopyForm="ngForm">
+                <form class="form-horizontal" *ngIf="active" name="policyCopyForm" (ngSubmit)="copyPolicy()"
+                    #policyCopyForm="ngForm">
 
                     <div class="form-group">
                         <label class="control-label col-md-2">{{ 'Code' | translate}}</label>
                         <div class="col-md-4">
-                            <input type="text" id="txtCode" name="txtCode" [(ngModel)]='policyCopyModel.code' #txtCode="ngModel" class="form-control" required />
+                            <input type="text" id="txtCode" name="txtCode" [(ngModel)]='policyCopyModel.code'
+                                #txtCode="ngModel" class="form-control" required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">{{ 'ArabicName' | translate}}</label>
                         <div class="col-md-8">
-                            <input type="text" id="txtArabicName" name="txtArabicName" [(ngModel)]='policyCopyModel.name' #txtArabicName="ngModel" class="form-control" required />
+                            <input type="text" id="txtArabicName" name="txtArabicName"
+                                [(ngModel)]='policyCopyModel.name' #txtArabicName="ngModel" class="form-control"
+                                required />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">{{ 'EnglishName' | translate}}</label>
                         <div class="col-md-8">
-                            <input type="text" id="txtEnglishName" name="txtEnglishName" [(ngModel)]='policyCopyModel.nameTranslation' #txtEnglishName="ngModel" class="form-control" required />
+                            <input type="text" id="txtEnglishName" name="txtEnglishName"
+                                [(ngModel)]='policyCopyModel.nameTranslation' #txtEnglishName="ngModel"
+                                class="form-control" required />
                         </div>
                     </div>
                     <div class="form-group text-center">
                         <br />
-                        <button type="submit" class="btn btn-primary" [disabled]="!policyCopyForm.valid || !enableCopyPolicyBtn">{{ 'Copy' | translate}}</button>
-                        <button type="button" disabled="{{ enableCopyPolicyBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal" #btnClosePolicyCopyPopup>{{ 'Cancel' | translate}}</button>
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="!policyCopyForm.valid || !enableCopyPolicyBtn">{{ 'Copy' | translate}}</button>
+                        <button type="button" disabled="{{ enableCopyPolicyBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" data-dismiss="modal" #btnClosePolicyCopyPopup>{{ 'Cancel' |
+                            translate}}</button>
                     </div>
                 </form>
             </div>

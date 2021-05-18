@@ -8,6 +8,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { TranslateService } from '@ngx-translate/core';
 
 import { InsuranceService } from '../shared/insurance.service';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -37,6 +38,7 @@ export class InsurancePolicyComponent implements OnInit {
     policyCopyModel: any = { id: 0 };
     selectedPolicyToCopyId: any;
     policyPatients: any[] = [];
+    @ViewChild('dt') table!: Table;
 
     constructor(
         private insuranceService: InsuranceService,
