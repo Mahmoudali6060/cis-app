@@ -11,6 +11,7 @@ import { ClaimService } from '../../cashier/shared/claim.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { Charge } from '../../classes/charge.class';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 @Component({
 
     selector: 'insurance-invoice-services',
@@ -57,7 +58,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
     @ViewChild('btnCancelResubmitChargeModal') btnCancelResubmitChargeModal!: ElementRef;
 
     enableReleaseChargeboolean: boolean = true;
-
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
         , private activatedRoute: ActivatedRoute
