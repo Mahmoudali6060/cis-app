@@ -10,6 +10,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
 import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+import { Table } from 'primeng/table';
 @Component({
 
     selector: 'doctor-requests',
@@ -26,7 +27,7 @@ export class DoctorRequestsComponent implements OnInit {
     doctorId!: string;
     clinicIdReq!: string;
     hasMultiClincs = false;
-    clinics:any = [];
+    clinics: any = [];
     selectedClinic: any = {};
     clinicId = '';
     enableDeleteInventoryRequest: boolean = false;
@@ -38,6 +39,7 @@ export class DoctorRequestsComponent implements OnInit {
     @ViewChild('btnOpenDeleteRequestPopup') btnOpenDeleteRequestPopup!: ElementRef;
     showProgress = false;
     allInventoryRequestObjects!: any[];
+    @ViewChild('dt') table!: Table;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
