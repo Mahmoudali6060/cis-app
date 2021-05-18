@@ -9,6 +9,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../../security/shared/account.service';
 import { UserPermissions } from '../../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
+import { Table } from 'primeng/table';
 @Component({
 
     selector: 'purchase-order-view-details',
@@ -33,6 +34,7 @@ export class PurchaseOrderViewDetails {
     enableEditBtn: boolean = false;
     enableReceiveLink: boolean = false;
     lstToTranslated: string[] = [];
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router

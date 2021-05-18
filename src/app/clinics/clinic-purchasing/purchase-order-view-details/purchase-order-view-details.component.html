@@ -15,7 +15,8 @@
                                 <li>
                                     {{ 'Clinic' | translate}}
                                 </li>
-                                <li class="active-page">{{ 'PurchaseOrders' | translate}} > {{ 'PurchaseOrderDetails' | translate}}</li>
+                                <li class="active-page">{{ 'PurchaseOrders' | translate}} > {{ 'PurchaseOrderDetails' |
+                                    translate}}</li>
                             </ul>
                         </div>
                     </div>
@@ -34,7 +35,8 @@
         </div>
         <div class="row">
             <label class="control-label col-md-2">{{ 'Vendor' | translate}}:</label>
-            <label class="control-label col-md-4">{{(model  | translateObjects  : 'vendorName' : 'vendorNameTranslation').vendorName}}</label>
+            <label class="control-label col-md-4">{{(model | translateObjects : 'vendorName' :
+                'vendorNameTranslation').vendorName}}</label>
             <label class="control-label col-md-2">{{ 'Status' | translate}}:</label>
             <label class="control-label col-md-4">{{model.orderStatus | translate}}</label>
         </div>
@@ -45,33 +47,89 @@
             <label class="control-label col-md-4">{{model.description}}</label>
         </div>
         <div class="row text-right">
-                <button class="btn btn-primary" *ngIf="!isClosed" (click)="viewOrderDetails(model.id)" disabled="{{ enableReceiveLink || isClinicAdmin ? '' :'disabled'}}">{{ 'ReceiveQuantity' | translate}}</button>
-                <button class="btn btn-primary" *ngIf="!isSent" (click)="checkProductsInItemsList(model.id)" disabled="{{ enableEditBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'EditOrder' | translate}}</button>
+            <button class="btn btn-primary" *ngIf="!isClosed" (click)="viewOrderDetails(model.id)"
+                disabled="{{ enableReceiveLink || isClinicAdmin ? '' :'disabled'}}">{{ 'ReceiveQuantity' |
+                translate}}</button>
+            <button class="btn btn-primary" *ngIf="!isSent" (click)="checkProductsInItemsList(model.id)"
+                disabled="{{ enableEditBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'EditOrder' | translate}}</button>
             <button class="btn btn-primary" (click)="navigateToOrdersList()">{{ 'Back' | translate}}</button>
         </div>
-        <br/>
+        <br />
         <br />
         <div class="ui-widget-header searchWidget">
             <i class="fa fa-search searchIcon"></i>
             <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
         </div>
-        <!-- <p-dataTable [value]="itemsList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="productName" [header]="'Item' | translate" [sortable]="true"></p-column>
-            <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'Unit' | translate">
-                <ng-template let-item="rowData" pTemplate="body">
-                    <label *ngIf="item.unitType === 'NumbersUnit'">{{ item.unit | translate}}</label>
-                    <label *ngIf="item.unitType == 'HeightsUnit' || item.unitType == 'WeightsUnit' || item.unitType == 'VolumesUnit'">
-                        {{ item.unit}}
-                    </label>
-                </ng-template>
-            </p-column>
-            <p-column field="purchasingPrice" [header]="'PurchasePrice' | translate" [sortable]="true"></p-column>
-            <p-column field="orderedQuantity" [header]="'OrderdQuant' | translate" [sortable]="true"></p-column>
-            <p-column field="net" [header]="'Net' | translate" [sortable]="true"></p-column>
-            <p-column field="description" [header]="'Remark' | translate" [sortable]="true"></p-column>
-            <p-column field="userName" [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
-        </p-dataTable> -->
+
+
+        <!---New Table-->
+        <p-table #dt [value]="itemsList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['name','nameTranslation']">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="productName">{{'Item' | translate}} <p-sortIcon field="productName">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="onHandQuantity">{{'OnhandQuantity' | translate}} <p-sortIcon
+                            field="onHandQuantity"></p-sortIcon>
+                    </th>
+                    <th>{{'Unit' | translate}}
+                    </th>
+                    <th pSortableColumn="purchasingPrice">{{'PurchasePrice' | translate}} <p-sortIcon
+                            field="purchasingPrice"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="orderedQuantity">{{'OrderdQuant' | translate}} <p-sortIcon
+                            field="orderedQuantity"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="net">{{'Net' | translate}} <p-sortIcon field="net"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="description">{{'Remark' | translate}} <p-sortIcon field="description">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="net">{{'LastModifierUser' | translate}} <p-sortIcon field="net"></p-sortIcon>
+                    </th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{item.productName}}
+                    </td>
+                    <td>
+                        <span>{{item.onHandQuantity}}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="item.unitType === 'NumbersUnit'">{{ item.unit | translate}}</span>
+                        <span
+                            *ngIf="item.unitType == 'HeightsUnit' || item.unitType == 'WeightsUnit' || item.unitType == 'VolumesUnit'">
+                            {{ item.unit}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.purchasingPrice}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.net}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.description}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.userName}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
+
     </div>
 </div>
 <button data-toggle="modal" data-target="#confirm" type="button" style="display:none" #btnConfirm>
@@ -89,8 +147,10 @@
                 <p>{{itemsMsge}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" (click)="useCurrentOrderdQuantity()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="useItemOrderdQuantity()">{{ 'No' | translate}}</button>
+                <button type="button" class="btn btn-danger" (click)="useCurrentOrderdQuantity()"
+                    data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="useItemOrderdQuantity()">{{
+                    'No' | translate}}</button>
             </div>
         </div>
 
