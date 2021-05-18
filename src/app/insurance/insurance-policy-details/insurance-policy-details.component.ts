@@ -9,6 +9,7 @@ import { InsuranceService } from '../shared/insurance.service';
 import { UtilityClass } from '../../shared/shared/utility.class'
 import { PatientService } from '../../patients/shared/patient.service';
 import { ToastrService } from 'ngx-toastr';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -47,6 +48,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
     patientSearchVisible: boolean = false;
     policyPatientFormActive = true;
     enableEditPolicypatient: boolean = false;
+    @ViewChild('dt') table!: Table;
     constructor(
         private insuranceService: InsuranceService,
         private patientService: PatientService,

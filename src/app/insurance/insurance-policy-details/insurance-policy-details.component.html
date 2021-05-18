@@ -2,87 +2,93 @@
     <loading></loading>
 </div>
 <div class="row">
-    <div  class="tabbable-panel">
+    <div class="tabbable-panel">
         <div class="tabbable-line">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#divPolicyBasic" data-toggle="tab" aria-expanded="true">{{ 'BasicData' | translate}}</a></li>
-                <li *ngIf="isUpdateMode()"><a href="#divPatients" data-toggle="tab" aria-expanded="true">{{ 'Patients' | translate}}</a></li>
-                <li *ngIf="!isUpdateMode()"><a href="#divPatients" class="dimmedLink">{{ 'Patients' | translate}}</a></li>
+                <li class="active"><a href="#divPolicyBasic" data-toggle="tab" aria-expanded="true">{{ 'BasicData' |
+                        translate}}</a></li>
+                <li *ngIf="isUpdateMode()"><a href="#divPatients" data-toggle="tab" aria-expanded="true">{{ 'Patients' |
+                        translate}}</a></li>
+                <li *ngIf="!isUpdateMode()"><a href="#divPatients" class="dimmedLink">{{ 'Patients' | translate}}</a>
+                </li>
             </ul>
         </div>
     </div>
     <div id="divPolicyTabsContent" class="tab-content">
         <div class="tab-pane fade active in" id="divPolicyBasic">
-            <form class="form-horizontal" *ngIf="active" name="policyDetailsForm" (ngSubmit)="onSubmit()" #policyDetailsForm="ngForm">
+            <form class="form-horizontal" *ngIf="active" name="policyDetailsForm" (ngSubmit)="onSubmit()"
+                #policyDetailsForm="ngForm">
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'Active' | translate}}</label>
                     <div class="col-md-4">
-                        <input type="checkbox" class="ace ace-switch ace-switch-6"
-                               id="chkIsActive" name="chkIsActive"
-                               [(ngModel)]="policyModel.isActive" #chkIsActive="ngModel" />
+                        <input type="checkbox" class="ace ace-switch ace-switch-6" id="chkIsActive" name="chkIsActive"
+                            [(ngModel)]="policyModel.isActive" #chkIsActive="ngModel" />
                         <span class="lbl"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'InsuranceCompany' | translate}}</label>
                     <div class="col-md-4">
-                        <input type="text" id="txtCompanyName" name="txtCompanyName" [(ngModel)]='policyModel.companyName' #txtCompanyName="ngModel" class="form-control" disabled />
+                        <input type="text" id="txtCompanyName" name="txtCompanyName"
+                            [(ngModel)]='policyModel.companyName' #txtCompanyName="ngModel" class="form-control"
+                            disabled />
                     </div>
                     <label class="control-label col-md-2">{{ 'Code' | translate}}</label>
                     <div class="col-md-4">
-                        <input type="text" id="txtCode" name="txtCode" [(ngModel)]='policyModel.code' #txtCode="ngModel" class="form-control" required />
+                        <input type="text" id="txtCode" name="txtCode" [(ngModel)]='policyModel.code' #txtCode="ngModel"
+                            class="form-control" required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'ArabicName' | translate}}</label>
                     <div class="col-md-4">
-                        <input type="text" id="txtArabicName" name="txtArabicName" [(ngModel)]='policyModel.name' #txtArabicName="ngModel" class="form-control" required />
+                        <input type="text" id="txtArabicName" name="txtArabicName" [(ngModel)]='policyModel.name'
+                            #txtArabicName="ngModel" class="form-control" required />
                     </div>
                     <label class="control-label col-md-2">{{ 'EnglishName' | translate}}</label>
                     <div class="col-md-4">
-                        <input type="text" id="txtEnglishName" name="txtEnglishName" [(ngModel)]='policyModel.nameTranslation' #txtEnglishName="ngModel" class="form-control" required />
+                        <input type="text" id="txtEnglishName" name="txtEnglishName"
+                            [(ngModel)]='policyModel.nameTranslation' #txtEnglishName="ngModel" class="form-control"
+                            required />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'StartDate' | translate}}</label>
                     <div class="col-md-4">
-                        <p-calendar [(ngModel)]="policyModel.startDate"
-                                    [monthNavigator]="true"
-                                    [yearNavigator]="true"
-                                    dateFormat="dd/mm/yy"
-                                    [showIcon]="true" [required]="true"
-                                    [ngModelOptions]="{standalone: true}"
-                                    yearRange="2000:2050"></p-calendar>
+                        <p-calendar [(ngModel)]="policyModel.startDate" [monthNavigator]="true" [yearNavigator]="true"
+                            dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                            [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                     </div>
                     <label class="control-label col-md-2">{{ 'EndDate' | translate}}</label>
                     <div class="col-md-4">
-                        <p-calendar [(ngModel)]="policyModel.endDate"
-                                    [monthNavigator]="true"
-                                    [yearNavigator]="true"
-                                    dateFormat="dd/mm/yy"
-                                    [showIcon]="true" [required]="true"
-                                    [ngModelOptions]="{standalone: true}"
-                                    yearRange="2000:2050"></p-calendar>
+                        <p-calendar [(ngModel)]="policyModel.endDate" [monthNavigator]="true" [yearNavigator]="true"
+                            dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                            [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'DiscountPercentage' | translate}}</label>
                     <div class="col-md-2">
-                        <input type="number" id="txtDiscountPercentage" pattern="^[0-9]{1,3}(\.[0-9]{0,2})?$" name="txtDiscountPercentage" [(ngModel)]='policyModel.discountPercentage' class="form-control" />
+                        <input type="number" id="txtDiscountPercentage" pattern="^[0-9]{1,3}(\.[0-9]{0,2})?$"
+                            name="txtDiscountPercentage" [(ngModel)]='policyModel.discountPercentage'
+                            class="form-control" />
                     </div>
                     <div class="col-md-2">%</div>
                     <label class="control-label col-md-2">{{ 'DeductiblePercentage' | translate}}</label>
                     <div class="col-md-2">
-                        <input type="number" pattern="^[0-9]{1,3}(\.[0-9]{0,2})?$" id="txtDeductibleAmount" name="txtDeductibleAmount" [(ngModel)]='policyModel.deductibleAmount' class="form-control" />
+                        <input type="number" pattern="^[0-9]{1,3}(\.[0-9]{0,2})?$" id="txtDeductibleAmount"
+                            name="txtDeductibleAmount" [(ngModel)]='policyModel.deductibleAmount'
+                            class="form-control" />
                     </div>
-                   %
+                    %
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'MaximumCoverageAmount' | translate}}</label>
                     <div class="col-md-2">
-                        <input type="number" id="txtMaximumCoverageAmount" name="txtMaximumCoverageAmount" [(ngModel)]='policyModel.maximumCoverageAmount' class="form-control" />
+                        <input type="number" id="txtMaximumCoverageAmount" name="txtMaximumCoverageAmount"
+                            [(ngModel)]='policyModel.maximumCoverageAmount' class="form-control" />
                     </div>
-                  <!--  <label class="control-label col-md-4">{{ 'SpecialPrice' | translate}}</label>
+                    <!--  <label class="control-label col-md-4">{{ 'SpecialPrice' | translate}}</label>
                     <div class="col-md-2">
                         <input type="number" id="txtSpecialPrice" name="txtSpecialPrice" [(ngModel)]='policyModel.specialPrice' class="form-control" />
                     </div>-->
@@ -90,74 +96,81 @@
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'Remarks' | translate}}</label>
                     <div class="col-md-4">
-                        <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='policyModel.description'></textarea>
+                        <textarea class="form-control" id="txtRemarks" name="txtRemarks"
+                            [(ngModel)]='policyModel.description'></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">{{ 'LastModificationDate' | translate}}</label>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="txtLastModificationDate" name="txtLastModificationDate" [(ngModel)]='policyModel.lastModificationDateString' disabled="disabled" />
+                        <input type="text" class="form-control" id="txtLastModificationDate"
+                            name="txtLastModificationDate" [(ngModel)]='policyModel.lastModificationDateString'
+                            disabled="disabled" />
                     </div>
                     <label class="control-label col-md-2">{{ 'LastModifierUser' | translate}}</label>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" id="txtLastModifierUser" name="txtLastModifierUser" [(ngModel)]='policyModel.lastModifierName' disabled="disabled" />
+                        <input type="text" class="form-control" id="txtLastModifierUser" name="txtLastModifierUser"
+                            [(ngModel)]='policyModel.lastModifierName' disabled="disabled" />
                     </div>
                 </div>
                 <div class="form-group text-center">
                     <br />
-                    <button type="submit" class="btn btn-primary" [disabled]="!policyDetailsForm.valid">{{ 'Save' | translate}}</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' | translate}}</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!policyDetailsForm.valid">{{ 'Save' |
+                        translate}}</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'Cancel' |
+                        translate}}</button>
                 </div>
             </form>
         </div>
         <div class="tab-pane fade" id="divPatients">
             <div class="row">
-                <button class="btn btn-primary" data-toggle="collapse" data-target="#divPolicyPatient" #btnOpenPolicyPatientDiv>{{ 'New' | translate}}</button>
+                <button class="btn btn-primary" data-toggle="collapse" data-target="#divPolicyPatient"
+                    #btnOpenPolicyPatientDiv>{{ 'New' | translate}}</button>
                 <div id="divPolicyPatient" class="collapse fa-border well">
                     <div class="padding5 marginTop35">
-                        <form class="form-horizontal" *ngIf="policyPatientFormActive" name="policyPatientForm" (ngSubmit)="savePolicyPatient()" #policyPatientForm="ngForm">
+                        <form class="form-horizontal" *ngIf="policyPatientFormActive" name="policyPatientForm"
+                            (ngSubmit)="savePolicyPatient()" #policyPatientForm="ngForm">
                             <div class="form-group">
                                 <label class="col-md-2 control-label">{{ 'MRN' | translate}}</label>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" [(ngModel)]='policyPatientModel.patientMrn' id="txtMrn" name="txtMrn" #txtMrn="ngModel" required />
-                                    <a class="pointer" (click)="showDialog()">{{ 'PatientAdvancedSearch' | translate}}</a>
+                                    <input type="text" class="form-control" [(ngModel)]='policyPatientModel.patientMrn'
+                                        id="txtMrn" name="txtMrn" #txtMrn="ngModel" required />
+                                    <a class="pointer" (click)="showDialog()">{{ 'PatientAdvancedSearch' |
+                                        translate}}</a>
                                 </div>
                                 <!-- <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="patientSearchVisible" resizable="true" width="800" responsive="true" height="auto">
                                     <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
                                 </p-dialog> -->
-                                <label for="txtName" class="col-md-2 control-label">{{ 'MembershipNumber' | translate}}</label>
+                                <label for="txtName" class="col-md-2 control-label">{{ 'MembershipNumber' |
+                                    translate}}</label>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" [(ngModel)]='policyPatientModel.cardNumber' id="txtMembershipNumber" name="txtMembershipNumber" #txtMembershipNumber="ngModel" required />
+                                    <input type="text" class="form-control" [(ngModel)]='policyPatientModel.cardNumber'
+                                        id="txtMembershipNumber" name="txtMembershipNumber"
+                                        #txtMembershipNumber="ngModel" required />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label">{{ 'StartDate' | translate}}</label>
                                 <div class="col-md-3">
-                                    <p-calendar [(ngModel)]="policyPatientModel.startDate"
-                                                [monthNavigator]="true"
-                                                [yearNavigator]="true"
-                                                dateFormat="dd/mm/yy"
-                                                [showIcon]="true"
-                                                [required]="true"
-                                                [ngModelOptions]="{standalone: true}"
-                                                yearRange="2000:2050"></p-calendar>
+                                    <p-calendar [(ngModel)]="policyPatientModel.startDate" [monthNavigator]="true"
+                                        [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                        [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                                 </div>
                                 <label class="col-md-2 control-label">{{ 'EndDate' | translate}}</label>
                                 <div class="col-md-3">
-                                    <p-calendar [(ngModel)]="policyPatientModel.endDate"
-                                                [monthNavigator]="true"
-                                                [yearNavigator]="true"
-                                                dateFormat="dd/mm/yy"
-                                                [showIcon]="true"
-                                                [required]="true"
-                                                [ngModelOptions]="{standalone: true}"
-                                                yearRange="2000:2050"></p-calendar>
+                                    <p-calendar [(ngModel)]="policyPatientModel.endDate" [monthNavigator]="true"
+                                        [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                        [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-4 col-md-offset-2">
-                                    <button type="submit" class="btn btn-primary" [disabled]="!policyPatientForm.valid || !enableSavePolicyBtn">{{ 'Save' | translate}}</button>
-                                    <button type="button" disabled="{{ enableSavePolicyBtn ? '' :'disabled'}}" class="btn btn-primary" (click)="clearPolicyPatient()">{{ 'Cancel' | translate}}</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        [disabled]="!policyPatientForm.valid || !enableSavePolicyBtn">{{ 'Save' |
+                                        translate}}</button>
+                                    <button type="button" disabled="{{ enableSavePolicyBtn ? '' :'disabled'}}"
+                                        class="btn btn-primary" (click)="clearPolicyPatient()">{{ 'Cancel' |
+                                        translate}}</button>
                                 </div>
                             </div>
                         </form>
@@ -165,31 +178,76 @@
                 </div>
             </div>
             <div class="row">
-                <!---->
-                <!-- <p-dataTable [value]="policyPatients | translateObjects : 'patientName' : 'patientNameTranslation' :null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                    <p-column field="patientMrn" [header]="'MRN' | translate" [sortable]="true"></p-column>
-                    <p-column field="patientName" [header]="'Name' | translate" [sortable]="true"></p-column>
-                    <p-column field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
-                    <p-column field="endDateString" [header]="'EndDate' | translate" [sortable]="true"></p-column>
-                    <p-column field="cardNumber" [header]="'MembershipNumber' | translate" [sortable]="true"></p-column>
-                    <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                        <ng-template let-policyPatient="rowData" pTemplate="body">
-                            <a class="pointer" [class.disabled]="!enableEditPolicypatient ? true : null"
-                               (click)="editPolicyPatient(policyPatient)">
-                                <i class="fa fa-pencil fa-2x"  style="color: #32bea6;"></i>
-                            </a>
-                        </ng-template>
-                    </p-column>
-                    <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-                        <ng-template let-policyPatient="rowData" pTemplate="body">
-                            <a [class.disabled]="!setPolicyPatientToDeleteBtn ? true : null"
-                               class="pointer" 
-                               (click)="setPolicyPatientToDelete(policyPatient.id)">
-                                <i  class="glyphicon glyphicon-remove iconAd"></i>
-                            </a>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable> -->
+                <!---New Table-->
+                <p-table #dt [value]="policyPatients" dataKey="id" [rowHover]="true" [rows]="10"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                    [globalFilterFields]="['patientMrn','patientName','startDateString','endDateString','cardNumber']">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="patientMrn">{{'MRN' | translate}} <p-sortIcon field="patientMrn">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="patientName">{{'Name' | translate}} <p-sortIcon field="patientName">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="startDateString">{{'StartDate' | translate}} <p-sortIcon
+                                    field="startDateString"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="endDateString">{{'EndDate' | translate}} <p-sortIcon
+                                    field="endDateString"></p-sortIcon>
+                            </th>
+                            <th pSortableColumn="cardNumber">{{'MembershipNumber' | translate}} <p-sortIcon
+                                    field="cardNumber"></p-sortIcon>
+                            </th>
+                            <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                            </th>
+                            <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                            </th>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr class="p-selectable-row">
+                            <td>
+                                {{item.patientMrn}}
+                            </td>
+                            <td>
+                                <span>{{item.patientName}}</span>
+                            </td>
+                            <td>
+                                {{item.startDateString}}
+                            </td>
+                            <td>
+                                {{item.endDateString}}
+                            </td>
+                            <td>
+                                {{item.cardNumber}}
+                            </td>
+                            <td>
+                                <a class="pointer" [class.disabled]="!enableEditPolicypatient ? true : null"
+                                    (click)="editPolicyPatient(item)">
+                                    <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
+                                </a>
+                            </td>
+                            <td style="text-align: center">
+                                <a [class.disabled]="!setPolicyPatientToDeleteBtn ? true : null" class="pointer"
+                                    (click)="setPolicyPatientToDelete(item.id)">
+                                    <i class="glyphicon glyphicon-remove iconAd"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No data found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <!--End Table-->
+
+
             </div>
         </div>
     </div>
