@@ -11,6 +11,7 @@ import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { TranslateService } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -51,6 +52,7 @@ export class DoctorAppointmentsComponent implements OnInit {
     tempDoctorAppointmentsList = [];
     unifiedMrn: string = '';
     seenString: string = '';
+    @ViewChild('dt') table!: Table;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
