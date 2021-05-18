@@ -13,59 +13,130 @@
         </div>
         <div class="row well">
             <div class="col-md-offset-8  text-right">
-                <button class="btn btn-primary " routerLink="/clinic/purchasing/createOrder/new/0/0" disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'CreateNewOrder' | translate}}</button>
+                <button class="btn btn-primary " routerLink="/clinic/purchasing/createOrder/new/0/0"
+                    disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'CreateNewOrder' |
+                    translate}}</button>
                 <print-page [section]='purchasingOrderListDiv'></print-page>
             </div>
         </div>
         <br />
 
-         <div   class="row well" style="background-color: #f6f7f9 !important;">
-             <div class="inner-addon left-addon">
-                 <i class="glyphicon glyphicon-search"></i>
-                 <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
-             </div>
-
-             <!-- <p-dataTable [value]="ordersList | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                 <p-column field="refNo" [header]="'RerNo' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
-                 <p-column field="dateString" [header]="'OrderDate' | translate" [sortable]="true"></p-column>
-                 <p-column field="vendorName" [header]="'Vendor' | translate" [sortable]="true"></p-column>
-                 <p-column field="orderStatus" [header]="'Status' | translate" [sortable]="true"></p-column>
-                 <p-column field="totalPrice" [header]="'Total' | translate" [sortable]="true"></p-column>
-                 <p-column field="description" [header]="'Remark' | translate" [sortable]="true"></p-column>
-                 <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate" [sortable]="true"></p-column>
-                 <p-column field="userName" [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
-                 <p-column [header]="'ViewDetails' | translate" styleClass="text-center">
-                     <ng-template let-order="rowData" pTemplate="body">
-                         <a class="underLinelinkText" (click)="viewOrderDetails(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'ViewDetails' | translate}}</a>
-                     </ng-template>
-                 </p-column>
-                 <p-column [header]="'Edit' | translate" styleClass="text-center width70">
-                     <ng-template let-order="rowData" pTemplate="body">
-                         <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="isClinicAdmin && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
-                         <a class="disabled" *ngIf="isClinicAdmin && order.orderStatus != 'Prepared'" disabled>{{ 'Edit' | translate}}</a>
-                         <a class="underLinelinkText" (click)="checkProductsInItemsList(order.id)" *ngIf="enableDetailsLink && order.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
-                         <a class="disabled" *ngIf="enableDetailsLink && order.orderStatus != 'Prepared'" disabled>{{ 'Edit' | translate}}</a>
-                     </ng-template>
-                 </p-column>
-                 <p-column [header]="'ReSend' | translate" styleClass="text-center width70">
-                     <ng-template let-order="rowData" pTemplate="body">
-                         <a class="underLinelinkText" (click)="resend(order)" [class.disabled]="!enableResendLink && !isClinicAdmin ? true : null">{{ 'ReSend' | translate}}</a>
-                     </ng-template>
-                 </p-column>
-                 <p-column [header]="'ReceiveQuantity' | translate" styleClass="text-center width70">
-                     <ng-template let-order="rowData" pTemplate="body">
-                         <a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{order.id}}" *ngIf="isClinicAdmin || enableReceiveLink">{{ 'ReceiveQuantity' | translate}}</a>
-                         <a class="disabled" *ngIf="!isClinicAdmin && !enableReceiveLink" disabled>{{ 'ReceiveQuantity' | translate}}</a>
-                     </ng-template>
-                 </p-column>
-                 <p-column [header]="'CloseOrder' | translate" styleClass="text-center">
-                     <ng-template let-order="rowData" pTemplate="body">
-                         <a class="underLinelinkText" (click)="closeOrder(order.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Close' | translate}}</a>
-                     </ng-template>
-                 </p-column>
-             </p-dataTable> -->
- 
+        <div class="row well" style="background-color: #f6f7f9 !important;">
+            <div class="inner-addon left-addon">
+                <i class="glyphicon glyphicon-search"></i>
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    [placeholder]="'Search' | translate" />
             </div>
+            <!---New Table-->
+            <p-table #dt [value]="ordersList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                [globalFilterFields]="['refNo','nameTranslation']">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="refNo">{{'RerNo' | translate}} <p-sortIcon field="refNo"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="dateString">{{'OrderDate' | translate}} <p-sortIcon field="dateString">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="vendorName">{{'Vendor' | translate}} <p-sortIcon field="vendorName">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="orderStatus">{{'Status' | translate}} <p-sortIcon field="orderStatus">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="totalPrice">{{'Total' | translate}} <p-sortIcon field="totalPrice">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="description">{{'Remark' | translate}} <p-sortIcon field="description">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="lastModificationDateString">{{'LastModificationDate' | translate}}
+                            <p-sortIcon field="lastModificationDateString">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="userName">{{'LastModifierUser' | translate}} <p-sortIcon field="userName">
+                            </p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'ViewDetails' | translate}} </span>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'ReSend' | translate}} </span>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'ReceiveQuantity' | translate}} </span>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'CloseOrder' | translate}} </span>
+                        </th>
+
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            {{item.refNo}}
+                        </td>
+                        <td>
+                            <span>{{item.dateString}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.vendorName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.orderStatus}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.totalPrice}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.lastModificationDateString}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.userName}}</span>
+                        </td>
+                        <td>
+                            <a class="underLinelinkText" (click)="viewOrderDetails(item.id)"
+                                [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'ViewDetails' |
+                                translate}}</a>
+                        </td>
+                        <td style="text-align: center">
+                            <a class="underLinelinkText" (click)="checkProductsInItemsList(item.id)"
+                                *ngIf="isClinicAdmin && item.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
+                            <a class="disabled" *ngIf="isClinicAdmin && item.orderStatus != 'Prepared'" disabled>{{
+                                'Edit' | translate}}</a>
+                            <a class="underLinelinkText" (click)="checkProductsInItemsList(item.id)"
+                                *ngIf="enableDetailsLink && item.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
+                            <a class="disabled" *ngIf="enableDetailsLink && item.orderStatus != 'Prepared'" disabled>{{
+                                'Edit' | translate}}</a>
+                        </td>
+                        <td>
+                            <a class="underLinelinkText" (click)="resend(item)"
+                                [class.disabled]="!enableResendLink && !isClinicAdmin ? true : null">{{ 'ReSend' |
+                                translate}}</a>
+                        </td>
+                        <td>
+                            <a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{item.id}}"
+                                *ngIf="isClinicAdmin || enableReceiveLink">{{ 'ReceiveQuantity' | translate}}</a>
+                            <a class="disabled" *ngIf="!isClinicAdmin && !enableReceiveLink" disabled>{{
+                                'ReceiveQuantity' | translate}}</a>
+                        </td>
+                        <td>
+                            <a class="underLinelinkText" (click)="closeOrder(item.id)"
+                                [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Close' |
+                                translate}}</a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
+        </div>
 
 
         <div id="purchasingOrderListPrintDiv" class="row hidden">

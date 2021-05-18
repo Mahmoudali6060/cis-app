@@ -1,24 +1,25 @@
-﻿import {Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+﻿import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
-import {ClinicService} from '../../shared/clinic.service';
-import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import { LocalStorageService } from 'ng2-webstorage';
+import { ClinicService } from '../../shared/clinic.service';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { AccountService } from '../../../security/shared/account.service';
-import {UserPermissions} from '../../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../../shared/shared/permission-key.enum';
+import { UserPermissions } from '../../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
+import { Table } from 'primeng/table';
 @Component({
-   
+
     selector: 'purchase-order-list',
     templateUrl: './purchase-order-list.component.html'
 })
 
 export class PurchaseOrderList {
-    purchasingOrderListDiv: string ='purchasingOrderListPrintDiv'
+    purchasingOrderListDiv: string = 'purchasingOrderListPrintDiv'
     selectPurchasingTab: boolean = true;
-    filterString!:string;
+    filterString!: string;
     clinicId = "0";
     ordersList!: any[];
     showProgress = false;
@@ -36,6 +37,7 @@ export class PurchaseOrderList {
     model: any = {};
     @ViewChild('btnConfirm') btnConfirm!: ElementRef;
     display: boolean = false;
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router
@@ -45,7 +47,7 @@ export class PurchaseOrderList {
     ) { }
 
     ngOnInit(): void {
-        this.lstToTranslated = ['vendorName', 'vendorNameTranslation', 'userName','userNameTranslation'];
+        this.lstToTranslated = ['vendorName', 'vendorNameTranslation', 'userName', 'userNameTranslation'];
         let vm = this;
         this.clinicId = this.storage.retrieve("ClinicID");
         this.userType = this.storage.retrieve("UserType");
@@ -82,10 +84,10 @@ export class PurchaseOrderList {
     loadOrdersList() {
         let vm = this;
         this.clinicService.getAllPurchasingOrders(vm.clinicId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 vm.ordersList = response;
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
             },
             function () { // finally
@@ -93,11 +95,11 @@ export class PurchaseOrderList {
             });
 
     }
-    resend(order:any) {
+    resend(order: any) {
         let vm = this;
         vm.showProgress = true;
         this.clinicService.sendOrderToVendor(order).subscribe(
-            function (response:any) {
+            function (response: any) {
                 if (response == "True") {
                     let msg = vm.translate.instant("SentSuccessfully");
                     vm.toastr.success(msg, '');
@@ -109,7 +111,7 @@ export class PurchaseOrderList {
                 }
 
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
                 vm.showProgress = false;
             },
@@ -160,30 +162,30 @@ export class PurchaseOrderList {
         vm.showProgress = true;
         this.clinicService.deletePurchaseOrder(id)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("DeletedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("DeletedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // remove delete object from collection
-                var selectedObject = vm.ordersList.find(o => o.id == id);
-                var index = vm.ordersList.indexOf(selectedObject);
-                if (index > -1)
-                    vm.ordersList.splice(index, 1);
+                    // remove delete object from collection
+                    var selectedObject = vm.ordersList.find(o => o.id == id);
+                    var index = vm.ordersList.indexOf(selectedObject);
+                    if (index > -1)
+                        vm.ordersList.splice(index, 1);
 
-                // clear fields
-                //  vm.clear();
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            });
+                    // clear fields
+                    //  vm.clear();
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                });
     }
 
     ///
-    checkProductsInItemsList(id:any) {
+    checkProductsInItemsList(id: any) {
         let vm = this;
         let itemsList = [];
         let order = vm.ordersList.find(o => o.id == id);
@@ -239,12 +241,12 @@ export class PurchaseOrderList {
         let vm = this;
         vm.showProgress = true;
         this.clinicService.closeOrder(orderId).subscribe(
-            function (response:any) {
+            function (response: any) {
                 let order = vm.ordersList.find(o => o.id == response.id);
                 order.orderStatus = response.orderStatus;
 
             },
-            function (error:any) { 
+            function (error: any) {
                 vm.toastr.error(error, '');
                 vm.showProgress = false;
             },
