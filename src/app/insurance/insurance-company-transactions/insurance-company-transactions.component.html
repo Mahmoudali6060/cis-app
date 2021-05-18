@@ -1,389 +1,490 @@
-﻿<div >
+﻿<div>
     <loading></loading>
 </div>
 
-    <shared-tabs [activeTabIndex]="18"></shared-tabs>
+<shared-tabs [activeTabIndex]="18"></shared-tabs>
 
-        <div class="page-breadcrumb">
-            <div class="row ">
-                <div class="NBbreadcrumb">
-                    <a>{{ 'InsuranceManagement' | translate}}</a> &nbsp;/
-                    <a>{{ 'Invoices' | translate}}</a> &nbsp;/
-                    {{ 'CompanyTransactions' | translate}}
-                </div>
-
-            </div>
+<div class="page-breadcrumb">
+    <div class="row ">
+        <div class="NBbreadcrumb">
+            <a>{{ 'InsuranceManagement' | translate}}</a> &nbsp;/
+            <a>{{ 'Invoices' | translate}}</a> &nbsp;/
+            {{ 'CompanyTransactions' | translate}}
         </div>
 
-        <div class="row well ">
-            <button class="btn btn-primary" data-toggle="collapse" data-target="#SearchForCompany">{{ 'Search' | translate}}</button>
-        </div>
+    </div>
+</div>
 
-        <div id="SearchForCompany" class="collapse fa-border well">
-            <div class="padding5 marginTop35">
-                <div class="row form-horizontal">
+<div class="row well ">
+    <button class="btn btn-primary" data-toggle="collapse" data-target="#SearchForCompany">{{ 'Search' |
+        translate}}</button>
+</div>
 
-                    <div class="row">
-                        <div class="col-sm-5 offset-md-1">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label">{{ 'Company' | translate}}</label>
-                                <div class="col-sm-8">
-                                    <select id="ddlCompanies" name="ddlCompanies" class="form-control" required
-                                            [(ngModel)]='searchCriteria.insuranceCompanyId' #ddlCompanies>
-                                        <option>{{ 'Select' | translate}}</option>
-                                        <option *ngFor="let item of companiesList | translateObjects" [value]="item.id">{{item.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="form-group row">
-                                <label for="txtName" class="col-sm-4 col-form-label">{{ 'Date' | translate}}</label>
-                                <div class="col-sm-8">
-                                    <select id="ddlDateFilters" name="ddlDateFilters" (change)="selectDateFilter(ddlDateFilters.value)" class="form-control" #ddlDateFilters>
-                                        <option>{{ 'Select' | translate}}</option>
-                                        <option *ngFor="let item of dateFiltersList " [value]="item.value">{{item.text| translate}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div id="SearchForCompany" class="collapse fa-border well">
+    <div class="padding5 marginTop35">
+        <div class="row form-horizontal">
 
-                    <div class="row">
-                        <div class="form-group col-sm-5 offset-md-1" *ngIf="isDurationVisible">
-                            <label for="txtDuration" class="col-sm-4 col-form-label">{{durationLabel}}</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" [(ngModel)]='searchCriteria.duration' />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row " *ngIf="isPeriodOfTimeVisible">
-                        <div class="col-sm-5 offset-md-1">
-                            <div class="form-group row " *ngIf="isPeriodOfTimeVisible">
-                                <label for="txtName" class="col-sm-4 col-form-label">{{ 'From' | translate}}</label>
-                                <div class="col-sm-8">
-                                    <p-calendar [(ngModel)]="searchCriteria.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                                [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="form-group row">
-                                <label for="txtName" class="col-sm-4  control-label">{{ 'To' | translate}}</label>
-                                <div class="col-sm-8">
-                                    <p-calendar [(ngModel)]="searchCriteria.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                                [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-5 offset-md-1">
-                            <div class="form-group row">
-                                <label for="txtName" class="col-sm-4 col-form-label">{{ 'Type' | translate}}</label>
-                                <div class="col-sm-8">
-                                    <table>
-                                        <tr>
-                                            <td *ngFor="let item of claimSearchTypeList | translateObjects ">
-                                                <input type="radio" name="claimSearchType" (click)="selectClaimSearchType(item.value)"
-                                                       value={{item.value}}
-                                                       [checked]="item.value == defaultClaimSearch">&nbsp;{{item.text| translate}}
-                                                &nbsp;&nbsp;
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <br />
-                                    <div *ngIf="displayChargeStatus">
-                                        <table>
-                                            <tr>
-                                                <td *ngFor="let item of chargeStatusList | translateObjects">
-                                                    <input type="radio" name="chargeStatus" (click)="selectChargeStatus(item.value)"
-                                                           value={{item.value}}
-                                                           [checked]="item.value == defaultChargeStatus">&nbsp;{{item.text| translate}}
-                                                    &nbsp;&nbsp;
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-md-4 ">
-                            <button type="button" class="btn btn-primary" (click)="getCompanyTransactions()">{{ 'Search' | translate |uppercase}}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="emptyDiv">
-            &nbsp;
-        </div>
-
-        <table class="tableBack table table-bordered responsive">
-            <thead>
-                <tr class="thBack  text-center">
-                    <td>{{ 'CompanyName' | translate}}:</td>
-                    <td>{{ 'PrePaidBalance' | translate}}:</td>
-                    <td>{{ 'Pending' | translate}}:</td>
-                    <td>{{ 'AmountToPay' | translate}}:</td>
-                    <td>{{ 'Net' | translate}}:</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="thBack">
-                    <th>{{(company  | translateObjects  : 'name' : 'nameTranslation').name}}</th>
-                    <th>{{prePaidBalanceAmount}}</th>
-                    <th>{{pendingAmount}}</th>
-                    <th>{{amountToPay}}</th>
-                    <th>{{net}}</th>
-                </tr>
-            </tbody>
-        </table>
-        <div class="col-md-2 offset-md-10 text-right">
-            <button type="button" class="btn btn-primary refund" disabled="{{ enableConsumeFromPrepaidBtn ? '' :'disabled'}}" data-toggle="modal" data-target="#refund">{{ 'Refund' | translate}}</button>
-        </div>
-
-        <br />
-        <br />
-        <br />
-
-        <div class="row" *ngIf="allCharges.length">
-            
-            <insurance-invoice-services [invoiceChargesList]="allCharges"
-                                        [companyId]="company.id"
-                                        (onAmountUpdated)="updateAmount($event)"
-                                        (onChargeSelected)="updateAmountToPay($event)"></insurance-invoice-services>
-        </div>
-
-        <br />
-
-        <div class="row well" *ngIf="allCompanyPayments.length" style="background-color: #f6f7f9 !important;">
-            
-
-            <div class="inner-addon left-addon">
-                <i class="glyphicon glyphicon-search"></i>
-                <input #searchTransactions type="text" pInputText size="50" placeholder="Search...">
-            </div>
-
-            <!-- <p-dataTable [value]="allCompanyPayments | translateObjects  : null : null : lstToTranslated" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="searchTransactions">
-                <p-column field="id" [header]="'TransactionRefNo' | translate" [sortable]="true"></p-column>
-                <p-column field="dateTimeString" [header]="'TransactionDate' | translate" [sortable]="true"></p-column>
-                <p-column field="paymentTypeName" [header]="'TransactionType' | translate" [sortable]="true"></p-column>
-                <p-column field="paymentMethodName" [header]="'TransactionMethod' | translate" [sortable]="true"></p-column>
-                <p-column field="amount" [header]="'Amount' | translate" [sortable]="true"></p-column>
-                <p-column field="companyChargesAsString" [header]="'Charges' | translate" [sortable]="true"></p-column>
-                <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-                <p-column [header]="Details" styleClass="text-center width70">
-                    <ng-template let-item="rowData" pTemplate="body">
-                        <a *ngIf="item.id" [class.disabled]="!enableViewCompanyDetails ? true : null" data-toggle="modal" data-target="#PayService" class="underLinelinkText pointer" (click)="getCompanyPaymentById(item.id)">{{'ViewPayment'| translate}}</a>
-                    </ng-template>
-                </p-column>
-            </p-dataTable> -->
             <div class="row">
-            </div>
-        </div>
-
-
-        <div class="hidden">
-            <button type="button" #btnOpenPaymentPopup class="btn btn-primary" data-toggle="modal" data-target="#PayService"></button>
-        </div>
-
-        <div id="PayService" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">{{ 'CompanyPayment' | translate}}</h4>
+                <div class="col-sm-5 offset-md-1">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">{{ 'Company' | translate}}</label>
+                        <div class="col-sm-8">
+                            <select id="ddlCompanies" name="ddlCompanies" class="form-control" required
+                                [(ngModel)]='searchCriteria.insuranceCompanyId' #ddlCompanies>
+                                <option>{{ 'Select' | translate}}</option>
+                                <option *ngFor="let item of companiesList | translateObjects" [value]="item.id">
+                                    {{item.name}}</option>
+                            </select>
+                        </div>
                     </div>
-                    <form *ngIf="active" class="form-horizontal" name="saveCompanyPaymentfrm" #saveCompanyPaymentfrm="ngForm">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'TransactionRefNo' | translate}}</label>
-                                <div class="col-md-6">
-                                    <input name="txtReferenceNo" class="form-control" [(ngModel)]='payment.id' #txtReferenceNo="ngModel" disabled />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'TransactionDate' | translate}}</label>
-                                <div class="col-md-6">
-                                    <input name="txtPaymentDate" class="form-control" [(ngModel)]="payment.dateTimeString" #txtPaymentDate="ngModel" disabled />
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePaymentDate">{{ 'Change' | translate}}</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'TransactionType' | translate}}</label>
-                                <div class="col-md-6">
-                                    <select disabled class="form-control" name="ddlTransactionTypes"
-                                            [(ngModel)]="payment.paymentTypeId" #ddlTransactionTypes="ngModel" required>
-                                        <option *ngFor="let type of paymentTypes | translateObjects" [value]="type.id">{{type.name}}</option>
-                                    </select>
-                                    <!--<input name="txtPaymentType" class="form-control" [(ngModel)]="payment.paymentTypeName" #txtPaymentType="ngModel" disabled />-->
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'TransactionMethod' | translate}}</label>
-                                <div class="col-md-6">
-                                    <select disabled class="form-control" name="ddlTransactionMethods" [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
-                                        <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePaymentMethod">{{ 'Change' | translate}}</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'TransactionAmount' | translate}}</label>
-                                <div class="col-md-6">
-                                    <input type="number" class="form-control" name="txtAmount" [(ngModel)]="payment.amount" #txtAmount="ngModel" required readonly disabled />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'Charges' | translate}}</label>
-                                <div class="col-md-6">
-                                    <textarea disabled name="txtCharges" class="form-control" [(ngModel)]='payment.companyChargesAsString' #txtCharges="ngModel"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'Remarks' | translate}}</label>
-                                <div class="col-md-6">
-                                    <textarea disabled name="txtRemarks" class="form-control" [(ngModel)]='payment.description' #txtRemarks="ngModel"></textarea>
-                                </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group row">
+                        <label for="txtName" class="col-sm-4 col-form-label">{{ 'Date' | translate}}</label>
+                        <div class="col-sm-8">
+                            <select id="ddlDateFilters" name="ddlDateFilters"
+                                (change)="selectDateFilter(ddlDateFilters.value)" class="form-control" #ddlDateFilters>
+                                <option>{{ 'Select' | translate}}</option>
+                                <option *ngFor="let item of dateFiltersList " [value]="item.value">{{item.text|
+                                    translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-5 offset-md-1" *ngIf="isDurationVisible">
+                    <label for="txtDuration" class="col-sm-4 col-form-label">{{durationLabel}}</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" [(ngModel)]='searchCriteria.duration' />
+                    </div>
+                </div>
+            </div>
+            <div class="row " *ngIf="isPeriodOfTimeVisible">
+                <div class="col-sm-5 offset-md-1">
+                    <div class="form-group row " *ngIf="isPeriodOfTimeVisible">
+                        <label for="txtName" class="col-sm-4 col-form-label">{{ 'From' | translate}}</label>
+                        <div class="col-sm-8">
+                            <p-calendar [(ngModel)]="searchCriteria.startDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group row">
+                        <label for="txtName" class="col-sm-4  control-label">{{ 'To' | translate}}</label>
+                        <div class="col-sm-8">
+                            <p-calendar [(ngModel)]="searchCriteria.endDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5 offset-md-1">
+                    <div class="form-group row">
+                        <label for="txtName" class="col-sm-4 col-form-label">{{ 'Type' | translate}}</label>
+                        <div class="col-sm-8">
+                            <table>
+                                <tr>
+                                    <td *ngFor="let item of claimSearchTypeList | translateObjects ">
+                                        <input type="radio" name="claimSearchType"
+                                            (click)="selectClaimSearchType(item.value)" value={{item.value}}
+                                            [checked]="item.value == defaultClaimSearch">&nbsp;{{item.text| translate}}
+                                        &nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                            </table>
+                            <br />
+                            <div *ngIf="displayChargeStatus">
+                                <table>
+                                    <tr>
+                                        <td *ngFor="let item of chargeStatusList | translateObjects">
+                                            <input type="radio" name="chargeStatus"
+                                                (click)="selectChargeStatus(item.value)" value={{item.value}}
+                                                [checked]="item.value == defaultChargeStatus">&nbsp;{{item.text|
+                                            translate}}
+                                            &nbsp;&nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-4 ">
+                    <button type="button" class="btn btn-primary" (click)="getCompanyTransactions()">{{ 'Search' |
+                        translate |uppercase}}</button>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div id="changePaymentDate" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Change Payment Date</h4>
-                    </div>
+<div id="emptyDiv">
+    &nbsp;
+</div>
 
-                    <form *ngIf="active" class="form-horizontal" name="changePaymentDateForm" #changePaymentDateForm="ngForm">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">New Payment Date</label>
-                                <div class="col-md-6">
-                                    <p-calendar [(ngModel)]="payment.date" [showTime]="true" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                                [showIcon]="true" [required]="false" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Change Reason</label>
-                                <div class="col-md-6">
-                                    <textarea name="txtchangeDateReason" class="form-control" [(ngModel)]='payment.changeDateReason' #txtchangeDateReason="ngModel" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!changePaymentDateForm.form.valid || !enableSaveCompanyPaymentBtn" (click)="saveCompanyPayment()">Confirm Change</button>
-                                <button type="button" disabled="{{ enableSaveCompanyPaymentBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">Ignore</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<table class="tableBack table table-bordered responsive">
+    <thead>
+        <tr class="thBack  text-center">
+            <td>{{ 'CompanyName' | translate}}:</td>
+            <td>{{ 'PrePaidBalance' | translate}}:</td>
+            <td>{{ 'Pending' | translate}}:</td>
+            <td>{{ 'AmountToPay' | translate}}:</td>
+            <td>{{ 'Net' | translate}}:</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="thBack">
+            <th>{{(company | translateObjects : 'name' : 'nameTranslation').name}}</th>
+            <th>{{prePaidBalanceAmount}}</th>
+            <th>{{pendingAmount}}</th>
+            <th>{{amountToPay}}</th>
+            <th>{{net}}</th>
+        </tr>
+    </tbody>
+</table>
+<div class="col-md-2 offset-md-10 text-right">
+    <button type="button" class="btn btn-primary refund" disabled="{{ enableConsumeFromPrepaidBtn ? '' :'disabled'}}"
+        data-toggle="modal" data-target="#refund">{{ 'Refund' | translate}}</button>
+</div>
+
+<br />
+<br />
+<br />
+
+<div class="row" *ngIf="allCharges.length">
+
+    <insurance-invoice-services [invoiceChargesList]="allCharges" [companyId]="company.id"
+        (onAmountUpdated)="updateAmount($event)" (onChargeSelected)="updateAmountToPay($event)">
+    </insurance-invoice-services>
+</div>
+
+<br />
+
+<div class="row well" *ngIf="allCompanyPayments.length" style="background-color: #f6f7f9 !important;">
+
+
+    <div class="inner-addon left-addon">
+        <i class="glyphicon glyphicon-search"></i>
+        <input pInputText type="text" #searchTransactions (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'Search' | translate" />
+    </div>
+
+    <!---New Table-->
+    <p-table #dt [value]="allCompanyPayments" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['id','dateTimeString']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">{{'TransactionRefNo' | translate}} <p-sortIcon field="id"></p-sortIcon>
+                </th>
+                <th pSortableColumn="dateTimeString">{{'TransactionDate' | translate}} <p-sortIcon
+                        field="dateTimeString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="paymentTypeName">{{'TransactionType' | translate}} <p-sortIcon
+                        field="paymentTypeName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="paymentMethodName">{{'TransactionMethod' | translate}} <p-sortIcon
+                        field="paymentMethodName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="amount">{{'Amount' | translate}} <p-sortIcon field="amount">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="companyChargesAsString">{{'Charges' | translate}} <p-sortIcon
+                        field="companyChargesAsString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'Remarks' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'Details' | translate}} </span>
+                </th>
+                <th style="width: 8rem">
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.id}}
+                </td>
+                <td>
+                    <span>{{item.dateTimeString}}</span>
+                </td>
+                <td>
+                    <span>{{item.paymentTypeName}}</span>
+                </td>
+                <td>
+                    <span>{{item.paymentMethodName}}</span>
+                </td>
+                <td>
+                    <span>{{item.amount}}</span>
+                </td>
+                <td>
+                    <span>{{item.companyChargesAsString}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+                <td>
+                    <a *ngIf="item.id" [class.disabled]="!enableViewCompanyDetails ? true : null" data-toggle="modal"
+                        data-target="#PayService" class="underLinelinkText pointer"
+                        (click)="getCompanyPaymentById(item.id)">{{'ViewPayment'| translate}}</a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
+
+    <div class="row">
+    </div>
+</div>
+
+
+<div class="hidden">
+    <button type="button" #btnOpenPaymentPopup class="btn btn-primary" data-toggle="modal"
+        data-target="#PayService"></button>
+</div>
+
+<div id="PayService" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'CompanyPayment' | translate}}</h4>
             </div>
-        </div>
-
-        <div id="changePaymentMethod" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">{{ 'ChangePaymentMethod' | translate}} </h4>
+            <form *ngIf="active" class="form-horizontal" name="saveCompanyPaymentfrm" #saveCompanyPaymentfrm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'TransactionRefNo' | translate}}</label>
+                        <div class="col-md-6">
+                            <input name="txtReferenceNo" class="form-control" [(ngModel)]='payment.id'
+                                #txtReferenceNo="ngModel" disabled />
+                        </div>
                     </div>
-
-                    <form *ngIf="active" class="form-horizontal" name="changePaymentMethodForm" #changePaymentMethodForm="ngForm">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'NewPaymentMethod' | translate}} </label>
-                                <div class="col-md-6">
-                                    <select class="form-control" name="ddlTransactionMethods" [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
-                                        <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">{{method.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">{{ 'ChangeReason' | translate}}</label>
-                                <div class="col-md-6">
-                                    <textarea name="txtMethodChangeReason" class="form-control" [(ngModel)]='payment.changeMethodReason' #txtMethodChangeReason="ngModel" required></textarea>
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'TransactionDate' | translate}}</label>
+                        <div class="col-md-6">
+                            <input name="txtPaymentDate" class="form-control" [(ngModel)]="payment.dateTimeString"
+                                #txtPaymentDate="ngModel" disabled />
                         </div>
-                        <div class="modal-footer">
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!changePaymentMethodForm.form.valid || !enableSaveCompanyPaymentBtn" (click)="saveCompanyPayment()">{{ 'ConfirmChange' | translate}}</button>
-                                <button type="button" disabled="{{ enableSaveCompanyPaymentBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
-                            </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#changePaymentDate">{{ 'Change' | translate}}</button>
                         </div>
-                    </form>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'TransactionType' | translate}}</label>
+                        <div class="col-md-6">
+                            <select disabled class="form-control" name="ddlTransactionTypes"
+                                [(ngModel)]="payment.paymentTypeId" #ddlTransactionTypes="ngModel" required>
+                                <option *ngFor="let type of paymentTypes | translateObjects" [value]="type.id">
+                                    {{type.name}}</option>
+                            </select>
+                            <!--<input name="txtPaymentType" class="form-control" [(ngModel)]="payment.paymentTypeName" #txtPaymentType="ngModel" disabled />-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'TransactionMethod' | translate}}</label>
+                        <div class="col-md-6">
+                            <select disabled class="form-control" name="ddlTransactionMethods"
+                                [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
+                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">
+                                    {{method.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#changePaymentMethod">{{ 'Change' | translate}}</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'TransactionAmount' | translate}}</label>
+                        <div class="col-md-6">
+                            <input type="number" class="form-control" name="txtAmount" [(ngModel)]="payment.amount"
+                                #txtAmount="ngModel" required readonly disabled />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'Charges' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea disabled name="txtCharges" class="form-control"
+                                [(ngModel)]='payment.companyChargesAsString' #txtCharges="ngModel"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'Remarks' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea disabled name="txtRemarks" class="form-control" [(ngModel)]='payment.description'
+                                #txtRemarks="ngModel"></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+</div>
 
-        <div id="refund" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Refund From Pre-paid</h4>
+<div id="changePaymentDate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Payment Date</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="changePaymentDateForm" #changePaymentDateForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">New Payment Date</label>
+                        <div class="col-md-6">
+                            <p-calendar [(ngModel)]="payment.date" [showTime]="true" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="false"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                        </div>
                     </div>
-
-                    <form *ngIf="active" class="form-horizontal" name="refundForm" #refundForm="ngForm">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Refund Amount</label>
-                                <div class="col-md-6">
-                                    <input type="number" min="0" name="txtRefundAmount" class="form-control" [(ngModel)]='refundModel.amount' #txtRefundAmount="ngModel" required />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Refund Reason</label>
-                                <div class="col-md-6">
-                                    <textarea name="txtRefundReason" class="form-control" [(ngModel)]='refundModel.remarks' #txtRefundReason="ngModel" required></textarea>
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Change Reason</label>
+                        <div class="col-md-6">
+                            <textarea name="txtchangeDateReason" class="form-control"
+                                [(ngModel)]='payment.changeDateReason' #txtchangeDateReason="ngModel"
+                                required></textarea>
                         </div>
-                        <div class="modal-footer">
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!refundForm.form.valid || !enableConsumeFromPrepaidBtn" (click)="refundFromPrepaid()">Confirm Refund</button>
-                                <button type="button" disabled="{{ enableConsumeFromPrepaidBtn ? '' :'disabled'}}" class="btn btn-primary" data-dismiss="modal">Ignore</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div id="AttachFile" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Attach File to MRF</h4>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!changePaymentDateForm.form.valid || !enableSaveCompanyPaymentBtn"
+                            (click)="saveCompanyPayment()">Confirm Change</button>
+                        <button type="button" disabled="{{ enableSaveCompanyPaymentBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" data-dismiss="modal">Ignore</button>
                     </div>
-                    <!--<form *ngIf="active" class="form-horizontal" name="refundForm" #refundForm="ngForm">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="changePaymentMethod" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ChangePaymentMethod' | translate}} </h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="changePaymentMethodForm"
+                #changePaymentMethodForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'NewPaymentMethod' | translate}} </label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="ddlTransactionMethods"
+                                [(ngModel)]="payment.paymentMethodId" #ddlTransactionMethods="ngModel" required>
+                                <option *ngFor="let method of paymentMethods | translateObjects" [value]="method.id">
+                                    {{method.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">{{ 'ChangeReason' | translate}}</label>
+                        <div class="col-md-6">
+                            <textarea name="txtMethodChangeReason" class="form-control"
+                                [(ngModel)]='payment.changeMethodReason' #txtMethodChangeReason="ngModel"
+                                required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!changePaymentMethodForm.form.valid || !enableSaveCompanyPaymentBtn"
+                            (click)="saveCompanyPayment()">{{ 'ConfirmChange' | translate}}</button>
+                        <button type="button" disabled="{{ enableSaveCompanyPaymentBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" data-dismiss="modal">{{ 'Ignore' | translate}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="refund" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Refund From Pre-paid</h4>
+            </div>
+
+            <form *ngIf="active" class="form-horizontal" name="refundForm" #refundForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Refund Amount</label>
+                        <div class="col-md-6">
+                            <input type="number" min="0" name="txtRefundAmount" class="form-control"
+                                [(ngModel)]='refundModel.amount' #txtRefundAmount="ngModel" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Refund Reason</label>
+                        <div class="col-md-6">
+                            <textarea name="txtRefundReason" class="form-control" [(ngModel)]='refundModel.remarks'
+                                #txtRefundReason="ngModel" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            [disabled]="!refundForm.form.valid || !enableConsumeFromPrepaidBtn"
+                            (click)="refundFromPrepaid()">Confirm Refund</button>
+                        <button type="button" disabled="{{ enableConsumeFromPrepaidBtn ? '' :'disabled'}}"
+                            class="btn btn-primary" data-dismiss="modal">Ignore</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="AttachFile" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Attach File to MRF</h4>
+            </div>
+            <!--<form *ngIf="active" class="form-horizontal" name="refundForm" #refundForm="ngForm">
                         <cashier-MRF-attachment></cashier-MRF-attachment>
                     </form>-->
-                </div>
-            </div>
         </div>
-
+    </div>
+</div>

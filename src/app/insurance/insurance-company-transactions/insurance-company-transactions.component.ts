@@ -1,16 +1,17 @@
-﻿import {Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
-import {ActivatedRoute, Router } from '@angular/router';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../../shared/shared/permission-key.enum';
+﻿import { Component, OnInit, OnChanges, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import {LocalStorageService} from 'ng2-webstorage';
+import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
 
 import { InsuranceService } from '../shared/insurance.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 @Component({
-   
+
     selector: 'insurance-company-transactions',
     templateUrl: './insurance-company-transactions.component.html'
 })
@@ -57,7 +58,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
 
     claimSearchTypeList: any = [];
     chargeStatusList: any = [];
-
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService,
         private insuranceService: InsuranceService,
         private localStorage: LocalStorageService
@@ -69,7 +70,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
         this.loadCompanyTransactionSearchWrapper();
 
         if (this.accountService.userPermision._isScalar != undefined)
-            this.accountService.userPermision.subscribe((item :any)=> this.handleUserInterfaceViews(item));
+            this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
     }
@@ -87,27 +88,26 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
         }
     }
 
-    loadCompanyTransactionSearchWrapper()
-    {
+    loadCompanyTransactionSearchWrapper() {
         let vm = this;
         vm.showProgress = true
         this.insuranceService.getCompanyTransactionSearchWrapper()
             .subscribe(
-            function (response:any) {
-                vm.paymentTypes = response.paymentTypes;
-                vm.paymentMethods = response.paymentMethod;
-                vm.chargeStatusList = response.chargeStatus;
-                vm.claimSearchTypeList = response.claimSearchType;
-                vm.dateFiltersList = response.dateFilters;
-                vm.companiesList = response.companiesList;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    vm.paymentTypes = response.paymentTypes;
+                    vm.paymentMethods = response.paymentMethod;
+                    vm.chargeStatusList = response.chargeStatus;
+                    vm.claimSearchTypeList = response.claimSearchType;
+                    vm.dateFiltersList = response.dateFilters;
+                    vm.companiesList = response.companiesList;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
 
@@ -155,7 +155,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
         }
     }
 
-    selectClaimSearchType(claimSearchType:any) {
+    selectClaimSearchType(claimSearchType: any) {
         this.searchCriteria.claimSearchType = claimSearchType;
 
         if (claimSearchType == this.defaultClaimSearch)
@@ -164,31 +164,27 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
             this.displayChargeStatus = false;
     }
 
-    selectChargeStatus(chargeStatus:any) {
+    selectChargeStatus(chargeStatus: any) {
         this.searchCriteria.chargeStatus = chargeStatus;
     }
 
-    getCompanyTransactions()
-    {
-        if (this.searchCriteria.insuranceCompanyId == '' || this.searchCriteria.insuranceCompanyId == undefined)
-        {
+    getCompanyTransactions() {
+        if (this.searchCriteria.insuranceCompanyId == '' || this.searchCriteria.insuranceCompanyId == undefined) {
             //this.toastr.error('ThereIsNoCompanySelected', '');
             this.toastr.error(this.translate.instant("ThereIsNoCompanySelected"), '');
             return;
         }
 
-        if (this.searchCriteria.dateFilter == "TimePeriod" )
-        {
+        if (this.searchCriteria.dateFilter == "TimePeriod") {
             if (this.searchCriteria.startDate == null || this.searchCriteria.endDate == null ||
-                this.searchCriteria.startDate == undefined || this.searchCriteria.endDate == undefined)
-            {
+                this.searchCriteria.startDate == undefined || this.searchCriteria.endDate == undefined) {
                 //this.toastr.error('YouMustSelectStartDateAndEndDate', '');
                 this.toastr.error(this.translate.instant("YouMustSelectStartDateAndEndDate"), '');
                 return;
             }
 
             if (this.searchCriteria.startDate > this.searchCriteria.endDate) {
-               // this.toastr.error('startDateCanNotBeLaterThanEndDate', '');
+                // this.toastr.error('startDateCanNotBeLaterThanEndDate', '');
                 this.toastr.error(this.translate.instant("StartDateCanNotBeLaterThanEndDate"), '');
                 return;
             }
@@ -199,40 +195,40 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
 
         let vm = this;
         vm.showProgress = true
-        vm.searchCriteria.clinicId  = this.localStorage.retrieve("ClinicID");
+        vm.searchCriteria.clinicId = this.localStorage.retrieve("ClinicID");
         this.insuranceService.getCompanyTransactionsAccordingtoSearchCriteria(vm.searchCriteria)
             .subscribe(
-            function (response:any) {
-                vm.allCharges = response.charges;
-                vm.company = response.insuranceCompany;
-                vm.allCompanyPayments = response.payments;
+                function (response: any) {
+                    vm.allCharges = response.charges;
+                    vm.company = response.insuranceCompany;
+                    vm.allCompanyPayments = response.payments;
 
-                // Company ptrpaid, pending,.... values
-                vm.prePaidBalanceAmount = response.prePaidBalance;
-                vm.pendingAmount = response.companyPending;
-                vm.amountToPay = response.amountToPay;
-                vm.netAmount = response.netAmount;
-                var discount = +((vm.pendingAmount - vm.prePaidBalanceAmount).toFixed(2));
-                vm.net = discount;
-                
-
-
-                if (vm.company == null || vm.company == undefined)
-                    vm.toastr.warning(vm.translate.instant('NoCompanyWithProvidedCriteria'), '');
+                    // Company ptrpaid, pending,.... values
+                    vm.prePaidBalanceAmount = response.prePaidBalance;
+                    vm.pendingAmount = response.companyPending;
+                    vm.amountToPay = response.amountToPay;
+                    vm.netAmount = response.netAmount;
+                    var discount = +((vm.pendingAmount - vm.prePaidBalanceAmount).toFixed(2));
+                    vm.net = discount;
 
 
-                if (vm.searchCriteria.claimSearchType == 'Charges' && (vm.allCharges == null || vm.allCharges.length == 0))
-                    vm.toastr.warning(vm.translate.instant('NoResults'), '');
-                if (vm.searchCriteria.claimSearchType == 'Transactions' && (vm.allCompanyPayments == null || vm.allCompanyPayments.length == 0))
-                    vm.toastr.warning(vm.translate.instant('NoResults'), '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+
+                    if (vm.company == null || vm.company == undefined)
+                        vm.toastr.warning(vm.translate.instant('NoCompanyWithProvidedCriteria'), '');
+
+
+                    if (vm.searchCriteria.claimSearchType == 'Charges' && (vm.allCharges == null || vm.allCharges.length == 0))
+                        vm.toastr.warning(vm.translate.instant('NoResults'), '');
+                    if (vm.searchCriteria.claimSearchType == 'Transactions' && (vm.allCompanyPayments == null || vm.allCompanyPayments.length == 0))
+                        vm.toastr.warning(vm.translate.instant('NoResults'), '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
     saveCompanyPayment() {
@@ -242,100 +238,98 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
 
         this.insuranceService.saveCompanyPayment(vm.payment)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                function (response: any) {
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
-    getCompanyPaymentById(paymentId:any) {
+    getCompanyPaymentById(paymentId: any) {
         let vm = this;
         vm.showProgress = true
 
         this.insuranceService.getCompanyPaymentById(paymentId)
             .subscribe(
-            function (response:any) {
-                vm.payment = response;
+                function (response: any) {
+                    vm.payment = response;
 
-                if (vm.payment.date)
-                    vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () { // finally
-                vm.showProgress = false;
-            });
+                    if (vm.payment.date)
+                        vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () { // finally
+                    vm.showProgress = false;
+                });
     }
 
-    refundFromPrepaid()
-    {
+    refundFromPrepaid() {
         let vm = this;
         vm.refundModel.clinicId = this.localStorage.retrieve("ClinicID");
         vm.refundModel.insuranceCompanytId = vm.company.id;
 
-        if (vm.company == null || vm.company == undefined || vm.company.id == undefined)
-        {
+        if (vm.company == null || vm.company == undefined || vm.company.id == undefined) {
             vm.toastr.error(vm.translate.instant("ThereIsNoCompanySelected"), '');
             return;
         }
 
         this.insuranceService.refundCompanyFromPrePaid(vm.refundModel)
             .subscribe(
-            function (response:any) {
-                let msg = vm.translate.instant("SavedSuccessfully");
-                vm.toastr.success(msg, '');
+                function (response: any) {
+                    let msg = vm.translate.instant("SavedSuccessfully");
+                    vm.toastr.success(msg, '');
 
-                // update finance fields such as prepaid, pending,.... values
-                vm.prePaidBalanceAmount = response.prePaidBalance;
-                vm.pendingAmount = response.companyPending;
-                vm.amountToPay = response.amountToPay;
-                vm.netAmount = response.netAmount;
+                    // update finance fields such as prepaid, pending,.... values
+                    vm.prePaidBalanceAmount = response.prePaidBalance;
+                    vm.pendingAmount = response.companyPending;
+                    vm.amountToPay = response.amountToPay;
+                    vm.netAmount = response.netAmount;
 
-                vm.refundModel = {};
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
+                    vm.refundModel = {};
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
             );
     }
 
-    updateAmount(updates:any) {
+    updateAmount(updates: any) {
         let vm = this;
         this.insuranceService.getCompanyFinanceFields(vm.company.id, vm.localStorage.retrieve("ClinicID"))
             .subscribe(
-            function (response:any) {
-                // update finance fields such as prepaid, pending,.... values
-                vm.prePaidBalanceAmount = response.prePaidBalance;
-                vm.pendingAmount = response.companyPending;
-                vm.amountToPay = 0;
-                vm.netAmount = response.netAmount;
-                var discount = +((vm.pendingAmount - vm.prePaidBalanceAmount).toFixed(2));
-                vm.net = discount;
-            },
-            function (error:any) { 
-                vm.toastr.error(error, '');
-                vm.showProgress = false;
-            },
-            function () {
-                vm.showProgress = false;
-            }
-        );
+                function (response: any) {
+                    // update finance fields such as prepaid, pending,.... values
+                    vm.prePaidBalanceAmount = response.prePaidBalance;
+                    vm.pendingAmount = response.companyPending;
+                    vm.amountToPay = 0;
+                    vm.netAmount = response.netAmount;
+                    var discount = +((vm.pendingAmount - vm.prePaidBalanceAmount).toFixed(2));
+                    vm.net = discount;
+                },
+                function (error: any) {
+                    vm.toastr.error(error, '');
+                    vm.showProgress = false;
+                },
+                function () {
+                    vm.showProgress = false;
+                }
+            );
     }
 
-    updateAmountToPay(amount:any) {
+    updateAmountToPay(amount: any) {
         this.amountToPay = amount;
     }
 
