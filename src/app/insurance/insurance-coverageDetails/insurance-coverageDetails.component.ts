@@ -9,6 +9,7 @@ import { InsuranceService } from '../shared/insurance.service';
 import { TreeNode } from 'primeng/api';
 import { AccountService } from '../../security/shared/account.service';
 import { TranslateObjectsPipe } from '../../shared/pipes/translateObjects.pipe';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -60,6 +61,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
     diagnosisGroup = 'DiagnosisGroup';
     clinicID!: any;
     selectedPolicy: any;
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router

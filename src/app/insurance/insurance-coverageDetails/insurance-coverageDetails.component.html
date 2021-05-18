@@ -67,24 +67,72 @@
         <div class="row well" style="background-color: #f6f7f9 !important;">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
-                <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    [placeholder]="'Search' | translate" />
             </div>
+            <!---New Table-->
+            <p-table #dt [value]="coverageDetailsList" dataKey="id" [rowHover]="true" [rows]="10"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                [globalFilterFields]="['name','deductiblePercentage','discountPercentage']">
 
-            <!-- <p-dataTable [value]="coverageDetailsList | translateObjects  : 'name' : 'nameTranslation' : null" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                <p-column field="name" [header]="'DiagnosisandService' | translate" [sortable]="true"></p-column>
-                <p-column field="deductiblePercentage" [header]="'DeductiblePercentage' | translate" [sortable]="true"></p-column>
-                <p-column field="discountPercentage" [header]="'DiscountPercentage' | translate" [sortable]="true"></p-column>
-                <p-column field="coverageType" [header]="'CoverageType' | translate" [sortable]="true"></p-column>
-                <p-column field="specialPrice" [header]="'SpecialPrice' | translate" [sortable]="true"></p-column>
-                <p-column [header]="'Edit' | translate" styleClass="text-center width60">
-                    <ng-template let-coverage="rowData" pTemplate="body">
-                        <a [class.disabled]="!enableSaveCoverageDetails ? true : null">
-                            <i class="fa fa-pencil fa-2x" data-toggle="modal" data-target="#coverageDetailsPopup"
-                                 (click)="selectCoverageDetails(coverage.id)" style="color: #32bea6;"></i>
-                        </a>
-                    </ng-template>
-                </p-column>
-            </p-dataTable> -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">{{'DiagnosisandService' | translate}} <p-sortIcon field="name">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="deductiblePercentage">{{'DeductiblePercentage' | translate}} <p-sortIcon
+                                field="deductiblePercentage"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="discountPercentage">{{'DiscountPercentage' | translate}} <p-sortIcon
+                                field="discountPercentage"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="coverageType">{{'CoverageType' | translate}} <p-sortIcon
+                                field="coverageType"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="specialPrice">{{'SpecialPrice' | translate}} <p-sortIcon
+                                field="specialPrice"></p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                        </th>
+                        <th style="width: 8rem">
+                        </th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            <span>{{item.deductiblePercentage}}</span>
+                        </td>
+                        <td>
+                            {{item.discountPercentage}}
+                        </td>
+                        <td>
+                            {{item.coverageType}}
+                        </td>
+                        <td>
+                            {{item.specialPrice}}
+                        </td>
+                        <td>
+                            <a [class.disabled]="!enableSaveCoverageDetails ? true : null">
+                                <i class="fa fa-pencil fa-2x" data-toggle="modal" data-target="#coverageDetailsPopup"
+                                    (click)="selectCoverageDetails(item.id)" style="color: #32bea6;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
+
         </div>
 
         <div id="coverageDetailsPopup" class="modal fade" role="dialog">
