@@ -8,6 +8,7 @@ import { ClinicService } from '../../shared/clinic.service';
 
 import { ClinicNews } from '../../../classes/clinicNews.class';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -34,6 +35,10 @@ export class ViewNewsListComponent implements OnInit {
     isDetailsVisible: boolean = false;
     userType: string = '';
     isClinicAdmin: boolean = false;
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
+
+
     ngOnInit(): void {
         this.lstToTranslated = ['name', 'nameTranslation'];
         this.selectedClinicId = this.localStorage.retrieve("ClinicID");
@@ -52,9 +57,11 @@ export class ViewNewsListComponent implements OnInit {
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 },
                 function () { // finally
                     thisComponent.showProgress = false;
+                    thisComponent.loading = false;
                 });
 
     }

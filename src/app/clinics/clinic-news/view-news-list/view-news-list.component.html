@@ -12,49 +12,93 @@
         <div class="row well">
             <div class="padding5" *ngIf="!isDetailsVisible">
                 <div class="col-md-offset-10">
-                    <button class="btn btn-primary" (click)="addNewClinicNews()" disabled="{{ isClinicAdmin ? '' :'disabled'}}">
+                    <button class="btn btn-primary" (click)="addNewClinicNews()"
+                        disabled="{{ isClinicAdmin ? '' :'disabled'}}">
                         {{ 'Addnews' | translate}}
                     </button>
                 </div>
             </div>
         </div>
 
-    
+
         <div class="row well" style="background-color: #f6f7f9 !important;">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
-                <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    [placeholder]="'Search' | translate" />
+
             </div>
-            <!-- <p-dataTable [value]="clinicNewsList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                <p-column field="creationDateString" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
-                <p-column field="name" [header]="'Title' | translate" [sortable]="true"></p-column>
-                <p-column [header]="'image' | translate" styleClass="text-center">
-                    <ng-template let-clinicNews="rowData" pTemplate="body">
-                        <img *ngIf="clinicNews.imageData" [src]="getNewsImage(clinicNews.imageData)"
-                             width="100" height="100" style="cursor: default;">
-                    </ng-template>
-                </p-column>
-                <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
-                <p-column field="modificationDateString" [header]="'LastModificationDate' | translate" [sortable]="true"></p-column>
-                <p-column [header]="'Active' | translate" styleClass="text-center">
-                    <ng-template let-clinicNews="rowData" pTemplate="body">
-                        <input id="chkIsActiveInGrid" name="chkIsActiveInGrid" class="ace ace-switch ace-switch-6"
-                               type="checkbox" [checked]="clinicNews.isActive"
-                               (click)="changeClinicNewsActivationState(clinicNews.id, $event)" />
-                        <span class="lbl"></span>
-                    </ng-template>
-                </p-column>
-                <p-column [header]="'Edit' | translate" styleClass="text-center">
-                    <ng-template let-clinicNews="rowData" pTemplate="body">
-                        <a class="pointer" (click)="showNewsDetails(clinicNews.id)">
-                            <i class="fa fa-pencil fa-2x"  style="color: #32bea6;"></i>
-                        </a>
-                    </ng-template>
-                </p-column>
-            </p-dataTable> -->
+
+            <!---New Table-->
+            <p-table #dt [value]="clinicNewsList" dataKey="id" [rowHover]="true" [rows]="10"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading"
+                [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [filterDelay]="0" [globalFilterFields]="['creationDateString','name','nameTranslation']">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="creationDateString">{{'CreationDate' | translate}} <p-sortIcon
+                                field="creationDateString"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="name">{{'Title' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'image' | translate}} </span>
+                        </th>
+                        <th pSortableColumn="description">{{'Description' | translate}} <p-sortIcon field="description">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="modificationDateString">{{'LastModificationDate' | translate}} <p-sortIcon
+                                field="modificationDateString"></p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                        </th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            {{item.creationDateString}}
+                        </td>
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            <img *ngIf="item.imageData" [src]="getNewsImage(item.imageData)" width="100"
+                                height="100" style="cursor: default;">
+                        </td>
+                        <td>
+                            {{item.description}}
+                        </td>
+                        <td>
+                            {{item.modificationDateString}}
+                        </td>
+                        <td>
+                            <input id="chkIsActiveInGrid" name="chkIsActiveInGrid" class="ace ace-switch ace-switch-6"
+                                type="checkbox" [checked]="item.isActive"
+                                (click)="changeClinicNewsActivationState(item.id, $event)" />
+                            <span class="lbl"></span>
+                        </td>
+                        <td style="text-align: center">
+                            <a class="pointer" (click)="showNewsDetails(item.id)">
+                                <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
         </div>
         <div class="padding5" *ngIf="isDetailsVisible">
-            <clinic-add-news [selectedClinicNewsId]="selectedClinicNewsId" (onBack)="hideDetails($event)"></clinic-add-news>
+            <clinic-add-news [selectedClinicNewsId]="selectedClinicNewsId" (onBack)="hideDetails($event)">
+            </clinic-add-news>
         </div>
     </div>
 </div>
