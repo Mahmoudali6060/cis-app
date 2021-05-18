@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
@@ -8,6 +8,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 
 import { InsuranceService } from '../shared/insurance.service';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -24,7 +25,7 @@ export class InsuranceCompanyComponent implements OnInit {
     enableShowCompanyDetails = false;
     enableActivateBtn = false;
     toPrintDiv: string = "print-section";
-
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router

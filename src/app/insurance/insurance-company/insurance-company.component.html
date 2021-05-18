@@ -17,69 +17,104 @@
         </div>
     </div>
 
-    
-    
-        <div class="row well">
-            <div class="col-md-4 col-md-offset-8">
-                <div class="float-right btnMarginLeft"><print-page [section]='toPrintDiv'></print-page></div>
-                <button type="button" class="btn btn-primary float-right btnMarginRight  "
-                        disabled="{{enableViewCompanyDetails ? '' :'disabled'}}" routerLink="/insurance/companyDetails/new">
-                    {{ 'New' | translate}}
-                </button>
+
+
+    <div class="row well">
+        <div class="col-md-4 col-md-offset-8">
+            <div class="float-right btnMarginLeft">
+                <print-page [section]='toPrintDiv'></print-page>
             </div>
-
+            <button type="button" class="btn btn-primary float-right btnMarginRight  "
+                disabled="{{enableViewCompanyDetails ? '' :'disabled'}}" routerLink="/insurance/companyDetails/new">
+                {{ 'New' | translate}}
+            </button>
         </div>
-
-
-
+    </div>
     <div class="row well" style="background-color: #f6f7f9 !important;">
         <div class="inner-addon left-addon">
             <i class="glyphicon glyphicon-search"></i>
-            <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                [placeholder]="'Search' | translate" />
         </div>
-        <!-- <p-dataTable [value]="insuranceCompaniesList " selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="name" [header]="'NameArabic' | translate" [sortable]="true"></p-column>
-            <p-column field="nameTranslation" [header]="'EnglishName' | translate" [sortable]="true"></p-column>
-            <p-column field="activePoliciesCount" [header]="'ActivePoliciesCount' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'ActiveQues' | translate" styleClass="text-center width70">
-                <ng-template let-comp="rowData" pTemplate="body">
-                    <label>
-                        <input id="ChkIsActiveInGrid"
-                               disabled="{{ enableActivateBtn ? '' :'disabled'}}" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
-                               type="checkbox" [checked]="comp.isActive"
-                               (click)="changeActivation(comp.id , $event)" />
+
+        <!---New Table-->
+        <p-table #dt [value]="insuranceCompaniesList" dataKey="id" [rowHover]="true" [rows]="10"
+            [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['name','nameTranslation','activePoliciesCount']">
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">{{'ArabicName' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="nameTranslation">{{'EnglishName' | translate}} <p-sortIcon
+                            field="nameTranslation"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="activePoliciesCount">{{'ActivePoliciesCount' | translate}} <p-sortIcon
+                            field="activePoliciesCount"></p-sortIcon>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'ActiveQues' | translate}} </span>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'ShowDetails' | translate}} </span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{item.name}}
+                    </td>
+                    <td>
+                        <span>{{item.nameTranslation}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.activePoliciesCount}}</span>
+                    </td>
+                    <td>
+                        <input id="ChkIsActiveInGrid" disabled="{{ enableActivateBtn ? '' :'disabled'}}"
+                            name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox"
+                            [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
                         <span class="lbl"></span>
-                    </label>
-                </ng-template>
-            </p-column>
-            <p-column [header]="'ShowDetails' | translate" styleClass="text-center width100">
-                <ng-template let-comp="rowData" pTemplate="body">
-                    <a class="pointer" [class.disabled]="!enableShowCompanyDetails ? true : null" [routerLink]="['/insurance/companyDetails/', comp.id]"><li style="color:#3CACE2;font-size:28px;" class="fa fa-eye fa-2x"></li> </a>
-                </ng-template>
-            </p-column>
-        </p-dataTable> -->
+                    </td>
+                    <td style="text-align: center">
+                        <a class="pointer" [class.disabled]="!enableShowCompanyDetails ? true : null"
+                            [routerLink]="['/insurance/companyDetails/', item.id]">
+                            <li style="color:#3CACE2;font-size:28px;" class="fa fa-eye fa-2x"></li>
+                        </a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
+
+
     </div>
 
-        <div id="print-section" class="hidden">
-            <table class="table table-responsive table-hover">
-                <thead class="alert alert-info">
-                    <tr>
-                        <th>{{ 'NameArabic' | translate}}</th>
-                        <th>{{ 'NameEnglish' | translate}}</th>
-                        <th>{{ 'ActivePoliciesCount' | translate}}</th>
-                        <th>{{ 'Active' | translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of insuranceCompaniesList">
-                        <td>{{item.name}}</td>
-                        <td>{{item.nameTranslation}}</td>
-                        <td>{{item.activePoliciesCount}}</td>
-                        <td>
-                            <img *ngIf="item.isActive" src="assets/images/ok-24.jpg" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div id="print-section" class="hidden">
+        <table class="table table-responsive table-hover">
+            <thead class="alert alert-info">
+                <tr>
+                    <th>{{ 'NameArabic' | translate}}</th>
+                    <th>{{ 'NameEnglish' | translate}}</th>
+                    <th>{{ 'ActivePoliciesCount' | translate}}</th>
+                    <th>{{ 'Active' | translate}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of insuranceCompaniesList">
+                    <td>{{item.name}}</td>
+                    <td>{{item.nameTranslation}}</td>
+                    <td>{{item.activePoliciesCount}}</td>
+                    <td>
+                        <img *ngIf="item.isActive" src="assets/images/ok-24.jpg" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
