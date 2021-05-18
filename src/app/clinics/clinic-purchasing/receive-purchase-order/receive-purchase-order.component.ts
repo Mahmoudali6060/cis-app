@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
@@ -9,6 +9,7 @@ import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AccountService } from '../../../security/shared/account.service';
 import { UserPermissions } from '../../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../../shared/shared/permission-key.enum';
+import { Table } from 'primeng/table';
 @Component({
 
     selector: 'receive-purchase-order',
@@ -33,6 +34,7 @@ export class ReceivePurchaseOrder {
     enableReceiveLink: boolean = false;
     lstToTranslated: string[] = [];
     isClosed = false;
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService
         , private storage: LocalStorageService
         , private router: Router

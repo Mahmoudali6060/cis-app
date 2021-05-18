@@ -15,7 +15,8 @@
                                 <li>
                                     {{ 'Clinic' | translate}}
                                 </li>
-                                <li class="active-page">{{ 'PurchaseOrders' | translate}} > {{ 'ReceivePurchaseOrder' | translate}}</li>
+                                <li class="active-page">{{ 'PurchaseOrders' | translate}} > {{ 'ReceivePurchaseOrder' |
+                                    translate}}</li>
                             </ul>
                         </div>
                     </div>
@@ -40,43 +41,106 @@
         </div>
         <br />
         <form *ngIf="active" class="form-horizontal" name="orderForm" #orderForm="ngForm" (ngSubmit)="onSubmit()">
-            
+
             <div class="row text-right">
-                    <button class="btn btn-primary" *ngIf="!isClosed" disabled="{{ enableReceiveLink || isClinicAdmin ? '' :'disabled'}}">{{ 'Receive' | translate}}</button>
+                <button class="btn btn-primary" *ngIf="!isClosed"
+                    disabled="{{ enableReceiveLink || isClinicAdmin ? '' :'disabled'}}">{{ 'Receive' |
+                    translate}}</button>
                 <button class="btn btn-primary" (click)="navigateToOrderdetails()">{{ 'Back' | translate}}</button>
             </div>
             <br />
             <br />
-             <div class="form-group">
-                 <div class="ui-widget-header searchWidget">
-                     <i class="fa fa-search searchIcon"></i>
-                     <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
-                 </div>
-               <!-- <p-dataTable [value]="itemsList | translateObjects  : null : null : lstToTranslated" selectionMode="none"
-                             [paginator]="true" rows="10"
-                             [rowsPerPageOptions]="[5,10,20,30,40,50,100]"
-                             [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                    <p-column field="productName" [header]="'Item' | translate" [sortable]="false"></p-column>
-                    <p-column field="productCode" [header]="'Code' | translate" [sortable]="false"></p-column>
-                    <p-column field="onHandQuantity" [header]="'OnhandQuantity' | translate" [sortable]="true"></p-column>
-                    <p-column field="unit" [header]="'Unit' | translate" [sortable]="false"></p-column>
-                    <p-column field="purchasingPrice" [header]="'Price' | translate" [sortable]="false"></p-column>
-                    <p-column field="net" [header]="'Net' | translate" [sortable]="false"></p-column>
-                    <p-column field="orderedQuantity" [header]="'OrderdQuant' | translate" [sortable]="false"></p-column>
-                    <p-column [header]="'ReceivedQuantity' | translate">
-                        <ng-template let-purchaseItem="rowData" pTemplate="body">
-                            <input type="number" class="form-control" name="txtReceivedQuantity{{purchaseItem.id}}" [(ngModel)]="purchaseItem.receivedQuantity" />
-                        </ng-template>
-                    </p-column>
-                    <p-column [header]="'Remark' | translate">
-                        <ng-template let-purchaseItem="rowData" pTemplate="body">
-                            <textarea class="form-control" name="txtRemark{{purchaseItem.id}}" [(ngModel)]="purchaseItem.description"></textarea>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable> -->
+            <div class="form-group">
+                <div class="ui-widget-header searchWidget">
+                    <i class="fa fa-search searchIcon"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        [placeholder]="'Search' | translate" />
+                </div>
+
+
+                <!---New Table-->
+                <p-table #dt [value]="itemsList" dataKey="id" [rowHover]="true" [rows]="10"
+                    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                    [globalFilterFields]="['productName','productCode']">
+
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="productName">{{'Item' | translate}} <p-sortIcon field="productName">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="productCode">{{'Code' | translate}} <p-sortIcon field="productCode">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="onHandQuantity">{{'OnhandQuantity' | translate}} <p-sortIcon
+                                    field="onHandQuantity">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="unit">{{'Unit' | translate}} <p-sortIcon field="unit">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="purchasingPrice">{{'Price' | translate}} <p-sortIcon
+                                    field="purchasingPrice">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="net">{{'Net' | translate}} <p-sortIcon field="net">
+                                </p-sortIcon>
+                            </th>
+                            <th pSortableColumn="orderedQuantity">{{'OrderdQuant' | translate}} <p-sortIcon
+                                    field="orderedQuantity">
+                                </p-sortIcon>
+                            </th>
+                            <th>{{'ReceivedQuantity' | translate}}
+                            </th>
+                            <th><span styleClass="text-center width70">{{'Remark' | translate}} </span>
+                            </th>
+                        </tr>
+
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr class="p-selectable-row">
+                            <td>
+                                {{item.productName}}
+                            </td>
+                            <td>
+                                <span>{{item.productCode}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.onHandQuantity}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.unit}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.purchasingPrice}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.net}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.orderedQuantity}}</span>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="txtReceivedQuantity{{item.id}}"
+                                    [(ngModel)]="item.receivedQuantity" />
+                            </td>
+                            <td>
+                                <textarea class="form-control" name="txtRemark{{item.id}}"
+                                    [(ngModel)]="item.description"></textarea>
+                            </td>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No data found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <!--End Table-->
+
             </div>
 
         </form>
     </div>
 </div>
-
