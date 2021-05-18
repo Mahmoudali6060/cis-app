@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../security/shared/account.service';
 
@@ -9,6 +9,7 @@ import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 import { InsuranceService } from '../shared/insurance.service';
 import { UtilityClass } from '../../shared/shared/utility.class'
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -38,7 +39,7 @@ export class InsuranceInvoiceComponent implements OnInit {
     invoicesList: any[] = [];
     companiesList: any[] = [];
     policiesList: any[] = [];
-
+    @ViewChild('dt') table!: Table;
     constructor(public toastr: ToastrService
         , private localStorage: LocalStorageService
         , private router: Router

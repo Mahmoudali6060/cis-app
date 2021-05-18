@@ -13,7 +13,9 @@
         <form class="form-horizontal">
             <div class="row well">
                 <div class="col-md-4  col-md-offset-8 text-right">
-                    <button class="btn btn-primary" data-toggle="collapse" disabled="{{ enableViewCompanyDetails ? '' :'disabled'}}" data-target="#SearchForInvoices">{{ 'Search' | translate}}</button>
+                    <button class="btn btn-primary" data-toggle="collapse"
+                        disabled="{{ enableViewCompanyDetails ? '' :'disabled'}}" data-target="#SearchForInvoices">{{
+                        'Search' | translate}}</button>
                     <print-page [section]='toPrintDiv'></print-page>
                 </div>
             </div>
@@ -25,18 +27,20 @@
                             <label class="col-md-2 control-label">{{ 'Company' | translate}}</label>
                             <div class="col-md-3">
                                 <select id="ddlCompanies" name="ddlCompanies" class="form-control"
-                                        [(ngModel)]='invoiceSearchParameters.companyId'
-                                        (change)="fillCompanyPolicies(ddlCompanies.value)" #ddlCompanies>
+                                    [(ngModel)]='invoiceSearchParameters.companyId'
+                                    (change)="fillCompanyPolicies(ddlCompanies.value)" #ddlCompanies>
                                     <option>{{ 'Select' | translate}}</option>
-                                    <option *ngFor="let item of companiesList | translateObjects" [value]="item.id">{{item.name}}</option>
+                                    <option *ngFor="let item of companiesList | translateObjects" [value]="item.id">
+                                        {{item.name}}</option>
                                 </select>
                             </div>
                             <label class="col-md-2 control-label">{{ 'Policy' | translate}}</label>
                             <div class="col-md-3">
                                 <select id="ddlPolicies" name="ddlPolicies" class="form-control"
-                                        [(ngModel)]='invoiceSearchParameters.policyId'>
+                                    [(ngModel)]='invoiceSearchParameters.policyId'>
                                     <option>{{ 'Select' | translate}}</option>
-                                    <option *ngFor="let item of policiesList  | translateObjects" [value]="item.id">{{item.name}}</option>
+                                    <option *ngFor="let item of policiesList  | translateObjects" [value]="item.id">
+                                        {{item.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -44,74 +48,148 @@
                             <label for="txtName" class="col-md-2 control-label">{{ 'Date' | translate}}</label>
                             <div class="col-md-3">
                                 <select id="ddlDateFilters" name="ddlDateFilters"
-                                        [(ngModel)]='invoiceSearchParameters.dateFilter'
-                                        (change)="selectDateFilter(ddlDateFilters.value)"
-                                        class="form-control" #ddlDateFilters>
+                                    [(ngModel)]='invoiceSearchParameters.dateFilter'
+                                    (change)="selectDateFilter(ddlDateFilters.value)" class="form-control"
+                                    #ddlDateFilters>
                                     <option>{{ 'Select' | translate}}</option>
-                                    <option *ngFor="let item of dateFiltersList" [value]="item.value">{{item.text| translate}}</option>
+                                    <option *ngFor="let item of dateFiltersList" [value]="item.value">{{item.text|
+                                        translate}}</option>
                                 </select>
                             </div>
                             <label for="txtName" class="col-md-2 control-label">{{ 'Status' | translate}}</label>
                             <div class="col-md-3">
                                 <select id="ddlInvoiceStatuses" name="ddlInvoiceStatuses" class="form-control"
-                                        [(ngModel)]='invoiceSearchParameters.status'>
+                                    [(ngModel)]='invoiceSearchParameters.status'>
                                     <option>{{ 'Select' | translate}}</option>
-                                    <option *ngFor="let item of invoiceStatusesList | translateObjects " [value]="item.value">{{item.text| translate}}</option>
+                                    <option *ngFor="let item of invoiceStatusesList | translateObjects "
+                                        [value]="item.value">{{item.text| translate}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" *ngIf="isDurationVisible">
                             <label for="txtDuration" class="col-md-2 control-label">{{durationLabel}}</label>
                             <div class="col-md-2">
-                                <input type="text" id="txtDuration" name="txtDuration" class="form-control" [(ngModel)]='invoiceSearchParameters.duration' />
+                                <input type="text" id="txtDuration" name="txtDuration" class="form-control"
+                                    [(ngModel)]='invoiceSearchParameters.duration' />
                             </div>
                         </div>
                         <div class="form-group" *ngIf="isPeriodOfTimeVisible">
                             <label for="txtName" class="col-md-2 control-label">{{ 'From' | translate}}</label>
                             <div class="col-md-3">
-                                <p-calendar [(ngModel)]="periodStartDate"
-                                            [monthNavigator]="true"
-                                            [yearNavigator]="true"
-                                            dateFormat="dd/mm/yy"
-                                            [showIcon]="true"
-                                            [ngModelOptions]="{standalone: true}"
-                                            yearRange="2000:2050"></p-calendar>
+                                <p-calendar [(ngModel)]="periodStartDate" [monthNavigator]="true" [yearNavigator]="true"
+                                    dateFormat="dd/mm/yy" [showIcon]="true" [ngModelOptions]="{standalone: true}"
+                                    yearRange="2000:2050"></p-calendar>
                             </div>
                             <label for="txtName" class="col-md-2 control-label">{{ 'To' | translate}}</label>
                             <div class="col-md-3">
-                                <p-calendar [(ngModel)]="periodEndDate"
-                                            [monthNavigator]="true"
-                                            [yearNavigator]="true"
-                                            dateFormat="dd/mm/yy"
-                                            [showIcon]="true"
-                                            [ngModelOptions]="{standalone: true}"
-                                            yearRange="2000:2050"></p-calendar>
+                                <p-calendar [(ngModel)]="periodEndDate" [monthNavigator]="true" [yearNavigator]="true"
+                                    dateFormat="dd/mm/yy" [showIcon]="true" [ngModelOptions]="{standalone: true}"
+                                    yearRange="2000:2050"></p-calendar>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4 col-md-offset-1">
-                                <button type="button" class="btn btn-primary" (click)="searchForInvoices()">{{ 'SearchBtn' | translate}}</button>
+                                <button type="button" class="btn btn-primary" (click)="searchForInvoices()">{{
+                                    'SearchBtn' | translate}}</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- <p-dataTable [value]="invoicesList | translateObjects  : null : null : lstToTranslated " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                <p-column field="id" [header]="'RefNo' | translate" [sortable]="true"></p-column>
-                <p-column field="creatorName" [header]="'CreatedBy' | translate" [sortable]="true"></p-column>
-                <p-column field="invoiceDateString" [header]="'InvoiceDate' | translate" [sortable]="true"></p-column>
-                <p-column field="companyName" [header]="'CompanyName' | translate" [sortable]="true"></p-column>
-                <p-column field="totalAmountForInsuranceCompanyWithoutVAT" [header]="'Amount' | translate" [sortable]="true"></p-column>
-                <p-column field="totalVatAmountForInsuranceCompany" [header]="'VATAmount' | translate" [sortable]="true"></p-column>
-                <p-column field="netAmount" [header]="'NetAmount' | translate" [sortable]="true"></p-column>
-                <p-column field="totalCredit" [header]="'TotalCredit' | translate" [sortable]="true"></p-column>
-                <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
-                <p-column [header]="'ShowDetails' | translate" styleClass="text-center width100">
-                    <ng-template let-invic="rowData" pTemplate="body">
-                        <a class="pointer" [class.disabled]="!enableViewCompanyDetails ? true : null" [routerLink]="['/insurance/invoice/detail', invic.id]">{{ 'ShowDetails' | translate }} </a>
-                    </ng-template>
-                </p-column>
-            </p-dataTable> -->
+
+
+
+
+            <!---New Table-->
+            <p-table #dt [value]="invoicesList" dataKey="id" [rowHover]="true" [rows]="10"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                [globalFilterFields]="['id','creatorName','invoiceDateString','companyName','totalAmountForInsuranceCompanyWithoutVAT','totalVatAmountForInsuranceCompany']">
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id">{{'RefNo' | translate}} <p-sortIcon field="id"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="creatorName">{{'CreatedBy' | translate}} <p-sortIcon field="creatorName">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="invoiceDateString">{{'InvoiceDate' | translate}} <p-sortIcon
+                                field="invoiceDateString">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="companyName">{{'CompanyName' | translate}} <p-sortIcon field="companyName">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="totalAmountForInsuranceCompanyWithoutVAT">{{'Amount' | translate}}
+                            <p-sortIcon field="totalAmountForInsuranceCompanyWithoutVAT">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="totalVatAmountForInsuranceCompany">{{'VATAmount' | translate}}
+                            <p-sortIcon field="totalVatAmountForInsuranceCompany">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="netAmount">{{'NetAmount' | translate}}
+                            <p-sortIcon field="netAmount">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="totalCredit">{{'TotalCredit' | translate}}
+                            <p-sortIcon field="totalCredit">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="status">{{'Status' | translate}}
+                            <p-sortIcon field="status">
+                            </p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'ShowDetails' | translate}} </span>
+                        </th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            {{item.id}}
+                        </td>
+                        <td>
+                            <span>{{item.creatorName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.invoiceDateString}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.companyName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.totalAmountForInsuranceCompanyWithoutVAT}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.totalVatAmountForInsuranceCompany}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.netAmount}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.totalCredit}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.status}}</span>
+                        </td>
+                        <td>
+                            <a class="pointer" [class.disabled]="!enableViewCompanyDetails ? true : null"
+                                [routerLink]="['/insurance/invoice/detail', item.id]">{{ 'ShowDetails' | translate }}
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
+
+
             <div id="print-section" class="hidden">
                 <table class="table table-responsive table-hover">
                     <thead class="alert alert-info">
