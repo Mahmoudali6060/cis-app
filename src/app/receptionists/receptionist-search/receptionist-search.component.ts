@@ -9,6 +9,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { TranslateService } from '@ngx-translate/core';
 
 import { UtilityClass } from '../../shared/shared/utility.class'
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -50,7 +51,7 @@ export class ReceptionistSearchComponent implements OnInit {
     toPrintDiv: string = "matchedAppoitmentsToPrintDiv";
     doctorsList: any[] = [];
     lang: string = 'en';
-
+    @ViewChild('dt') table!: Table;
     constructor(private receptionistService: ReceptionistService
         , private sharedService: SharedService
         , public toastr: ToastrService

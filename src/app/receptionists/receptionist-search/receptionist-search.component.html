@@ -5,13 +5,15 @@
 <div class="padding5">
     <div class="row form-horizontal well">
         <br />
-        <div class="form-group" >
+        <div class="form-group">
             <label for="txtMRNRes" class="col-md-2 control-label">{{ 'MRN' | translate}}</label>
             <div class="col-md-2">
-                <input type="text" class="form-control"   [(ngModel)]='appointmentCriteria.patientClinicMRN' id="txtMRNRes" name="txtMRNRes"/>
+                <input type="text" class="form-control" [(ngModel)]='appointmentCriteria.patientClinicMRN'
+                    id="txtMRNRes" name="txtMRNRes" />
 
             </div>
-            <button type="button" (click)="showDialog()" class="btn btn-primary col-md-2">{{'FindPatient' | translate}}</button>
+            <button type="button" (click)="showDialog()" class="btn btn-primary col-md-2">{{'FindPatient' |
+                translate}}</button>
 
             <!-- <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="display" [resizable]="true" width="800" [responsive]="true" height="auto">
                 <patient-search [showActive]="showActive" [showEdit]="showEdit" [showSelect]="showSelect" [showClose]="showClose" (patientSelected)="managePatientSelection($event)"></patient-search>
@@ -19,20 +21,23 @@
 
 
 
-                <label for="txtName" class="col-md-2 control-label">{{ 'DoctorName' | translate}}</label>
-                <div class="col-md-3">
-                    <!--<input type="text" class="form-control" [(ngModel)]='appointmentCriteria.doctorName' />-->
-                    <select name="ddlsDoctorsList" [(ngModel)]='appointmentCriteria.doctorId' class="form-control" #ddlsDoctorsList>
-                        <option value="0" selected>{{ 'Select' | translate}}</option>
-                        <option *ngFor="let item of doctorsList | translateObjects" [value]="item.id">{{item.name}}</option>
-                    </select>
-                </div>
-</div>
+            <label for="txtName" class="col-md-2 control-label">{{ 'DoctorName' | translate}}</label>
+            <div class="col-md-3">
+                <!--<input type="text" class="form-control" [(ngModel)]='appointmentCriteria.doctorName' />-->
+                <select name="ddlsDoctorsList" [(ngModel)]='appointmentCriteria.doctorId' class="form-control"
+                    #ddlsDoctorsList>
+                    <option value="0" selected>{{ 'Select' | translate}}</option>
+                    <option *ngFor="let item of doctorsList | translateObjects" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
         <div class="form-group">
             <label for="txtName" class="col-md-2 control-label">{{ 'Date' | translate}}</label>
             <div class="col-md-2">
-                <select id="oppintmentDate" name="oppintmentDate"  [(ngModel)]='appointmentCriteria.receptionistMethodsSearch'  (change)="selectDate(oppintmentDate.value)" class="form-control" #oppintmentDate>
-                    <option  >{{ 'Select' | translate}} --</option>
+                <select id="oppintmentDate" name="oppintmentDate"
+                    [(ngModel)]='appointmentCriteria.receptionistMethodsSearch'
+                    (change)="selectDate(oppintmentDate.value)" class="form-control" #oppintmentDate>
+                    <option>{{ 'Select' | translate}} --</option>
                     <option value="Today">{{ 'Today' | translate}}</option>
                     <option value="Days">{{ 'Days' | translate}}</option>
                     <option value="Week">{{ 'Week' | translate}}</option>
@@ -46,54 +51,50 @@
         <div class="form-group" *ngIf="todayStatus">
             <label for="txtName" class="col-md-2 control-label">{{ 'NoOfDays' | translate}}</label>
             <div class="col-md-3">
-                <input type="number" min="1" title="1" class="form-control" [(ngModel)]='appointmentCriteria.timeDuration'  />
+                <input type="number" min="1" title="1" class="form-control"
+                    [(ngModel)]='appointmentCriteria.timeDuration' />
             </div>
         </div>
         <div class="form-group" *ngIf="weekStatus">
-            <label for="txtName" class="col-md-2 control-label"  >{{ 'HowManyWeeks' | translate}}</label>
+            <label for="txtName" class="col-md-2 control-label">{{ 'HowManyWeeks' | translate}}</label>
             <div class="col-md-3">
-                <input type="number" min="1" title="1" class="form-control" [(ngModel)]='appointmentCriteria.timeDuration'/>
+                <input type="number" min="1" title="1" class="form-control"
+                    [(ngModel)]='appointmentCriteria.timeDuration' />
             </div>
         </div>
         <div class="form-group" *ngIf="monthStatus">
-            <label for="txtName" class="col-md-2 control-label" >{{ 'HowManyMonths' | translate}}</label>
+            <label for="txtName" class="col-md-2 control-label">{{ 'HowManyMonths' | translate}}</label>
             <div class="col-md-3">
-                <input type="number" min="1" title="1" class="form-control"  [(ngModel)]='appointmentCriteria.timeDuration'/>
+                <input type="number" min="1" title="1" class="form-control"
+                    [(ngModel)]='appointmentCriteria.timeDuration' />
             </div>
         </div>
         <div class="form-group" *ngIf="yearStatus">
-            <label for="txtName" class="col-md-2 control-label"  >{{ 'HowManyYears' | translate}}</label>
+            <label for="txtName" class="col-md-2 control-label">{{ 'HowManyYears' | translate}}</label>
             <div class="col-md-3">
-                <input type="number" min="1" title="1" class="form-control" [(ngModel)]='appointmentCriteria.timeDuration'/>
+                <input type="number" min="1" title="1" class="form-control"
+                    [(ngModel)]='appointmentCriteria.timeDuration' />
             </div>
         </div>
 
         <div class="form-group" *ngIf="periodOfTime">
-            <label for="txtName" class="col-md-2 control-label"  >{{ 'From' | translate}}</label>
+            <label for="txtName" class="col-md-2 control-label">{{ 'From' | translate}}</label>
             <div class="col-md-3">
-                <p-calendar [(ngModel)]="periodStartDate"
-                            [monthNavigator]="true"
-                            [yearNavigator]="true"
-                            dateFormat="dd/mm/yy"
-                            [showIcon]="true"
-                            [ngModelOptions]="{standalone: true}"
-                            yearRange="2000:2050"></p-calendar>
+                <p-calendar [(ngModel)]="periodStartDate" [monthNavigator]="true" [yearNavigator]="true"
+                    dateFormat="dd/mm/yy" [showIcon]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050">
+                </p-calendar>
             </div>
-            <label for="txtName" class="col-md-3 control-label"  >{{ 'To' | translate}}</label>
+            <label for="txtName" class="col-md-3 control-label">{{ 'To' | translate}}</label>
             <div class="col-md-3">
-                <p-calendar [(ngModel)]="periodEndDate"
-                            [monthNavigator]="true"
-                            [yearNavigator]="true"
-                            dateFormat="dd/mm/yy"
-                            [showIcon]="true"
-                            [ngModelOptions]="{standalone: true}"
-                            yearRange="2000:2050"></p-calendar>
+                <p-calendar [(ngModel)]="periodEndDate" [monthNavigator]="true" [yearNavigator]="true"
+                    dateFormat="dd/mm/yy" [showIcon]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050">
+                </p-calendar>
             </div>
         </div>
         <div class="form-group" *ngIf="pastOrFuture">
-            <label for="ddlUnitType" class="col-md-2 control-label" >{{ 'PastOrFuture' | translate}}</label>
+            <label for="ddlUnitType" class="col-md-2 control-label">{{ 'PastOrFuture' | translate}}</label>
             <div class="col-md-3">
-                <select class="form-control" required [(ngModel)]='appointmentCriteria.timeStatus' >
+                <select class="form-control" required [(ngModel)]='appointmentCriteria.timeStatus'>
                     <option value="Past">{{ 'Past' | translate}}</option>
                     <option value="Future">{{ 'Future' | translate}}</option>
                 </select>
@@ -103,7 +104,8 @@
 
         <div class="form-group">
             <div class="col-md-4 col-md-offset-2">
-                <button type="button" class="btn btn-primary" (click)="GetAllAppointments()">{{ 'Search' | translate}}</button>
+                <button type="button" class="btn btn-primary" (click)="GetAllAppointments()">{{ 'Search' |
+                    translate}}</button>
             </div>
         </div>
     </div>
@@ -113,30 +115,103 @@
         <print-page [section]='toPrintDiv'></print-page>
         <div class="ui-widget-header searchWidget">
             <i class="fa fa-search searchIcon"></i>
-            <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                [placeholder]="'Search' | translate" />
         </div>
-        <!-- <p-dataTable [value]="matchedAppontments | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="dateTime" [header]="'AppointmentDate' | translate" [sortable]="true"></p-column>
-            <p-column field="appointmentClassName"  [header]="'Class' | translate" [sortable]="true"></p-column>
-            <p-column field="arrivalTime"   [header]="'ArrivalTime' | translate" [sortable]="true"></p-column>
-            <p-column field="patientClinicMRN" [header]="'PatientMRN' | translate"  [sortable]="true"></p-column>
-            <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
-            <p-column field="patientName" [header]="'PatientName' | translate" [sortable]="true"></p-column>
-            <p-column field="mobile" [header]="'Mobile' | translate" [sortable]="true"></p-column>
+        <!---New Table-->
+        <p-table #dt [value]="matchedAppontments" dataKey="id" [rowHover]="true" [rows]="10"
+            [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['dateTime','appointmentClassName','arrivalTime','patientClinicMRN','doctorName','patientName','mobile','policyName','policyEndDate','lastModifier','lastModificationDateString']">
 
-            <p-column field="policyName" [header]="'PolicyName' | translate" [sortable]="true"></p-column>
-            <p-column field="policyEndDate" [header]="'PolicyEndDate' | translate" [sortable]="true"></p-column>
-            <p-column field="lastModifier"  [header]="'LastModifierUser' | translate" [sortable]="true"></p-column>
-            <p-column field="lastModificationDateString" [header]="'LastModificationDate' | translate"  [sortable]="true"></p-column>
-            <p-column  [header]="'Edit' | translate"  styleClass="text-center width50" >
-                <ng-template let-appointment="rowData" pTemplate="body">
-                        <a class="pointer"  #val (click)="GetId(appointment)">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="dateTime">{{'ArabicName' | translate}} <p-sortIcon field="dateTime">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="appointmentClassName">{{'EnglishName' | translate}} <p-sortIcon
+                            field="appointmentClassName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="arrivalTime">{{'EnglishName' | translate}} <p-sortIcon field="arrivalTime">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="patientClinicMRN">{{'EnglishName' | translate}} <p-sortIcon
+                            field="patientClinicMRN"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="doctorName">{{'EnglishName' | translate}} <p-sortIcon field="doctorName">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="patientName">{{'EnglishName' | translate}} <p-sortIcon field="patientName">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="mobile">{{'EnglishName' | translate}} <p-sortIcon field="mobile"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="policyName">{{'EnglishName' | translate}} <p-sortIcon field="policyName">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="policyEndDate">{{'EnglishName' | translate}} <p-sortIcon field="policyEndDate">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="lastModifier">{{'EnglishName' | translate}} <p-sortIcon field="lastModifier">
+                        </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="lastModificationDateString">{{'EnglishName' | translate}} <p-sortIcon
+                            field="lastModificationDateString"></p-sortIcon>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                    </th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{item.dateTime}}
+                    </td>
+                    <td>
+                        <span>{{item.appointmentClassName}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.arrivalTime}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.patientClinicMRN}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.doctorName}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.patientName}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.mobile}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.policyName}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.policyEndDate}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.lastModifier}}</span>
+                    </td>
+                    <td>
+                        <span>{{item.lastModificationDateString}}</span>
+                    </td>
+                    <td>
+                        <a class="pointer" #val (click)="GetId(item)">
                             <img src="assets/images/details-24.jpg" />
                         </a>
-                </ng-template>
-            </p-column>
-
-        </p-dataTable> -->
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
 
     </div>
 </div>
@@ -149,7 +224,8 @@
                 <h4 class="modal-title">{{ 'AppointmentDetails' | translate}}</h4>
             </div>
             <div class="modal-body">
-                <receptionist-appointment-details [appointmentDetails]="appointmentDetails" [AppontmentId]="appointmentId"></receptionist-appointment-details>
+                <receptionist-appointment-details [appointmentDetails]="appointmentDetails"
+                    [AppontmentId]="appointmentId"></receptionist-appointment-details>
             </div>
             <div class="modal-footer">
                 <div class="row">
@@ -201,5 +277,3 @@
         </tbody>
     </table>
 </div>
-
-
