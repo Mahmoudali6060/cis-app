@@ -1,32 +1,61 @@
-﻿
-<div class="inner-addon left-addon">
+﻿<div class="inner-addon left-addon">
     <i class="glyphicon glyphicon-search"></i>
-    <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+        [placeholder]="'Search' | translate" />
 </div>
-<!-- <p-dataTable [value]="allLaboratories | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-    <p-column styleClass="text-center width50">
-        <ng-template let-noteLaboratory="rowData" pTemplate="body">
-            <input type="checkbox" [checked] ="noteLaboratory.isSelected"
-                   (change)="updateSelectedLaboratory(noteLaboratory.labTestId, $event)" />
-        </ng-template>
-    </p-column>
-    <p-column field="labTestCode" [header]="'LaboratoryCode' | translate" [sortable]="true" styleClass="text-center width80"></p-column>
-    <p-column field="labTestName" [header]="'LaboratoryName' | translate" [sortable]="true"></p-column>
-    <p-column [header]="'Quantity' | translate" styleClass="text-center width70">
-        <ng-template let-noteLaboratory="rowData" pTemplate="body">
-            <input type="number" min="0" id="txtQuantity" name="txtQuantity" [(ngModel)]='noteLaboratory.quantity' class="form-control" />
-        </ng-template>
-    </p-column>
-    <p-column [header]="'DiagnoseName' | translate">
-        <ng-template let-noteLaboratory="rowData" pTemplate="body">
-            <select class="form-control" name="ddlDiagnosis" [(ngModel)]='noteLaboratory.diagnoseId' >
-                <option *ngFor="let obj of diagnosis| translateObjects" [value]="obj.id">{{obj.name}}</option>
-            </select>
-        </ng-template>
-    </p-column>
-    <p-column [header]="'Remarks' | translate">
-        <ng-template let-noteLaboratory="rowData" pTemplate="body">
-            <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteLaboratory.description'></textarea>
-        </ng-template>
-    </p-column>
-</p-dataTable> -->
+<!---New Table-->
+<p-table #dt [value]="allLaboratories" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+    [globalFilterFields]="['labTestCode','labTestName','Quantity']">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th pSortableColumn="labTestCode">{{'LaboratoryCode' | translate}} <p-sortIcon field="labTestCode"></p-sortIcon>
+            </th>
+            <th pSortableColumn="labTestName">{{'LaboratoryName' | translate}} <p-sortIcon field="labTestName">
+                </p-sortIcon>
+            </th>
+            <th pSortableColumn="Quantity">{{'Quantity' | translate}} <p-sortIcon field="Quantity">
+                </p-sortIcon>
+            </th>
+            <th><span styleClass="text-center width70">{{'DiagnoseName' | translate}} </span>
+            </th>
+            <th><span styleClass="text-center width70">{{'Remarks' | translate}} </span>
+            </th>
+        </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr class="p-selectable-row">
+            <td>
+                <input type="checkbox" [checked] ="item.isSelected"
+                   (change)="updateSelectedLaboratory(item.labTestId, $event)" />
+            </td>
+            <td>
+                {{item.labTestCode}}
+            </td>
+            <td>
+                <span>{{item.labTestName}}</span>
+            </td>
+            <td>
+                <input type="number" min="0" id="txtQuantity" name="txtQuantity" [(ngModel)]='item.quantity' class="form-control" />
+            </td>
+            <td>
+                <select class="form-control" name="ddlDiagnosis" [(ngModel)]='item.diagnoseId' >
+                    <option *ngFor="let obj of diagnosis| translateObjects" [value]="obj.id">{{obj.name}}</option>
+                </select>
+            </td>
+            <td style="text-align: center">
+                <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='item.description'></textarea>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">No data found.</td>
+        </tr>
+    </ng-template>
+</p-table>
+<!--End Table-->
