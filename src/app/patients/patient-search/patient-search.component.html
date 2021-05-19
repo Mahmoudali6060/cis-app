@@ -7,28 +7,34 @@
     <div class="form-group">
         <label for="txtName" class="col-md-2 control-label">{{ 'NameOrPartOfName' | translate}}</label>
         <div class="col-md-4">
-            <input type="text" id="txtName" name="txtName"  [placeholder]="'NameOrPartOfName' | translate" [(ngModel)]='searchCriteria.searchableName' #txtName="ngModel" class="form-control nopadding" />
+            <input type="text" id="txtName" name="txtName" [placeholder]="'NameOrPartOfName' | translate"
+                [(ngModel)]='searchCriteria.searchableName' #txtName="ngModel" class="form-control nopadding" />
         </div>
         <label for="txtMRN" class="col-md-2 control-label">{{ 'MRN' | translate}}</label>
         <div class="col-md-4">
-            <input type="text" id="txtMRN" name="txtMRN" [placeholder]="'MRN' | translate" [(ngModel)]='searchCriteria.clinicMRN' #txtMRN="ngModel" class="form-control nopadding" />
+            <input type="text" id="txtMRN" name="txtMRN" [placeholder]="'MRN' | translate"
+                [(ngModel)]='searchCriteria.clinicMRN' #txtMRN="ngModel" class="form-control nopadding" />
         </div>
     </div>
     <div class="form-group">
         <label for="txtMobile" class="col-md-2 control-label">{{ 'MobileNumber' | translate}}</label>
         <div class="col-md-4">
-            <input type="text" id="txtMobile" [placeholder]="'MobileNumber' | translate" name="txtMobile" [(ngModel)]='searchCriteria.mobileNumber' #txtMobile="ngModel" class="form-control nopadding" />
+            <input type="text" id="txtMobile" [placeholder]="'MobileNumber' | translate" name="txtMobile"
+                [(ngModel)]='searchCriteria.mobileNumber' #txtMobile="ngModel" class="form-control nopadding" />
         </div>
         <label for="txtIdNumber" class="col-md-2 control-label">{{ 'IdNumber' | translate}}</label>
         <div class="col-md-4">
-            <input id="txtIdNumber" name="txtIdNumber"  [placeholder]="'MobileNumber' | translate" [(ngModel)]='searchCriteria.iDNumber' #txtIdNumber="ngModel" type="text" class="form-control nopadding" />
+            <input id="txtIdNumber" name="txtIdNumber" [placeholder]="'MobileNumber' | translate"
+                [(ngModel)]='searchCriteria.iDNumber' #txtIdNumber="ngModel" type="text"
+                class="form-control nopadding" />
         </div>
     </div>
     <div class="form-group">
         <div>
             <button class="btn btn-primary" (click)="getAllPatients()">
-            <i class="fa fa-search"></i>{{ 'Search' | translate}}</button>
-            <button type="button" class="btn btn-danger" (click)="display=false" *ngIf="showClose">{{ 'Cancel' | translate}}</button>
+                <i class="fa fa-search"></i>{{ 'Search' | translate}}</button>
+            <button type="button" class="btn btn-danger" (click)="display=false" *ngIf="showClose">{{ 'Cancel' |
+                translate}}</button>
 
         </div>
     </div>
@@ -37,47 +43,77 @@
     <h4 class="h4Deco">{{ 'SearchResults' | translate}}</h4>
     <hr />
     <div class="row well" style="background-color: #f6f7f9 !important;">
- 
+
         <div class="inner-addon left-addon">
             <i class="glyphicon glyphicon-search"></i>
-            <input #gb type="text" class="inputSearch" pInputText size="50" [placeholder]="'Search' | translate">
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                [placeholder]="'Search' | translate" />
         </div>
-        <!-- <p-dataTable [value]="matchedPatients" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-            <p-column field="clinicMRN" [header]="'MRN' | translate" [sortable]="true"></p-column>
-            <p-column field="name" [header]="'PatientName' | translate" [sortable]="true"></p-column>
-            <p-column [header]="'MobileNumber' | translate" styleClass="text-center">
-                <ng-template let-patient="rowData" pTemplate="body">
-                    <label>
-                        {{patient.reachInfo?.mobile}}
-                    </label>
-                </ng-template>
-            </p-column>
 
-            <p-column field="idNumber" [header]="'IdNumber' | translate" [sortable]="true"></p-column>
+        <!---New Table-->
+        <p-table #dt [value]="matchedPatients" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+            [globalFilterFields]="['clinicMRN','name','idNumber']">
 
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="clinicMRN">{{'MRN' | translate}} <p-sortIcon field="clinicMRN"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="name">{{'PatientName' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'MobileNumber' | translate}} </span>
+                    </th>
+                    <th pSortableColumn="idNumber">{{'IdNumber' | translate}} <p-sortIcon field="idNumber"></p-sortIcon>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'IsActive' | translate}} </span>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                    </th>
+                    <th><span styleClass="text-center width70">{{'SelectPatient' | translate}} </span>
+                    </th>
+                </tr>
 
-            <p-column [header]="'IsActive' | translate" styleClass="text-center width70" *ngIf="showActive">
-                <ng-template let-patient="rowData" pTemplate="body">
-                    <label>
-                        <input type="checkbox" class="ace ace-switch ace-switch-6" #patientType [checked]="patient.isActive" id="chkBoxIsActive" name="chkBoxIsActive" [value]="patient.isActive" (click)="changePatientActivation(patientType.value,patient.id, $event)" disabled="{{ enableActivatePatientBtn ? '' :'disabled'}}" />
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr class="p-selectable-row">
+                    <td>
+                        {{item.clinicMRN}}
+                    </td>
+                    <td>
+                        <span>{{item.name}}</span>
+                    </td>
+                    <td>
+                        {{item.reachInfo?.mobile}}
+                    </td>
+                    <td>
+                        <span>{{item.idNumber}}</span>
+                    </td>
+                    <td>
+                        <input type="checkbox" class="ace ace-switch ace-switch-6" #patientType
+                            [checked]="item.isActive" id="chkBoxIsActive" name="chkBoxIsActive" [value]="item.isActive"
+                            (click)="changePatientActivation(patientType.value,item.id, $event)"
+                            disabled="{{ enableActivatePatientBtn ? '' :'disabled'}}" />
                         <span class="lbl"></span>
-                    </label>
-                </ng-template>
-            </p-column>
-            <p-column [header]="'Edit' | translate" styleClass="text-center width50" *ngIf="showEdit">
-                <ng-template let-patient="rowData" pTemplate="body">
-                    <a class="pointer" routerLink="/patient/file/{{patient.id}}">
-                        <img src="assets/images/edit-24.png" />
-                    </a>
-                </ng-template>
-            </p-column>
-            <p-column [header]="'SelectPatient' | translate" *ngIf="showSelect" styleClass="text-center width60">
-                <ng-template let-patient="rowData" pTemplate="body">
-                    <img src="assets/images/if_hand_finger_17529.png" (click)="selectPatientForSearch(patient.id)" width="30" height="30" />
-                </ng-template>
-            </p-column>
-
-        </p-dataTable> -->
+                    </td>
+                    <td style="text-align: center">
+                        <a class="pointer" routerLink="/patient/file/{{item.id}}">
+                            <img src="assets/images/edit-24.png" />
+                        </a>
+                    </td>
+                    <td>
+                        <img src="assets/images/if_hand_finger_17529.png" (click)="selectPatientForSearch(item.id)"
+                            width="30" height="30" />
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="8">No data found.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <!--End Table-->
     </div>
 
 

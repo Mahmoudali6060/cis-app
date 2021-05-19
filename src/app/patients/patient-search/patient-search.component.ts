@@ -8,6 +8,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
 import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -42,6 +43,7 @@ export class PatienSearchComponent implements OnInit {
     key: PermissionKeyEnum = new PermissionKeyEnum();
     enableEditPatientBtn: boolean = false;
     enableActivatePatientBtn: boolean = false;
+    @ViewChild('dt') table!: Table;
     constructor(private receptionistService: ReceptionistService
         , private sharedService: SharedService
         , private localStorage: LocalStorageService
