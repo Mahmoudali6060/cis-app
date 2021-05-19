@@ -20,9 +20,78 @@
     <div class="row well" style="background-color: #f6f7f9 !important;">
         <div class="inner-addon left-addon">
             <i class="glyphicon glyphicon-search"></i>
-            <input #gb class="inputSearch" type="text" pInputText size="40" [placeholder]="'Search' | translate">
+            <!-- <input #gb class="inputSearch" type="text" pInputText size="40" [placeholder]="'Search' | translate"> -->
+            <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+            (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
+
         </div>
         <br />
+        <!---New Table-->
+        <p-table #dt [value]="attachmentsList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['nameWithoutExtension','type']">
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nameWithoutExtension">{{'fileNameTxt' | translate}} <p-sortIcon field="nameWithoutExtension"></p-sortIcon>
+                </th>
+                <th pSortableColumn="type">{{'Type' | translate}} <p-sortIcon
+                        field="type"></p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'Description' | translate}} <p-sortIcon
+                    field="description"></p-sortIcon>
+            </th>
+            <th pSortableColumn="lastModificationDateString">{{'LastModificationDate' | translate}} <p-sortIcon
+                field="lastModificationDateString"></p-sortIcon>
+        </th>
+                
+                <th><span styleClass="text-center width70">{{'Download' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-object>
+            <tr class="p-selectable-row">
+                <td>
+                    {{object.nameWithoutExtension}}
+                </td>
+                <td>
+                  {{object.type}}
+                </td>
+                <td>
+                    {{object.description}}
+                  </td>
+                  <td>
+                    {{object.lastModificationDateString}}
+                  </td>
+                
+                <td>
+                    <i (click)="downloadFile(object.id)" class="fa fa-download fa-2x remIcon"></i>
+
+                </td>
+                <td>
+                    <i (click)="editAttachment(object.id)" class="editIconStyle fa fa-pencil fa-2x"></i>
+
+                </td>
+                <td>
+                    <i (click)="deletePatientAttachment(object.id)" class="glyphicon glyphicon-remove remIcon"></i>
+
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
         <!-- <p-dataTable [value]="attachmentsList" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
             <p-column field="nameWithoutExtension" [header]="fileNameTxt | translate" [sortable]="true"></p-column>
             <p-column field="type" *ngIf="fileType" [header]="'Type' | translate" [sortable]="true"></p-column>

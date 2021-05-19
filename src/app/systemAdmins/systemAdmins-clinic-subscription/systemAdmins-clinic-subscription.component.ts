@@ -6,6 +6,7 @@ import { UtilityClass } from '../../shared/shared/utility.class';
 
 import { ToastrService } from 'ngx-toastr';
 import {CalendarModule} from 'primeng/calendar';
+import { Table } from 'primeng/table/table';
 
 @Component({
    
@@ -22,7 +23,9 @@ export class SystemAdminClinicSubscriptionComponent implements OnChanges, OnInit
     subscriptionsList: any[] = [];
     currentSubscription: any = {};
     showProgress: boolean = false;
-
+    // loading: boolean = true;
+    // @ViewChild('dt') table!: Table;
+    
     enableMyAccountBtn: boolean = false;
     newSubscription: any = { id: 0};
     newSubscriptionToSave: any = { id: 0};
