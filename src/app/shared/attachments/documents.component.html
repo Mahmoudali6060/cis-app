@@ -21,7 +21,7 @@
         <div class="inner-addon left-addon">
             <i class="glyphicon glyphicon-search"></i>
             <!-- <input #gb class="inputSearch" type="text" pInputText size="40" [placeholder]="'Search' | translate"> -->
-            <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+            <input pInputText type="text" 
             (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
 
         </div>
