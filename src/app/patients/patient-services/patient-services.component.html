@@ -1,43 +1,115 @@
 ﻿<div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
     <div class="row">
         <div class="col-md-4 nopadding">
-            <input type="text" placeholder="Search..." class="form-control" [(ngModel)]='filterString' />
+            <input pInputText type="text" [(ngModel)]='filterString'
+                (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
         </div>
         <div class="col-md-8 align-reverse nopadding" *ngIf="allowEditing">
-            <button type="button" class="btn btn-primary" (click)="showDetails('new')">{{ 'NewService' | translate}} </button>
+            <button type="button" class="btn btn-primary" (click)="showDetails('new')">{{ 'NewService' | translate}}
+            </button>
         </div>
     </div>
     <div class="padding2"></div>
 
 
-    <!-- <p-dataTable [value]="noteServicesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="serviceCode"[header]="'ServiceCode' | translate"  [sortable]="true"></p-column>
-        <p-column field="serviceName" [header]="'ServiceName' | translate" [sortable]="true"></p-column>
-        <p-column field="servicePackageCode" [header]="'PackageCode' | translate"[sortable]="true"></p-column>
-        <p-column field="servicePackageName" [header]="'PackageName' | translate" [sortable]="true"></p-column>
-        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
-        <p-column field="discount" [header]="'Discount' | translate" [sortable]="true"></p-column>
-        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
-        <p-column field="recordingDateString"[header]="'RecordedDate' | translate" [sortable]="true"></p-column>
-        <p-column field="recorderName" [header]="'RecorderName' | translate" [sortable]="true"></p-column>
-        <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-            <ng-template let-noteService="rowData" pTemplate="body">
-                <a class="pointer" (click)="editItem(noteService.id)">
-                    <img src="assets/images/edit-24.png" />
-                </a>
-            </ng-template>
-        </p-column>
-        <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-            <ng-template let-noteService="rowData" pTemplate="body">
-                <a class="pointer" (click)="deleteSelectedItem(noteService.id)">
-                    <img src="assets/images/delete-24.png" />
-                </a>
-            </ng-template>
-        </p-column>
-    </p-dataTable> -->
+    <!---New Table-->
+    <p-table #dt [value]="noteServicesList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['serviceCode','serviceName','servicePackageCode','servicePackageName']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="serviceCode">{{'ServiceCode' | translate}} <p-sortIcon field="serviceCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="serviceName">{{'ServiceName' | translate}} <p-sortIcon field="serviceName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="servicePackageCode">{{'PackageCode' | translate}} <p-sortIcon
+                        field="servicePackageCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="servicePackageName">{{'PackageName' | translate}} <p-sortIcon
+                        field="servicePackageName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity">{{'Quantity' | translate}} <p-sortIcon field="quantity">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="discount">{{'Discount' | translate}} <p-sortIcon field="discount">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'DiagnoseName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="recordingDateString">{{'RecordedDate' | translate}} <p-sortIcon field="recordingDateString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="recorderName">{{'RecorderName' | translate}} <p-sortIcon field="recorderName">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.serviceCode}}
+                </td>
+                <td>
+                    <span>{{item.serviceName}}</span>
+                </td>
+                <td>
+                    <span>{{item.servicePackageCode}}</span>
+                </td>
+                <td>
+                    <span>{{item.servicePackageName}}</span>
+                </td>
+                <td>
+                    <span>{{item.quantity}}</span>
+                </td>
+                <td>
+                    <span>{{item.discount}}</span>
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <span>{{item.recordingDateString}}</span>
+                </td>
+                <td>
+                    <span>{{item.recorderName}}</span>
+                </td>
+                <td>
+                    <a class="pointer" (click)="editItem(item.id)">
+                        <img src="assets/images/edit-24.png" />
+                    </a>
+                </td>
+                <td style="text-align: center">
+                    <a class="pointer" (click)="deleteSelectedItem(item.id)">
+                        <img src="assets/images/delete-24.png" />
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
+
+
 </div>
 <div id="divTable" class="padding5" *ngIf="isDetailsVisible">
-    <patient-service-details (onBack)="hideDetails()" [noteServiceId]='noteServiceId' [noteId]="noteId" [divisionId]="divisionId"></patient-service-details>
+    <patient-service-details (onBack)="hideDetails()" [noteServiceId]='noteServiceId' [noteId]="noteId"
+        [divisionId]="divisionId"></patient-service-details>
 </div>
 <div id="deleteNoteService" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -51,7 +123,8 @@
                 <p>{{ 'AreYouSureDelete' | translate}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{
+                    'Yes' | translate}}</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
             </div>
         </div>

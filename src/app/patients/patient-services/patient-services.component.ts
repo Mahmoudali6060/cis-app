@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 import { DoctorService } from '../../doctors/shared/doctor.service';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'patient-services',
@@ -33,6 +34,7 @@ export class PatientServicesComponent implements OnInit {
 
     noteServiceToBeDeleted!: any;
     noteServiceId!: any;
+    @ViewChild('dt') table!: Table;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
