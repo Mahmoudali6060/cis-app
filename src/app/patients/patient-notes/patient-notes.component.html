@@ -3,32 +3,82 @@
 </div>
 
 <div class="padding5">
-
     <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-search"></i>
-        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+        <input pInputText type="text" #gb (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'Search' | translate" />
     </div>
-    <!-- <p-dataTable [value]="pateintMrfs | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="clinicName"   [header]="'ClinicName' | translate" [sortable]="true"></p-column>
-        <p-column field="departmentName" [header]="'DepartmentName' | translate" [sortable]="true"></p-column>
-        <p-column field="divisionName" [header]="'DivisionName' | translate" [sortable]="true"></p-column>
-        <p-column field="doctorName" [header]="'Doctor' | translate" [sortable]="true"></p-column>
-        <p-column field="creationDateString" [header]="'CreationDate' | translate" [sortable]="true"></p-column>
-        <p-column [header]="'Prescription' | translate" styleClass="text-center width75">
-            <ng-template let-note="rowData" pTemplate="body">
-                <a class="fa fa-print"  (click)="openPrescription(note.id , 'PrescriptionReport')">
-                  
-                </a>
-            </ng-template>
-        </p-column>
-        <p-column [header]="'ViewDetails' | translate" styleClass="text-center width75">
-            <ng-template let-note="rowData" pTemplate="body">
-                <a class="pointer" data-toggle="modal" data-target="#noteView" (click)="setClinicNoteId(note.id , note.appointmentId)" >
-                    <img src="assets/images/details-24.jpg" />
-                </a>
-            </ng-template>
-        </p-column>
-    </p-dataTable> -->
+    <!---New Table-->
+    <p-table #dt [value]="pateintMrfs" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['clinicName','departmentName','divisionName','doctorName','creationDateString']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="clinicName">{{'ClinicName' | translate}} <p-sortIcon field="clinicName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="departmentName">{{'DepartmentName' | translate}} <p-sortIcon
+                        field="departmentName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="divisionName">{{'DivisionName' | translate}} <p-sortIcon field="divisionName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="doctorName">{{'Doctor' | translate}} <p-sortIcon field="doctorName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="creationDateString">{{'CreationDate' | translate}} <p-sortIcon
+                        field="creationDateString">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'Prescription' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'ViewDetails' | translate}} </span>
+                </th>
+                <th style="width: 8rem">
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.clinicName}}
+                </td>
+                <td>
+                    <span>{{item.departmentName}}</span>
+                </td>
+                <td>
+                    <span>{{item.divisionName}}</span>
+                </td>
+                <td>
+                    <span>{{item.doctorName}}</span>
+                </td>
+                <td>
+                    <span>{{item.creationDateString}}</span>
+                </td>
+                <td>
+                    <a class="fa fa-print" (click)="openPrescription(item.id , 'PrescriptionReport')">
+                    </a>
+                </td>
+                <td style="text-align: center">
+                    <a class="pointer" data-toggle="modal" data-target="#noteView"
+                        (click)="setClinicNoteId(item.id , item.appointmentId)">
+                        <img src="assets/images/details-24.jpg" />
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
+
 
 </div>
 <!-- Modal -->
@@ -37,23 +87,27 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close"  data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ 'ClinicalNoteDetails' | translate}}  </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ 'ClinicalNoteDetails' | translate}} </h4>
             </div>
             <div class="modal-body">
                 <div class="row text-center">
-                    <button type="button" class="btn btn-primary" (click)="openEditClinicNotePopup()" [disabled]="!enable">{{ 'Edit' | translate}}</button>
-                    <button type="button" class="btn btn-danger"  #btnCloseViewClinicNotePopUp data-dismiss="modal">{{ 'Close' | translate}}</button>
-                    
+                    <button type="button" class="btn btn-primary" (click)="openEditClinicNotePopup()"
+                        [disabled]="!enable">{{ 'Edit' | translate}}</button>
+                    <button type="button" class="btn btn-danger" #btnCloseViewClinicNotePopUp data-dismiss="modal">{{
+                        'Close' | translate}}</button>
+
                 </div>
                 <br />
-                    <patient-note-view [model]="selectedNote"></patient-note-view>
+                <patient-note-view [model]="selectedNote"></patient-note-view>
             </div>
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <button type="button" class="btn btn-primary" (click)="openEditClinicNotePopup()" [disabled]="!enable">{{ 'Edit' | translate}}</button>
-                        <button type="button" class="btn btn-danger" #btnCloseViewClinicNotePopUp data-dismiss="modal">{{ 'Close' | translate}}</button>
+                        <button type="button" class="btn btn-primary" (click)="openEditClinicNotePopup()"
+                            [disabled]="!enable">{{ 'Edit' | translate}}</button>
+                        <button type="button" class="btn btn-danger" #btnCloseViewClinicNotePopUp
+                            data-dismiss="modal">{{ 'Close' | translate}}</button>
                     </div>
                 </div>
             </div>
@@ -62,7 +116,7 @@
 </div>
 
 <div class="hidden">
-    <button type="button" #btnEditClinicNote  data-toggle="modal" data-target="#noteEditing" ></button>
+    <button type="button" #btnEditClinicNote data-toggle="modal" data-target="#noteEditing"></button>
 </div>
 
 <!--<div class="hidden">
@@ -85,7 +139,8 @@
                 <h4 class="modal-title">{{ 'ClinicalNoteDetails' | translate}} </h4>
             </div>
             <div class="modal-body">
-                <patient-clinical-note #patientClinicalNoteComp [noteId]="noteId" [allowEditing]="true" [selectedAppointmentId] ="selectedAppointmentId" [hasEditednote]="true"></patient-clinical-note>
+                <patient-clinical-note #patientClinicalNoteComp [noteId]="noteId" [allowEditing]="true"
+                    [selectedAppointmentId]="selectedAppointmentId" [hasEditednote]="true"></patient-clinical-note>
             </div>
         </div>
     </div>

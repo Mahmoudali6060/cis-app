@@ -5,6 +5,7 @@ import { PatientService } from '../shared/patient.service'
 import { SharedService } from '../../shared/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -37,7 +38,7 @@ export class PatientNotesComponent implements OnChanges, OnInit {
 
     appointmentId = '';
     enable = true;
-
+    @ViewChild('dt') table!: Table;
     constructor(private patientService: PatientService
         , private sharedService: SharedService
         , public toastr: ToastrService
