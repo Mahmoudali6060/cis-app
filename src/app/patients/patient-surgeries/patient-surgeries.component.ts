@@ -8,6 +8,7 @@ import { DoctorService } from '../../doctors/shared/doctor.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -28,7 +29,7 @@ export class PatientSurgeriesComponent implements OnInit {
     surgeriesList: any = [];
     showProgress = false;
     toSaveSurgery: any = {};
-
+    @ViewChild('dt') table!: Table;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService

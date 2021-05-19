@@ -4,36 +4,78 @@
 
 <div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
     <div class="row text-right">
-            <button type="button" class="btn btn-primary" (click)="addNewSurgery()" [disabled]="!enable">{{ 'NewSurgery' | translate}}</button>
+        <button type="button" class="btn btn-primary" (click)="addNewSurgery()" [disabled]="!enable">{{ 'NewSurgery' |
+            translate}}</button>
     </div>
     <div class="row padding5">&nbsp;</div>
 
     <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-search"></i>
-        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'Search' | translate" />
     </div>
-    <!-- <p-dataTable [value]="surgeriesList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="surgeryCode" [header]="'SurgeryCode' | translate" [sortable]="true"></p-column>
-        <p-column field="surgeryName" [header]="'surgeryName' | translate"[sortable]="true"></p-column>
-        <p-column field="dateTimeString" [header]="'Date' | translate" [sortable]="true"></p-column>
-        <p-column field="description"[header]="'Description' | translate" [sortable]="true"></p-column>
-        <p-column [header]="'Edit' | translate" styleClass="text-center">
-            <ng-template let-surgery="rowData" pTemplate="body">
-                <a class="pointer" (click)="showDetails(surgery)"  [class.disabled]="!enable ? true : null">
-                    <i class="fa fa-pencil fa-2x"  style="color: #32bea6;"></i>
-                </a>
-            </ng-template>
-        </p-column>
-        <p-column [header]="'Delete' | translate" styleClass="text-center width50">
-            <ng-template let-surgery="rowData" pTemplate="body">
-                <td class="borderStyle text-center">
-                    <a class="pointer" (click)="deleteSurgery(surgery)" [class.disabled]="!enable ? true : null">
-                        <i  class="glyphicon glyphicon-remove iconClose"></i>
+    <!---New Table-->
+    <p-table #dt [value]="surgeriesList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['surgeryCode','surgeryName']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="surgeryCode">{{'SurgeryCode' | translate}} <p-sortIcon field="surgeryCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="surgeryName">{{'surgeryName' | translate}} <p-sortIcon field="surgeryName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="dateTimeString">{{'Date' | translate}} <p-sortIcon field="dateTimeString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'Description' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.surgeryCode}}
+                </td>
+                <td>
+                    <span>{{item.surgeryName}}</span>
+                </td>
+                <td>
+                    <span>{{item.dateTimeString}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+                <td>
+                    <a class="pointer" (click)="showDetails(item)" [class.disabled]="!enable ? true : null">
+                        <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
                     </a>
-            </ng-template>
-        </p-column>
-    </p-dataTable> -->
+                </td>
+                <td style="text-align: center">
+                    <a class="pointer" (click)="deleteSurgery(item)" [class.disabled]="!enable ? true : null">
+                        <i class="glyphicon glyphicon-remove iconClose"></i>
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
 </div>
 <div id="divTable" class="padding5" *ngIf="isDetailsVisible">
-    <patient-surgery-details [toSaveSurgery]="toSaveSurgery" [patientId]="patientId" [patientDOB] ="patientDOB" (onBack)="hideDetails($event)" [allServices]="allServices"></patient-surgery-details>
+    <patient-surgery-details [toSaveSurgery]="toSaveSurgery" [patientId]="patientId" [patientDOB]="patientDOB"
+        (onBack)="hideDetails($event)" [allServices]="allServices"></patient-surgery-details>
 </div>
