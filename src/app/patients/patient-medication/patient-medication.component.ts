@@ -7,6 +7,7 @@ import { SharedService } from '../../shared/shared/shared.service';
 import { UtilityClass } from '../../shared/shared/utility.class';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'patient-medication',
@@ -34,6 +35,7 @@ export class PatientMedicationComponent implements OnInit {
     previousTab: string = '';
     nextTab: string = '';
     lstToTranslated: string[] = [];
+    @ViewChild('dt') table!: Table;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
@@ -170,6 +172,10 @@ export class PatientMedicationComponent implements OnInit {
                 function () { // finally
                     thisComponent.showProgress = false;
                 });
+
+    }
+
+    deleteClinicNoteMedication(event: any) {
 
     }
 }
