@@ -6,45 +6,99 @@
         <div class="col-md-4 nopadding">
         </div>
         <div class="col-md-8 align-reverse nopadding">
- <button type="button" class="btn btn-primary" (click)="addNewClinicNoteDiagnose()">{{ 'NewDiagnosis' | translate}}</button>
+            <button type="button" class="btn btn-primary" (click)="addNewClinicNoteDiagnose()">{{ 'NewDiagnosis' |
+                translate}}</button>
         </div>
     </div>
-    
+
     <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-search"></i>
-        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+        <input pInputText type="text" #gb (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'Search' | translate" />
     </div>
-    <!-- <p-dataTable [value]="diagnosisList | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="diagnoseCode" [header]="'DiagnoseCode' | translate" [sortable]="true"></p-column>
-        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
-        <p-column field="dateTimeString" [header]="'Date' | translate" [sortable]="true"></p-column>
-        <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
-        <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
-        <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
-        <p-column [header]="'IsCurrent' | translate" styleClass="text-center" *ngIf="allowEditing">
-            <ng-template let-clinicNoteDiagnose="rowData" pTemplate="body">
-                <input id="ChkIsCurrentInGrid" name="ChkIsCurrent" class="ace ace-switch ace-switch-6"
-                       type="checkbox" [checked]="clinicNoteDiagnose.isCurrent"
-                       (click)="changeCurrentStatus(clinicNoteDiagnose.id,$event)" />
-                <span class="lbl"></span>
-            </ng-template>
-        </p-column>
-        <p-column [header]="'Edit' | translate" styleClass="text-center" *ngIf="allowEditing">
-            <ng-template let-clinicNoteDiagnose="rowData" pTemplate="body">
-                <a class="pointer" (click)="showDetails(clinicNoteDiagnose)">
-                    <img src="assets/images/edit-24.png" />
-                </a>
-            </ng-template>
-        </p-column>
-        <p-column [header]="'Delete' | translate" styleClass="text-center width50" *ngIf="allowEditing">
-            <ng-template let-clinicNoteDiagnose="rowData" pTemplate="body">
-                <a class="pointer" (click)="deleteClinicNoteDiagnose(clinicNoteDiagnose)">
-                    <img src="assets/images/delete-24.png" />
-                </a>
-            </ng-template>
-        </p-column>
-    </p-dataTable> -->
+
+    <!---New Table-->
+    <p-table #dt [value]="diagnosisList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['diagnoseCode','diagnoseName','dateTimeString','diagnoseName','description','status']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="diagnoseCode">{{'ArabicName' | translate}} <p-sortIcon field="diagnoseCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'EnglishName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="dateTimeString">{{'EnglishName' | translate}} <p-sortIcon field="dateTimeString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'EnglishName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'EnglishName' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="status">{{'EnglishName' | translate}} <p-sortIcon field="status">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'IsCurrent' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                </th>
+
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.diagnoseCode}}
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <span>{{item.dateTimeString}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+                <td>
+                    <span>{{item.doctorName}}</span>
+                </td>
+                <td>
+                    <span>{{item.status}}</span>
+                </td>
+                <td>
+                    <input id="ChkIsCurrentInGrid" name="ChkIsCurrent" class="ace ace-switch ace-switch-6"
+                        type="checkbox" [checked]="item.isCurrent" (click)="changeCurrentStatus(item.id,$event)" />
+                    <span class="lbl"></span>
+                </td>
+                <td style="text-align: center">
+                    <a class="pointer" (click)="showDetails(item)">
+                        <img src="assets/images/edit-24.png" />
+                    </a>
+                </td>
+                <td>
+                    <a class="pointer" (click)="deleteClinicNoteDiagnose(item)">
+                        <img src="assets/images/delete-24.png" />
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
 </div>
 <div id="divDetails" class="padding5" *ngIf="isDetailsVisible">
-    <patient-diagnose-details [toSaveClinicNoteDiagnose]="toSaveClinicNoteDiagnose" [clinicNoteId]="clinicNoteId" [patientId]="patientId" (onBack)="hideDetails($event)"></patient-diagnose-details>
+    <patient-diagnose-details [toSaveClinicNoteDiagnose]="toSaveClinicNoteDiagnose" [clinicNoteId]="clinicNoteId"
+        [patientId]="patientId" (onBack)="hideDetails($event)"></patient-diagnose-details>
 </div>

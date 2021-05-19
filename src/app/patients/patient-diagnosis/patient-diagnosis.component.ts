@@ -7,6 +7,7 @@ import { UtilityClass } from '../../shared/shared/utility.class';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -27,8 +28,8 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
     lstToTranslated: string[] = [];
     active = true;
     toSaveClinicNoteDiagnose: any = {};
-
     showProgress = false;
+    @ViewChild('dt') table!: Table;
 
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
