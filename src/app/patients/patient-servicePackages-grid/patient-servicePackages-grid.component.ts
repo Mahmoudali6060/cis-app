@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -16,7 +17,7 @@ export class PatientServicePackagesGridComponent implements OnInit, OnChanges {
 
     allPackages: any[] = [];
     lstToTranslated: string[] = ['servicePackageName', 'servicePackageNameTranslation'];
-
+    @ViewChild('dt') table!: Table;
     ngOnInit(): void {
 
     }
