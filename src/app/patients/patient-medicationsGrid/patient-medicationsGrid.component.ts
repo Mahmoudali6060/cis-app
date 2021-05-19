@@ -1,8 +1,9 @@
 ﻿import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
+import { Table } from 'primeng/table';
 import { UtilityClass } from '../../shared/shared/utility.class';
 
 @Component({
-   
+
     selector: 'patient-medicationsGrid',
     templateUrl: 'patient-medicationsGrid.component.html',
 })
@@ -21,12 +22,13 @@ export class PatientMedicationsGridComponent implements OnInit, OnChanges {
 
     allDrugs: any[] = [];
     lstToTranslated: string[] = ['drugName', 'drugNameTranslation'];
-
+    @ViewChild('dt') table!: Table;
+    
     ngOnInit(): void {
 
     }
 
-   
+
 
     ngOnChanges(): void {
         if (this.drugs && this.noteDrugs && this.masterList && this.drugDosageUnits && this.diagnosis) {
@@ -63,7 +65,7 @@ export class PatientMedicationsGridComponent implements OnInit, OnChanges {
         }
     }
 
-    createClinicNoteDrug(drug:any): any {
+    createClinicNoteDrug(drug: any): any {
         let bindedDrug: any;
 
         bindedDrug = this.masterList.find(s => s.drugId == drug.data);
@@ -77,7 +79,7 @@ export class PatientMedicationsGridComponent implements OnInit, OnChanges {
         return bindedDrug;
     }
 
-    updateSelectedDrug(drugId:any, event:any) {
+    updateSelectedDrug(drugId: any, event: any) {
         if (!event.target.checked) {
             // if the item removed clear data
             let noteDrug = this.allDrugs.find(s => s.drugId == drugId);
