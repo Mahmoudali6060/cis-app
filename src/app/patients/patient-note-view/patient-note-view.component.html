@@ -261,72 +261,351 @@
 <br />
 <h4>{{ 'Diagnosis' | translate}}</h4>
 <div class="row">
-    <!-- <p-dataTable [value]="model.diagnosis | translateObjects  : null : null : lstToTranslatedDiagnosis" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="diagnoseCode" [header]="'DiagnoseCode' | translate" [sortable]="true"></p-column>
-        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
-        <p-column field="dateTimeString" [header]="'Date' | translate" [sortable]="true"></p-column>
-        <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
-        <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true"></p-column>
-        <p-column field="status" [header]="'Status' | translate" [sortable]="true"></p-column>
-        <p-column field="isCurrent" [header]="'CurrentPast' | translate" [sortable]="true"></p-column>
-    </p-dataTable> -->
+    <!---New Table-->
+    <p-table #dt [value]="model.diagnosis" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="diagnoseCode">{{'DiagnoseCode' | translate}} <p-sortIcon field="diagnoseCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'DiagnoseName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="dateTimeString">{{'Date' | translate}} <p-sortIcon field="dateTimeString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'Description' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="doctorName">{{'DoctorName' | translate}} <p-sortIcon field="doctorName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="status">{{'Status' | translate}} <p-sortIcon field="status">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="isCurrent">{{'CurrentPast' | translate}} <p-sortIcon field="isCurrent">
+                    </p-sortIcon>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.diagnoseCode}}
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <span>{{item.dateTimeString}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+                <td>
+                    <span>{{item.doctorName}}</span>
+                </td>
+                <td>
+                    <span>{{item.status}}</span>
+                </td>
+                <td>
+                    <span>{{item.isCurrent}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
+
 </div>
 
 <br />
 <h4>{{ 'NewMedication' | translate}}</h4>
 <div class="row">
-    <!-- <p-dataTable [value]="model.medications | translateObjects  : null : null : lstToTranslatedMedications" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="drugCode" [header]="'MedicationCode' | translate" [sortable]="true"></p-column>
-        <p-column field="drugName" [header]="'Name' | translate" [sortable]="true"></p-column>
-        <p-column field="dosageQuantity" [header]="'DosageQuantity' | translate" [sortable]="true"></p-column>
-        <p-column field="dosageUnitName" [header]="'DosageUnit' | translate" [sortable]="true"></p-column>
-        <p-column field="frequencyName" [header]="'Frequency' | translate" [sortable]="true"></p-column>
-        <p-column field="startDateString" [header]="'StartDate' | translate" [sortable]="true"></p-column>
-        <p-column field="duration" [header]="'Duration' | translate" [sortable]="true"></p-column>
-        <p-column field="description" [header]="'Description' | translate" [sortable]="true"></p-column>
-        <p-column field="relatedDiagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
-        <p-column field="recorderName" [header]="'RecorderName' | translate" [sortable]="true"></p-column>
-        <p-column field="recordingDateString" [header]="'RecordedDate' | translate" [sortable]="true"></p-column>
-    </p-dataTable> -->
+    <!---New Table-->
+    <p-table #dt [value]="model.medications" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="drugCode">{{'DiagnoseCode' | translate}} <p-sortIcon field="drugCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="drugName">{{'DiagnoseName' | translate}} <p-sortIcon field="drugName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="dosageQuantity">{{'Date' | translate}} <p-sortIcon field="dosageQuantity">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="dosageUnitName">{{'Description' | translate}} <p-sortIcon field="dosageUnitName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="frequencyName">{{'DoctorName' | translate}} <p-sortIcon field="frequencyName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="startDateString">{{'Status' | translate}} <p-sortIcon field="startDateString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="duration">{{'CurrentPast' | translate}} <p-sortIcon field="duration">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'CurrentPast' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="relatedDiagnoseName">{{'CurrentPast' | translate}} <p-sortIcon
+                        field="relatedDiagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="recorderName">{{'CurrentPast' | translate}} <p-sortIcon field="recorderName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="recordingDateString">{{'CurrentPast' | translate}} <p-sortIcon
+                        field="recordingDateString">
+                    </p-sortIcon>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.drugCode}}
+                </td>
+                <td>
+                    <span>{{item.drugName}}</span>
+                </td>
+                <td>
+                    <span>{{item.dosageQuantity}}</span>
+                </td>
+                <td>
+                    <span>{{item.dosageUnitName}}</span>
+                </td>
+                <td>
+                    <span>{{item.doctorName}}</span>
+                </td>
+                <td>
+                    <span>{{item.frequencyName}}</span>
+                </td>
+                <td>
+                    <span>{{item.startDateString}}</span>
+                </td>
+                <td>
+                    <span>{{item.duration}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+                <td>
+                    <span>{{item.relatedDiagnoseName}}</span>
+                </td>
+                <td>
+                    <span>{{item.recorderName}}</span>
+                </td>
+                <td>
+                    <span>{{item.recordingDateString}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
 </div>
 
 <br />
 <h4>{{ 'Services' | translate}}</h4>
 <div class="row">
-    <!-- <p-dataTable [value]="model.services | translateObjects  : null : null : lstToTranslatedServices " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="serviceCode" [header]="'ServiceCode' | translate" [sortable]="true"></p-column>
-        <p-column field="serviceName" [header]="'ServiceName' | translate" [sortable]="true"></p-column>
-        <p-column field="servicePackageCode" [header]="'PackageCode' | translate" [sortable]="true"></p-column>
-        <p-column field="servicePackageName" [header]="'PackageName' | translate" [sortable]="true"></p-column>
-        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
-        <p-column field="discount" [header]="'Discount' | translate" [sortable]="true"></p-column>
-        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
-        <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-    </p-dataTable> -->
+    <!---New Table-->
+    <p-table #dt [value]="model.services" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="serviceCode">{{'DiagnoseCode' | translate}} <p-sortIcon field="serviceCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="serviceName">{{'DiagnoseName' | translate}} <p-sortIcon field="serviceName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="servicePackageName">{{'Date' | translate}} <p-sortIcon field="servicePackageName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity">{{'Description' | translate}} <p-sortIcon field="quantity">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="discount">{{'DoctorName' | translate}} <p-sortIcon field="discount">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'Status' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'CurrentPast' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.serviceCode}}
+                </td>
+                <td>
+                    <span>{{item.serviceName}}</span>
+                </td>
+                <td>
+                    <span>{{item.servicePackageCode}}</span>
+                </td>
+                <td>
+                    <span>{{item.servicePackageName}}</span>
+                </td>
+                <td>
+                    <span>{{item.quantity}}</span>
+                </td>
+                <td>
+                    <span>{{item.discount}}</span>
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
 </div>
 
 <br />
 <h4>{{ 'LabTests' | translate}}</h4>
 <div class="row">
-    <!-- <p-dataTable [value]="model.labTests | translateObjects  : null : null : lstToTranslatedLabTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="labTestCode" [header]="'TestCode' | translate" [sortable]="true"></p-column>
-        <p-column field="labTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
-        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
-        <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
-        <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-    </p-dataTable> -->
+    <!---New Table-->
+    <p-table #dt [value]="model.labTests" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="labTestCode">{{'TestCode' | translate}} <p-sortIcon field="labTestCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="labTestName">{{'TestName' | translate}} <p-sortIcon field="labTestName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity">{{'Quantity' | translate}} <p-sortIcon field="quantity">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'DiagnoseName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'Remarks' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.labTestCode}}
+                </td>
+                <td>
+                    <span>{{item.labTestName}}</span>
+                </td>
+                <td>
+                    <span>{{item.quantity}}</span>
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
 </div>
 
 <br />
 <h4>{{ 'RadiologyTests' | translate}}</h4>
 <div class="row">
-    <!-- <p-dataTable [value]="model.radiologyTests | translateObjects  : null : null : lstToTranslatedRadiologyTests" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="radTestCode" [header]="'TestCode' | translate" [sortable]="true"></p-column>
-        <p-column field="radTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
-        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
-        <p-column field="diagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
-        <p-column field="description" [header]="'Remarks' | translate" [sortable]="true"></p-column>
-    </p-dataTable> -->
+    <!---New Table-->
+    <p-table #dt [value]="model.radiologyTests" dataKey="id" [rowHover]="true" [rows]="10"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="radTestCode">{{'TestCode' | translate}} <p-sortIcon field="radTestCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="radTestName">{{'TestName' | translate}} <p-sortIcon field="radTestName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity">{{'Quantity' | translate}} <p-sortIcon field="quantity">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'DiagnoseName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="description">{{'Remarks' | translate}} <p-sortIcon field="description">
+                    </p-sortIcon>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.radTestCode}}
+                </td>
+                <td>
+                    <span>{{item.radTestName}}</span>
+                </td>
+                <td>
+                    <span>{{item.quantity}}</span>
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <span>{{item.description}}</span>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
 </div>
 
 
@@ -393,15 +672,15 @@
 
     <br />
     <h4>{{ 'MedicalInsuranceDetails' | translate}}</h4>
-    <table  class="table table-condensed" style="border:none;">
+    <table class="table table-condensed" style="border:none;">
         <tr>
-            <td >
+            <td>
                 <strong>
                     {{ 'Company' | translate}}
                 </strong>
             </td>
-            <td >{{model.patient.activeInsurance.companyName}}</td>
-            <td >
+            <td>{{model.patient.activeInsurance.companyName}}</td>
+            <td>
                 <strong>
                     {{ 'PolicyName' | translate}}
                 </strong>
