@@ -4,6 +4,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { SharedService } from '../shared/shared.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
+import { Table } from 'primeng/table/table';
 
 
 @Component({
@@ -39,6 +40,8 @@ export class DocumentsComponent implements OnInit, OnChanges {
     imageData = null;
     model: any = { id: 0 };
     active = true;
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
 
     constructor(private sharedService: SharedService
         , public toastr: ToastrService
@@ -96,9 +99,13 @@ export class DocumentsComponent implements OnInit, OnChanges {
                     function (error: any) {
                         vm.toastr.error(error, '');
                         vm.showProgress = false;
+                        vm.loading = false;
+
                     },
                     function () {
                         vm.showProgress = false;
+                        vm.loading = false;
+
                     });
         }
 
