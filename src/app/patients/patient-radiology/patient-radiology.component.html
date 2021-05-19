@@ -8,32 +8,75 @@
         </div>
     </div>
     <div class="padding2"></div>
-    <!-- <p-dataTable [value]="radTests | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="radTestCode"[header]="'TestCode' | translate" [sortable]="true"></p-column>
-        <p-column field="radTestName" [header]="'TestName' | translate" [sortable]="true"></p-column>
-        <p-column field="quantity" [header]="'Quantity' | translate" [sortable]="true"></p-column>
-        <p-column field="diagnoseName" [header]="'Diagnosis' | translate" [sortable]="true"></p-column>
-        <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-            <ng-template let-noteRadtest="rowData" pTemplate="body">
-                <a class="pointer" (click)="editItem(noteRadtest.id)">
-                    <img src="assets/images/edit-24.png" />
-                </a>
-            </ng-template>
-        </p-column>
-        <p-column [header]="'Delete' | translate" styleClass="text-center width70">
-            <ng-template let-noteRadtest="rowData" pTemplate="body">
-                <a data-toggle="modal" data-target="#deleteNoteRadTest" class="pointer"
-                   (click)="selectRadTestToDelete(noteRadtest.id)">
-                    <img src="assets/images/DeleteRed.png" />
-                </a>
-            </ng-template>
-        </p-column>
-    </p-dataTable> -->
+
+
+    <!---New Table-->
+    <p-table #dt [value]="radTests" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['radTestCode','nameTranslation']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="radTestCode">{{'ArabicName' | translate}} <p-sortIcon field="radTestCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="radTestName">{{'EnglishName' | translate}} <p-sortIcon field="radTestName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity">{{'EnglishName' | translate}} <p-sortIcon field="quantity"></p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'EnglishName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                </th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.radTestCode}}
+                </td>
+                <td>
+                    <span>{{item.radTestName}}</span>
+                </td>
+                <td>
+                    <span>{{item.quantity}}</span>
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <a class="pointer" (click)="editItem(item.id)">
+                        <img src="assets/images/edit-24.png" />
+                    </a>
+                </td>
+                <td style="text-align: center">
+                    <a data-toggle="modal" data-target="#deleteNoteRadTest" class="pointer"
+                        (click)="selectRadTestToDelete(item.id)">
+                        <img src="assets/images/DeleteRed.png" />
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
+
 
 
 </div>
 <div id="divTable" class="padding5" *ngIf="isDetailsVisible">
-    <patient-radiology-details [noteId]="noteId" [noteRadTestId]='noteRadtId'  (onBack)="hideDetails()"></patient-radiology-details>
+    <patient-radiology-details [noteId]="noteId" [noteRadTestId]='noteRadtId' (onBack)="hideDetails()">
+    </patient-radiology-details>
 </div>
 
 
@@ -49,7 +92,8 @@
                 <p>{{ 'AreYouSureDelete' | translate}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{
+                    'Yes' | translate}}</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
             </div>
         </div>

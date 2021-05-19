@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SharedService } from '../../shared/shared/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'patient-radiology',
@@ -25,6 +26,7 @@ export class PatientRadiologyComponent implements OnInit {
     showProgress = false;
     @ViewChild("fileInput") fileInput!: any;
     filterString!: any;
+    @ViewChild('dt') table!: Table;
     constructor(private doctorService: DoctorService
         , private sharedService: SharedService
         , public toastr: ToastrService
