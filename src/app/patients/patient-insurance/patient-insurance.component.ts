@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
 import { UtilityClass } from '../../shared/shared/utility.class';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -34,6 +35,7 @@ export class PatientInsuranceComponent implements OnInit, OnChanges {
     @ViewChild("fileInput") fileInput!: any;
     utilityClass: UtilityClass = new UtilityClass();
     selectedClinicId!: any;
+    @ViewChild('dt') table!: Table;
     constructor(private patientService: PatientService
         , private sharedService: SharedService
         , public toastr: ToastrService
