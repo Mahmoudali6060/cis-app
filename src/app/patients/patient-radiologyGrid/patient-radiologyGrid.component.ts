@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnChanges, ViewChild, Input } from '@angular/core';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -15,7 +16,7 @@ export class PatientRadiologyGridComponent implements OnInit, OnChanges {
     @Input() noteId!: number;
     allRadiologies: any[] = [];
     lstToTranslated: string[] = ['radTestName', 'radTestNameTranslation'];
-
+    @ViewChild('dt') table!: Table;
     ngOnInit(): void {
 
     }
