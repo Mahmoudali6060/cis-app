@@ -11,6 +11,7 @@ import { LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
 import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
+import { Table } from 'primeng/table';
 
 @Component({
 
@@ -40,7 +41,7 @@ export class ReceptionistRequestsComponent implements OnInit {
     key: PermissionKeyEnum = new PermissionKeyEnum();
     enableCancelLink: boolean = false;
     enableConfirmLink: boolean = false;
-
+    @ViewChild('dt') table!: Table;
     constructor(private receptionistService: ReceptionistService
         , public sharedService: SharedService
         , public toastr: ToastrService
@@ -100,10 +101,10 @@ export class ReceptionistRequestsComponent implements OnInit {
 
     }
 
-    cancelServiceGroup(){
+    cancelServiceGroup() {
 
     }
-    
+
     updatePatientRequest(res: any) {
         var request = this.patientRequestList.find(r => r.id == res.id);
         request.status = res.status;

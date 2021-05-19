@@ -1,5 +1,5 @@
 ﻿<div class="row">
-        <shared-tabs [activeTabIndex]="11"></shared-tabs>
+    <shared-tabs [activeTabIndex]="11"></shared-tabs>
     <div class="row nopadding">
         <div class="page-breadcrumb">
             <div class="row ">
@@ -15,36 +15,108 @@
         <div class="row well" style="background-color: #f6f7f9 !important;">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
-                <input #gb type="text" pInputText size="50" [placeholder]="'Search' | translate">
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                    [placeholder]="'Search' | translate" />
             </div>
+            <!---New Table-->
+            <p-table #dt [value]="patientRequestList" dataKey="id" [rowHover]="true" [rows]="10"
+                [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+                [globalFilterFields]="['name','birthDateString','mobileNumber','gender','dateTimeString','doctorName','time','visitTypeName','appointmentClassName','status']">
 
-            <!-- <p-dataTable [value]="patientRequestList " selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-                <p-column field="name" [header]="'PatientName' | translate" [sortable]="true"></p-column>
-                <p-column field="birthDateString" [header]="'BirthDate' | translate" [sortable]="true"></p-column>
-                <p-column field="mobileNumber" [header]="'Mobile' | translate" [sortable]="true"></p-column>
-                <p-column field="gender" [header]="'Gender' | translate" [sortable]="true"></p-column>
-                <p-column field="dateTimeString" [header]="'AppointmentDate' | translate" [sortable]="true"></p-column>
-                <p-column field="doctorName" [header]="'DoctorName' | translate" [sortable]="true" styleClass="text-danger"></p-column>
-                <p-column field="time" [header]="'AppointmentTime' | translate" [sortable]="true"></p-column>
-                <p-column field="visitTypeName" [header]="'Type' | translate" [sortable]="true"></p-column>
-                <p-column field="appointmentClassName" [header]="'Class' | translate" [sortable]="true"></p-column>
-                <p-column field="status" [header]="'Status' | translate" [sortable]="true" styleClass="text-danger"></p-column>
-                <p-column [header]="'Confirm' | translate" styleClass="text-center width70">
-                    <ng-template let-request="rowData" pTemplate="body">
-                        <a class="pointer" (click)="confirmPatientRequest(request.id)" [class.disabled]="!enableConfirmLink ? true : null">
-                            <img src="assets/images/ok-24.jpg" />
-                        </a>
-                    </ng-template>
-                </p-column>
-                <p-column [header]="'Cancel' | translate" styleClass="text-center width70">
-                    <ng-template let-request="rowData" pTemplate="body">
-                        <a class="pointer" #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup"
-                           (click)="selectRequestToBeCanceled(request.id)" [class.disabled]="!enableCancelLink ? true : null">
-                            <img src="assets/images/cancel-24.png" />
-                        </a>
-                    </ng-template>
-                </p-column>
-            </p-dataTable> -->
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">{{'PatientName' | translate}} <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="birthDateString">{{'BirthDate' | translate}} <p-sortIcon
+                                field="birthDateString"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="mobileNumber">{{'Mobile' | translate}} <p-sortIcon
+                                field="mobileNumber"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="gender">{{'Gender' | translate}} <p-sortIcon field="gender">
+                            </p-sortIcon>
+                           
+                        </th>
+                        <th pSortableColumn="dateTimeString">{{'AppointmentDate' | translate}} <p-sortIcon
+                                field="dateTimeString"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="doctorName">{{'DoctorName' | translate}} <p-sortIcon field="doctorName">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="time">{{'AppointmentTime' | translate}} <p-sortIcon field="time"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="visitTypeName">{{'Type' | translate}} <p-sortIcon
+                                field="visitTypeName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="appointmentClassName">{{'Class' | translate}} <p-sortIcon
+                                field="appointmentClassName"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="status">{{'Status' | translate}} <p-sortIcon field="status">
+                            </p-sortIcon>
+                        </th>
+                        <th>{{'Confirm' | translate}}
+                        </th>
+                        <th>{{'Cancel' | translate}}
+                        </th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr class="p-selectable-row">
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            <span>{{item.birthDateString}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.mobileNumber}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.gender}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.dateTimeString}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.doctorName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.time}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.visitTypeName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.appointmentClassName}}</span>
+                        </td>
+                        <td>
+                            <span>{{item.status}}</span>
+                        </td>
+                        <td>
+                            <a class="pointer" (click)="confirmPatientRequest(item.id)"
+                                [class.disabled]="!enableConfirmLink ? true : null">
+                                <img src="assets/images/ok-24.jpg" />
+                            </a>
+                        </td>
+                        <td style="text-align: center">
+                            <a class="pointer" #AddServiceGroup data-toggle="modal" data-target="#ServicesGroupPopup"
+                                (click)="selectRequestToBeCanceled(item.id)"
+                                [class.disabled]="!enableCancelLink ? true : null">
+                                <img src="assets/images/cancel-24.png" />
+                            </a>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                        <td colspan="8">No data found.</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <!--End Table-->
+
         </div>
     </div>
 </div>
@@ -61,18 +133,23 @@
             <form *ngIf="active" class="form-horizontal" name="servicegroupForm" #servicegroupForm="ngForm">
                 <div class="modal-body">
 
-                        <div class="form-group">
-                            <label for="txtGroupRemark" class="control-label col-md-3">{{ 'CancelationReason' | translate}}</label>
-                            <div class="col-md-6">
-                                <textarea id="txtGroupRemark" name="txtGroupRemark" class="form-control" [(ngModel)]='model.cancelationReason' #txtGroupRemark="ngModel" required></textarea>
-                            </div>
+                    <div class="form-group">
+                        <label for="txtGroupRemark" class="control-label col-md-3">{{ 'CancelationReason' |
+                            translate}}</label>
+                        <div class="col-md-6">
+                            <textarea id="txtGroupRemark" name="txtGroupRemark" class="form-control"
+                                [(ngModel)]='model.cancelationReason' #txtGroupRemark="ngModel" required></textarea>
                         </div>
+                    </div>
 
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelPatientRequest()" [disabled]="!servicegroupForm.valid">{{ 'Save' | translate}}</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="cancelServiceGroup()">{{ 'Cancel' | translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            (click)="cancelPatientRequest()" [disabled]="!servicegroupForm.valid">{{ 'Save' |
+                            translate}}</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            (click)="cancelServiceGroup()">{{ 'Cancel' | translate}}</button>
                     </div>
                 </div>
             </form>
