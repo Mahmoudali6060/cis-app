@@ -1,28 +1,62 @@
-﻿
-<div class="inner-addon left-addon">
+﻿<div class="inner-addon left-addon">
     <i class="glyphicon glyphicon-search"></i>
-    <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+    <input pInputText type="text" #gb (input)="dt.filterGlobal($event.target.value, 'contains')"
+        [placeholder]="'Search' | translate" />
 </div>
-<!-- <p-dataTable [value]="allDiagnosis | translateObjects  : null : null : lstToTranslated" selectionMode="none" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-    <p-column styleClass="text-center width50">
-        <ng-template let-noteDiagnose="rowData" pTemplate="body">
-            <input type="checkbox" [checked] ="noteDiagnose.isSelected"
-                   (change)="updateSelectedDiagnose(noteDiagnose.diagnoseId, $event)" />
-        </ng-template>
-    </p-column>
-    <p-column field="diagnoseCode" [header]="'DiagnoseCode' | translate" [sortable]="true" styleClass="text-center width70"></p-column>
-    <p-column field="diagnoseName" [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
-    <p-column  [header]="'Status' | translate">
-        <ng-template let-noteDiagnose="rowData" pTemplate="body">
-            <select class="form-control" name="ddlDiagnosisStatuses" [(ngModel)]='noteDiagnose.status'>
-                <option *ngFor="let obj of diagnosisStatuses" [value]="obj.value">{{obj.text | translate}}</option>
-            </select>
-        </ng-template>
-    </p-column>
 
-    <p-column [header]="'Remarks' | translate">
-        <ng-template let-noteDiagnose="rowData" pTemplate="body">
-            <textarea class="form-control" id="txtRemarks" name="txtRemarks" [(ngModel)]='noteDiagnose.description'></textarea>
-        </ng-template>
-    </p-column>
-</p-dataTable> -->
+
+<!---New Table-->
+<p-table #dt [value]="allDiagnosis" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+    [globalFilterFields]="['diagnoseCode','diagnoseName']">
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th pSortableColumn="diagnoseCode">{{'DiagnoseCode' | translate}} <p-sortIcon field="diagnoseCode">
+                </p-sortIcon>
+            </th>
+            <th pSortableColumn="diagnoseName">{{'DiagnoseName' | translate}} <p-sortIcon field="diagnoseName">
+                </p-sortIcon>
+            </th>
+            <th><span styleClass="text-center width70">{{'Status' | translate}} </span>
+            </th>
+            <th><span styleClass="text-center width70">{{'Remarks' | translate}} </span>
+            </th>
+            <th style="width: 8rem">
+            </th>
+        </tr>
+
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr class="p-selectable-row">
+            <td>
+                <input type="checkbox" [checked]="item.isSelected"
+                    (change)="updateSelectedDiagnose(item.diagnoseId, $event)" />
+            </td>
+            <td>
+                {{item.diagnoseCode}}
+            </td>
+            <td>
+                <span>{{item.diagnoseName}}</span>
+            </td>
+
+            <td>
+                <select class="form-control" name="ddlDiagnosisStatuses" [(ngModel)]='item.status'>
+                    <option *ngFor="let obj of diagnosisStatuses" [value]="obj.value">{{obj.text | translate}}</option>
+                </select>
+            </td>
+            <td>
+                <textarea class="form-control" id="txtRemarks" name="txtRemarks"
+                    [(ngModel)]='item.description'></textarea>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="8">No data found.</td>
+        </tr>
+    </ng-template>
+</p-table>
+<!--End Table-->
