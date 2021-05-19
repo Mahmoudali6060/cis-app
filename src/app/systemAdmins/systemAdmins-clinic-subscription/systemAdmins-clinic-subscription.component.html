@@ -12,7 +12,8 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="txtCurrentStartDate">{{ 'StartDate' | translate}}</label>
             <div class="col-md-2">
-                <input id="txtCurrentStartDate" name="txtCurrentStartDate" class="form-control" disabled [(ngModel)]='currentSubscription.startDateString' />
+                <input id="txtCurrentStartDate" name="txtCurrentStartDate" class="form-control" disabled
+                    [(ngModel)]='currentSubscription.startDateString' />
             </div>
         </div>
     </div>
@@ -20,7 +21,8 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="txtCurrentEndDate">{{ 'EndDate' | translate}}</label>
             <div class="col-md-2">
-                <input id="txtCurrentEndDate" name="txtCurrentEndDate" class="form-control" disabled [(ngModel)]='currentSubscription.endDateString' />
+                <input id="txtCurrentEndDate" name="txtCurrentEndDate" class="form-control" disabled
+                    [(ngModel)]='currentSubscription.endDateString' />
             </div>
         </div>
     </div>
@@ -28,17 +30,19 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="txtCurrentNumberOfUsers">{{ 'NoOfUsers' | translate}}</label>
             <div class="col-md-2">
-                <input id="txtCurrentNumberOfUsers" name="txtCurrentNumberOfUsers" class="form-control" disabled [(ngModel)]='currentSubscription.numberOfUsers' />
+                <input id="txtCurrentNumberOfUsers" name="txtCurrentNumberOfUsers" class="form-control" disabled
+                    [(ngModel)]='currentSubscription.numberOfUsers' />
             </div>
             <div class="col-md-4">
-                <button type="button"  disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"  class="btn btn-primary" data-toggle="modal" data-target="#newSubscription">{{ 'Renew' | translate}}</button>
+                <button type="button" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" class="btn btn-primary"
+                    data-toggle="modal" data-target="#newSubscription">{{ 'Renew' | translate}}</button>
             </div>
         </div>
     </div>
 
     <div class="row">
         <h4 class="h4Deco">
-           {{ 'SubscriptionHistory' | translate}}
+            {{ 'SubscriptionHistory' | translate}}
             <hr />
         </h4>
     </div>
@@ -46,73 +50,63 @@
 
     <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-search"></i>
-        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate"> 
-        <!-- <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
-        (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />-->
+        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+        <input pInputText type="text" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+            (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
 
     </div>
-     <!---New Table-->
-     <!-- <p-table #dt [value]="subscriptionsList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-     [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading" [paginator]="true"
-     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
-     [globalFilterFields]="['startDateString','endDateString']">
-     
-     <ng-template pTemplate="header">
-         <tr>
-             <th pSortableColumn="startDateString">{{'StartDate' | translate}} <p-sortIcon field="startDateString"></p-sortIcon>
-             </th>
-             <th pSortableColumn="endDateString">{{'EndDate' | translate}} <p-sortIcon
-                     field="endDateString"></p-sortIcon>
-             </th>
-             <th pSortableColumn="numberOfUsers">{{'NoOfUsers' | translate}} <p-sortIcon
-                field="numberOfUsers"></p-sortIcon>
-             </th>
-             <th><span styleClass="text-center width70">{{'Current' | translate}} </span>
-             </th>
-             <th pSortableColumn="creationDateString">{{'current' | translate}} <p-sortIcon
-                field="creationDateString"></p-sortIcon>
-        </th>
-         </tr>
+    <!---New Table-->
+    <p-table #dt [value]="subscriptionsList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['startDateString','endDateString','numberOfUsers','creationDateString']">
 
-     </ng-template>
-     <ng-template pTemplate="body" let-object>
-         <tr class="p-selectable-row">
-             <td>
-                 {{object.startDateString}}
-             </td>
-             <td>
-                 {{object.endDateString}}
-             </td>
-             <td>
-                {{object.numberOfUsers}}
-            </td>
-             <td>
-                <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="item.isCurrent" disabled />
-             </td>
-             <td>
-                {{object.creationDateString}}
-            </td>
-         </tr>
-     </ng-template>
-     <ng-template pTemplate="emptymessage">
-         <tr>
-             <td colspan="8">No data found.</td>
-         </tr>
-     </ng-template>
- </p-table> -->
- <!--End Table-->
-    <!-- <p-dataTable [value]="subscriptionsList" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="startDateString"   [header]="'StartDate' | translate" [sortable]="true"></p-column>
-        <p-column field="endDateString"  [header]="'EndDate' | translate" [sortable]="true"></p-column>
-        <p-column field="numberOfUsers"   [header]="'NoOfUsers' | translate" [sortable]="true"></p-column>
-        <p-column [header]="'Current' | translate"  styleClass="text-center width70">
-            <ng-template let-item="rowData" pTemplate="body">
-                <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="item.isCurrent" disabled />
-            </ng-template>
-        </p-column>
-        <p-column field="creationDateString" header="Creation Date" [sortable]="true"></p-column>
-    </p-dataTable> -->
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="startDateString">{{'StartDate' | translate}} <p-sortIcon field="startDateString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="endDateString">{{'EndDate' | translate}} <p-sortIcon field="endDateString">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="numberOfUsers">{{'NoOfUsers' | translate}} <p-sortIcon field="numberOfUsers">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'Current' | translate}} </span>
+                </th>
+                <th pSortableColumn="creationDateString">{{'current' | translate}} <p-sortIcon
+                        field="creationDateString"></p-sortIcon>
+                </th>
+            </tr>
 
+        </ng-template>
+        <ng-template pTemplate="body" let-object>
+            <tr class="p-selectable-row">
+                <td>
+                    {{object.startDateString}}
+                </td>
+                <td>
+                    {{object.endDateString}}
+                </td>
+                <td>
+                    {{object.numberOfUsers}}
+                </td>
+                <td>
+                    <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="object.isCurrent"
+                        disabled />
+                </td>
+                <td>
+                    {{object.creationDateString}}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
 
     <table id="print-section" class="hidden">
         <thead class="alert alert-info">
@@ -130,7 +124,8 @@
                 <td>{{item.endDateString}}</td>
                 <td>{{item.numberOfUsers}}</td>
                 <td>
-                    <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="item.isCurrent" disabled />
+                    <input type="checkbox" id="chkIsCurrent" name="chkIsCurrent" [(ngModel)]="item.isCurrent"
+                        disabled />
                 </td>
 
                 <td>{{item.creationDateString}}</td>
@@ -153,8 +148,9 @@
                     <div class="form-group">
                         <label for="txtStartDate" class="control-label col-md-2">{{ 'StartDate' | translate}}</label>
                         <div class="col-md-7">
-                            <p-calendar [(ngModel)]="newSubscription.startDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="newSubscription.startDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                             <!--<input type="date" id="txtStartDate" name="txtStartDate" class="form-control"
                                     [(ngModel)]='newSubscription.startDate' #txtStartDate="ngModel" required />
                             <div [hidden]="txtStartDate.valid || txtStartDate.pristine" class="alert alert-danger">
@@ -165,8 +161,9 @@
                     <div class="form-group">
                         <label for="txtEndDate" class="control-label col-md-2"> {{ 'EndDate' | translate}}</label>
                         <div class="col-md-7">
-                            <p-calendar [(ngModel)]="newSubscription.endDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="newSubscription.endDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                             <!--<input type="date" id="txtEndDate" name="txtEndDate" class="form-control"
                             [(ngModel)]='newSubscription.endDate' #txtEndDate="ngModel" required />-->
                             <!--<div [hidden]="txtEndDate.valid || txtEndDate.pristine" class="alert alert-danger">
@@ -175,24 +172,24 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="txtRemainingBalance">{{ 'NoOfUsers' | translate}}</label>
+                        <label class="control-label col-md-2" for="txtRemainingBalance">{{ 'NoOfUsers' |
+                            translate}}</label>
                         <div class="col-md-4">
                             <input type="number" id="txtNoUsers" name="txtNoUsers" class="form-control" min="0"
-                                   [(ngModel)]='newSubscription.numberOfUsers' #txtNoUsers="ngModel" required />
+                                [(ngModel)]='newSubscription.numberOfUsers' #txtNoUsers="ngModel" required />
                             <div [hidden]="txtNoUsers.valid || txtNoUsers.pristine" class="alert alert-danger">
-                               {{ 'RequiredField' | translate}}
+                                {{ 'RequiredField' | translate}}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary"
-                            [disabled]="!renewForm.form.valid || !enableMyAccountBtn">
+                        [disabled]="!renewForm.form.valid || !enableMyAccountBtn">
                         {{ 'Add' | translate}}
                     </button>
-                    <button type="button" class="btn btn-primary"
-                             disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
-                            data-dismiss="modal" #btnSubscriptionModalClose>
+                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
+                        data-dismiss="modal" #btnSubscriptionModalClose>
                         {{ 'Cancel' | translate}}
                     </button>
                 </div>
