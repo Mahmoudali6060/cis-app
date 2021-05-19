@@ -1,7 +1,8 @@
 ﻿<div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
     <div class="row">
         <div class="col-md-4 nopadding">
-            <input type="text" placeholder="Search..." class="form-control" [(ngModel)]='filterString' />
+            <input pInputText type="text" [(ngModel)]='filterString'
+                (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
         </div>
 
         <div class="col-md-8 align-reverse nopadding" *ngIf="allowEditing">
@@ -60,34 +61,74 @@
 
         </tbody>
     </table>-->
-    <!-- <p-dataTable [value]="labTests | translateObjects  : null : null : lstToTranslated" selectionMode="single" [paginator]="true" rows="10" [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true" [globalFilter]="gb">
-        <p-column field="labTestCode"   [header]="'TestCode' | translate" [sortable]="true"></p-column>
-        <p-column field="labTestName"   [header]="'TestName' | translate" [sortable]="true"></p-column>
 
-        <p-column field="quantity"   [header]="'Quantity' | translate" [sortable]="true"></p-column>
+    <!---New Table-->
+    <p-table #dt [value]="labTests" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
+        [globalFilterFields]="['labTestCode','labTestName','quantity','diagnoseName']">
 
-        <p-column field="diagnoseName"   [header]="'DiagnoseName' | translate" [sortable]="true"></p-column>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="labTestCode">{{'TestCode' | translate}} <p-sortIcon field="labTestCode">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="labTestName">{{'TestName' | translate}} <p-sortIcon field="labTestName">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="quantity">{{'Quantity' | translate}} <p-sortIcon field="quantity">
+                    </p-sortIcon>
+                </th>
+                <th pSortableColumn="diagnoseName">{{'DiagnoseName' | translate}} <p-sortIcon field="diagnoseName">
+                    </p-sortIcon>
+                </th>
+                <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                </th>
+                <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                </th>
+            </tr>
 
-        <p-column   [header]="'Edit' | translate" styleClass="text-center width50">
-            <ng-template let-noteLabtest="rowData" pTemplate="body">
-                <a class="pointer" (click)="editItem(noteLabtest.id)">
-                    <img src="assets/images/edit-24.png" />
-                </a>
-            </ng-template>
-        </p-column>
-        <p-column  [header]="'Delete' | translate" styleClass="text-center width70">
-            <ng-template let-noteLabtest="rowData" pTemplate="body">
-                <a data-toggle="modal" data-target="#deleteNoteLabTest" class="pointer"
-                   (click)="selectLabTestToDelete(noteLabtest.id)">
-                    <img src="assets/images/DeleteRed.png" />
-                </a>
-            </ng-template>
-        </p-column>
-    </p-dataTable> -->
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr class="p-selectable-row">
+                <td>
+                    {{item.labTestCode}}
+                </td>
+                <td>
+                    <span>{{item.labTestName}}</span>
+                </td>
+                <td>
+                    <span>{{item.quantity}}</span>
+                </td>
+                <td>
+                    <span>{{item.diagnoseName}}</span>
+                </td>
+                <td>
+                    <a class="pointer" (click)="editItem(item.id)">
+                        <img src="assets/images/edit-24.png" />
+                    </a>
+                </td>
+                <td style="text-align: center">
+                    <a data-toggle="modal" data-target="#deleteNoteLabTest" class="pointer"
+                        (click)="selectLabTestToDelete(item.id)">
+                        <img src="assets/images/DeleteRed.png" />
+                    </a>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <!--End Table-->
+
     <!--noteLabTestId-->
 </div>
 <div id="divTable" class="padding5" *ngIf="isDetailsVisible">
-    <patient-lab-details  [noteId]="noteId" [noteLabTestId]='noteLabTestId' (onBack)="hideDetails()"></patient-lab-details>
+    <patient-lab-details [noteId]="noteId" [noteLabTestId]='noteLabTestId' (onBack)="hideDetails()">
+    </patient-lab-details>
 </div>
 
 <div id="deleteNoteLabTest" class="modal fade" role="dialog">
@@ -102,7 +143,8 @@
                 <p>{{ 'AreYouSureDelete' | translate}}</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                <button type="button" class="btn btn-danger" (click)="deleteSelectedItem()" data-dismiss="modal">{{
+                    'Yes' | translate}}</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'No' | translate}}</button>
             </div>
         </div>
