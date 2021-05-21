@@ -21,7 +21,7 @@ export class ClinicTemplatesComponent implements OnInit {
     selectedClinicId!: string;
     isTemplatesSelected = true;
     Template: any;
-    showProgress: any = true;
+    // showProgress: any = true;
     constructor(public toastr: ToastrService,
         private localStorage: LocalStorageService
         , private clinicService: ClinicService

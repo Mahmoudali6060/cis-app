@@ -22,7 +22,6 @@ export class BaseService {
     }
     //this code is added to comment location.reload()
     get requestOptions(): any {
-        debugger;
         // var accessToken = "Bearer " + this.localStorage.retrieve("AccessToken");
 
         // this.headers = new Headers({

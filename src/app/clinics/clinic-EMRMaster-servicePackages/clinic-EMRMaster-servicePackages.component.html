@@ -14,7 +14,7 @@
                {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                 &nbsp; &nbsp;
                 <a [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
-                    <img src="images/addImage.png" (click)="displayPopup(node)" title="Add Division" />
+                    <img src="assets/images/addImage.png" (click)="displayPopup(node)" title="Add Division" />
                 </a>
             </ng-template>
             <ng-template let-node pTemplate="ClinicDepartmentServicePackagesGroup">

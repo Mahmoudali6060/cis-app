@@ -74,7 +74,6 @@ export class SystemAdminService extends BaseService {
 
 
     getDashboardWrapper(): any {
-        debugger;
         return this.http.get(this.webApiURL + "/dashboardWrapper", this.requestOptions)
             // .pipe(this.extractData)
             //.catch(this.handleError);

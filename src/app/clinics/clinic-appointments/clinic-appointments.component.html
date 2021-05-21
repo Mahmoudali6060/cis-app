@@ -47,7 +47,7 @@
             <!---New Table-->
             <p-table #dt [value]="appointmentsList"
                 dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-                [rowsPerPageOptions]="[10,20,30,40,50,100]" [loading]="loading" [paginator]="true"
+                [rowsPerPageOptions]="[10,20,30,40,50,100]"  [paginator]="true"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
                 [globalFilterFields]="['startDateString','endDateString','slotDuration','description']">
                 <ng-template pTemplate="header">

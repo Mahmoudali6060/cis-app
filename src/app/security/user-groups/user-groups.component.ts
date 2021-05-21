@@ -1,4 +1,4 @@
-﻿import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
+﻿import { Component, OnChanges, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'ng2-webstorage';
 import { Router } from '@angular/router';
@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserTypeEnum } from '../shared/user-type.enum';
 import { PermissionAssignment } from '../../security/shared/permission-assignment';
 import { PermissionNames } from '../../security/shared/permission-names';
+import { Table } from 'primeng/table/table';
 
 @Component({
 
@@ -29,8 +30,9 @@ export class UserGroupsComponent implements OnInit, OnChanges {
     active = true;
     showProgress = false;
     userGroupsList!: any[];
+
     usersList: any[] = [];
-    permissionsList: any[] | undefined;
+    permissionsList!: any;
 
     selectedGroupUsersIDs: any = [];
     selectedGroupPermissions: PermissionAssignment[] = [];
@@ -41,6 +43,8 @@ export class UserGroupsComponent implements OnInit, OnChanges {
     isAdminGroupSelected: boolean = false;
     clinicId = '';
     selectedLang = 'ar';
+    loading: boolean = true;
+    @ViewChild('dt') table!: Table;
 
 
     constructor(public accountService: AccountService,

@@ -36,7 +36,7 @@
             <tr>
                 <th pSortableColumn="nameWithoutExtension">{{'fileNameTxt' | translate}} <p-sortIcon field="nameWithoutExtension"></p-sortIcon>
                 </th>
-                <th pSortableColumn="type">{{'Type' | translate}} <p-sortIcon
+                <th *ngIf="fileType" pSortableColumn="type">{{'Type' | translate}} <p-sortIcon
                         field="type"></p-sortIcon>
                 </th>
                 <th pSortableColumn="description">{{'Description' | translate}} <p-sortIcon
@@ -60,7 +60,7 @@
                 <td>
                     {{object.nameWithoutExtension}}
                 </td>
-                <td>
+                <td *ngIf="fileType">
                   {{object.type}}
                 </td>
                 <td>

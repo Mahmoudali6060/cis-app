@@ -65,7 +65,7 @@
                             {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                             &nbsp; &nbsp;
                             <a #btnAddDiagnosisGroup data-toggle="modal" data-target="#DiagnosisAndGroupsPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
-                                <img src="images/addImage.png" (click)="passParentGroupInfo(node)" />
+                                <img src="assets/images/addImage.png" (click)="passParentGroupInfo(node)" />
                             </a>
                             &nbsp; &nbsp;
                             <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">

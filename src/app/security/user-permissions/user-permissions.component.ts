@@ -10,6 +10,7 @@ import { UserTypeEnum } from '../shared/user-type.enum';
 
 import { PermissionAssignment } from '../../security/shared/permission-assignment';
 import { PermissionNames } from '../../security/shared/permission-names';
+import { Table } from 'primeng/table/table';
 
 @Component({
    
@@ -33,7 +34,8 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
     model: any = { id: 0, isActive: true };
     active = true;
     showProgress = false;
-
+    @ViewChild('dt') table!: Table;
+    
 
     selectedGroupsIDs: any[] = [];
     selectedUserPermissions: PermissionAssignment[] = [];

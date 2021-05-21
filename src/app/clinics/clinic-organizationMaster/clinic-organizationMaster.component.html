@@ -38,14 +38,14 @@
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                     &nbsp; &nbsp;
                     <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
-                        <img src="images/addImage.png" (click)="displayPopup(node)" />
+                        <img src="assets/images/addImage.png" (click)="displayPopup(node)" />
                     </a>
                 </ng-template>
                 <ng-template let-node pTemplate="NonMedical">
                     {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                     &nbsp; &nbsp;
                     <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
-                        <img src="images/addImage.png" (click)="displayPopup(node)" />
+                        <img src="assets/images/addImage.png" (click)="displayPopup(node)" />
                     </a>
                 </ng-template>
                 <ng-template let-node pTemplate="ClinicDepartment">
@@ -53,7 +53,7 @@
                     <span *ngIf="node.parent.type != 'Medical' ">
                         &nbsp; &nbsp;
                         <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
-                            <img src="images/addImage.png" (click)="displayPopup(node)" title="Add Division" />
+                            <img src="assets/images/addImage.png" (click)="displayPopup(node)" title="Add Division" />
                         </a>
                         <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
                             <i class="fa fa-pencil fa-2x" (click)="editDepartment(node)" title="Edit Department" style="color: #32bea6;"></i>
@@ -76,7 +76,7 @@
                         </a>
                     </span>
                     <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
-                        <img src="images/addImage.png" (click)="displayPhysicalResourcePopup(node)" title="Add Physical Resouce" />
+                        <img src="assets/images/addImage.png" (click)="displayPhysicalResourcePopup(node)" title="Add Physical Resouce" />
                     </a>
                     <a [class.disabled]="!enableAddBtn && !isClinicAdmin ? true : null">
                         <img src="images/add-user.png" (click)="addNewHumanResource(node)" title="Add Human Resouce" />

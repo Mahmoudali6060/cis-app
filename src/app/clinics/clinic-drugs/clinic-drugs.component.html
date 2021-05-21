@@ -60,7 +60,7 @@
                             {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
                             &nbsp; &nbsp;
                             <a #btnAddDrugsGroup data-toggle="modal" data-target="#DrugsAndGroupsPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
-                                <img src="images/addImage.png" (click)="passParentGroupInfo(node)" />
+                                <img src="assets/images/addImage.png" (click)="passParentGroupInfo(node)" />
                             </a>
                             &nbsp; &nbsp;
                             <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
