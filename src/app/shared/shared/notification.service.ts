@@ -280,7 +280,7 @@ export class NotificationService extends BaseService {
 
     sendNotification(body: any): any {
         return this.http.post(this.webApiURL + "/saveNotification", body, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         //.catch((error: any) => this.handleError(error));
     }
 
@@ -289,7 +289,7 @@ export class NotificationService extends BaseService {
         let body: any = this.prepareNotificationObject(notificationId);
 
         return this.http.post(this.webApiURL + '/markNotificationasRead', body, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         //.catch((error: any) => this.handleError(error));
     }
 
@@ -299,7 +299,7 @@ export class NotificationService extends BaseService {
         let body: any = this.prepareNotificationObject(null);
 
         return this.http.post(this.webApiURL + '/markAllNotificationasRead', body, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         //.catch((error: any) => this.handleError(error));
     }
 

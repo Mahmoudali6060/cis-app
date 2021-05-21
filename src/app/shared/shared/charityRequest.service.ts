@@ -22,57 +22,57 @@ export class CharityRequestService extends BaseService {
 
     getRequestWrapper(): any {
         return this.http.get(this.webApiURL + "/requestWrapper", this.requestOptions )
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
     getVolunteerRequestWrapper(organizationId: string): any {
         return this.http.get(this.webApiURL + "/requestWrapper/" + organizationId, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
     saveCharityRequest(body: any): any {
 
         return this.http.post(this.webApiURL + "/saveCharityRequest", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
     updateCharityRequest(body: any): any {
 
         return this.http.put(this.webApiURL + "/updateCharityRequest", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)//.pipe((res: Response) => res.json()) // ...and calling .json() on the response to return data
+            //.pipe(this.extractData)////.pipe((res: Response) => res.json()) // ...and calling .json() on the response to return data
             //.catch(this.handleError);//.catch((error: any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
 
     approveCharityRequest(id: string): any {
         return this.http.get(`${this.webApiURL}/approveCharityRequest/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
     rejectCharityRequest(id: string): any {
         return this.http.get(`${this.webApiURL}/rejectCharityRequest/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
     cancelCharityRequest(id: string): any {
         return this.http.get(`${this.webApiURL}/cancelCharityRequest/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
     getCharityRequestById(id: string): any {
         return this.http.get(`${this.webApiURL}/getCharityRequest/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
             //.catch(this.handleError);
     }
 
     deleteCharityRequest(id: string): any {
         return this.http.delete(`${this.webApiURL}/deleteCharityRequest/${id}`, this.requestOptions) // ...using delete request
-            .pipe()
+            //.pipe()
             //.catch(this.handleError);
     }
 

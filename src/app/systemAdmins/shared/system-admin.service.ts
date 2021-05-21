@@ -44,7 +44,7 @@ export class SystemAdminService extends BaseService {
 
     getVendors(): any {
         return this.http.get(this.administrationWebApiURL + "/GetAllVendors", this.requestOptions)
-            .pipe()
+            //.pipe()
             //.catch(this.handleError);
     }
 
@@ -68,7 +68,7 @@ export class SystemAdminService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(this.administrationWebApiURL + "/updateVendor", body, this.requestOptions)
-            .pipe()
+            //.pipe()
             //.catch(this.handleError);
     }
 

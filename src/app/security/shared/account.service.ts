@@ -60,7 +60,7 @@ export class AccountService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(this.webApiURL + "/register", body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
@@ -68,7 +68,7 @@ export class AccountService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(this.webApiURL + "/changePassword", body, this.requestOptions)
-            .pipe()
+            //.pipe()
         // //.catch((error: any) => this.handleError(error)); // ...using post request
     }
 
@@ -91,7 +91,7 @@ export class AccountService extends BaseService {
     getOperationalUsers(): any {
 
         return this.http.get(this.webApiURL + "/getOperationalUsers", this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
@@ -99,25 +99,25 @@ export class AccountService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(`${this.webApiURL}/updateSecurityUser`, body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
     deleteOperationalUser(id: string): any {
         return this.http.delete(`${this.webApiURL}/deleteOperationalUser/${id}`, this.requestOptions) // ...using delete request
-            .pipe();
+            //.pipe();
         // //.catch((error: any) => this.handleError(error));
     }
 
     getClinicUserGroupsWrapper(id: string): any {
         return this.http.get(this.webApiURL + "/getClinicUserGroupsWrapper/" + id, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
     getSecurityGroupById(id: string): any {
         return this.http.get(`${this.webApiURL}/getSecurityGroupById/${id}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
@@ -131,7 +131,7 @@ export class AccountService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(`${this.webApiURL}/saveOrUpdateUserGroup`, body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
@@ -139,14 +139,14 @@ export class AccountService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.post(`${this.webApiURL}/updateUserPermissions`, body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
 
     deleteUserGroup(id: string): any {
         return this.http.delete(`${this.webApiURL}/deleteUserGroup/${id}`, this.requestOptions) // ...using delete request
-            .pipe()
+            //.pipe()
         // //.catch((error: any) => this.handleError(error));
     }
 
@@ -154,7 +154,7 @@ export class AccountService extends BaseService {
         body = this.addModificationData(body);
 
         return this.http.put(this.webApiURL + "/resetPassword", body, this.requestOptions)
-            .pipe();
+            //.pipe();
         // //.catch((error: any) => this.handleError(error)); // ...using post request
     }
 
@@ -162,30 +162,30 @@ export class AccountService extends BaseService {
         //body = this.addModificationData(body);
 
         return this.http.post(`${this.webApiURL}/resetUserPassword`, body, this.requestOptions) // ...using post request
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
     updateUserLanguage(id: any, lang: string): any {
         return this.http.get(`${this.webApiURL + "/updateUserLanguage"}/${id}/${lang}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
     //this code is added to get the permission roles of athenticated user
     getRoles(authenticatedId: string): any {
         return this.http.get(`${this.webApiURL + "/getRoles"}/${authenticatedId}`, this.requestOptions) // ...using post request
-            // .pipe(this.extractData)
+            // //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
     getAllCountryCodes(): any {
         return this.http.get(this.webApiAdmURL + "/getAllCountryCodes", this.requestOptions)
-            .pipe();
+            //.pipe();
         // .catch(this.handleError);
     }
 
     sendPasswordToUser(email: string): any {
         return this.http.get(`${this.webApiURL + "/sendPasswordToUser"}/${email}`, this.requestOptions)
-            .pipe(this.extractData)
+            //.pipe(this.extractData)
         // //.catch((error: any) => this.handleError(error));
     }
 
