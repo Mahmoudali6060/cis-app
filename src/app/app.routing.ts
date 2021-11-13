@@ -65,6 +65,12 @@ const appRoutes: Routes = [
         path: 'security',
         loadChildren: () => import('./security/security.module').then(m => m.SecurityModule)
     },
+
+    {
+        path: 'layout',
+        loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule)
+    },
+
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     //{ path: 'prototypeHome', component: PrototypeHomeComponent },
     //{ path: 'advancedSearch', component: AdvancedSearchComponent },

@@ -1,40 +1,29 @@
-﻿<div id="pagecont" [ngClass]="{ 'page-container list-menu-view': accountService.userLoggedIn }">
-    <!--Leftbar Start Here -->
+﻿<div id="pagecont" [ngClass]="{ 'page-container list-menu-view': accountService.userLoggedIn }"
+    *ngIf="accountService.userLoggedIn">
     <div *ngIf="accountService.userLoggedIn" class="left-aside desktop-view" id="unique">
         <div class="aside-branding">
             <a>
-                <!--<img src="assets/images/logo.png" height="60" width="60" />-->
                 <img src="assets/images/App-Logo.png" title="Logo" class="appLogo" />
             </a>
-            <!--<a routerLink="#" class="large-logo">
-                <span style="color:white;">&nbsp;&nbsp;CIS</span>
-            </a>-->
+
             <span class="aside-pin waves-effect"><i class="fa fa-thumb-tack"></i></span>
             <span class="aside-close waves-effect pointer" onclick="closeLeftBar();"><i class="fa fa-times"></i></span>
         </div>
     </div>
-
-
     <div [ngClass]="{ 'pageContentStyle page-content': accountService.userLoggedIn }">
-
         <nav-bar *ngIf="accountService.userLoggedIn" [userRole]="accountService.loggedInUserType"
             [userName]="accountService.loggedInUserName" [notifications]="notifications"
             [unReadNotificationsNo]="noUnReadNotifications" [profileImagePath]="accountService.profileImagePath">
         </nav-bar>
-
-
         <div
             [ngClass]="{ 'pageContainerStyle': !accountService.userLoggedIn ,'main-container': accountService.userLoggedIn }">
             <div class="container-fluid">
-                <!-- content-->
                 <router-outlet></router-outlet>
             </div>
         </div>
-
         <br />
         <br />
         <br />
-        <!--Footer Start Here -->
         <footer class="footer-container" *ngIf="accountService.userLoggedIn"
             style="background-color:#e6e6e6!important;">
             <div class="container-fluid">
@@ -46,14 +35,18 @@
                     </div>
                     <div class="col-md-6 col-sm-6">
                         <div class="footer-right">
-                            <!--<span class="footer-meta">Crafted with&nbsp;<i class="fa fa-heart"></i>&nbsp;by&nbsp;<a href="http://themeforest.net/user/westilian">westilian</a></span>-->
                         </div>
                     </div>
                 </div>
             </div>
         </footer>
-
-
-
     </div>
+</div>
+
+
+<div dir="{{ 'dir' | translate }}" class="main-app" *ngIf="!accountService.userLoggedIn">
+    <upper-nav></upper-nav>
+    <layout-nav-bar></layout-nav-bar>
+    <router-outlet></router-outlet>
+    <layout-footer></layout-footer>
 </div>

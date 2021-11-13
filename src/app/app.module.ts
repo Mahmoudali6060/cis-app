@@ -57,6 +57,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LayoutModule } from './layout/layout.module';
 
 
 let channelConfig = new ChannelConfig();
@@ -76,6 +77,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         ReactiveFormsModule,
         BrowserAnimationsModule,
         HomeModule,
+        LayoutModule,
         //SystemAdminsModule,
         //CashiersModule,
         //ClinicsModule,
