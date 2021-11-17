@@ -1,2 +1,0 @@
-﻿The JSON Resoruce Files are placed in this folder.
-They are generted on the fly from the CharityDirectory.Resources library. 
