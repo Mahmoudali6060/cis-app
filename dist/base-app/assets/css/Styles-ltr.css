@@ -1,0 +1,263 @@
+﻿body {
+    font-size: 14px !important;
+    font-family: Roboto !important;
+    font-weight: 400 !important;
+}
+
+.left-aside {
+    left: 0px;
+}
+
+.list-menu-view .main-container {
+    margin-left:225px !important;
+    margin-right: 0px !important;
+}
+.main-container {
+    margin-top: 7px !important;
+    margin-left: 64px !important;
+    margin-right: 0px !important;
+    padding: 25px !important;
+}
+
+.list-menu-view .footer-container {
+    margin-left: 225px !important;
+    margin-right: 0px !important;
+}
+
+.hide-list-menu {
+    left: -225px;
+}
+
+    .hide-list-menu .left-aside {
+       left: -11px;
+    width: 70px !important;
+    }
+      .hide-list-menu  .nav-label {
+      display:none !important;
+    }
+       .hide-list-menu  .menuarrow {
+      display:none !important;
+    }
+   
+   
+
+
+
+.user-nav {
+    float: right;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.user-nav-icon {
+    margin-right: 10px;
+}
+
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948 !important; /* green */
+    border-right: 2px solid #dadfe6 !important;
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442 !important; /* red */
+    border-right: 2px solid #dadfe6 !important;
+}
+
+.text-right {
+    float: right;
+}
+
+.dropdown-menu {
+    right: 0px !important;
+    left: auto !important;
+    right: 0px !important;
+}
+
+.notification-dropdown {
+    left: 0px !important;
+    right: auto !important;
+}
+
+.page-breadcrumb .list-page-breadcrumb li:after {
+    content: "\f105";
+}
+
+
+.expandedAccordion {
+    display: block !important;
+}
+
+.menuarrow {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    right: 14px;
+    top: 15px;
+}
+
+.glyphicon-chevron-right:before {
+    content: "\e080";
+}
+
+.left-navigation > ul ul {
+    margin: 0px 0px 0px 16px !important;
+    border-right: none;
+    border-left: rgba(255, 255, 255, 0.05) 1px solid;
+}
+
+.left-navigation > ul > li > a .nav-icon {
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+.left-navigation > ul ul li a .nav-icon {
+    padding-right: 10px;
+    padding-left: 0px;
+}
+
+.calendarEvent-arrived .fc-time::before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e161";
+    padding-right: 5px;
+}
+
+.calendarEvent-confirmed .fc-time::before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e089";
+    padding-right: 5px;
+}
+
+.calendarEvent-flaged .fc-time::before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e034";
+    padding-right: 5px;
+}
+
+.calendarEvent-waitin .fc-time::before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e023";
+    padding-right: 5px;
+}
+
+.calendarEvent-arrived .fc-time::after {
+    font-family: 'Glyphicons Halflings';
+    content: none;
+}
+
+.calendarEvent-confirmed .fc-time::after {
+    font-family: 'Glyphicons Halflings';
+    content: none;
+}
+
+.calendarEvent-flaged .fc-time::after {
+    font-family: 'Glyphicons Halflings';
+    content: none;
+}
+
+.calendarEvent-waitin .fc-time::after {
+    font-family: 'Glyphicons Halflings';
+    content: none;
+}
+
+.btnDirection {
+    text-align: right !important;
+}
+
+.activeDoc {
+    text-align: left !important;
+    font-family: Exo !important;
+    font-size: 17.5px !important;
+    font-weight: 600 !important;
+    color: #181818 !important;
+}
+
+.weekAppointemtStyle {
+    width: 561px !important;
+    height: 343px !important;
+    background-color: white;
+    border: 1px solid #d5d5d5 !important;
+    margin-left: 15px !important;
+}
+
+.txtMax {
+    text-align: left !important;
+    font-weight: 400 !important;
+    color: #4b4b4b !important;
+    font-family: Roboto !important;
+}
+
+.btnRadius {
+    border-radius: unset !important;
+    margin-left: -3px;
+    height: 46px;
+}
+
+.marginLeft {
+    margin-left: 26px !important;
+}
+.inner-addon {
+    position: relative;
+}
+
+    /* style icon */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 13px;
+        pointer-events: none;
+        color: #aaa;
+    }
+
+/* align icon */
+.left-addon .glyphicon {
+    left: 0px;
+}
+
+/* add padding  */
+.left-addon input {
+    padding-left: 30px;
+}
+
+.float-right {
+    float: right !important;
+}
+.btnMarginLeft {
+    margin-left:1px !important;
+}
+.btnMarginRight {
+    margin-right:2px !important;
+}
+.txtRight {
+    text-align: right !important;
+}
+.modelDir {
+        text-align: left  !important;
+}
+
+.menuDirection {
+    direction: rtl;
+}
+.pageMarginStyle {
+ margin-left:20px !important;
+}
+.controlSide {
+    width:62px !important;
+}
+.txtDire {
+        text-align: left !important;
+
+}
+.floatBtn {
+    float:right !important;
+}
+.txtAlign {
+        text-align: right !important;
+}
+.tableSpan {
+    padding: 10px 20px !important;
+    display: inline-block !important;
+    color: white !important;
+    margin-left: 21px !important;
+}

@@ -24,7 +24,7 @@
                    <systemAdmins-vendor-basicData [model]="model" (onModelUpdated)="updateModel($event)"></systemAdmins-vendor-basicData>
                </div>
                <div class="tab-pane fade active in" id="divAddress" #divAddress>
-                   <systemAdmins-vendor-address [(vendorModel)]="model" (onModelUpdated)="updateModel($event)"></systemAdmins-vendor-address>
+                   <systemAdmins-vendor-address [vendorModel]="model" (onModelUpdated)="updateModel($event)"></systemAdmins-vendor-address>
                </div>
            </div>
 

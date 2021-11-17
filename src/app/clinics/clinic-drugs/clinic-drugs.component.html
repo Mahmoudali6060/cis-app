@@ -103,12 +103,12 @@
                 </div>
             </div>
             <div *ngIf="isDrugSelected">
-                <clinic-manage-drug [(selectedDrugId)]='toSaveDrugId' [(selectedParentGroupId)]='parentDrugsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                    [(selectedParentGroupName)]='parentDrugsGroupName' (onDrugChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDrugsAndGroupsPopup()"></clinic-manage-drug>
+                <clinic-manage-drug [selectedDrugId]='toSaveDrugId' [selectedParentGroupId]='parentDrugsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                    [selectedParentGroupName]='parentDrugsGroupName' (onDrugChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDrugsAndGroupsPopup()"></clinic-manage-drug>
             </div>
             <div *ngIf="isDrugsGroupSelected">
-                <clinic-manage-drugs-group [(selectedDrugsGroupId)]='toSaveDrugsGroupId' [(selectedParentGroupId)]='parentDrugsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                           [(selectedParentGroupName)]='parentDrugsGroupName' (onDrugsGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDrugsAndGroupsPopup()"></clinic-manage-drugs-group>
+                <clinic-manage-drugs-group [selectedDrugsGroupId]='toSaveDrugsGroupId' [selectedParentGroupId]='parentDrugsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                           [selectedParentGroupName]='parentDrugsGroupName' (onDrugsGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDrugsAndGroupsPopup()"></clinic-manage-drugs-group>
             </div>
         </div>
     </div>

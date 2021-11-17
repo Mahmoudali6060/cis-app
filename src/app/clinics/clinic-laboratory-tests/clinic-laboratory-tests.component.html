@@ -105,12 +105,12 @@
                 </div>
             </div>
             <div *ngIf="isLaboratoryTestSelected">
-                <clinic-manage-laboratory-test [(selectedLaboratoryTestId)]='toSaveLaboratoryTestId' [(selectedParentGroupId)]='parentLaboratoryTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                         [(selectedParentGroupName)]='parentLaboratoryTestsGroupName' (onLaboratoryTestChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeLaboratoryTestsAndGroupsPopup()"></clinic-manage-laboratory-test>
+                <clinic-manage-laboratory-test [selectedLaboratoryTestId]='toSaveLaboratoryTestId' [selectedParentGroupId]='parentLaboratoryTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                         [selectedParentGroupName]='parentLaboratoryTestsGroupName' (onLaboratoryTestChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeLaboratoryTestsAndGroupsPopup()"></clinic-manage-laboratory-test>
             </div>
             <div *ngIf="isLaboratoryTestsGroupSelected">
-                <clinic-manage-laboratory-tests-group [(selectedLaboratoryTestsGroupId)]='toSaveLaboratoryTestsGroupId' [(selectedParentGroupId)]='parentLaboratoryTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                                [(selectedParentGroupName)]='parentLaboratoryTestsGroupName' (onLaboratoryTestsGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeLaboratoryTestsAndGroupsPopup()"></clinic-manage-laboratory-tests-group>
+                <clinic-manage-laboratory-tests-group [selectedLaboratoryTestsGroupId]='toSaveLaboratoryTestsGroupId' [selectedParentGroupId]='parentLaboratoryTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                                [selectedParentGroupName]='parentLaboratoryTestsGroupName' (onLaboratoryTestsGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeLaboratoryTestsAndGroupsPopup()"></clinic-manage-laboratory-tests-group>
             </div>
         </div>
     </div>

@@ -108,12 +108,12 @@
                 </div>
             </div>
             <div *ngIf="isDiagnoseSelected">
-                <clinic-manage-diagnose [(selectedDiagnoseId)]='toSaveDiagnoseId' [(selectedParentGroupId)]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                        [(selectedParentGroupName)]='parentDiagnosisGroupName' (onDiagnoseChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnose>
+                <clinic-manage-diagnose [selectedDiagnoseId]='toSaveDiagnoseId' [selectedParentGroupId]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                        [selectedParentGroupName]='parentDiagnosisGroupName' (onDiagnoseChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnose>
             </div>
             <div *ngIf="isDiagnosisGroupSelected">
-                <clinic-manage-diagnosis-group [(selectedDiagnosisGroupId)]='toSaveDiagnosisGroupId' [(selectedParentGroupId)]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                               [(selectedParentGroupName)]='parentDiagnosisGroupName' (onDiagnosisGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnosis-group>
+                <clinic-manage-diagnosis-group [selectedDiagnosisGroupId]='toSaveDiagnosisGroupId' [selectedParentGroupId]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                               [selectedParentGroupName]='parentDiagnosisGroupName' (onDiagnosisGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnosis-group>
             </div>
         </div>
     </div>

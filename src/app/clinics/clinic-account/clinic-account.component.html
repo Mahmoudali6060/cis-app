@@ -78,7 +78,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="fileImage" class="nopadding">{{ 'Logo' | translate}}</label>
-                        <image-uploader [(imageId)]="clinicModel.imageId" [(imageData)]="clinicModel.imageData" (change)="imageChanged($event);"></image-uploader>
+                        <image-uploader [imageId]="clinicModel.imageId"  [imageData]="clinicModel.imageData" (change)="imageChanged($event);"></image-uploader>
                     </div>
                 </div>
 

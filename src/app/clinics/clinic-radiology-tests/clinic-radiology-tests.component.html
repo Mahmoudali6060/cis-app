@@ -103,12 +103,12 @@
                 </div>
             </div>
             <div *ngIf="isRadiologyTestSelected">
-                <clinic-manage-radiology-test [(selectedRadiologyTestId)]='toSaveRadiologyTestId' [(selectedParentGroupId)]='parentRadiologyTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                              [(selectedParentGroupName)]='parentRadiologyTestsGroupName' (onRadiologyTestChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeRadiologyTestsAndGroupsPopup()"></clinic-manage-radiology-test>
+                <clinic-manage-radiology-test [selectedRadiologyTestId]='toSaveRadiologyTestId' [selectedParentGroupId]='parentRadiologyTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                              [selectedParentGroupName]='parentRadiologyTestsGroupName' (onRadiologyTestChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeRadiologyTestsAndGroupsPopup()"></clinic-manage-radiology-test>
             </div>
             <div *ngIf="isRadiologyTestsGroupSelected">
-                <clinic-manage-radiology-tests-group [(selectedRadiologyTestsGroupId)]='toSaveRadiologyTestsGroupId' [(selectedParentGroupId)]='parentRadiologyTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                                     [(selectedParentGroupName)]='parentRadiologyTestsGroupName' (onRadiologyTestsGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeRadiologyTestsAndGroupsPopup()"></clinic-manage-radiology-tests-group>
+                <clinic-manage-radiology-tests-group [selectedRadiologyTestsGroupId]='toSaveRadiologyTestsGroupId' [selectedParentGroupId]='parentRadiologyTestsGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
+                                                     [selectedParentGroupName]='parentRadiologyTestsGroupName' (onRadiologyTestsGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeRadiologyTestsAndGroupsPopup()"></clinic-manage-radiology-tests-group>
             </div>
         </div>
     </div>
