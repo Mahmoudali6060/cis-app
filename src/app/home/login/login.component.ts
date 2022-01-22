@@ -225,16 +225,17 @@ export class LoginComponent {
 
     adjustUIForArabic() {
         this.localStorage.store('selectedLanguage', 'ar');
-        this.loadCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
-        this.loadCssToHTMlPage("src/assets/css/styles-rtl.css");
+        this.loadCssToHTMlPage("assets/css/bootstrap-rtl.min.css");
+        this.loadCssToHTMlPage("assets/css/styles-rtl.css");
         window.document.body.style.direction = "rtl";
     }
 
     adjustUIForEnglish() {
+        debugger;
         this.localStorage.store('selectedLanguage', 'en');
-        this.RemoveCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
-        this.RemoveCssToHTMlPage("src/assets/css/styles-rtl.css");
-        this.loadCssToHTMlPage("src/assets/css/styles-ltr.css");
+        this.RemoveCssToHTMlPage("assets/css/bootstrap-rtl.min.css");
+        this.RemoveCssToHTMlPage("assets/css/styles-rtl.css");
+        this.loadCssToHTMlPage("assets/css/styles-ltr.css");
         window.document.body.style.direction = "ltr";
     }
 

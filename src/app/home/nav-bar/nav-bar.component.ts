@@ -7,6 +7,7 @@ import { UserTypeEnum } from '../../security/shared/user-type.enum';
 
 import { NotificationService } from '../../shared/shared/notification.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SharedService } from '../../shared/shared/shared.service';
 
 @Component({
 
@@ -48,7 +49,8 @@ export class NavBarComponent implements OnInit, OnChanges {
         public accountService: AccountService,
         private router: Router,
         public notificationService: NotificationService,
-        public translate: TranslateService
+        public translate: TranslateService,
+        private sharedService: SharedService
     ) { }
 
     ngOnInit(): void {
@@ -214,10 +216,11 @@ export class NavBarComponent implements OnInit, OnChanges {
         this.localStorage.clear("AuthenticatedUserId");
 
         this.accountService.changeLoginStatus(false, '', '', false, '');
-
+        this.sharedService.loadCssToHTMlPage("assets/css/bootstrap.min.css");
+        this.sharedService.removeCssFromHTMlPage("assets/css/updatedAce.css");
         //navigate to home URL
         //this.router.navigate(['/home']);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/layout-login/doctor']);
         //location.reload();
     }
 
@@ -315,29 +318,34 @@ export class NavBarComponent implements OnInit, OnChanges {
     }
 
     adjustUIForArabic() {
+        debugger;
+
         this.localStorage.store('selectedLanguage', 'ar');
 
-        //this.RemoveCssToHTMlPage("css/styles-ltr.css");
+        this.RemoveCssToHTMlPage("assets/css/styles-ltr.css");
+        this.RemoveCssToHTMlPage("assets/css/bootstrap-ltr.min.css");
 
         this.removeStyleSheet('styles-ltr.css');
+        this.removeStyleSheet('bootstrap-ltr.min.css');
 
-        this.loadCssToHTMlPage("css/bootstrap-rtl.min.css");
-        this.loadCssToHTMlPage("css/styles-rtl.css");
+        this.loadCssToHTMlPage("assets/css/bootstrap-rtl.min.css");
+        this.loadCssToHTMlPage("assets/css/styles-rtl.css");
 
         window.document.body.style.direction = "rtl";
     }
 
     adjustUIForEnglish() {
+        debugger;
         this.localStorage.store('selectedLanguage', 'en');
 
-        //this.RemoveCssToHTMlPage("css/styles-rtl.css");
-        //this.RemoveCssToHTMlPage("css/bootstrap-rtl.min.css");
+        // this.RemoveCssToHTMlPage("acss/styles-rtl.css");
+        // this.RemoveCssToHTMlPage("css/bootstrap-rtl.min.css");
 
         this.removeStyleSheet('styles-rtl.css');
         this.removeStyleSheet('bootstrap-rtl.min.css');
 
 
-        this.loadCssToHTMlPage("css/styles-ltr.css");
+        this.loadCssToHTMlPage("assets/css/styles-ltr.css");
         window.document.body.style.direction = "ltr";
     }
 

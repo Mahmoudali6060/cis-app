@@ -121,4 +121,42 @@ export class SharedService extends BaseService {
             // //.catch((error: any) => this.handleError(error));
     }
 
+    removeCssFromHTMlPage(url: string): void {
+        // Create link
+        let head = document.getElementsByTagName('head')[0];
+        let links = head.getElementsByTagName('link');
+        let style = head.getElementsByTagName('style')[0];
+        // Check if the same style sheet has been loaded already.
+        let isLoaded = false;
+        for (var i = 0; i < links.length; i++) {
+            var node = links[i];
+            if (node.href.indexOf(url) > -1) {
+                head.removeChild(node);
+            }
+        }
+    }
+
+    loadCssToHTMlPage(url: string): void {
+        // Create link
+        let link = document.createElement('link');
+        link.href = url;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+
+        let head = document.getElementsByTagName('head')[0];
+        let links = head.getElementsByTagName('link');
+        let style = head.getElementsByTagName('style')[0];
+
+        // Check if the same style sheet has been loaded already.
+        let isLoaded = false;
+        for (var i = 0; i < links.length; i++) {
+            var node = links[i];
+            if (node.href.indexOf(link.href) > -1) {
+                isLoaded = true;
+            }
+        }
+        if (isLoaded) return;
+        head.insertBefore(link, style);
+    }
+
 }

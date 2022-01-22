@@ -959,7 +959,7 @@ input:checked + .slider:before {
 }
 
 .user-nav {
-    float: left;
+    /* float: left; */
     height: 50px;
     margin-top: 12px;
     /*margin-top: 2px;*/

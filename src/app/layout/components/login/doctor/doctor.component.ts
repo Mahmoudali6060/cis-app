@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { remoteServerUrl } from '../../../../app.config';
 import { AccountService } from '../../../../security/shared/account.service';
 import { UserTypeEnum } from '../../../../security/shared/user-type.enum';
+import { SharedService } from '../../../../shared/shared/shared.service';
 
 @Component({
   selector: 'doctor',
@@ -28,7 +29,8 @@ export class DoctorComponent implements OnInit {
     private toastr: ToastrService,
     private localStorage: LocalStorageService,
     private router: Router
-    , public translate: TranslateService) {
+    , public translate: TranslateService,
+    private sharedService: SharedService) {
     this.doctorForm = this.fb.group({
       Email: ['', Validators.required],
       Password: ['', Validators.required]
@@ -58,8 +60,8 @@ export class DoctorComponent implements OnInit {
             }
           }
         },
-        function (error: any) {
-          thisComp.toastr.error(error, '');
+        function (res: any) {
+          thisComp.toastr.error(res.error, '');
           thisComp.showProgress = false;
         },
         function () {
@@ -117,6 +119,7 @@ export class DoctorComponent implements OnInit {
 
           //thisComponent.displayLoggedInUserLanguage();
 
+          thisComponent.removeNewDesignFiles();
           //Sys Admin
           if (authenticatedUser.type == thisComponent.userTypeEnum.SysAdmin) {
             thisComponent.router.navigate(['/systemAdmin/dashboard']);
@@ -171,5 +174,11 @@ export class DoctorComponent implements OnInit {
           thisComponent.showProgress = false;
         }
       );
+  }
+
+  removeNewDesignFiles() {
+    debugger;
+    this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap.min.css");
+    this.sharedService.loadCssToHTMlPage("assets/css/updatedAce.css");
   }
 }

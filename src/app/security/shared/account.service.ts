@@ -85,7 +85,7 @@ export class AccountService extends BaseService {
     authenticateUser(body: any): any {
         return this.http.post(this.webApiURL + "/authenticateUser", body, this.requestOptions) // ...using post request
         // .pipe(this.extractData)
-        // //.catch((error: any) => this.handleError(error));
+        // .catch((error: any) => this.handleError(error));
     }
 
     getOperationalUsers(): any {

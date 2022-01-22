@@ -75,7 +75,7 @@ export class ClinicTabComponent implements OnInit, OnChanges {
         else
             this.hasID = true;
 
-        if (this.accountService.modulesWrapper._isScalar != undefined)
+        if (this.accountService.modulesWrapper?._isScalar != undefined)
             this.accountService.modulesWrapper.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.modulesWrapper);
@@ -102,27 +102,28 @@ export class ClinicTabComponent implements OnInit, OnChanges {
     }
 
     handleUserInterfaceViews(clinicModulesWrapper: any) {
-        let vm = this;
-        for (let item of clinicModulesWrapper.modules) {
-            if (item.key == vm.key.PurchasingAndInventory)
-                vm.hasPurshasingAndInventory = true;
-            if (item.key == vm.key.PatientRegistration)
-                vm.hasPatientRegistration = true;
-            if (item.key == vm.key.EMR)
-                vm.hasEMR = true;
+        if (clinicModulesWrapper) {
+            let vm = this;
+            for (let item of clinicModulesWrapper.modules) {
+                if (item.key == vm.key.PurchasingAndInventory)
+                    vm.hasPurshasingAndInventory = true;
+                if (item.key == vm.key.PatientRegistration)
+                    vm.hasPatientRegistration = true;
+                if (item.key == vm.key.EMR)
+                    vm.hasEMR = true;
 
-            if (item.key == vm.key.Coding)
-                vm.hasCoding = true;
-            if (item.key == vm.key.ClinicMaster)
-                vm.hasClinicMaster = true;
-            if (item.key == vm.key.BillingAndInsurance)
-                vm.hasBillingAndInsurance = true;
+                if (item.key == vm.key.Coding)
+                    vm.hasCoding = true;
+                if (item.key == vm.key.ClinicMaster)
+                    vm.hasClinicMaster = true;
+                if (item.key == vm.key.BillingAndInsurance)
+                    vm.hasBillingAndInsurance = true;
 
-            if (item.key == vm.key.Appointments)
-                vm.hasAppointments = true;
-            if (item.key == vm.key.AccessRights)
-                vm.hasAccessRights = true;
-
+                if (item.key == vm.key.Appointments)
+                    vm.hasAppointments = true;
+                if (item.key == vm.key.AccessRights)
+                    vm.hasAccessRights = true;
+            }
         }
 
     }

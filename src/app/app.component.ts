@@ -1,12 +1,13 @@
-import {Component, ViewContainerRef, OnInit } from '@angular/core';
+import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { LocalStorageService } from 'ng2-webstorage';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AccountService } from './security/shared/account.service'
 import { NotificationService } from './shared/shared/notification.service';
-import {TranslateService} from '@ngx-translate/core';
-import {UserPermissions} from './classes/user-permissions.class';
+import { TranslateService } from '@ngx-translate/core';
+import { UserPermissions } from './classes/user-permissions.class';
 import { UserTypeEnum } from './security/shared/user-type.enum'
+import { SharedService } from './shared/shared/shared.service';
 @Component({
     selector: 'root-app',
     //template: ` <h1>{{title}}</h1>
@@ -38,7 +39,9 @@ export class AppComponent implements OnInit {
         private _route: ActivatedRoute,
         public accountService: AccountService,
         public notificationService: NotificationService,
-        public translate: TranslateService) {
+        public translate: TranslateService,
+        private sharedService: SharedService,
+    ) {
         // You need this small hack in order to catch application root view container ref
         this.viewContainerRef = viewContainerRef;
         // get default language from local storage if there is no default set arabic as default
@@ -46,6 +49,13 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        debugger;
+        let loggedUserId = localStorage.getItem("ng2-webstorage|userid");
+        if (loggedUserId)
+            this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap.min.css");
+        else
+            this.sharedService.loadCssToHTMlPage("assets/css/bootstrap.min.css");
+
         let thisComponent = this;
         let userName = this.localStorage.retrieve("UserName");
         let userId = this.localStorage.retrieve("AuthenticatedUserId");
@@ -122,29 +132,29 @@ export class AppComponent implements OnInit {
                 this.getTopNotifications();
 
         }
-       
+
     }
     showHeaderAndFooterForLogedinUser() {
 
         if (this.accountService.userLoggedIn == true)
             this.showNavDetails = false;
     }
-  
+
     private getTopNotifications(): void {
         // Just prepend this to the messages string shown in the textarea
         let vm = this;
         this.notificationService.getTopNotifications()
             .subscribe(
-            function (response:any) {
-                if (response) {
-                    vm.notifications = response.topNotifications;
-                    vm.noUnReadNotifications = response.numberOfUnRead;
-                }
-            },
-            function (error:any) { 
-            },
-            function () {
-            });
+                function (response: any) {
+                    if (response) {
+                        vm.notifications = response.topNotifications;
+                        vm.noUnReadNotifications = response.numberOfUnRead;
+                    }
+                },
+                function (error: any) {
+                },
+                function () {
+                });
 
         //// Call notification service to reload notification
         //this.notifications.push("notification1");
@@ -206,64 +216,31 @@ export class AppComponent implements OnInit {
 
     adjustUIForArabic() {
         this.localStorage.store('selectedLanguage', 'ar');
-        this.loadCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
-        this.loadCssToHTMlPage("src/assets/css/styles-rtl.css");
+        this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap-ltr.min.css");
+        this.sharedService.removeCssFromHTMlPage("assets/css/styles-ltr.css");
+        this.sharedService.loadCssToHTMlPage("assets/css/bootstrap-rtl.min.css");
+        this.sharedService.loadCssToHTMlPage("assets/css/styles-rtl.css");
         window.document.body.style.direction = "rtl";
     }
 
     adjustUIForEnglish() {
         this.localStorage.store('selectedLanguage', 'en');
-        this.RemoveCssToHTMlPage("src/assets/css/bootstrap-rtl.min.css");
-        this.RemoveCssToHTMlPage("src/assets/css/styles-rtl.css");
-        this.loadCssToHTMlPage("src/assets/css/styles-ltr.css");
+        this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap-rtl.min.css");
+        this.sharedService.removeCssFromHTMlPage("assets/css/styles-rtl.css");
+        this.sharedService.loadCssToHTMlPage("assets/css/styles-ltr.css");
         window.document.body.style.direction = "ltr";
     }
 
-    loadCssToHTMlPage(url: string): void {
-        // Create link
-        let link = document.createElement('link');
-        link.href = url;
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
 
-        let head = document.getElementsByTagName('head')[0];
-        let links = head.getElementsByTagName('link');
-        let style = head.getElementsByTagName('style')[0];
 
-        // Check if the same style sheet has been loaded already.
-        let isLoaded = false;
-        for (var i = 0; i < links.length; i++) {
-            var node = links[i];
-            if (node.href.indexOf(link.href) > -1) {
-                isLoaded = true;
-            }
-        }
-        if (isLoaded) return;
-        head.insertBefore(link, style);
-    }
-
-    RemoveCssToHTMlPage(url: string): void {
-        // Create link
-        let head = document.getElementsByTagName('head')[0];
-        let links = head.getElementsByTagName('link');
-        let style = head.getElementsByTagName('style')[0];
-        // Check if the same style sheet has been loaded already.
-        let isLoaded = false;
-        for (var i = 0; i < links.length; i++) {
-            var node = links[i];
-            if (node.href.indexOf(url) > -1) {
-                head.removeChild(node);
-            }
-        }
-    }
 
     updateUserLanguage(language: string) {
         let userId = this.localStorage.retrieve("AuthenticatedUserId");
         this.accountService.updateUserLanguage(userId, language)
             .subscribe(
-            function (response:any) { },
-            function (error:any) {  },
-            function () { });
+                function (response: any) { },
+                function (error: any) { },
+                function () { });
 
     }
 
@@ -272,52 +249,52 @@ export class AppComponent implements OnInit {
         let thisComponent = this;
         this.accountService.getRoles(id)
             .subscribe(
-            function (response:any) {
-                // thisComponent.clinicLevelsList = response;
-                //let userPermisions: UserPermissions = new UserPermissions(response:any);
-                for (var _i = 0; _i < response.permissions.length; _i++) {
-                    if (response.permissions[_i].edit)
-                        response.permissions[_i].view = true;
-                    else if (response.permissions[_i].activate)
-                        response.permissions[_i].view = true;
-                    else if (response.permissions[_i].fullControl) {
-                        response.permissions[_i].add = true;
-                        response.permissions[_i].view = true;
-                        response.permissions[_i].edit = true;
-                        response.permissions[_i].activate = true;
+                function (response: any) {
+                    // thisComponent.clinicLevelsList = response;
+                    //let userPermisions: UserPermissions = new UserPermissions(response:any);
+                    for (var _i = 0; _i < response.permissions.length; _i++) {
+                        if (response.permissions[_i].edit)
+                            response.permissions[_i].view = true;
+                        else if (response.permissions[_i].activate)
+                            response.permissions[_i].view = true;
+                        else if (response.permissions[_i].fullControl) {
+                            response.permissions[_i].add = true;
+                            response.permissions[_i].view = true;
+                            response.permissions[_i].edit = true;
+                            response.permissions[_i].activate = true;
+                        }
                     }
-                }
-                thisComponent.userPermisions = response;
-                if (thisComponent.accountService.userPermisionsObserver != undefined)
-                    thisComponent.accountService.userPermisionsObserver.next(response);
-                thisComponent.accountService.userPermision = response;
+                    thisComponent.userPermisions = response;
+                    if (thisComponent.accountService.userPermisionsObserver != undefined)
+                        thisComponent.accountService.userPermisionsObserver.next(response);
+                    thisComponent.accountService.userPermision = response;
 
-            },
-            function (error:any) { 
-                // thisComponent.toastr.error(error, '');
-            },
-            function () { // finally
-                //thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    // thisComponent.toastr.error(error, '');
+                },
+                function () { // finally
+                    //thisComponent.showProgress = false;
+                });
     }
-    getClinicModules(id: string){
+    getClinicModules(id: string) {
         let thisComponent = this;
         this.accountService.getClinicModules(id)
             .subscribe(
-            function (response:any) {
+                function (response: any) {
 
-                //thisComponent.userPermisions = response;
-                if (thisComponent.accountService.modulesWrapperObserver != undefined)
-                    thisComponent.accountService.modulesWrapperObserver.next(response);
-                thisComponent.accountService.modulesWrapper = response;
+                    //thisComponent.userPermisions = response;
+                    if (thisComponent.accountService.modulesWrapperObserver != undefined)
+                        thisComponent.accountService.modulesWrapperObserver.next(response);
+                    thisComponent.accountService.modulesWrapper = response;
 
-            },
-            function (error:any) { 
-                // thisComponent.toastr.error(error, '');
-            },
-            function () { // finally
-                //thisComponent.showProgress = false;
-            });
+                },
+                function (error: any) {
+                    // thisComponent.toastr.error(error, '');
+                },
+                function () { // finally
+                    //thisComponent.showProgress = false;
+                });
     }
 
 

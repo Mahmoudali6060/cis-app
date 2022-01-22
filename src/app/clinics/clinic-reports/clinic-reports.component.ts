@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { LocalStorageService } from 'ng2-webstorage';
+import { reportUrl } from '../../app.config';
 
 @Component({
 
@@ -36,7 +37,7 @@ export class ClinicReportsComponent {
         if (lang == null || lang == undefined)
             lang = 'ar';
 
-        let url = 'reports/' + reportName + "/" + "ReportViewer.aspx?lang=" + lang + "&id=" + this.clinicId;
+        let url =reportUrl+ 'reports/' + reportName + "/" + "ReportViewer.aspx?lang=" + lang + "&id=" + this.clinicId;
 
         window.open(url);
     }
