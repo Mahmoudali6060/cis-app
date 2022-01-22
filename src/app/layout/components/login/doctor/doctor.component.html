@@ -38,7 +38,7 @@
     {{ "login.reqPass" | translate }}
   </div>
 </div>
-<button class="btn btn-primary" type="submit" [disabled]='!doctorForm.valid'>
+<button class="btn btn-primary" type="submit" [disabled]='!doctorForm.valid' (click)="login()">
   {{ "login.signIn" | translate }}
 </button>
 </form>

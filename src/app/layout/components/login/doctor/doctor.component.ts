@@ -40,6 +40,7 @@ export class DoctorComponent implements OnInit {
 
 
   login(): void {
+    debugger;
     let thisComp = this;
     this.model.userName = this.doctorForm.controls['Email'].value;
     this.model.password = this.doctorForm.controls['Password'].value;
