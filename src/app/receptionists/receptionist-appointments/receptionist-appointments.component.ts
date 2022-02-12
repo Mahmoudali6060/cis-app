@@ -17,6 +17,7 @@ import { UserPermissions } from '../../classes/user-permissions.class';
 import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 import { TimeSlot } from '../../shared/shared/time-slot.model';
+import { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({
 
@@ -61,7 +62,6 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     events: any[] = [];
     selectedDoctor: any;
     currentDoctor: any = {};
-    header: any = { left: 'today,agendaWeek', center: 'title', right: 'prev,next' };
 
     displayPatientAdvancedSearch: boolean = false;
     showSelectPatient: boolean = true;
@@ -145,7 +145,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     enableCloseSlot: boolean = false;
     enableRestoreSlot: boolean = false;
 
-    calendarOptions: any = {};
+    // calendarOptions: any = {};
     reconfirmDate!: any;
     arrivalTime!: any;
     cancellationDate;
@@ -154,6 +154,27 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     calendarRangeFirstSlot!: TimeSlot;
     calendarRangeLastSlot!: TimeSlot;
     lstToTranslated: string[] = ['serviceName', 'serviceNameTranslation'];
+
+    calendarOptions: CalendarOptions = {
+        headerToolbar: {
+            left: 'today,agendaWeek',
+            center: 'title',
+            right: 'prev,next'
+        },
+        editable: false,
+        initialView: 'timeGridWeek',
+        allDaySlot: true,
+        slotDuration: calendarSlotDuration,
+        slotLabelInterval: calendarSlotDuration,
+        contentHeight: 500,
+        scrollTime: 12,
+        allDayText: "",
+        eventClick: this.handleEventClick.bind(this), // bind is important!
+        navLinkDayClick: this.handleNavDayClick.bind(this),
+        // dateClick: this.handleDateClick.bind(this),
+        loading: this.handleloadEvents.bind(this),
+    };
+
 
     constructor(
         private receptionistService: ReceptionistService,
@@ -167,19 +188,19 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        debugger;
         this.lang = this.localStorage.retrieve('SelectedLanguage');
         if (this.lang && this.lang == 'ar')
             this.isRTL = true;
 
         let thisComp = this;
-        this.calendarSlotDuration = calendarSlotDuration;
+        // this.calendarSlotDuration = calendarSlotDuration;
         this.defaultDate = this.utilityClass.getISODateFormat(new Date());
-        this.calendarOptions.firstDay = new Date().getDay();
-        this.calendarOptions.navLinks = true;
-        this.calendarOptions.selectable = true;
-        this.calendarOptions.select = function (start: any, end: any) { thisComp.handleCalendarSelect(start, end); }
-        this.calendarOptions.isRTL = this.isRTL;
+        // this.calendarOptions.firstDay = new Date().getDay();
+        // this.calendarOptions.navLinks = true;
+        // this.calendarOptions.selectable = true;
+        // this.calendarOptions.select = function (start: any, end: any) { thisComp.handleCalendarSelect(start, end); }
+        // this.calendarOptions.isRTL = this.isRTL;
 
         this.clinicId = this.localStorage.retrieve("ClinicID");
         // this.clinicId = "1";
@@ -224,6 +245,10 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 this.currentWeekDays.push(date);
             }
         }
+    }
+
+    handleDateClick(arg: any) {
+        console.log(arg);
     }
 
     showDialog() {
@@ -363,7 +388,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleEventClick(e: any) {
-
+        debugger;
         let eventId = e.calEvent.id;
 
         this.fillAppointmentinfo(eventId);
@@ -566,7 +591,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComp.initialView = false;
                     //Update calendar events
                     thisComp.events = response.calendarEvents;
-
+                    thisComp.calendarOptions.events = response.calendarEvents;
                     //Adjust calendar view according the schedules
                     thisComp.fillCurrentWeekDays(new Date());
                     thisComp.adjustCalendarView();
@@ -664,6 +689,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 bgEvent.className = 'inverse-backgroundEvent';
 
                 this.events.push(bgEvent);
+                this.calendarOptions.events = this.events;
             }
         }
 
@@ -759,7 +785,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
         return dateTime;
     }
-    saveOrUpdateAppointment(updateArrivalTime?: boolean|undefined) {
+    saveOrUpdateAppointment(updateArrivalTime?: boolean | undefined) {
 
         this.appointmentModel.clinicId = this.clinicId;
         this.appointmentModel.clinicDivisionId = this.selectedDivisionId;
@@ -964,6 +990,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             this.appointementsList.push(appointment);
 
             this.events.push(evnt);
+            this.calendarOptions.events = this.events;
         }
         else//Update existing
         {
@@ -981,8 +1008,11 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     if (appointment.id == this.events[i].id) {
                         this.events.splice(i, 1);
                         this.cancelled = false;
+
+
                         break;
                     }
+                    this.calendarOptions.events = this.events;
                 }
 
             }
@@ -999,6 +1029,8 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                         this.events[i] = evnt;
                         break;
                     }
+                    this.calendarOptions.events = this.events;
+
                 }
             }
 
@@ -1232,6 +1264,8 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleloadEvents(event: any) {
+        debugger;
+
         if (!this.initialView) {
 
             let viewName = event.view.name;
@@ -1261,6 +1295,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     function (response: any) {
                         thisComp.appointementsList = response.appointments;
                         thisComp.events = response.calendarEvents;
+                        thisComp.calendarOptions.events = thisComp.events;
                         thisComp.adjustEventsAccordingToCalendarView();
 
                         thisComp.currentHijriWeekDays = response.currentWeekHijriDates;

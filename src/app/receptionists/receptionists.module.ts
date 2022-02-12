@@ -17,14 +17,27 @@ import { ReceptionistRequestsComponent } from './receptionist-requests/reception
 import { ReceptionistDivisionCalendarComponent } from './receptionist-division-calendar/receptionist-division-calendar.component';
 import { SharedModule } from '../shared/shared.module';
 import { PatientsModule } from '../patients/patients.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
 
+FullCalendarModule.registerPlugins([
+    dayGridPlugin,
+    timeGridPlugin,
+    listPlugin,
+    interactionPlugin
+  ])
 
+  
 @NgModule({
     imports: [
         FormsModule,
         CommonModule,
         ReceptionistRoutingModule,
         SharedModule,
+        FullCalendarModule,
         //routing,
         // ScheduleModule,
       

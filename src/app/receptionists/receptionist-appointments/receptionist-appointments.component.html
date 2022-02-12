@@ -18,17 +18,17 @@
         <div class="row well">
             <div class="col-md-3 nopadding">
                 <div class="row nopadding" style="padding-bottom: 17px !important;">
-                    <a class="pointer  btn btn-primary" (click)="expandAll()" style="padding:9px !important;">{{ 'ExpandAll' | translate}}</a>
-                    <a class="pointer  btn btn-primary" (click)="collapseAll()" style="padding:9px !important;">{{ 'CollapseAll' | translate}}</a>
+                    <a class="pointer  btn btn-primary" (click)="expandAll()" style="padding:9px !important;">{{
+                        'ExpandAll' | translate}}</a>
+                    <a class="pointer  btn btn-primary" (click)="collapseAll()" style="padding:9px !important;">{{
+                        'CollapseAll' | translate}}</a>
                 </div>
                 <!--<p-tree [value]="items"
                 selectionMode="single"
                 [(selection)]="selectedDoctor"></p-tree>-->
 
-                <p-tree [value]="organizationStructureTree"
-                        selectionMode="single"
-                        [(selection)]="selectedDoctor"
-                        (onNodeSelect)="nodeSelect($event)">
+                <p-tree [value]="organizationStructureTree" selectionMode="single" [(selection)]="selectedDoctor"
+                    (onNodeSelect)="nodeSelect($event)">
                     <ng-template let-node pTemplate="Medical">
                         {{lang == 'ar' ? node.label : node.labelTranslation}}
                     </ng-template>
@@ -50,11 +50,13 @@
             <div class="col-md-9 padding5">
 
                 <div class="row btnDirection" style="padding-bottom: 13px !important;">
-                    <button type="button" class="btn btn-primary"
-                            (click)="addNewAppointment()" [disabled]="!isDoctorSelected || !enableNewAppointmentBtn">
+                    <button type="button" class="btn btn-primary" (click)="addNewAppointment()"
+                        [disabled]="!isDoctorSelected || !enableNewAppointmentBtn">
                         <span class="glyphicon glyphicon-time"></span> {{ 'NewAppointment' | translate}}
                     </button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#quickRegistrationModal" [disabled]="!isDoctorSelected || !enableQuickRegistrationBtn">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#quickRegistrationModal"
+                        [disabled]="!isDoctorSelected || !enableQuickRegistrationBtn">
                         <span class="glyphicon glyphicon-plus"></span>{{ 'QuickRegistration' | translate}}
                     </button>
                     <div class="btn-group">
@@ -64,15 +66,20 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a *ngIf="isDoctorSelected" class="pointer" (click)="showSessionExtensionPopupForOpenSlot()" [class.disabled]="!enableOpenSlotBtn ? true : null">{{ 'Open' | translate}}</a>
+                                <a *ngIf="isDoctorSelected" class="pointer"
+                                    (click)="showSessionExtensionPopupForOpenSlot()"
+                                    [class.disabled]="!enableOpenSlotBtn ? true : null">{{ 'Open' | translate}}</a>
                                 <a *ngIf="!isDoctorSelected" class="disabled">{{ 'Open' | translate}}</a>
                             </li>
                             <li>
-                                <a *ngIf="isDoctorSelected" class="pointer" (click)="showSessionExtensionPopupForCloseSlot()" [class.disabled]="!enableCloseSlot ? true : null">{{ 'Close' | translate}}</a>
+                                <a *ngIf="isDoctorSelected" class="pointer"
+                                    (click)="showSessionExtensionPopupForCloseSlot()"
+                                    [class.disabled]="!enableCloseSlot ? true : null">{{ 'Close' | translate}}</a>
                                 <a *ngIf="!isDoctorSelected" class="disabled">{{ 'Close' | translate}}</a>
                             </li>
                             <li>
-                                <a *ngIf="isDoctorSelected" class="pointer" (click)="showRestoreTimeSlotsPopup()" [class.disabled]="!enableRestoreSlot ? true : null">{{ 'Restore' | translate}}</a>
+                                <a *ngIf="isDoctorSelected" class="pointer" (click)="showRestoreTimeSlotsPopup()"
+                                    [class.disabled]="!enableRestoreSlot ? true : null">{{ 'Restore' | translate}}</a>
                                 <a *ngIf="!isDoctorSelected" class="disabled">{{ 'Restore' | translate}}</a>
                             </li>
                         </ul>
@@ -97,10 +104,12 @@
                                     <div class="forum-meta-info">
                                         <ul>
                                             <li>
-                                                <label>{{ 'Gender' | translate}}:</label>&nbsp; {{ currentDoctor.gender | translate}}
+                                                <label>{{ 'Gender' | translate}}:</label>&nbsp; {{ currentDoctor.gender
+                                                | translate}}
                                             </li>
                                             <li>
-                                                <label>{{ 'Nationality' | translate}}:</label>&nbsp; {{lang == 'ar' ? currentDoctor.nationality : currentDoctor.nationalityTranslation}}
+                                                <label>{{ 'Nationality' | translate}}:</label>&nbsp; {{lang == 'ar' ?
+                                                currentDoctor.nationality : currentDoctor.nationalityTranslation}}
                                             </li>
 
                                             <!--<li>
@@ -132,16 +141,19 @@
                                 (onEventClick)="handleEventClick($event)"
                                 (onViewRender)="handleloadEvents($event)"
                                 (onNavLinkDayClick)="handleNavDayClick($event)"></p-schedule> -->
+                    <full-calendar [options]="calendarOptions"></full-calendar>
                 </div>
                 <div *ngIf="isDivisionSelected">
-                    <receptionist-division-calendar [divisonId]="divisonId" [divisonName]="divisonName"></receptionist-division-calendar>
+                    <receptionist-division-calendar [divisonId]="divisonId" [divisonName]="divisonName">
+                    </receptionist-division-calendar>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Modal -->
-<button type="button" data-toggle="modal" data-target="#bookOrCloseModal" style="display:none" #bookOrCloseModalButton></button>
+<button type="button" data-toggle="modal" data-target="#bookOrCloseModal" style="display:none"
+    #bookOrCloseModalButton></button>
 <div id="bookOrCloseModal" #bookOrCloseModal class="modal fade" role="dialog" data-backdrop="static">
     <div class="modal-dialog halfWidth">
         <!-- Modal content-->
@@ -151,18 +163,22 @@
                 <h4 class="modal-title">{{ 'SelectAction' | translate}}</h4>
             </div>
             <div class="modal-body text-center">
-                <button type="button" class="btn btn-primary" (click)="prepareAndShowNewAppointmentModal()">{{ 'BookNewAppointment' | translate}}</button>
-                <button type="button" class="btn btn-primary" (click)="prepareAndShowCloseSlotsModal()">{{ 'CloseSlots' | translate}}</button>
+                <button type="button" class="btn btn-primary" (click)="prepareAndShowNewAppointmentModal()">{{
+                    'BookNewAppointment' | translate}}</button>
+                <button type="button" class="btn btn-primary" (click)="prepareAndShowCloseSlotsModal()">{{ 'CloseSlots'
+                    | translate}}</button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal" style="display:none" #btnCloseBookOrCloseModal>{{ 'Cancel' | translate}}</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" style="display:none"
+                    #btnCloseBookOrCloseModal>{{ 'Cancel' | translate}}</button>
             </div>
         </div>
 
     </div>
 </div>
 
-<button type="button" data-toggle="modal" data-target="#appointmentModal" style="display:none" #appointmentModalButton></button>
+<button type="button" data-toggle="modal" data-target="#appointmentModal" style="display:none"
+    #appointmentModalButton></button>
 <div id="appointmentModal" #appointmentModal class="modal fade" role="dialog" data-backdrop="static">
     <form *ngIf="active" class="form-horizontal" name="appointmentDetailsFrm" #appointmentDetailsFrm="ngForm">
         <div class="modal-dialog width75percent">
@@ -187,7 +203,8 @@
                             {{selectedDivisionName}}
                         </div>
                         <div class="col-md-6">
-                            <a class="pointer" *ngIf="appointmentModel.id!=0" (click)="openPatientProfile()">{{ 'OpenPatientFile' | translate}}</a>
+                            <a class="pointer" *ngIf="appointmentModel.id!=0" (click)="openPatientProfile()">{{
+                                'OpenPatientFile' | translate}}</a>
                         </div>
                     </div>
                     <div class="form-group">
@@ -195,14 +212,10 @@
                             {{ 'Date' | translate}}
                         </label>
                         <div class="col-md-10">
-                            <p-calendar [(ngModel)]="selectedDate"
-                                        [monthNavigator]="true"
-                                        [yearNavigator]="true"
-                                        dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true"
-                                        [ngModelOptions]="{standalone: true}"
-                                        yearRange="2000:2050"
-                                        (onSelect)="onDateSelect($event)"></p-calendar>
+                            <p-calendar [(ngModel)]="selectedDate" [monthNavigator]="true" [yearNavigator]="true"
+                                dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"
+                                (onSelect)="onDateSelect($event)"></p-calendar>
                         </div>
                     </div>
                     <div class="form-group">
@@ -210,8 +223,8 @@
                             {{ 'Time' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <select class="form-control" id="ddlTime" name="ddlTime"
-                                    [(ngModel)]="selectedTimeSlot" #ddlTime="ngModel" required>
+                            <select class="form-control" id="ddlTime" name="ddlTime" [(ngModel)]="selectedTimeSlot"
+                                #ddlTime="ngModel" required>
                                 <option *ngFor="let itm of timeSlotsList" [value]="itm.name">{{itm.name}}</option>
                             </select>
                         </div>
@@ -219,8 +232,9 @@
                             {{ 'NumberOfTimeSlots' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <input type="number" min="1" id="txtNumberOfTimeSlots" name="txtNumberOfTimeSlots" class="form-control"
-                                   [(ngModel)]='numberOfTimeSlots' #txtNumberOfTimeSlots="ngModel" required />
+                            <input type="number" min="1" id="txtNumberOfTimeSlots" name="txtNumberOfTimeSlots"
+                                class="form-control" [(ngModel)]='numberOfTimeSlots' #txtNumberOfTimeSlots="ngModel"
+                                required />
                         </div>
                     </div>
                     <div class="form-group">
@@ -231,14 +245,18 @@
                             <div class="row nopadding">
                                 <div class="col-md-6 nopadding">
                                     <input id="txtPatientClinicMrn" name="txtPatientClinicMrn" class="form-control"
-                                           [(ngModel)]='patientClinicMrn' #txtPatientClinicMrn="ngModel" required [disabled]="appointmentModel.id>0" />
+                                        [(ngModel)]='patientClinicMrn' #txtPatientClinicMrn="ngModel" required
+                                        [disabled]="appointmentModel.id>0" />
                                 </div>
                                 <div class="col-md-6">
-                                    <button *ngIf="appointmentModel.id==0" type="button" class="btn btn-primary" (click)="getPatient()">{{ 'Search' | translate}}</button>
+                                    <button *ngIf="appointmentModel.id==0" type="button" class="btn btn-primary"
+                                        (click)="getPatient()">{{ 'Search' | translate}}</button>
                                 </div>
                             </div>
                             <div class="row nopadding">
-                                <a class="pointer" *ngIf="appointmentModel.id==0" (click)="showPatientAdvancedSearchDialog()">{{ 'PatientAdvancedSearch' | translate}}</a>
+                                <a class="pointer" *ngIf="appointmentModel.id==0"
+                                    (click)="showPatientAdvancedSearchDialog()">{{ 'PatientAdvancedSearch' |
+                                    translate}}</a>
                             </div>
                         </div>
                         <label class="control-label col-md-2">
@@ -246,7 +264,7 @@
                         </label>
                         <div class="col-md-4">
                             <input id="txtPatientName" name="txtPatientName" class="form-control"
-                                   [(ngModel)]='patientName' #txtPatientName="ngModel" readonly required />
+                                [(ngModel)]='patientName' #txtPatientName="ngModel" readonly required />
                         </div>
                     </div>
                     <div class="form-group">
@@ -258,9 +276,9 @@
                             <table>
                                 <tr>
                                     <td *ngFor="let item of appointmentClassesList | translateObjects">
-                                        <input type="radio" name="appClass"
-                                               (click)="selectAppointmentClass(item.id)"
-                                               [value]="item.id" [checked]="item.id == appointmentModel.appointmentClassId" required /> {{item.name}}
+                                        <input type="radio" name="appClass" (click)="selectAppointmentClass(item.id)"
+                                            [value]="item.id" [checked]="item.id == appointmentModel.appointmentClassId"
+                                            required /> {{item.name}}
                                     </td>
                                 </tr>
                             </table>
@@ -270,9 +288,13 @@
                         </label>
                         <div class="col-md-4">
                             <select class="form-control" name="ddlServices" required
-                                    [(ngModel)]="appointmentModel.serviceTimeSlotId" #ddlServices="ngModel" #srv (change)="getServiceTimeSlots(srv.value)">
+                                [(ngModel)]="appointmentModel.serviceTimeSlotId" #ddlServices="ngModel" #srv
+                                (change)="getServiceTimeSlots(srv.value)">
                                 <option class="emptyOption" value="" selected></option>
-                                <option *ngFor="let itm of serviceTimeSlotsList | translateObjects  : null : null : lstToTranslated" [value]="itm.id">{{lang == 'ar' ? itm.serviceName : itm.serviceNameTranslation}}</option>
+                                <option
+                                    *ngFor="let itm of serviceTimeSlotsList | translateObjects  : null : null : lstToTranslated"
+                                    [value]="itm.id">{{lang == 'ar' ? itm.serviceName : itm.serviceNameTranslation}}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -281,13 +303,15 @@
                             {{ 'Confirmed' | translate}}
                         </label>
                         <div class="col-md-2">
-                            <input type="checkbox" class="form-control" id="chkConfirmed" name="chkConfirmed" [(ngModel)]="appointmentModel.confirmed" #chkConfirmed="ngModel" />
+                            <input type="checkbox" class="form-control" id="chkConfirmed" name="chkConfirmed"
+                                [(ngModel)]="appointmentModel.confirmed" #chkConfirmed="ngModel" />
                         </div>
                         <label class="control-label col-md-1">
                             {{ 'Flag' | translate}}
                         </label>
                         <div class="col-md-2">
-                            <input type="checkbox" class="form-control" id="chkFlag" name="chkFlag" [(ngModel)]="appointmentModel.flag" #chkFlag="ngModel" />
+                            <input type="checkbox" class="form-control" id="chkFlag" name="chkFlag"
+                                [(ngModel)]="appointmentModel.flag" #chkFlag="ngModel" />
                         </div>
 
                         <!--<div class="col-md-2  ">
@@ -305,19 +329,29 @@
                             {{ 'Remarks' | translate}}
                         </label>
                         <div class="col-md-10">
-                            <textarea id="txtRemarks" name="txtRemarks" class="form-control" [(ngModel)]="appointmentModel.description"></textarea>
+                            <textarea id="txtRemarks" name="txtRemarks" class="form-control"
+                                [(ngModel)]="appointmentModel.description"></textarea>
                         </div>
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <div class="row text-center">
-                        <button type="button" class="btn btn-primary" (click)="saveOrUpdateAppointment()" [disabled]="!appointmentDetailsFrm.form.valid || !enableSaveAppointmentPopupBtn">{{ 'Save' | translate}}</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" #btnClostAppointmentModal>{{ 'Cancel' | translate}}</button>
-                        <button type="button" (click)="showDialog()" class="btn btn-primary" disabled="{{ isUpdatedAppointment && enableSetArrivalTimeBtn ? '' :'disabled'}}">{{'ArrivalTime' | translate}}</button>
-                        <button type="button" (click)="showRepeatAppointmentPopup()" class="btn btn-primary" disabled="{{ isUpdatedAppointment ? '' :'disabled'}}">{{'Repeat' | translate}}</button>
-                        <button type="button" (click)="showCancelationDialog()" class="btn btn-primary" disabled="{{ isUpdatedAppointment && enableCancelAppointmentBtn ? '' :'disabled'}}">{{'CancelAppointment' | translate}}</button>
-                        <button type="button" (click)="showReconfirmDialog()" class="btn btn-primary" disabled="{{ isUpdatedAppointment ? '' :'disabled'}}">{{'Reconfirm' | translate}}</button>
+                        <button type="button" class="btn btn-primary" (click)="saveOrUpdateAppointment()"
+                            [disabled]="!appointmentDetailsFrm.form.valid || !enableSaveAppointmentPopupBtn">{{ 'Save' |
+                            translate}}</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" #btnClostAppointmentModal>{{
+                            'Cancel' | translate}}</button>
+                        <button type="button" (click)="showDialog()" class="btn btn-primary"
+                            disabled="{{ isUpdatedAppointment && enableSetArrivalTimeBtn ? '' :'disabled'}}">{{'ArrivalTime'
+                            | translate}}</button>
+                        <button type="button" (click)="showRepeatAppointmentPopup()" class="btn btn-primary"
+                            disabled="{{ isUpdatedAppointment ? '' :'disabled'}}">{{'Repeat' | translate}}</button>
+                        <button type="button" (click)="showCancelationDialog()" class="btn btn-primary"
+                            disabled="{{ isUpdatedAppointment && enableCancelAppointmentBtn ? '' :'disabled'}}">{{'CancelAppointment'
+                            | translate}}</button>
+                        <button type="button" (click)="showReconfirmDialog()" class="btn btn-primary"
+                            disabled="{{ isUpdatedAppointment ? '' :'disabled'}}">{{'Reconfirm' | translate}}</button>
                     </div>
                 </div>
             </div>
@@ -460,7 +494,8 @@
     </form>
 </p-dialog>-->
 <!-- Session Extension Popup-->
-<button type="button" data-toggle="modal" data-target="#sessionExtensionSlotModal" style="display:none" #btnShowSessionExtensionSlotModal></button>
+<button type="button" data-toggle="modal" data-target="#sessionExtensionSlotModal" style="display:none"
+    #btnShowSessionExtensionSlotModal></button>
 <div id="sessionExtensionSlotModal" #sessionExtensionSlotModal class="modal fade" role="dialog" data-backdrop="static">
     <form *ngIf="active" class="form-horizontal" name="sessionExtensionFrm" #sessionExtensionFrm="ngForm">
         <div class="modal-dialog halfWidth">
@@ -479,14 +514,10 @@
                             {{ 'Date' | translate}}
                         </label>
                         <div class="col-md-6">
-                            <p-calendar [(ngModel)]="selectedDateForOpenCloseSlot"
-                                        [monthNavigator]="true"
-                                        [yearNavigator]="true"
-                                        dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true"
-                                        [ngModelOptions]="{standalone: true}"
-                                        yearRange="2000:2050"
-                                        (onSelect)="onOpneCloseSlotDateSelect($event)"></p-calendar>
+                            <p-calendar [(ngModel)]="selectedDateForOpenCloseSlot" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"
+                                (onSelect)="onOpneCloseSlotDateSelect($event)"></p-calendar>
                         </div>
                     </div>
                     <div class="form-group">
@@ -494,9 +525,11 @@
                             {{ 'StartTime' | translate}}
                         </label>
                         <div class="col-md-6">
-                            <select class="form-control" id="ddlSessionExtensionStartTime" name="ddlSessionExtensionStartTime"
-                                    [(ngModel)]="selectedStartTimeForOpenCloseSlot" #ddlSessionExtensionStartTime="ngModel" required>
-                                <option *ngFor="let item of entireDayTimeSlotsListForStartTime" [value]="item.name">{{item.name}}</option>
+                            <select class="form-control" id="ddlSessionExtensionStartTime"
+                                name="ddlSessionExtensionStartTime" [(ngModel)]="selectedStartTimeForOpenCloseSlot"
+                                #ddlSessionExtensionStartTime="ngModel" required>
+                                <option *ngFor="let item of entireDayTimeSlotsListForStartTime" [value]="item.name">
+                                    {{item.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -505,9 +538,11 @@
                             {{ 'EndTime' | translate}}
                         </label>
                         <div class="col-md-6">
-                            <select class="form-control" id="ddlSessionExtensionEndTime" name="ddlSessionExtensionEndTime"
-                                    [(ngModel)]="selectedEndTimeForOpenCloseSlot" #ddlSessionExtensionEndTime="ngModel" required>
-                                <option *ngFor="let item of entireDayTimeSlotsListForEndTime" [value]="item.name">{{item.name}}</option>
+                            <select class="form-control" id="ddlSessionExtensionEndTime"
+                                name="ddlSessionExtensionEndTime" [(ngModel)]="selectedEndTimeForOpenCloseSlot"
+                                #ddlSessionExtensionEndTime="ngModel" required>
+                                <option *ngFor="let item of entireDayTimeSlotsListForEndTime" [value]="item.name">
+                                    {{item.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -516,15 +551,18 @@
                             {{ 'Remarks' | translate}}
                         </label>
                         <div class="col-md-10">
-                            <textarea id="txtRemarks" name="txtRemarks" class="form-control" [(ngModel)]="sessionExtension.description"></textarea>
+                            <textarea id="txtRemarks" name="txtRemarks" class="form-control"
+                                [(ngModel)]="sessionExtension.description"></textarea>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-md-offset-4 col-md-4">
-                            <button type="button" class="btn btn-primary" (click)="saveSessionExtension()" [disabled]="!sessionExtensionFrm.form.valid">{{ 'Save' | translate}}</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" #btnCloseSessionExtensionModal>{{ 'Cancel' | translate}}</button>
+                            <button type="button" class="btn btn-primary" (click)="saveSessionExtension()"
+                                [disabled]="!sessionExtensionFrm.form.valid">{{ 'Save' | translate}}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                #btnCloseSessionExtensionModal>{{ 'Cancel' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -534,7 +572,8 @@
 </div>
 
 <!-- Restore Time Slots Popup-->
-<button type="button" data-toggle="modal" data-target="#restoreTimeSlotsModal" style="display:none" #btnShowRestoreTimeSlotsModal></button>
+<button type="button" data-toggle="modal" data-target="#restoreTimeSlotsModal" style="display:none"
+    #btnShowRestoreTimeSlotsModal></button>
 <div id="restoreTimeSlotsModal" #restoreTimeSlotsModal class="modal fade" role="dialog" data-backdrop="static">
     <form *ngIf="active" class="form-horizontal" name="restoreTimeSlotsFrm" #restoreTimeSlotsFrm="ngForm">
         <div class="modal-dialog halfWidth">
@@ -553,21 +592,19 @@
                             {{ 'Date' | translate}}
                         </label>
                         <div class="col-md-6">
-                            <p-calendar [(ngModel)]="dateToRestoreTimeSlots"
-                                        [monthNavigator]="true"
-                                        [yearNavigator]="true"
-                                        dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true"
-                                        [ngModelOptions]="{standalone: true}"
-                                        yearRange="2000:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="dateToRestoreTimeSlots" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"></p-calendar>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-md-offset-4 col-md-4">
-                            <button type="button" class="btn btn-primary" (click)="restoreTimeSlots()" [disabled]="!restoreTimeSlotsFrm.form.valid">{{ 'Save' | translate}}</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" #btnCloseRestoreTimeSlotsModal>{{ 'Cancel' | translate}}</button>
+                            <button type="button" class="btn btn-primary" (click)="restoreTimeSlots()"
+                                [disabled]="!restoreTimeSlotsFrm.form.valid">{{ 'Save' | translate}}</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                #btnCloseRestoreTimeSlotsModal>{{ 'Cancel' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -596,22 +633,19 @@
                             {{ 'Date' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <p-calendar [(ngModel)]="selectedDate"
-                                        [monthNavigator]="true"
-                                        [yearNavigator]="true"
-                                        dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true"
-                                        [ngModelOptions]="{standalone: true}"
-                                        yearRange="2000:2050"
-                                        (onSelect)="onDateSelect($event)"></p-calendar>
+                            <p-calendar [(ngModel)]="selectedDate" [monthNavigator]="true" [yearNavigator]="true"
+                                dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="2000:2050"
+                                (onSelect)="onDateSelect($event)"></p-calendar>
                         </div>
                         <label class="control-label col-md-2">
                             {{ 'Time ' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <select class="form-control" id="ddlTimes" name="ddlTimes"
-                                    [(ngModel)]="selectedTimeSlot" #ddlTimes="ngModel" required>
-                                <option *ngFor="let itm of timeSlotsList | translateObjects" [value]="itm.name">{{itm.name}}</option>
+                            <select class="form-control" id="ddlTimes" name="ddlTimes" [(ngModel)]="selectedTimeSlot"
+                                #ddlTimes="ngModel" required>
+                                <option *ngFor="let itm of timeSlotsList | translateObjects" [value]="itm.name">
+                                    {{itm.name}}</option>
                             </select>
                         </div>
                     </div>
@@ -620,13 +654,15 @@
                             {{ 'FirstName' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]='patientQucikAccount.firstName' #firstName="ngModel" required />
+                            <input type="text" class="form-control" id="firstName" name="firstName"
+                                [(ngModel)]='patientQucikAccount.firstName' #firstName="ngModel" required />
                         </div>
                         <label class="control-label col-md-2">
                             {{ 'MiddleName' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="middleName" name="middleName" [(ngModel)]='patientQucikAccount.middleName' #middleName="ngModel" required />
+                            <input type="text" class="form-control" id="middleName" name="middleName"
+                                [(ngModel)]='patientQucikAccount.middleName' #middleName="ngModel" required />
                         </div>
                     </div>
                     <div class="form-group">
@@ -634,13 +670,16 @@
                             {{ 'LastName' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]='patientQucikAccount.lastName' #lastName="ngModel" required />
+                            <input type="text" class="form-control" id="lastName" name="lastName"
+                                [(ngModel)]='patientQucikAccount.lastName' #lastName="ngModel" required />
                         </div>
                         <label class="control-label col-md-2">
                             {{ 'Mobile' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="mobile" name="mobile" pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$" [(ngModel)]='patientQucikAccount.mobileNumber' #mobile="ngModel" required />
+                            <input type="text" class="form-control" id="mobile" name="mobile"
+                                pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$"
+                                [(ngModel)]='patientQucikAccount.mobileNumber' #mobile="ngModel" required />
                         </div>
 
                     </div>
@@ -649,8 +688,9 @@
                             {{ 'BirthDate' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <p-calendar [(ngModel)]="patientQucikAccount.birthDate" [monthNavigator]="true" [yearNavigator]="true" dateFormat="dd/mm/yy"
-                                        [showIcon]="true" [required]="true" [ngModelOptions]="{standalone: true}" yearRange="1900:2050"></p-calendar>
+                            <p-calendar [(ngModel)]="patientQucikAccount.birthDate" [monthNavigator]="true"
+                                [yearNavigator]="true" dateFormat="dd/mm/yy" [showIcon]="true" [required]="true"
+                                [ngModelOptions]="{standalone: true}" yearRange="1900:2050"></p-calendar>
                         </div>
                         <label class="control-label col-md-2">
                             {{ 'Gender' | translate}}
@@ -659,10 +699,13 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <input type="radio" id="rbGender" name="rbGender" [(ngModel)]='patientQucikAccount.gender' value="1" />{{ 'Male' | translate}}
+                                        <input type="radio" id="rbGender" name="rbGender"
+                                            [(ngModel)]='patientQucikAccount.gender' value="1" />{{ 'Male' | translate}}
                                     </td>
                                     <td>
-                                        <input type="radio" id="rbGender" value="2" [(ngModel)]='patientQucikAccount.gender' name="rbGender" />{{ 'Female' | translate}}
+                                        <input type="radio" id="rbGender" value="2"
+                                            [(ngModel)]='patientQucikAccount.gender' name="rbGender" />{{ 'Female' |
+                                        translate}}
                                     </td>
                                 </tr>
                             </table>
@@ -673,9 +716,12 @@
                             {{ 'Service' | translate}}
                         </label>
                         <div class="col-md-4">
-                            <select class="form-control" id="ddlQuickRegisterationServices" name="ddlQuickRegisterationServices" required
-                                    [(ngModel)]="patientQucikAccount.serviceTimeSlotId" #ddlQuickRegisterationServices="ngModel" #srv (change)="getServiceTimeSlots(srv.value)">
-                                <option *ngFor="let itm of serviceTimeSlotsList" [value]="itm.id">{{lang == 'ar' ? itm.serviceName : itm.serviceNameTranslation}}</option>
+                            <select class="form-control" id="ddlQuickRegisterationServices"
+                                name="ddlQuickRegisterationServices" required
+                                [(ngModel)]="patientQucikAccount.serviceTimeSlotId"
+                                #ddlQuickRegisterationServices="ngModel" #srv (change)="getServiceTimeSlots(srv.value)">
+                                <option *ngFor="let itm of serviceTimeSlotsList" [value]="itm.id">{{lang == 'ar' ?
+                                    itm.serviceName : itm.serviceNameTranslation}}</option>
                             </select>
                         </div>
                     </div>
@@ -683,8 +729,11 @@
                 <div class="modal-footer">
                     <div class="row">
                         <div class="col-md-offset-4 col-md-8">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!patientAccountForm.valid || !enableQuickRegistrationBtn" (click)="createQuickPateintAccount()">{{ 'Register' | translate}} </button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ 'Cancel' | translate}} </button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                [disabled]="!patientAccountForm.valid || !enableQuickRegistrationBtn"
+                                (click)="createQuickPateintAccount()">{{ 'Register' | translate}} </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">{{ 'Cancel' | translate}}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -709,7 +758,8 @@
             <div class="modal-footer">
                 <div class="row">
                     <div class="text-center">
-                        <button type="button" class="btn btn-danger" #btnCloseReceptionistSearchPopup data-dismiss="modal">{{ 'Close' | translate}} </button>
+                        <button type="button" class="btn btn-danger" #btnCloseReceptionistSearchPopup
+                            data-dismiss="modal">{{ 'Close' | translate}} </button>
                     </div>
                 </div>
             </div>
@@ -808,7 +858,8 @@
 
 
 
-<button type="button" #btnDisplayCurrentDayAppointment class="hidden" data-toggle="modal" data-target="#selectedDayAppoitments"></button>
+<button type="button" #btnDisplayCurrentDayAppointment class="hidden" data-toggle="modal"
+    data-target="#selectedDayAppoitments"></button>
 <div id="selectedDayAppoitments" class="modal fade" role="dialog">
     <div class="modal-dialog width75percent">
         <!-- Modal content-->
@@ -816,7 +867,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ 'Appointments' | translate}}:  {{selectedDateAsString}}</h4>
+                <h4 class="modal-title">{{ 'Appointments' | translate}}: {{selectedDateAsString}}</h4>
             </div>
             <div class="modal-body">
 
@@ -865,7 +916,8 @@
                                 <td>{{ evnt.mobile }} </td>
                                 <td>{{ evnt.arrivalTime }} </td>
                                 <td class="text-center">
-                                    <img *ngIf="evnt.confirmed == 'True'" src="assets/images/ok-24.jpg" title="Confirmed" alt="Confirmed" />
+                                    <img *ngIf="evnt.confirmed == 'True'" src="assets/images/ok-24.jpg"
+                                        title="Confirmed" alt="Confirmed" />
                                 </td>
                                 <td>{{ evnt.remarks }} </td>
                             </tr>
@@ -915,7 +967,8 @@
                                 <td>{{ evnt.mobile }} </td>
                                 <td>{{ evnt.arrivalTime }} </td>
                                 <td class="text-center">
-                                    <img *ngIf="evnt.confirmed == 'True'" src="assets/images/ok-24.jpg" title="Confirmed" alt="Confirmed" />
+                                    <img *ngIf="evnt.confirmed == 'True'" src="assets/images/ok-24.jpg"
+                                        title="Confirmed" alt="Confirmed" />
                                 </td>
                                 <td>{{ evnt.remarks }} </td>
                             </tr>
