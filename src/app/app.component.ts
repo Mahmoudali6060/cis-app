@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger;
         let loggedUserId = localStorage.getItem("ng2-webstorage|userid");
         if (loggedUserId)
             this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap.min.css");

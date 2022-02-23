@@ -141,7 +141,7 @@
                                 (onEventClick)="handleEventClick($event)"
                                 (onViewRender)="handleloadEvents($event)"
                                 (onNavLinkDayClick)="handleNavDayClick($event)"></p-schedule> -->
-                    <full-calendar [options]="calendarOptions"></full-calendar>
+                    <full-calendar #fullCallendar [options]="calendarOptions"></full-calendar>
                 </div>
                 <div *ngIf="isDivisionSelected">
                     <receptionist-division-calendar [divisonId]="divisonId" [divisonName]="divisonName">

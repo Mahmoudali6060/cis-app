@@ -48,7 +48,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     @ViewChild('btnCloseSessionExtensionModal') btnCloseSessionExtensionModal!: ElementRef;
     @ViewChild('btnCloseRestoreTimeSlotsModal') btnCloseRestoreTimeSlotsModal!: ElementRef;
     @ViewChild('btnShowRestoreTimeSlotsModal') btnShowRestoreTimeSlotsModal!: ElementRef;
-    @ViewChild('pSchedule') pSchedule: any;
+    @ViewChild('fullCallendar') fullCallendar: any;
     @ViewChild('btnCloseReceptionistSearchPopup') btnCloseReceptionistSearchPopup!: ElementRef;
     @ViewChild('btnCloseAppointmentPopup') btnCloseAppointmentPopup!: ElementRef;
     @ViewChild('btnDisplayCurrentDayAppointment') btnDisplayCurrentDayAppointment!: ElementRef;
@@ -171,13 +171,13 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         allDayText: "",
         eventClick: this.handleEventClick.bind(this), // bind is important!
         navLinkDayClick: this.handleNavDayClick.bind(this),
-        // dateClick: this.handleDateClick.bind(this),
-        loading: this.handleloadEvents.bind(this),
+        dateClick: this.handleDateClick.bind(this)
+        //loading: this.handleloadEvents,
     };
 
 
     constructor(
-        private receptionistService: ReceptionistService,
+        public receptionistService: ReceptionistService,
         private clinicService: ClinicService,
         private toastr: ToastrService,
         private localStorage: LocalStorageService
@@ -188,7 +188,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger;
+
         this.lang = this.localStorage.retrieve('SelectedLanguage');
         if (this.lang && this.lang == 'ar')
             this.isRTL = true;
@@ -213,6 +213,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
+
     }
 
     FillHijriWeekDays() {
@@ -249,6 +250,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     handleDateClick(arg: any) {
         console.log(arg);
+        this.showSessionExtensionPopupForOpenSlot();
     }
 
     showDialog() {
@@ -308,6 +310,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             }
 
             thisComponent.showProgress = true;
+
             this.receptionistService.createPatientRequest(this.patientQucikAccount)
                 .subscribe(
                     function (response: any) {
@@ -490,6 +493,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
         this.isDayView = false;
         this.handelSelectedNode(event.node);
+        this.handleloadEvents(event.node.$id)
     }
 
     handelSelectedNode(node: any) {
@@ -587,7 +591,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     }
 
                     thisComp.initialView = true;
-                    thisComp.pSchedule.refreshSlotDuration(formattedSlotDuration, scrollTime);
+                    //thisComp.fullCallendar.refreshSlotDuration(formattedSlotDuration, scrollTime);
                     thisComp.initialView = false;
                     //Update calendar events
                     thisComp.events = response.calendarEvents;
@@ -606,7 +610,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                             thisComp.gotoDateString = '';
                         }
                         else {
-                            thisComp.pSchedule.gotoDate(date);
+                            //thisComp.fullCallendar.gotoDate(date);
                         }
                     }
 
@@ -1263,8 +1267,18 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     }
 
-    handleloadEvents(event: any) {
+    handleloadEvents(doctorId: any) {
         debugger;
+        let event: any = {};
+        event.view = {};
+        event.view.intervalStart = {};
+        event.view.start = {};
+
+        event.view.name = "Test Event";
+        event.view.intervalStart._d = new Date('2/2/2020');
+        event.view.start._d = new Date('2/2/2021');
+
+        let thisComp = this;
 
         if (!this.initialView) {
 
@@ -1286,11 +1300,11 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             let periodArgs: any = {};
             periodArgs.startDate = startDate;
             periodArgs.endDate = endDate;
-            periodArgs.doctorId = this.doctorId;
+            periodArgs.doctorId = doctorId;
 
-            let thisComp = this;
+
             thisComp.showLoading = true;
-            this.receptionistService.getAppointmentsWithinPeriod(periodArgs)
+            thisComp.receptionistService.getAppointmentsWithinPeriod(periodArgs)
                 .subscribe(
                     function (response: any) {
                         thisComp.appointementsList = response.appointments;
