@@ -101,6 +101,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     selectedDate!: any;
     selectedTimeSlot!: any;
     selectedDateForOpenCloseSlot!: any;
+    selectedDateToForOpenCloseSlot!: any;
     selectedStartTimeForOpenCloseSlot!: any;
     selectedEndTimeForOpenCloseSlot!: any;
     numberOfTimeSlots: number = 1;
@@ -157,7 +158,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     calendarOptions: CalendarOptions = {
         headerToolbar: {
-            left: 'today,agendaWeek',
+            left: 'today,timeGridWeek',
             center: 'title',
             right: 'prev,next'
         },
@@ -193,14 +194,8 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         if (this.lang && this.lang == 'ar')
             this.isRTL = true;
 
+        this.setCalendarOptions();
         let thisComp = this;
-        // this.calendarSlotDuration = calendarSlotDuration;
-        this.defaultDate = this.utilityClass.getISODateFormat(new Date());
-        // this.calendarOptions.firstDay = new Date().getDay();
-        // this.calendarOptions.navLinks = true;
-        // this.calendarOptions.selectable = true;
-        // this.calendarOptions.select = function (start: any, end: any) { thisComp.handleCalendarSelect(start, end); }
-        // this.calendarOptions.isRTL = this.isRTL;
 
         this.clinicId = this.localStorage.retrieve("ClinicID");
         // this.clinicId = "1";
@@ -213,6 +208,15 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
+
+    }
+    setCalendarOptions() {
+        this.defaultDate = this.utilityClass.getISODateFormat(new Date());
+        this.calendarOptions.firstDay = new Date().getDay();
+        this.calendarOptions.navLinks = true;
+        this.calendarOptions.selectable = true;
+        // this.calendarOptions.select = function (start: any, end: any) { thisComp.handleCalendarSelect(start, end); }
+        // this.calendarOptions.isRTL = this.isRTL;
 
     }
 
@@ -249,7 +253,15 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleDateClick(arg: any) {
-        console.log(arg);
+        debugger;
+        this.selectedDateForOpenCloseSlot = arg.date;
+        this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
+
+        this.selectedStartTimeForOpenCloseSlot = new TimeSlot(this.selectedDateForOpenCloseSlot).name;
+        this.selectedDateToForOpenCloseSlot = arg.date;
+        this.selectedDateToForOpenCloseSlot.setMinutes(this.selectedDateToForOpenCloseSlot.getMinutes() + 15);
+        this.selectedEndTimeForOpenCloseSlot = new TimeSlot(this.selectedDateToForOpenCloseSlot).name;
+
         this.showSessionExtensionPopupForOpenSlot();
     }
 
@@ -392,9 +404,24 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     handleEventClick(e: any) {
         debugger;
-        let eventId = e.calEvent.id;
-
+        let eventId = e.event._def.publicId;
         this.fillAppointmentinfo(eventId);
+
+        // this.selectedDateForOpenCloseSlot = e.el.fcSeg.start;
+        // this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
+        // this.selectedStartTimeForOpenCloseSlot = e.el.text.trim().split(' - ')[0];
+        // this.selectedEndTimeForOpenCloseSlot = e.el.text.trim().split(' - ')[1];
+
+
+        this.selectedDateForOpenCloseSlot =  e.el.fcSeg.start;
+        this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
+
+        this.selectedStartTimeForOpenCloseSlot = new TimeSlot(this.selectedDateForOpenCloseSlot).name;
+        this.selectedDateToForOpenCloseSlot =  e.el.fcSeg.start;
+        this.selectedDateToForOpenCloseSlot.setMinutes(this.selectedDateToForOpenCloseSlot.getMinutes() + 15);
+        this.selectedEndTimeForOpenCloseSlot = new TimeSlot(this.selectedDateToForOpenCloseSlot).name;
+
+
     }
 
     fillAppointmentinfo(eventId: any) {
@@ -429,6 +456,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             }
             else {
                 this.appointmentModel = { id: 0 };
+                this.showBookOrCloseModal();
                 //this.isUpdatedAppointment = false;
             }
 
@@ -709,6 +737,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     onOpneCloseSlotDateSelect(dateValue: Date) {
+        debugger;
         this.entireDayTimeSlotsListForStartTime = [];
         this.entireDayTimeSlotsListForEndTime = [];
         if (dateValue != undefined) {
@@ -1274,7 +1303,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         event.view.intervalStart = {};
         event.view.start = {};
 
-        event.view.name = "Test Event";
+        event.view.name = "basicDay";
         event.view.intervalStart._d = new Date('2/2/2020');
         event.view.start._d = new Date('2/2/2021');
 
@@ -1440,9 +1469,9 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         //Close the options popup
         this.btnCloseBookOrCloseModal.nativeElement.click();
 
-        this.selectedDateForOpenCloseSlot = this.calendarRangeStartDateTime;
-        this.selectedStartTimeForOpenCloseSlot = this.calendarRangeFirstSlot.name;
-        this.selectedEndTimeForOpenCloseSlot = this.calendarRangeLastSlot.name;
+        // this.selectedDateForOpenCloseSlot = this.calendarRangeStartDateTime;
+        // this.selectedStartTimeForOpenCloseSlot = this.calendarRangeFirstSlot.name;
+        // this.selectedEndTimeForOpenCloseSlot = this.calendarRangeLastSlot.name;
 
         this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
 
@@ -1628,7 +1657,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleNavDayClick(event: any) {
-
+        debugger;
         this.isDayView = true;
         this.dayViewSelectedDate = event.date._d;
         this.selectedDateAsString = this.utilityClass.getUtcDateAsString(this.dayViewSelectedDate);
