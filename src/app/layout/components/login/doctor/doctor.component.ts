@@ -162,8 +162,10 @@ export class DoctorComponent implements OnInit {
             thisComponent.router.navigate(['/insurance/invoice']);
 
           }
+          localStorage.setItem("userPermision", JSON.stringify(thisComponent.accountService.userPermision))
+          localStorage.setItem("modulesWrapper", JSON.stringify(thisComponent.accountService.modulesWrapper))
 
-          // location.reload();
+          location.reload();
 
         },
         function (error: any) {

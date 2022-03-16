@@ -1,12 +1,13 @@
-﻿import {Component, Input, OnInit, OnChanges, SimpleChanges} from '@angular/core';
-import {LocalStorageService} from 'ng2-webstorage';
+﻿import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { LocalStorage, LocalStorageService } from 'ng2-webstorage';
 import { AccountService } from '../../security/shared/account.service';
-import {UserPermissions} from '../../classes/user-permissions.class';
-import {PermissionKeyEnum} from '../shared/permission-key.enum';
+import { UserPermissions } from '../../classes/user-permissions.class';
+import { PermissionKeyEnum } from '../shared/permission-key.enum';
 import { UserTypeEnum } from '../../security/shared/user-type.enum';
-import {ClinicModulesEnum} from '../../shared/shared/clinic-modules.enum';
+import { ClinicModulesEnum } from '../../shared/shared/clinic-modules.enum';
+import { Router } from '@angular/router';
 @Component({
-   
+
     selector: 'shared-tabs',
     templateUrl: 'shared-tabs.component.html',
 
@@ -95,9 +96,12 @@ export class SharedTabsComponent implements OnChanges {
     hasBillingAndInsurance: boolean = false;
     moduleKey: ClinicModulesEnum = new ClinicModulesEnum();
     constructor(private localStorage: LocalStorageService
-        , public accountService: AccountService) { }
+        , public accountService: AccountService,
+        private router: Router) { }
 
     ngOnInit(): void {
+
+
         let thisComponent = this;
         thisComponent.clinicId = this.localStorage.retrieve("ClinicID");
         let userId = this.localStorage.retrieve("AuthenticatedUserId");
@@ -112,35 +116,46 @@ export class SharedTabsComponent implements OnChanges {
 
     }
     setRoles(id: string) {
+
         //let userPermisions: UserPermissions = new UserPermissions(timeSlotDate);
         let thisComponent = this;
         this.accountService.getRoles(id)
             .subscribe(
-            function (response:any) {
-                thisComponent.userPermisions = response;
-                thisComponent.accountService.userPermision = response;
+                function (response: any) {
+                    thisComponent.userPermisions = response;
+                    thisComponent.accountService.userPermision = response;
 
-                if (thisComponent.accountService.userPermisionsObserver != undefined)
-                    thisComponent.accountService.userPermisionsObserver.next(response);
+                    if (thisComponent.accountService.userPermisionsObserver != undefined)
+                        thisComponent.accountService.userPermisionsObserver.next(response);
 
-                thisComponent.handleUserInterfaceViews(thisComponent.accountService.userPermision);
-            },
-            function (error:any) { 
-                // thisComponent.toastr.error(error, '');
-            },
-            function () { // finally
-                //thisComponent.showProgress = false;
-            });
+                    thisComponent.handleUserInterfaceViews(thisComponent.accountService.userPermision);
+                },
+                function (error: any) {
+                    // thisComponent.toastr.error(error, '');
+                },
+                function () { // finally
+                    //thisComponent.showProgress = false;
+                });
     }
+
     ngOnChanges(changes: SimpleChanges) {
+        if (!this.accountService.userPermision || this.accountService.userPermision.length < 1) {
+            let userPermision = localStorage.getItem("userPermision")
+            this.accountService.userPermision = userPermision ? JSON.parse(userPermision) : null;
+        }
         if (this.accountService.userPermision._isScalar != undefined)
             this.accountService.userPermision.subscribe((item: any) => this.handleUserInterfaceViews(item));
         else
             this.handleUserInterfaceViews(this.accountService.userPermision);
 
+            if (!this.accountService.modulesWrapper || this.accountService.modulesWrapper.length < 1) {
+                let modulesWrapper = localStorage.getItem("modulesWrapper")
+                this.accountService.modulesWrapper = modulesWrapper ? JSON.parse(modulesWrapper) : null;
+            }
+
         //this code is added to display links based on modules of clinc
-        if (this.accountService.modulesWrapper._isScalar != undefined)
-           this.accountService.modulesWrapper.subscribe((item: any) => this.handleUserInterfaceViewsBasedOnModules(item));
+        if (this.accountService.modulesWrapper?._isScalar != undefined)
+            this.accountService.modulesWrapper.subscribe((item: any) => this.handleUserInterfaceViewsBasedOnModules(item));
         else
             this.handleUserInterfaceViewsBasedOnModules(this.accountService.modulesWrapper);
     }
@@ -213,8 +228,8 @@ export class SharedTabsComponent implements OnChanges {
         }
 
 
-       // if (this.hasEMRPermission && this.hasAppoitmentScchedulePermission)
-          //  this.enableDoctorAppoitmentsLink = true;
+        // if (this.hasEMRPermission && this.hasAppoitmentScchedulePermission)
+        //  this.enableDoctorAppoitmentsLink = true;
         if (this.hasAppoitmentScchedulePermission)
             this.enableReceptionistAppointmentsLink = true;
         if (this.hasPatientRegistrationPermission) {
@@ -243,44 +258,47 @@ export class SharedTabsComponent implements OnChanges {
         let thisComponent = this;
         this.accountService.getClinicModules(id)
             .subscribe(
-            function (response:any) {
-                thisComponent.accountService.modulesWrapper = response;
+                function (response: any) {
+                    thisComponent.accountService.modulesWrapper = response;
 
-                if (thisComponent.accountService.modulesWrapperObserver != undefined)
-                    thisComponent.accountService.modulesWrapperObserver.next(response);
+                    if (thisComponent.accountService.modulesWrapperObserver != undefined)
+                        thisComponent.accountService.modulesWrapperObserver.next(response);
 
-                thisComponent.handleUserInterfaceViews(thisComponent.accountService.modulesWrapper);
-            },
-            function (error:any) { 
-                // thisComponent.toastr.error(error, '');
-            },
-            function () { // finally
-                //thisComponent.showProgress = false;
-            });
+                    thisComponent.handleUserInterfaceViews(thisComponent.accountService.modulesWrapper);
+                },
+                function (error: any) {
+                    // thisComponent.toastr.error(error, '');
+                },
+                function () { // finally
+                    //thisComponent.showProgress = false;
+                });
     }
     handleUserInterfaceViewsBasedOnModules(clinicModulesWrapper: any) {
         let vm = this;
-        for (let item of clinicModulesWrapper.modules) {
-            if (item.key == vm.moduleKey.PurchasingAndInventory)
-                vm.hasPurshasingAndInventory = true;
-            if (item.key == vm.moduleKey.PatientRegistration)
-                vm.hasPatientRegistration = true;
-            if (item.key == vm.moduleKey.EMR)
-                vm.hasEMR = true;
+        if (clinicModulesWrapper?.modules) {
+            for (let item of clinicModulesWrapper?.modules) {
+                if (item.key == vm.moduleKey.PurchasingAndInventory)
+                    vm.hasPurshasingAndInventory = true;
+                if (item.key == vm.moduleKey.PatientRegistration)
+                    vm.hasPatientRegistration = true;
+                if (item.key == vm.moduleKey.EMR)
+                    vm.hasEMR = true;
 
-            if (item.key == vm.moduleKey.Coding)
-                vm.hasCoding = true;
-            if (item.key == vm.moduleKey.ClinicMaster)
-                vm.hasClinicMaster = true;
-            if (item.key == vm.moduleKey.BillingAndInsurance)
-                vm.hasBillingAndInsurance = true;
+                if (item.key == vm.moduleKey.Coding)
+                    vm.hasCoding = true;
+                if (item.key == vm.moduleKey.ClinicMaster)
+                    vm.hasClinicMaster = true;
+                if (item.key == vm.moduleKey.BillingAndInsurance)
+                    vm.hasBillingAndInsurance = true;
 
-            if (item.key == vm.moduleKey.Appointments)
-                vm.hasAppointments = true;
-            if (item.key == vm.moduleKey.AccessRights)
-                vm.hasAccessRights = true;
+                if (item.key == vm.moduleKey.Appointments)
+                    vm.hasAppointments = true;
+                if (item.key == vm.moduleKey.AccessRights)
+                    vm.hasAccessRights = true;
 
+            }
         }
-
     }
+
+
 }

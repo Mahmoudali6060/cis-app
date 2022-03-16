@@ -23,6 +23,7 @@ import { CalendarOptions } from '@fullcalendar/angular';
 
     selector: 'receptionist-appointments',
     templateUrl: 'receptionist-appointments.component.html',
+    styleUrls: ['receptionist-appointments.component.css']
 })
 
 export class ReceptionistAppointmentsComponent implements OnInit {
@@ -161,9 +162,18 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             left: 'today,timeGridWeek',
             center: 'title',
             right: 'prev,next'
+
         },
         editable: false,
+
+        displayEventTime: false,
+        // eventColor: '#000000',
+        // eventBackgroundColor: '#ffffff',
         initialView: 'timeGridWeek',
+        // businessHours: {
+        //     color: '#000000'
+        // },
+
         allDaySlot: true,
         slotDuration: calendarSlotDuration,
         slotLabelInterval: calendarSlotDuration,
@@ -172,7 +182,8 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         allDayText: "",
         eventClick: this.handleEventClick.bind(this), // bind is important!
         navLinkDayClick: this.handleNavDayClick.bind(this),
-        dateClick: this.handleDateClick.bind(this)
+        dateClick: this.handleDateClick.bind(this),
+
         //loading: this.handleloadEvents,
     };
 
@@ -254,13 +265,22 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     handleDateClick(arg: any) {
         debugger;
+        this.selectedStartTimeForOpenCloseSlot = null;
+        this.selectedEndTimeForOpenCloseSlot = null;
+
         this.selectedDateForOpenCloseSlot = arg.date;
-        this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
+        this.calendarRangeStartDateTime = this.utilityClass.convertToUTCDateTime(this.selectedDateForOpenCloseSlot);
+
 
         this.selectedStartTimeForOpenCloseSlot = new TimeSlot(this.selectedDateForOpenCloseSlot).name;
         this.selectedDateToForOpenCloseSlot = arg.date;
         this.selectedDateToForOpenCloseSlot.setMinutes(this.selectedDateToForOpenCloseSlot.getMinutes() + 15);
         this.selectedEndTimeForOpenCloseSlot = new TimeSlot(this.selectedDateToForOpenCloseSlot).name;
+        this.calendarRangeEndDateTime = this.utilityClass.convertToUTCDateTime(this.selectedDateToForOpenCloseSlot);
+
+        this.calendarRangeFirstSlot = new TimeSlot(this.calendarRangeStartDateTime);
+        this.calendarRangeLastSlot = new TimeSlot(this.calendarRangeEndDateTime);
+        this.onOpneCloseSlotDateSelect(arg.date);
 
         this.showSessionExtensionPopupForOpenSlot();
     }
@@ -407,19 +427,18 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         let eventId = e.event._def.publicId;
         this.fillAppointmentinfo(eventId);
 
-        // this.selectedDateForOpenCloseSlot = e.el.fcSeg.start;
-        // this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
-        // this.selectedStartTimeForOpenCloseSlot = e.el.text.trim().split(' - ')[0];
-        // this.selectedEndTimeForOpenCloseSlot = e.el.text.trim().split(' - ')[1];
-
-
-        this.selectedDateForOpenCloseSlot =  e.el.fcSeg.start;
+        this.selectedDateForOpenCloseSlot = e.el.fcSeg.start;
+        this.calendarRangeStartDateTime = this.utilityClass.convertToUTCDateTime(this.selectedDateForOpenCloseSlot);
         this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
 
-        this.selectedStartTimeForOpenCloseSlot = new TimeSlot(this.selectedDateForOpenCloseSlot).name;
-        this.selectedDateToForOpenCloseSlot =  e.el.fcSeg.start;
+        this.selectedDateToForOpenCloseSlot = e.el.fcSeg.start;
         this.selectedDateToForOpenCloseSlot.setMinutes(this.selectedDateToForOpenCloseSlot.getMinutes() + 15);
-        this.selectedEndTimeForOpenCloseSlot = new TimeSlot(this.selectedDateToForOpenCloseSlot).name;
+
+        this.calendarRangeEndDateTime = this.utilityClass.convertToUTCDateTime(this.selectedDateToForOpenCloseSlot);
+
+        this.calendarRangeFirstSlot = new TimeSlot(this.calendarRangeStartDateTime);
+        this.calendarRangeLastSlot = new TimeSlot(this.calendarRangeEndDateTime);
+
 
 
     }
@@ -499,23 +518,6 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         }
     }
 
-    //getSelectedNode() {
-    //    this.organizationStructureTree.forEach(node => {
-    //        this.getSelectedNodeRecursive(node);
-    //    });
-    //}
-
-    //private getSelectedNodeRecursive(node: TreeNode) {
-    //    if (node.children) {
-    //        node.children.forEach(childNode => {
-    //            this.getSelectedNodeRecursive(childNode);
-
-    //            if (childNode.data == "SelectedDoctor")
-    //                this.selectedDoctor = childNode;
-
-    //        });
-    //    }
-    //}
 
     nodeSelect(event: any) {
 
@@ -719,8 +721,11 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 bgEvent.end = endDateTime;
                 bgEvent.rendering = 'inverse-background';
                 bgEvent.className = 'inverse-backgroundEvent';
-
-                this.events.push(bgEvent);
+                bgEvent.backgroundColor = '#989898';
+                //if event is exssited in events list ,then do not add it
+                let exsitedEvent = this.events.find(x => x.start == startDateTime);
+                if (!exsitedEvent)
+                    this.events.push(bgEvent);
                 this.calendarOptions.events = this.events;
             }
         }
@@ -932,9 +937,9 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.display = false;
     }
 
-    //RescheduleAppointment() {
+    // RescheduleAppointment() {
     //    this.saveRescheduleAppointment();
-    //}
+    // }
     handleIsArrivedValue(event: any) {
         if (event.target.checked) {
             this.isArrived = true;
@@ -942,45 +947,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
             this.isArrived = false;
         }
     }
-    //saveRescheduleAppointment() {
-    //    let vm = this;
-    //    vm.rescheduledAppointmentModel = vm.appointmentModel;
-    //    let timeSlot = this.timeSlotsList.find(ts => ts.name == this.selectedRescheduledTimeSlot);
-    //    if (timeSlot != undefined) {
-    //        //Update the model
-    //        this.rescheduledAppointmentModel.dateTime = this.utilityClass.getUtcDateTime(timeSlot.dateTime);
 
-    //        this.showProgress = true;
-    //        let thisComp = this;
-    //        let isNewAppointment: boolean = (this.appointmentModel.id == 0) ? true : false;
-    //        this.receptionistService.saveOrUpdateAppointment(this.rescheduledAppointmentModel)
-    //            .subscribe(
-    //            function (response:any) {
-    //                thisComp.updateCalendarEvents(response, isNewAppointment);
-    //                thisComp.closeAppointmentModal();
-
-    //                thisComp.toastr.success('Saved successfully', '');
-    //            },
-    //            function (error:any) { 
-    //                thisComp.toastr.error(error, '');
-    //                thisComp.showProgress = false;
-    //            },
-    //            function () {
-    //                thisComp.showProgress = false;
-    //            });
-    //    }
-    //    else {
-    //        this.toastr.error('You should enter date and time.', '');
-    //    }
-    //}
-    //onRescheduledDateSelect(dateValue: Date) {
-    //    this.rescheduledTimeSlotsList = [];
-    //    if (dateValue != undefined) {
-    //        this.receptionistAppointmentManager = new ReceptionistAppointmentManager(this.appointmentSchedulesList, this.sessionExtensionsList);
-    //        this.rescheduledTimeSlotsList = this.receptionistAppointmentManager.getTimeSlots(dateValue);
-    //        this.slotDuration = this.receptionistAppointmentManager.getSlotDuration();
-    //    }
-    //}
     saveSessionExtension() {
 
         let thisComponent = this;
@@ -996,13 +963,14 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.receptionistService.saveNewSessionExtension(this.sessionExtension)
             .subscribe(
                 function (response: any) {
-
+                    debugger;
                     thisComponent.sessionExtension = response;
                     thisComponent.clearSessionExtensionControls();
                     thisComponent.getAppointmentDetailsWrapper(thisComponent.doctorId);
                     let msg = thisComponent.translate.instant("SavedSuccessfully");
                     thisComponent.toastr.success(msg, '');
                     thisComponent.btnCloseSessionExtensionModal.nativeElement.click();
+                    thisComponent.btnCloseBookOrCloseModal.nativeElement.click();
                 },
                 function (error: any) {
                     thisComponent.toastr.error(error, '');
@@ -1122,7 +1090,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         else if (appointment.flag)
             evnt.className = 'calendarEvent-flaged';
         else
-            evnt.className = 'calendarEvent';
+            evnt.className='calendarEvent';
 
     }
 
@@ -1467,11 +1435,11 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
     prepareAndShowCloseSlotsModal() {
         //Close the options popup
-        this.btnCloseBookOrCloseModal.nativeElement.click();
+        // this.btnCloseBookOrCloseModal.nativeElement.click();
 
-        // this.selectedDateForOpenCloseSlot = this.calendarRangeStartDateTime;
-        // this.selectedStartTimeForOpenCloseSlot = this.calendarRangeFirstSlot.name;
-        // this.selectedEndTimeForOpenCloseSlot = this.calendarRangeLastSlot.name;
+        this.selectedDateForOpenCloseSlot = this.calendarRangeStartDateTime;
+        this.selectedStartTimeForOpenCloseSlot = this.calendarRangeFirstSlot.name;
+        this.selectedEndTimeForOpenCloseSlot = this.calendarRangeLastSlot.name;
 
         this.onOpneCloseSlotDateSelect(this.selectedDateForOpenCloseSlot);
 
@@ -1669,12 +1637,23 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 }
 
 export class CalendarEvent {
-    id!: number;
-    title!: string;
-    start!: string;
-    end!: string;
-    rendering!: string;
-    className!: string;
-    dateTime!: string;
-    fullTitle!: string;
+    id: number | undefined;
+    title: string | undefined;
+    start: string | undefined;
+    end: string | undefined;
+    rendering: string | undefined;
+    className: string | undefined;
+    dateTime: string | undefined;
+    fullTitle: string | undefined;
+
+    display: string | undefined;
+    startEditable: boolean | undefined;
+    durationEditable: boolean | undefined;
+    constraints: any;
+    overlap: boolean | undefined;
+    allows: any;
+    backgroundColor: string | undefined;
+    borderColor: string | undefined;
+    textColor: string | undefined;
+    classNames!: string[];
 }

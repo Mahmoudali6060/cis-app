@@ -359,7 +359,7 @@
         </div>
     </form>
 </div>
-<!-- <p-dialog id="addArrivalTime" header="{{title}}" [(visible)]="display" [width]="600" [modal]="modal" [responsive]="true" *ngIf="isAddArrivalTime">
+<p-dialog id="addArrivalTime" header="{{title}}" [(visible)]="display" [responsive]="true" *ngIf="isAddArrivalTime" [baseZIndex]="10000">
     <form *ngIf="active" class="form-horizontal well">
         <div class="form-group">
             <label class="control-label col-md-4">
@@ -376,8 +376,9 @@
             </div>
         </div>
     </form>
-</p-dialog> -->
-<!-- <p-dialog id="reconfirmAppointment" header="{{title1}}" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isReconfirmedAppointment">
+</p-dialog>
+
+<p-dialog id="reconfirmAppointment" header="{{title1}}" [(visible)]="display"  [responsive]="true" *ngIf="isReconfirmedAppointment" [baseZIndex]="10000">
     <form *ngIf="active" class="form-horizontal well">
         <div class="form-group">
             <label class="control-label col-md-2">
@@ -426,8 +427,8 @@
             </div>
         </div>
     </form>
-</p-dialog> -->
-<!-- <p-dialog id="cancelAppointment" header="{{title2}}" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isCancelledAppointment">
+</p-dialog> 
+ <p-dialog id="cancelAppointment" header="{{title2}}" [(visible)]="display" [baseZIndex]="10000" [responsive]="true" *ngIf="isCancelledAppointment">
     <form class="form-horizontal well">
 
         <div class="form-group">
@@ -460,7 +461,7 @@
         </div>
     </form>
 </p-dialog> -->
-<!--<p-dialog id="rescheduleAppointment" header="Reschedule Appointment" [(visible)]="display" [width]="600" modal="modal" responsive="true" *ngIf="isRescheduledAppointment">
+<!-- <p-dialog id="rescheduleAppointment" header="Reschedule Appointment" [(visible)]="display" [baseZIndex]="10000" [responsive]="true" *ngIf="isRescheduledAppointment">
     <form *ngIf="active" class="form-horizontal well">
         <div class="form-group">
             <div class="col-md-2 ">
@@ -492,7 +493,7 @@
             </div>
         </div>
     </form>
-</p-dialog>-->
+</p-dialog> -->
 <!-- Session Extension Popup-->
 <button type="button" data-toggle="modal" data-target="#sessionExtensionSlotModal" style="display:none"
     #btnShowSessionExtensionSlotModal></button>
@@ -524,7 +525,7 @@
                         <label class="control-label col-md-2">
                             {{ 'StartTime' | translate}}
                         </label>
-                        <div class="col-md-6">
+                        <div class="col-md-6" >
                             <select class="form-control" id="ddlSessionExtensionStartTime"
                                 name="ddlSessionExtensionStartTime" [(ngModel)]="selectedStartTimeForOpenCloseSlot"
                                 #ddlSessionExtensionStartTime="ngModel" required>
@@ -535,7 +536,7 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-2">
-                            {{ 'EndTime' | translate}}
+                            {{ 'EndTime' | translate}} 
                         </label>
                         <div class="col-md-6">
                             <select class="form-control" id="ddlSessionExtensionEndTime"
@@ -768,7 +769,7 @@
     </div>
 </div>
 
-<!-- <p-dialog id="repeatAppointment" header="Repeat Appointment" [(visible)]="displayRepeatAppointmentPopup" [width]="750" modal="modal" responsive="true" *ngIf="displayRepeatAppointmentPopup">
+ <p-dialog id="repeatAppointment" header="Repeat Appointment" [(visible)]="displayRepeatAppointmentPopup" [baseZIndex]="10000" [responsive]="true" *ngIf="displayRepeatAppointmentPopup">
     <form *ngIf="active" class="form-horizontal well" name="repeatAppointmentFrm" #repeatAppointmentFrm="ngForm">
         <div class="modal-body">
             <div *ngIf="showProgress">
@@ -850,11 +851,11 @@
             </div>
         </div>
     </form>
-</p-dialog> -->
+</p-dialog> 
 
-<!-- <p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="displayPatientAdvancedSearch" [resizable]="true" [width]="800" [responsive]="true" [height]="auto">
+<p-dialog contentHeight="500" [header]="'SearchForPatient' | translate" [(visible)]="displayPatientAdvancedSearch" [resizable]="true" [baseZIndex]="10000" [responsive]="true" >
     <patient-search [showEdit]="showEditPatient" [showSelect]="showSelectPatient" (patientSelected)="managePatientSelection($event)"></patient-search>
-</p-dialog> -->
+</p-dialog>
 
 
 
