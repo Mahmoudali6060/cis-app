@@ -8,13 +8,11 @@
     <div class="row nopadding">
 
         <div class="row NBbreadcrumb">
-            <a>{{ 'Clinic' | translate}}</a> &nbsp;/
-            {{ 'PurchaseOrders' | translate}}
+            <a>{{ 'Clinic' | translate}}</a> &nbsp;/ {{ 'PurchaseOrders' | translate}}
         </div>
         <div class="row well">
             <div class="col-md-offset-8  text-right">
-                <button class="btn btn-primary " routerLink="/clinic/purchasing/createOrder/new/0/0"
-                    disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'CreateNewOrder' |
+                <button class="btn btn-primary " routerLink="/clinic/purchasing/createOrder/new/0/0" disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'CreateNewOrder' |
                     translate}}</button>
                 <print-page [section]='purchasingOrderListDiv'></print-page>
             </div>
@@ -24,39 +22,43 @@
         <div class="row well" style="background-color: #f6f7f9 !important;">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                    [placeholder]="'Search' | translate" />
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
             </div>
             <!---New Table-->
-            <p-table #dt [value]="ordersList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-                [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
-                [globalFilterFields]="['refNo','nameTranslation']">
+            <p-table #dt [value]="ordersList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [filterDelay]="0" [globalFilterFields]="['refNo','nameTranslation']">
 
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="refNo">{{'RerNo' | translate}} <p-sortIcon field="refNo"></p-sortIcon>
+                        <th pSortableColumn="refNo">{{'RerNo' | translate}}
+                            <p-sortIcon field="refNo"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="dateString">{{'OrderDate' | translate}} <p-sortIcon field="dateString">
+                        <th pSortableColumn="dateString">{{'OrderDate' | translate}}
+                            <p-sortIcon field="dateString">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="vendorName">{{'Vendor' | translate}} <p-sortIcon field="vendorName">
+                        <th pSortableColumn="vendorName">{{'Vendor' | translate}}
+                            <p-sortIcon field="vendorName">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="orderStatus">{{'Status' | translate}} <p-sortIcon field="orderStatus">
+                        <th pSortableColumn="orderStatus">{{'Status' | translate}}
+                            <p-sortIcon field="orderStatus">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="totalPrice">{{'Total' | translate}} <p-sortIcon field="totalPrice">
+                        <th pSortableColumn="totalPrice">{{'Total' | translate}}
+                            <p-sortIcon field="totalPrice">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="description">{{'Remark' | translate}} <p-sortIcon field="description">
+                        <th pSortableColumn="description">{{'Remark' | translate}}
+                            <p-sortIcon field="description">
                             </p-sortIcon>
                         </th>
                         <th pSortableColumn="lastModificationDateString">{{'LastModificationDate' | translate}}
                             <p-sortIcon field="lastModificationDateString">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="userName">{{'LastModifierUser' | translate}} <p-sortIcon field="userName">
+                        <th pSortableColumn="userName">{{'LastModifierUser' | translate}}
+                            <p-sortIcon field="userName">
                             </p-sortIcon>
                         </th>
                         <th><span styleClass="text-center width70">{{'ViewDetails' | translate}} </span>
@@ -99,34 +101,28 @@
                             <span>{{item.userName}}</span>
                         </td>
                         <td>
-                            <a class="underLinelinkText" (click)="viewOrderDetails(item.id)"
-                                [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'ViewDetails' |
+                            <a class="underLinelinkText" (click)="viewOrderDetails(item.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'ViewDetails' |
                                 translate}}</a>
                         </td>
                         <td style="text-align: center">
-                            <a class="underLinelinkText" (click)="checkProductsInItemsList(item.id)"
-                                *ngIf="isClinicAdmin && item.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
+                            <a class="underLinelinkText" (click)="checkProductsInItemsList(item.id)" *ngIf="isClinicAdmin && item.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
                             <a class="disabled" *ngIf="isClinicAdmin && item.orderStatus != 'Prepared'" disabled>{{
                                 'Edit' | translate}}</a>
-                            <a class="underLinelinkText" (click)="checkProductsInItemsList(item.id)"
-                                *ngIf="enableDetailsLink && item.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
+                            <a class="underLinelinkText" (click)="checkProductsInItemsList(item.id)" *ngIf="enableDetailsLink && item.orderStatus == 'Prepared'">{{ 'Edit' | translate}}</a>
                             <a class="disabled" *ngIf="enableDetailsLink && item.orderStatus != 'Prepared'" disabled>{{
                                 'Edit' | translate}}</a>
                         </td>
                         <td>
-                            <a class="underLinelinkText" (click)="resend(item)"
-                                [class.disabled]="!enableResendLink && !isClinicAdmin ? true : null">{{ 'ReSend' |
+                            <a class="underLinelinkText" (click)="resend(item)" [class.disabled]="!enableResendLink && !isClinicAdmin ? true : null">{{ 'ReSend' |
                                 translate}}</a>
                         </td>
                         <td>
-                            <a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{item.id}}"
-                                *ngIf="isClinicAdmin || enableReceiveLink">{{ 'ReceiveQuantity' | translate}}</a>
+                            <a class="underLinelinkText" routerLink="/clinic/purchasing/receiveOrder/{{item.id}}" *ngIf="isClinicAdmin || enableReceiveLink">{{ 'ReceiveQuantity' | translate}}</a>
                             <a class="disabled" *ngIf="!isClinicAdmin && !enableReceiveLink" disabled>{{
                                 'ReceiveQuantity' | translate}}</a>
                         </td>
                         <td>
-                            <a class="underLinelinkText" (click)="closeOrder(item.id)"
-                                [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Close' |
+                            <a class="underLinelinkText" (click)="closeOrder(item.id)" [class.disabled]="!enableDetailsLink && !isClinicAdmin ? true : null">{{ 'Close' |
                                 translate}}</a>
                         </td>
                     </tr>
@@ -172,7 +168,7 @@
     </div>
 </div>
 <button data-toggle="modal" data-target="#confirm" type="button" style="display:none" #btnConfirm></button>
-<!--<div id="confirm" class="modal fade" role="dialog">
+<div id="confirm" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">
@@ -190,7 +186,7 @@
         </div>
 
     </div>
-</div>-->
+</div>
 <!-- <p-dialog id="confirme" [header]="'ItemsListConfirmation' | translate" [(visible)]="display" [width]="600" modal="modal" responsive="true" (click)="clearMsg()">
 
     <div>

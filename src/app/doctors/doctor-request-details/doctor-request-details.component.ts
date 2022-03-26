@@ -83,6 +83,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
 
 
     ngOnInit(): void {
+        debugger;
         this.lstToTranslated = ['label', 'labelTranslation'];
         this.treeDataSourceItems.push(this.Medical);
         this.treeDataSourceItems.push(this.NonMedical);
@@ -134,7 +135,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
 
     }
     onSubmit(): void {
-
+debugger;
         let vm = this;
         vm.showProgress = true;
         vm.inventoryRequestObject.doctorUserId = vm.storage.retrieve("UserID");

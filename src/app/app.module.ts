@@ -23,7 +23,7 @@ import { ClinicService } from './clinics/shared/clinic.service';
 import { DoctorService } from './doctors/shared/doctor.service';
 import { InsuranceService } from './insurance/shared/insurance.service';
 import { NurseService } from './nurses/shared/nurse.service';
-import { PatientService } from './patients/shared/patient.service';
+// import { PatientService } from './patients/shared/patient.service';
 import { ReceptionistService } from './receptionists/shared/receptionist.service';
 import { SystemAdminService } from './systemAdmins/shared/system-admin.service';
 import { VendorDetailGuard } from './systemAdmins/systemAdmins-vendor-basicData/vendor-guard.service';
@@ -124,7 +124,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         DoctorService,
         InsuranceService,
         NurseService,
-        PatientService,
+        // PatientService,
         ReceptionistService,
         SystemAdminService,
         VendorDetailGuard,

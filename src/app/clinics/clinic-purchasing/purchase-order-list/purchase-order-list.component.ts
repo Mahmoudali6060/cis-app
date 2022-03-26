@@ -186,6 +186,7 @@ export class PurchaseOrderList {
 
     ///
     checkProductsInItemsList(id: any) {
+        debugger;
         let vm = this;
         let itemsList = [];
         let order = vm.ordersList.find(o => o.id == id);
@@ -200,7 +201,7 @@ export class PurchaseOrderList {
         }
         if (vm.itemsMsge != '') {
             vm.itemsMsge += "Do you want to use the desired orderd quantities instead these orderd quantities that the order has. ";
-            //this.btnConfirm.nativeElement.click();
+            this.btnConfirm.nativeElement.click();
             this.display = true;
         }
 

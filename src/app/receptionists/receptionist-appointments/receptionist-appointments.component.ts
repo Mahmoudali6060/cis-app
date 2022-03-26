@@ -621,7 +621,11 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     }
 
                     thisComp.initialView = true;
+                    debugger;
                     //thisComp.fullCallendar.refreshSlotDuration(formattedSlotDuration, scrollTime);
+                    thisComp.calendarOptions.slotDuration = formattedSlotDuration;
+                    thisComp.calendarOptions.slotLabelInterval = formattedSlotDuration;
+
                     thisComp.initialView = false;
                     //Update calendar events
                     thisComp.events = response.calendarEvents;
@@ -983,6 +987,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
 
     updateCalendarEvents(appointment: any, isNewAppointment: boolean) {
+        debugger;
         let evnt: CalendarEvent = new CalendarEvent();
         this.updateEvent(evnt, appointment);
 
@@ -1090,7 +1095,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         else if (appointment.flag)
             evnt.className = 'calendarEvent-flaged';
         else
-            evnt.className='calendarEvent';
+            evnt.className = 'calendarEvent';
 
     }
 

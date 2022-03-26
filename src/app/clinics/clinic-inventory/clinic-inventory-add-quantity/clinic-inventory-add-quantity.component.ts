@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input } from '@angular/core';
+﻿import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TreeNode } from 'primeng/api';
 import { ClinicService } from '../../../clinics/shared/clinic.service';
@@ -68,6 +68,8 @@ export class ClinicInventoryAddQuantity implements OnInit {
     productName: string = "";
     lstToTranslated: string[] = [];
     translateObjects = new TranslateObjectsPipe(this.storage);
+    @ViewChild('tree') tree!: any;
+
     ngOnInit(): void {
         this.lstToTranslated = ['label', 'labelTranslation'];
         this.treeDataSourceItems.push(this.Medical);
@@ -88,7 +90,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
 
                     thisComponent.Medical.children = [];
                     thisComponent.NonMedical.children = [];
-
+                    debugger;
                     for (let product of response) {
                         if (product.parent == undefined && product.productGroupType == "Medical") {
                             thisComponent.Medical.children.push(product);
@@ -185,5 +187,12 @@ export class ClinicInventoryAddQuantity implements OnInit {
             //}
             // this.clear();
         }
+    }
+
+    filterTree(event: any) {
+        debugger
+        let query = event.target.value;
+            this.tree.onFilter(query, "global", "contains");
+      
     }
 }

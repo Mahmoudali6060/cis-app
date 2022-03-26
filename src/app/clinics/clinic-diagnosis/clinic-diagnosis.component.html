@@ -7,19 +7,18 @@
     <clinic-tab [isDiagnosisSelected]='selectDiagnosisTab' *ngIf="isClinicAdmin"></clinic-tab>
     <shared-tabs [isDiagnosisSelected]='selectDiagnosisTab' *ngIf="!isClinicAdmin"></shared-tabs>
     <div class="row ">
-            
-            <div class="row " >
-                <div class="NBbreadcrumb">
-                    <a>{{ 'Clinic' | translate}}</a> &nbsp;/
-                    {{ 'Diagnosis' | translate}}
-                </div>
 
+        <div class="row ">
+            <div class="NBbreadcrumb">
+                <a>{{ 'Clinic' | translate}}</a> &nbsp;/ {{ 'Diagnosis' | translate}}
             </div>
+
+        </div>
 
         <div>
             <div class="row well">
                 <div class="">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DiagnosisAndGroupsPopup" (click)="passParentGroupInfo()" disabled="{{ enableAddRootBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'AddRootDiagnoseGroup' | translate}}</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#DiagnosisAndGroupsPopup" (click)="passParentGroupInfo('')" disabled="{{ enableAddRootBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'AddRootDiagnoseGroup' | translate}}</button>
                     <button type="button" class="hidden" #btnAddDiagnosisGroup data-toggle="modal" data-target="#DiagnosisAndGroupsPopup"></button>
                     <button type="button" class="btn btn-primary" (click)="expandAll()">{{ 'ExpandAll' | translate}}</button>
                     <button type="button" class="btn btn-primary" (click)="collapseAll()">{{ 'CollapseAll' | translate}}</button>
@@ -35,18 +34,15 @@
                         </div>
                     </div>
                 </div>
-           
+
             </div>
             <br />
             <div id="print-section" class="">
-                
+
                 <div class="row well">
                     <p-tree [value]="treeDataSourceItems | filterbynameorcode:filterString : leafType" selectionMode="single" [(selection)]="selectedNode">
                         <ng-template let-node pTemplate="Diagnose">
-                            <span class="nav-icon"><i class="fa fa-cube"></i></span>
-                            &nbsp;
-                            {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
-                            &nbsp; &nbsp;
+                            <span class="nav-icon"><i class="fa fa-cube"></i></span> &nbsp; {{selectedLang === 'ar' ? node.label : node.labelTranslation}} &nbsp; &nbsp;
                             <a [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
                                 <i class="fa fa-pencil fa-2x" (click)="displayPopup(node)" style="color: #32bea6;"></i>
 
@@ -59,11 +55,9 @@
                             </label>
                         </ng-template>
                         <ng-template let-node pTemplate="DiagnosisGroup">
-                            <span class="nav-icon"><i class="fa fa-cubes"></i></span>
-                            &nbsp;
+                            <span class="nav-icon"><i class="fa fa-cubes"></i></span> &nbsp;
                             <!--{{node.label}}-->
-                            {{selectedLang === 'ar' ?  node.label : node.labelTranslation}}
-                            &nbsp; &nbsp;
+                            {{selectedLang === 'ar' ? node.label : node.labelTranslation}} &nbsp; &nbsp;
                             <a #btnAddDiagnosisGroup data-toggle="modal" data-target="#DiagnosisAndGroupsPopup" [class.disabled]="!enableAddRootBtn && !isClinicAdmin ? true : null">
                                 <img src="assets/images/addImage.png" (click)="passParentGroupInfo(node)" />
                             </a>
@@ -100,22 +94,21 @@
                     <table>
                         <tr>
                             <td *ngFor="let item of rbSelections; let idx = index">
-                                <input type="radio" name="radiogroup" [value]="item.value"
-                                       [checked]="item.value == selectedAction" #checkbox (change)="onCheckboxSelectionChange(checkbox.value)" disabled="{{ enableCheckBox ? '' :'disabled'}}">{{item.text| translate}}
+                                <input type="radio" name="radiogroup" [value]="item.value" [checked]="item.value == selectedAction" #checkbox (change)="onCheckboxSelectionChange(checkbox.value)" disabled="{{ enableCheckBox ? '' :'disabled'}}">{{item.text|
+                                translate}}
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div *ngIf="isDiagnoseSelected">
-                <clinic-manage-diagnose [(selectedDiagnoseId)]='toSaveDiagnoseId' [(selectedParentGroupId)]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                        [(selectedParentGroupName)]='parentDiagnosisGroupName' (onDiagnoseChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnose>
+                <clinic-manage-diagnose [(selectedDiagnoseId)]='toSaveDiagnoseId' [(selectedParentGroupId)]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn" [(selectedParentGroupName)]='parentDiagnosisGroupName' (onDiagnoseChanged)="updateSelectedNode($event)"
+                    (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnose>
             </div>
             <div *ngIf="isDiagnosisGroupSelected">
-                <clinic-manage-diagnosis-group [(selectedDiagnosisGroupId)]='toSaveDiagnosisGroupId' [(selectedParentGroupId)]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn"
-                                               [(selectedParentGroupName)]='parentDiagnosisGroupName' (onDiagnosisGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnosis-group>
+                <clinic-manage-diagnosis-group [(selectedDiagnosisGroupId)]='toSaveDiagnosisGroupId' [(selectedParentGroupId)]='parentDiagnosisGroupId' [isClinicAdmin]="isClinicAdmin" [enableSaveBtn]="enableSaveBtn" [(selectedParentGroupName)]='parentDiagnosisGroupName'
+                    (onDiagnosisGroupChanged)="updateSelectedNode($event)" (onIsNew)="setIsNewValue($event)" (onCancel)="closeDiagnosisAndGroupsPopup()"></clinic-manage-diagnosis-group>
             </div>
         </div>
     </div>
 </div>
-

@@ -1,6 +1,6 @@
-﻿<div *ngIf="showProgress">
+﻿<!-- <div *ngIf="showProgress">
     <loading></loading>
-</div>
+</div> -->
 
 
 <form *ngIf="active" class="form-horizontal" name="userRegistrationForm" #userRegistrationForm="ngForm">
@@ -83,8 +83,7 @@
         <!--pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"-->
         <label for="txtEmail" class="col-md-2 control-label">{{ 'Email' | translate}}</label>
         <div class="col-md-10">
-            <input type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" class="form-control" id="txtEmail" name="txtEmail"
-                   [(ngModel)]='user.email' #txtEmail="ngModel" required>
+            <input type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" class="form-control" id="txtEmail" name="txtEmail" [(ngModel)]='user.email' #txtEmail="ngModel" required>
             <div [hidden]="txtEmail.valid || txtEmail.pristine" class="alert alert-danger">
                 {{ 'RequiredField' | translate}}
             </div>
@@ -149,5 +148,3 @@
     </div>
 
 </form>
-
-

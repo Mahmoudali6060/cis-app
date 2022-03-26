@@ -98,6 +98,7 @@ export class PatientNotesComponent implements OnChanges, OnInit {
     }
 
     getClinicNotbyId() {
+        debugger
         let vm = this;
 
         vm.showProgress = true;

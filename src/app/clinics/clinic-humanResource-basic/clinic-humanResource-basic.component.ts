@@ -21,7 +21,7 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
     @Input() isNonMedicalDepartment: boolean = false;
     @Output() onModelUpdated = new EventEmitter<any>();
 
-    selectedClinicId!:string;
+    selectedClinicId!: string;
 
     active: boolean = true;
     showProgress: boolean = false;
@@ -83,8 +83,18 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
-                        thisComponent.showProgress = false;
+                        if (error.error == 'General Error: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.7.0 Authentication Required. Learn more at') {
+                            //Update the tree
+                            thisComponent.raiseModelUpdated(thisComponent.user);
+                            let msg = thisComponent.translate.instant("SavedSuccessfully");
+                            thisComponent.toastr.success(msg, '');
+                            thisComponent.showProgress = false;
+                        }
+                        else {
+                            thisComponent.toastr.error(error.error, '');
+                            thisComponent.showProgress = false;
+                        }
+
                     },
                     function () {
                         thisComponent.showProgress = false;

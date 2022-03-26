@@ -8,13 +8,10 @@
         <div class="form-group">
             <label class="control-label col-md-2" for="txtRemainingBalance">{{ 'RemiaingCredit' | translate}}</label>
             <div class="col-md-2">
-                <input id="txtRemainingBalance" name="txtRemainingBalance"
-                       class="form-control" [(ngModel)]='currentCredit.remaining' disabled />
+                <input id="txtRemainingBalance" name="txtRemainingBalance" class="form-control" [(ngModel)]='currentCredit.remaining' disabled />
             </div>
             <div class="col-md-4">
-                <button type="button" class="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#newSMSCredit">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSMSCredit">
                    {{ 'AddCredit' | translate}}
                 </button>
             </div>
@@ -28,7 +25,7 @@
         <hr />
     </div>
     <div class="padding2"></div>
-  
+
     <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-search"></i>
         <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
@@ -48,7 +45,7 @@
                 <td>{{item.credit}}</td>
                 <td>{{item.previousRemaining}}</td>
                 <td>{{item.rechargeDateString}}</td>
-            {{item.creationDateString}}
+                {{item.creationDateString}}
             </tr>
         </tbody>
     </table>
@@ -71,7 +68,7 @@
                         <div class="col-md-4">
                             <input type="number" id="txtCredit" name="txtCredit" class="form-control" [(ngModel)]='newCredit.credit' #txtCredit="ngModel" required />
                             <div [hidden]="txtCredit.valid || txtCredit.pristine" class="alert alert-danger">
-                      {{ 'RequiredField' | translate}}
+                                {{ 'RequiredField' | translate}}
                             </div>
                         </div>
                     </div>
@@ -83,12 +80,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary"
-                            [disabled]="!smsCreditForm.form.valid || !enableMyAccountBtn">
+                    <button type="submit" class="btn btn-primary" [disabled]="!smsCreditForm.form.valid || !enableMyAccountBtn">
                         {{ 'Add' | translate}}
                     </button>
-                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}"
-                            data-dismiss="modal" #btnSmsCreditModalClose>
+                    <button type="button" class="btn btn-primary" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" data-dismiss="modal" #btnSmsCreditModalClose>
                         {{ 'Cancel' | translate}}
                     </button>
                 </div>
