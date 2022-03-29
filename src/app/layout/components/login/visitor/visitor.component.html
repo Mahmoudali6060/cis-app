@@ -1,5 +1,5 @@
 <form [formGroup]="visitorForm" novalidate>
-  <div class="form-group position-relative">
+  <!-- <div class="form-group position-relative">
     <input type="email" class="form-control" formControlName="Email" />
     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at" width="24" height="24"
       viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -37,5 +37,12 @@
   </div>
   <button class="btn btn-primary" type="submit" [disabled]='!visitorForm.valid' (click)="login()">
     {{ "login.signIn" | translate }}
-  </button>
+  </button> -->
+  <div class="col-lg-12 col-md-12 "style="text-align: center;">
+    <h2>{{"subscrible.h2"| translate}}  {{"subscrible.br"| translate}}  </h2> 
+    <a class="col-md-6" target="_blank" href="https://play.google.com/store/apps/details?id=com.connclinic.app.flutter"> <img src="assets/img/iconfinder_android-app-on-google-play_720092.png" alt="HTML tutorial" style="width:180px;height:180px;border:0;margin-top: -60px;">
+                </a>
+     <a class="col-md-6" target="_blank" href="https://apps.apple.com/eg/app/dms-egypt/id1440027807"><img src="assets/img/appstore.png" alt="HTML tutorial" style="width:170px;height:55px;border:0;"></a>
+</div>
+
 </form>

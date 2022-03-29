@@ -1,6 +1,6 @@
-<form [formGroup]="doctorForm" novalidate>
+<form [formGroup]="doctorForm" novalidate style="text-align: center;">
   <div class="form-group position-relative">
-      <input type="email" class="form-control" formControlName="Email" />
+      <input type="email" placeholder="Email" class="form-control" formControlName="Email" />
       <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
         <circle cx="12" cy="12" r="4" />
@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="form-group position-relative">
-    <input type="password" class="form-control" formControlName="Password" />
+    <input type="password" placeholder="Password" class="form-control" formControlName="Password" />
     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock-open" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <rect x="5" y="11" width="14" height="10" rx="2" />
@@ -38,7 +38,7 @@
     {{ "login.reqPass" | translate }}
   </div>
 </div>
-<button class="btn btn-primary" type="submit" [disabled]='!doctorForm.valid' (click)="login()">
+<button class="btn" style="background: #f2a000;" type="submit" [disabled]='!doctorForm.valid' (click)="login()">
   {{ "login.signIn" | translate }}
 </button>
 </form>

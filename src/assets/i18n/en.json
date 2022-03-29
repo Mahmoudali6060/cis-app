@@ -1024,101 +1024,127 @@
   "ContactInformation": "There is no contact information for the given system adminsitrator user",
   "InvoiceEndorsedSuccessfully": "Invoice endorsed successfully",
   "OldQuantity": "Old Quantity",
-  "dir": "ltr",
-  "currentLang": "en",
-  "navBar": {
-    "logo": "en-logo",
-    "Home": "Home",
-    "About": "About",
-    "Contact": "Contact Us",
-    "departments": "Departments",
-    "searchPopup": {
-      "searchHeading": "What Do You Want ?",
-      "searchButton": "Search",
-      "closeButton": "Close"
+  "dir":"ltr",
+    "currentLang":"en",
+
+
+    "navBar":{
+        "logo":"en-logo",
+        "Home":"Home",
+        "About":"About",
+        "Contact":"Contact Us",
+        "departments":"Departments",
+        "searchPopup":{
+            "searchHeading":"What Do You Want ?",
+            "searchButton":"Search",
+            "closeButton":"Close"
+        }
+
+    },
+    "slider":{
+        "badge":"ConClinic",
+        "h1":"Quality Care",
+        "p":"We care about your health and the dates of your visits to doctors, while keeping all your medical information",
+        "badge2":"Wide",
+        "h2":"Specilities",
+        "p2":"You can find all doctors in all specialties",
+        "badge3":"speed",
+        "h3":"Easy booking",
+        "p3":"You can book online with a message "
+    
+    },
+    "welcome":{
+        "heading":"Welcome to our ConClinic",
+        "p":"Care About Your Health",
+        "description":" The Conclinic website is a website that manages all aspects of management for clinics and medical centers, and there is a special Conclinic  app for advertisements for clinics with the ability to book online",
+        "h5":"We Care About Your Health",
+        "subtitleDesc-1":"You can organize your clinic appointments while reducing crowding ",
+        "subtitleDesc-2":"You can insert the patient's personal information, insert the diagnosis, medications and solutions, and save the file with easy access to it ",
+        "readMore":"Read More"
+    },
+    "whatWeDo":{
+        "heading":"What We Do Best",
+        "p":"Our reservision",
+        "dna":"Body Meature",
+        "desc":" you can insert in app your medical information such as height, weight, blood type, and so on",
+        "emergency":"Emergency Care",
+        "desc2":"You can easily find the right doctor with online booking",
+        "booking":"Easy Booking",
+        "desc3":"You can book online with a message ",
+        "treatment":"General Treatment",
+        "desc4":"You can find all doctors in all specialties"
+    },
+    "statistics":{
+        "saved":"Saved hearts",
+        "car":"Ambulance Car",
+        "chair":"Wheelchair",
+        "rooms":"Clinics"
+    },
+    "subscrible":{
+        "subscribleNow":"Get ConClinic For Mobile",
+        "h2":"You can reserve",
+        "br":"Through our applications",
+        "email":"Enter email address"
+    },
+    "footer":{
+        "about":"About Us",
+        "firstP":"The Conclinic website is a website that manages all aspects of management for clinics and medical centers.",
+        "secondP":"There is a Conclinic  application  to book online.",
+        "contact":"CONTACT INFORMATION",
+        "NAVIGATION":"NAVIGATION",
+        "homeLink":"Home",
+        "aboutLink":"About",
+        "departmentLink":"Deparments",
+        "contactLink":"Contact",
+        "copyRights":"Copyright © 2021  ConClinic"
+    },
+    "team":{
+        "heading":"Our Team",
+        "p":"Add Short Description",
+        "name":"Jeremy H.",
+        "job":"maneger"
+    },
+    "departs":{
+        "heading":"Departments",
+        "p":"We have all departments ",
+        "Neurology":"Neurology",
+        "dental":"Dental",
+        "eyeCare":"Eye Care",
+        "babyCare":"Baby Care",
+        "internalMedicine":"Internal Medicine",
+        "cardiology":"Cardiology",
+        "orthopedicPhysician":"Orthopedic Physician",
+        "gynecologist":"Gynecologist and Obstetrician",
+        "otorhinolaryngology":"Otorhinolaryngology",
+        "h4":"We are having department to us",
+        "descNeurology":" A neurologist is a doctor specialized in diagnosing and treating disorders that affect the brain, spinal cord, nerves and muscles in the human body Where it examines the mental and physical condition of patients and conducts medical examinations in various ways, such as medical images, and evaluates the results of diagnosing and treating diseases",
+        "descCardiology":"It is a branch of internal medicine concerned with heart health and treatment of diseases related to the heart and circulatory system. This field includes medical diagnosis and treatment of congenital heart defects, coronary artery disease, heart failure, valvular heart disease, and electrophysiology. There are pediatric cardiologists who are pediatricians who specialize in heart diseases, and there is a cardiac surgery department",
+        "descOrthopedicPhysician":"Orthopedics is one of the most important medical specialties, and orthopedics is defined as a complex medical specialty that deals with diseases and injuries of the musculoskeletal system, which includes bones, joints, muscles and tendons. They care for children who suffer from spinal deformities, and also care for those who suffer from arthritis, as well as cases of broken bones",
+        "descGynecologist":"Gynecology is one of the branches of modern medicine and is specialized in female physiology and the health of the female reproductive system, and is also concerned with the breast",
+        "descOtorhinolaryngology":"It is a surgical subspecialty of medicine that deals with conditions of the ear, nose, throat, and related organs of the head and neck. Doctors who specialize in this field are called otolaryngologists or surgeons, or head and neck surgeons. Patients seek an otolaryngologist for the treatment of diseases of the ear, nose, throat, and skull base, and for the surgical management of cancers and polyps of the head and neck",
+        "descDental":"Dentistry is a branch of medicine concerned with treating and diagnosing diseases of the mouth, jaws, teeth, and the tissues surrounding them.  The dentist can diagnose, treat and prevent dental diseases such as fillings, bridges, dentures, orthodontics, extractions, treatment of gum diseases, and oral and dental surgeries",
+        "descEyeCare":"Eye care is a branch of medicine that deals with diseases and surgery of the eyes and the visual tracts, including the eye, the optic nerve, the retina, the vitreous body, the lens, the iris, the cornea, the eyelids, and the areas surrounding the eye such as: the lacrimal system and the eyelids. Diseases and refractive errors, this may include treating eye diseases such as conjunctivitis or inflammation, or surgeries to correct vision, implanting lenses, treating glaucoma (black water), cataracts, diseases of the retina, optic nerve and other diseases. The course of some eye diseases ranges from acute, such as sudden vision loss, to subacute, and chronic, such as cataracts and diabetic retinopathy",
+        "descBabyCare":"Baby care is a branch of medicine concerned with the care of children of all ages, from birth to adolescence. Therefore, it includes the various aspects of the development and physical and psychological health of the child, including the treatment of diseases, disabilities and various diseases. It often extends to preventive health care",
+        "descInternalMedicine":"Internal medicine is one of the branches of medicine and the specialty of internal medicine is considered one of the largest specialties in the field of medicine, which specializes in diagnosing and treating all diseases that affect the internal organs without the need for surgical intervention. Internal medicine is also concerned with the construction and function of all body systems and the diseases that affect them, and thus internal medicine is considered the link between all medical specialties.Internal medicine statisticians treat many diseases related to blood vessels, metabolism, hormones, endocrine glands, diabetes, digestive organs, liver, and in the diagnosis and non-surgical treatment of internal organs, such as treating diseases that affect the heart, blood circulation, urinary tract, respiratory systems, skeletal system, and connective tissues. They specialize in such as addiction medicine, tropical medicine and infectious diseases"
+    },
+    "contact":{
+        "head":"Contact Us",
+        "desc":"Get in touch...",
+        "name":"Name",
+        "email":"Email",
+        "subject":"Subject",
+        "phone":"Phone",
+        "message":"Message",
+        "send":"Send"
+    },
+    "login":{
+        "head":"Login As",
+        "doctor":"Doctor",
+        "visitor":"Visitor",
+        "email":"Email",
+        "password":"Password",
+        "reqEmail":"Email is Required",
+        "reqPass":"Password is Required",
+        "signIn":"Sign In"
     }
-  },
-  "slider": {
-    "badge": "co clinic",
-    "h1": "Quality Care",
-    "p": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita ea facilis quidem totam aliquam id non reprehenderit nesciunt minima perspiciatis?"
-  },
-  "welcome": {
-    "heading": "Welcome to our Co CLINIC",
-    "p": "Add Short Description",
-    "description": " Lorem ipsum dolor sit amet, consectetur adipiscing elit.Sed blandit massa vel mauris sollicitudin dignissim.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at placerat ante. Praesent nulla nunc, pretium dapibus efficitur in, auctor eget elit. Lorem ipsum dolor sit amet",
-    "h5": "We Care About Your Health",
-    "subtitleDesc-1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at placerat ante. Praesent nulla nunc, pretium dapibus efficitur in, auctor eget elit. Lorem ipsum dolor sit amet",
-    "subtitleDesc-2": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus at placerat ante. Praesent nulla nunc, pretium dapibus efficitur in, auctor eget elit. Lorem ipsum dolor sit amet",
-    "readMore": "Read More"
-  },
-  "whatWeDo": {
-    "heading": "What We Do Best",
-    "p": "Add Short Description",
-    "dna": "DNA Testing",
-    "desc": " Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi,ipsam.",
-    "emergency": "Emergency Care",
-    "booking": "Easy Booking",
-    "treatment": "General Treatment"
-  },
-  "statistics": {
-    "saved": "Saved hearts",
-    "car": "Ambulance Car",
-    "chair": "Wheelchair",
-    "rooms": "Hospital Rooms"
-  },
-  "subscrible": {
-    "subscribleNow": "Subscrible now",
-    "h2": "Get every single",
-    "br": "update you will get",
-    "email": "Enter email address"
-  },
-  "footer": {
-    "about": "About Us",
-    "firstP": "Duis aute irure dolor in reprehenderit in voluptate velit esse.",
-    "secondP": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.",
-    "contact": "CONTACT INFORMATION",
-    "NAVIGATION": "NAVIGATION",
-    "homeLink": "Home",
-    "aboutLink": "About",
-    "faqLink": "FAQ",
-    "contactLink": "Contact",
-    "copyRights": "Copyright © 2021  CO-CLINIC"
-  },
-  "team": {
-    "heading": "Our Team",
-    "p": "Add Short Description",
-    "name": "Jeremy H.",
-    "job": "maneger"
-  },
-  "departs": {
-    "heading": "Departments",
-    "p": "Add Short Description",
-    "Neurology": "Neurology",
-    "dental": "Dental",
-    "eyeCare": "Eye Care",
-    "babyCare": "Baby Care",
-    "h4": "We are having department to us",
-    "desc": " Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi,ipsam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi"
-  },
-  "contact": {
-    "head": "Contact Us",
-    "desc": "Get in touch...",
-    "name": "Name",
-    "email": "Email",
-    "subject": "Subject",
-    "phone": "Phone",
-    "message": "Message",
-    "send": "Send"
-  },
-  "login": {
-    "head": "Login As",
-    "doctor": "Doctor",
-    "visitor": "Visitor",
-    "email": "Email",
-    "password": "Password",
-    "reqEmail": "Email is Required",
-    "reqPass": "Password is Required",
-    "signIn": "Sign In"
-  }
 }
