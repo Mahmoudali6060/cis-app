@@ -903,7 +903,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                         function (response: any) {
                             thisComp.updateCalendarEvents(response, isNewAppointment);
                             thisComp.closeAppointmentModal();
-
+                            thisComp.getAppointmentDetailsWrapper(thisComp.doctorId);
                             let msg = thisComp.translate.instant("SavedSuccessfully");
                             thisComp.toastr.success(msg, '');
                         },
