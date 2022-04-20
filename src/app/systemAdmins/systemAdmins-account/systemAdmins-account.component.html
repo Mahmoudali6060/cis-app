@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <input type="tel" id="txtMobileNumber" name="txtMobileNumber"
+                        <input type="tel" id="txtMobileNumber" name="txtMobileNumber" class="form-control"
                                pattern="^(\+?[0-9]{1,5})?([1-9][0-9]{9})$"
                                placeholder="Number" [(ngModel)]='model.reachInfo.mobile' #txtMobileNumber="ngModel" required />
                         <div [hidden]="txtMobileNumber.valid || txtMobileNumber.pristine" class="alert alert-danger">

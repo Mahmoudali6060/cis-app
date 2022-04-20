@@ -70,8 +70,8 @@
                     </th>
                     <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
                     </th>
-                    <th><span styleClass="text-center width70">{{'SelectPatient' | translate}} </span>
-                    </th>
+                    <!-- <th><span styleClass="text-center width70">{{'SelectPatient' | translate}} </span>
+                    </th> -->
                 </tr>
 
             </ng-template>
@@ -93,7 +93,8 @@
                         <input type="checkbox" class="ace ace-switch ace-switch-6" #patientType
                             [checked]="item.isActive" id="chkBoxIsActive" name="chkBoxIsActive" [value]="item.isActive"
                             (click)="changePatientActivation(patientType.value,item.id, $event)"
-                            disabled="{{ enableActivatePatientBtn ? '' :'disabled'}}" />
+                            disabled="{{ enableActivatePatientBtn ? '' :'disabled'}}" 
+                            />
                         <span class="lbl"></span>
                     </td>
                     <td style="text-align: center">
@@ -101,10 +102,10 @@
                             <img src="assets/images/edit-24.png" />
                         </a>
                     </td>
-                    <td>
+                    <!-- <td>
                         <img src="assets/images/if_hand_finger_17529.png" (click)="selectPatientForSearch(item.id)"
                             width="30" height="30" />
-                    </td>
+                    </td> -->
                 </tr>
             </ng-template>
             <ng-template pTemplate="emptymessage">
