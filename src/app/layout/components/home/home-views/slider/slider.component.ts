@@ -6,7 +6,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent implements OnInit {
-  constructor() {}
+  public imageIndex: number = 3;
 
-  ngOnInit(): void {}
+  constructor() { }
+
+  ngOnInit(): void { }
+
+  public prev() {
+    if (this.imageIndex > 1) {
+      this.imageIndex--;
+
+    }
+
+  }
+
+  public next() {
+    if (this.imageIndex < 3) {
+      this.imageIndex++;
+    }
+  }
 }

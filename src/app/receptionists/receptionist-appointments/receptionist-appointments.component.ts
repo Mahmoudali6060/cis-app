@@ -170,9 +170,6 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         // eventColor: '#000000',
         // eventBackgroundColor: '#ffffff',
         initialView: 'timeGridWeek',
-        // businessHours: {
-        //     color: '#000000'
-        // },
 
         allDaySlot: true,
         slotDuration: calendarSlotDuration,
@@ -715,7 +712,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 if (endMintues == "00:00:00")
                     endMintues = "23:59:59";
 
-
+                debugger;
                 let bgEvent: CalendarEvent = new CalendarEvent();
                 let startDateTime = this.utilityClass.getISODateFormat(day) + "T" + startMinutes;
                 let endDateTime = this.utilityClass.getISODateFormat(day) + "T" + endMintues;

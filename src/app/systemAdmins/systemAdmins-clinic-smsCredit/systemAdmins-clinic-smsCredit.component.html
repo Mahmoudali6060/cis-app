@@ -1,8 +1,4 @@
-﻿<div *ngIf="showProgress">
-    <loading></loading>
-</div>
-
-<div class="padding5">
+﻿<div class="padding5">
 
     <div class="row">
         <div class="form-group">
@@ -12,7 +8,7 @@
             </div>
             <div class="col-md-4">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newSMSCredit">
-                   {{ 'AddCredit' | translate}}
+                    {{ 'AddCredit' | translate}}
                 </button>
             </div>
         </div>
@@ -28,8 +24,47 @@
 
     <div class="inner-addon left-addon">
         <i class="glyphicon glyphicon-search"></i>
-        <input #gb type="text" pInputText size="50" class="inputSearch" [placeholder]="'Search' | translate">
+        <input #gb type="text" pInputText size="50" class="inputSearch" disabled="{{ enableMyAccountBtn ? '' :'disabled'}}" (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate">
+
     </div>
+    <!-- 
+    <p-table #dt [value]="smsCreditsList | translateObjects  : null : null : lstToTranslated" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"> -->
+
+    <p-table #dt [value]="smsCreditsList | translateObjects  : null : null : lstToTranslated" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0" [globalFilterFields]="['credit','previousRemaining','rechargeDateString','creationDateString']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'Credit' | translate}}</th>
+                <th>{{ 'PreviousRemaining' | translate}}</th>
+                <th>{{ 'RechargeDate' | translate}}</th>
+                <th>{{ 'CreationDate' | translate}}</th>
+
+            </tr>
+
+        </ng-template>
+
+        <ng-template pTemplate="body" let-object>
+            <tr class="p-selectable-row">
+                <td>
+                    {{object.credit}}
+                </td>
+                <td>
+                    {{object.previousRemaining}}
+                </td>
+                <td>
+                    {{object.rechargeDateString}}
+                </td>
+                {{object.creationDateString}}
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">No data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
 
     <table id="print-section" class="hidden">
         <thead class="alert alert-info">

@@ -1,3 +1,7 @@
-﻿.fc-timegrid-event .fc-event-time{
+﻿.fc-timegrid-event .fc-event-time {
     display: none !important;
-  }
+}
+
+.red-cell {
+    background-color: red !important;
+}
