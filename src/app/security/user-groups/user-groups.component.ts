@@ -33,6 +33,8 @@ export class UserGroupsComponent implements OnInit, OnChanges {
 
     usersList: any[] = [];
     permissionsList!: any;
+    groupedPermissionsList: any = [];
+
 
     selectedGroupUsersIDs: any = [];
     selectedGroupPermissions: PermissionAssignment[] = [];
@@ -64,8 +66,9 @@ export class UserGroupsComponent implements OnInit, OnChanges {
 
         this.userGroupsList = this.userGroupsWrapper.userGroups;
         this.usersList = this.userGroupsWrapper.users;
+        debugger;
         this.permissionsList = this.userGroupsWrapper.permissions;
-
+        this.prepareGroupedPermissionList(this.permissionsList);
         if (this.userGroupsList == null || this.userGroupsList == undefined)
             this.userGroupsList = [];
 
@@ -75,6 +78,34 @@ export class UserGroupsComponent implements OnInit, OnChanges {
         if (this.permissionsList == null || this.permissionsList == undefined)
             this.permissionsList = [];
 
+    }
+    prepareGroupedPermissionList(permissionsList: any) {
+        debugger;
+        for (let item of permissionsList) {
+            let exsitedItem = this.groupedPermissionsList.find((x: any) => x.categoryFriendlyName == item.categoryFriendlyName);
+            let newItem = {
+                id: item.id,
+                key: item.key,
+                isFullControlAvailable: item.isFullControlAvailable,
+                isViewAvailable: item.isViewAvailable,
+                isAddAvailable: item.isAddAvailable,
+                isEditAvailable: item.isEditAvailable,
+                isActivateAvailable: item.isActivateAvailable,
+                isAllowAvailable: item.isAllowAvailable,
+                categoryFriendlyName: item.categoryFriendlyName
+            };
+            if (!exsitedItem) {
+                exsitedItem = {
+                    categoryFriendlyName: item.categoryFriendlyName
+                };
+                exsitedItem.items = [];
+                exsitedItem.items.push(newItem);
+                this.groupedPermissionsList.push(exsitedItem);
+            }
+            else {
+                exsitedItem.items.push(newItem);
+            }
+        }
     }
 
     editUserGroup(id: string): void {

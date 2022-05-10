@@ -1,53 +1,32 @@
 <nav dir="{{ 'dir' | translate }}" class="navbar navbar-expand-lg navbar-light">
-  <div class="container">
-    <a class="navbar-brand" href="#" style="height: 80px;">
-      <img
-        src="assets/img/{{ 'navBar.logo' | translate }}.png"
-        width="120"
-        height="60"
-        alt="Con Clinic"
-      />
-    </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <div class="container">
+        <a class="navbar-brand" href="#" style="height: 80px;">
+            <img src="assets/img/{{ 'navBar.logo' | translate }}.png" width="120" height="60" alt="Con Clinic" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="showNavbarSupportedContent()">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink=""
-            >{{ "navBar.Home" | translate }}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" routerLink="">{{ "navBar.Home" | translate }}
             <span class="sr-only">(current)</span>
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="about">{{ "navBar.About" | translate }}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="departments">{{ "navBar.departments" | translate }}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="contact">{{ "navBar.Contact" | translate }}</a>
-        </li>
-      </ul>
-      <div class="sign lang-switch">
-        <div class="dropdown">
-          <button
-            class="btn btn-secondary dropdown-toggle"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="about">{{ "navBar.About" | translate }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="departments">{{ "navBar.departments" | translate }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="contact">{{ "navBar.Contact" | translate }}</a>
+                </li>
+            </ul>
+            <div class="sign lang-switch">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="icon icon-tabler icon-tabler-world"
@@ -68,8 +47,8 @@
               <path d="M12.5 3a17 17 0 0 1 0 18" />
             </svg>
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <span class="dropdown-item" (click)="changeLang('en')">
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <span class="dropdown-item" (click)="changeLang('en')">
               <img
                 src="assets/img/enFlag.png"
                 alt=""
@@ -93,8 +72,8 @@
        
          <span data-toggle="modal" data-target="#exampleModal">
           <img src="assets/img/search.png" alt="search" />
-        </span> 
-        <button routerLink="layout-login/doctor" class="login">
+        </span>
+                        <button routerLink="layout-login/doctor" class="login">
           <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login" width="24" height="24"
             viewBox="0 0 24 24" stroke-width="1.5" stroke="#2C3E50" fill="none" stroke-linecap="round"
             stroke-linejoin="round">
@@ -102,10 +81,10 @@
             <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
             <path d="M20 12h-13l3 -3m0 6l-3 -3" />
           </svg>
-        </button> 
-      </div>
-    </div>
-  </div>
+        </button>
+                    </div>
+                </div>
+            </div>
 </nav>
 <!-- Search Popup Component -->
 <search></search>

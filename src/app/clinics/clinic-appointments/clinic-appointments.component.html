@@ -7,15 +7,13 @@
 <shared-tabs [isAppointmentsSelected]='selectAppointmentsTab' *ngIf="!isClinicAdmin"></shared-tabs>
 <div class="row nopadding">
     <div class="NBbreadcrumb">
-        <a>{{ 'Clinic' | translate}}</a> &nbsp;/
-        {{ 'AppointmentMaster' | translate}}
+        <a>{{ 'Clinic' | translate}}</a> &nbsp;/ {{ 'AppointmentMaster' | translate}}
     </div>
     <div id="divTable" class="padding5" *ngIf="!isDetailsVisible">
         <!--<h4>Select Doctor</h4>-->
         <div class="nopadding treeBorder" style="height:180px;">
             <!--<p-tree [value]="items" selectionMode="single" [(selection)]="selectedFiles"></p-tree>-->
-            <p-tree [value]="organizationStructure | translateObjects  : null : null : lstToTranslated "
-                selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)">
+            <p-tree [value]="organizationStructure | translateObjects  : null : null : lstToTranslated " selectionMode="single" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)">
                 <ng-template let-node pTemplate="Medical">
                     {{node.label}}
                 </ng-template>
@@ -32,36 +30,33 @@
         </div>
         <h4 class="h4Deco">{{ 'DoctorSchedules' | translate}}</h4>
         <div class="row text-right">
-            <button type="button" class="btn btn-primary" *ngIf="isDoctorSelected" (click)="showDetails('new')"
-                disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'NewSchedule' | translate}}</button>
+            <button type="button" class="btn btn-primary" *ngIf="isDoctorSelected" (click)="showDetails('new')" disabled="{{ enableNewBtn || isClinicAdmin ? '' :'disabled'}}">{{ 'NewSchedule' | translate}}</button>
         </div>
         <br />
         <div>&nbsp;</div>
         <div class="row">
             <div class="inner-addon left-addon">
                 <i class="glyphicon glyphicon-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                    [placeholder]="'Search' | translate" />
+                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
             </div>
 
             <!---New Table-->
-            <p-table #dt [value]="appointmentsList"
-                dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-                [rowsPerPageOptions]="[10,20,30,40,50,100]"  [paginator]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0"
-                [globalFilterFields]="['startDateString','endDateString','slotDuration','description']">
+            <!-- <p-table #dt [value]="appointmentsList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [filterDelay]="0" [globalFilterFields]="['startDateString','endDateString','slotDuration','description']">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="startDateString">{{'StartDate' | translate}} <p-sortIcon
-                                field="startDateString"></p-sortIcon>
+                        <th pSortableColumn="startDateString">{{'StartDate' | translate}}
+                            <p-sortIcon field="startDateString"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="endDateString">{{'EndDate' | translate}} <p-sortIcon field="endDateString">
+                        <th pSortableColumn="endDateString">{{'EndDate' | translate}}
+                            <p-sortIcon field="endDateString">
                             </p-sortIcon>
                         </th>
-                        <th pSortableColumn="slotDuration">{{'SlotDuration' | translate}} <p-sortIcon
-                                field="slotDuration"></p-sortIcon>
+                        <th pSortableColumn="slotDuration">{{'SlotDuration' | translate}}
+                            <p-sortIcon field="slotDuration"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="description">{{'Remarks' | translate}} <p-sortIcon field="description">
+                        <th pSortableColumn="description">{{'Remarks' | translate}}
+                            <p-sortIcon field="description">
                             </p-sortIcon>
                         </th>
                         <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
@@ -88,21 +83,16 @@
                             <span>{{item.description}}</span>
                         </td>
                         <td>
-                            <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6"
-                                type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)"
-                               />
+                            <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
                             <span class="lbl"></span>
                         </td>
                         <td style="text-align: center">
-                            <a class="pointer" (click)="showDetails(item.id)"
-                                [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                            <a class="pointer" (click)="showDetails(item.id)" [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
                                 <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
                             </a>
                         </td>
                         <td>
-                            <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer"
-                                (click)="selectAppointmentScheduleToDelete(item.id)"
-                                [class.disabled]="!enableDeleteBtn && !isClinicAdmin ? true : null">
+                            <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer" (click)="selectAppointmentScheduleToDelete(item.id)" [class.disabled]="!enableDeleteBtn && !isClinicAdmin ? true : null">
                                 <i class="glyphicon glyphicon-remove iconAd"></i>
                             </a>
                         </td>
@@ -113,6 +103,119 @@
                         <td colspan="8">No data found.</td>
                     </tr>
                 </ng-template>
+            </p-table> -->
+            <!--End Table-->
+
+            <!---New Table-->
+            <p-table #dt [value]="groupedAppointmentsList" dataKey="fullNameTranslation" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [filterDelay]="0" [globalFilterFields]="['startDateString','endDateString','slotDuration','description']">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem"></th>
+                        <th pSortableColumn="startDateString">{{'StartDate' | translate}}
+                            <p-sortIcon field="startDateString"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="endDateString">{{'EndDate' | translate}}
+                            <p-sortIcon field="endDateString">
+                            </p-sortIcon>
+                        </th>
+                        <th pSortableColumn="slotDuration">{{'SlotDuration' | translate}}
+                            <p-sortIcon field="slotDuration"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="description">{{'Remarks' | translate}}
+                            <p-sortIcon field="description">
+                            </p-sortIcon>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                        </th>
+                        <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                        </th>
+                    </tr>
+
+                </ng-template>
+                <ng-template pTemplate="body" let-appointment let-expanded="expanded">
+                    <tr style="background-color: #c1cad1;">
+                        <td>
+                            <button type="button" pButton pRipple [pRowToggler]="appointment" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                        </td>
+                        <td colspan="7">
+                            {{appointment.fullNameTranslation}}
+                        </td>
+
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="rowexpansion" let-appointment>
+                    <tr>
+                        <td colspan="8">
+                            <div class="p-p-3">
+                                <p-table [value]="appointment.items" dataKey="id">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th pSortableColumn="startDateString">{{'StartDate' | translate}}
+                                                <p-sortIcon field="startDateString"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="endDateString">{{'EndDate' | translate}}
+                                                <p-sortIcon field="endDateString">
+                                                </p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="slotDuration">{{'SlotDuration' | translate}}
+                                                <p-sortIcon field="slotDuration"></p-sortIcon>
+                                            </th>
+                                            <th pSortableColumn="description">{{'Remarks' | translate}}
+                                                <p-sortIcon field="description">
+                                                </p-sortIcon>
+                                            </th>
+                                            <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
+                                            </th>
+                                            <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
+                                            </th>
+                                            <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-object>
+                                        <tr>
+                                            <td>
+                                                {{object.startDateString}}
+                                            </td>
+                                            <td>
+                                                <span>{{object.endDateString}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{object.slotDuration}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{object.description}}</span>
+                                            </td>
+                                            <td>
+                                                <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="object.isActive" (click)="changeActivation(object.id , $event)" />
+                                                <span class="lbl"></span>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <a class="pointer" (click)="showDetails(object.id)" [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
+                                                    <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer" (click)="selectAppointmentScheduleToDelete(object.id)" [class.disabled]="!enableDeleteBtn && !isClinicAdmin ? true : null">
+                                                    <i class="glyphicon glyphicon-remove iconAd"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage">
+                                        <tr>
+                                            <td colspan="6">There are no object for this appointment yet.</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
             </p-table>
             <!--End Table-->
 
@@ -120,9 +223,7 @@
         </div>
     </div>
     <div id="divDetails" class="padding5" *ngIf="isDetailsVisible">
-        <clinic-appointment-details (onBack)="hideDetails()" [slotDurations]="slotDurations"
-            [appointmentIdValue]="appointmentId" [daysList]="daysList" [doctorIdValue]="doctorId"
-            [clinicIdValue]="clinicId" [doctorNameValue]="doctorName" [isClinicAdmin]="isClinicAdmin"
+        <clinic-appointment-details (onBack)="hideDetails()" [slotDurations]="slotDurations" [appointmentIdValue]="appointmentId" [daysList]="daysList" [doctorIdValue]="doctorId" [clinicIdValue]="clinicId" [doctorNameValue]="doctorName" [isClinicAdmin]="isClinicAdmin"
             [enableSaveBtn]="enableSaveBtn"></clinic-appointment-details>
     </div>
 </div>

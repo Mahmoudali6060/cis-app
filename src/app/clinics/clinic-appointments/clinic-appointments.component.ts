@@ -31,6 +31,8 @@ export class ClinicAppointmentsComponent implements OnInit {
     doctorName: string = "";
     slotDurations: any[] = [];
     appointmentsList!: any[];
+    groupedAppointmentsList: any = [];
+
     daysList: any[] = [];
     appointmentId = '';
     selectedFiles!: TreeNode;
@@ -127,7 +129,9 @@ export class ClinicAppointmentsComponent implements OnInit {
         let vm = this;
         this.clinicService.getAllAppointmentSchedules(vm.doctorId).subscribe(
             function (response: any) {
+                debugger;
                 vm.appointmentsList = response;
+                vm.prepareGroupedPermissionList(vm.appointmentsList);
 
             },
             function (error: any) {
@@ -146,6 +150,8 @@ export class ClinicAppointmentsComponent implements OnInit {
         this.clinicService.getAllAppointmentSchedulesUnderClinic(vm.clinicId).subscribe(
             function (response: any) {
                 vm.appointmentsList = response;
+                vm.prepareGroupedPermissionList(vm.appointmentsList);
+
             },
             function (error: any) {
                 vm.toastr.error(error, '');
@@ -160,6 +166,8 @@ export class ClinicAppointmentsComponent implements OnInit {
         this.clinicService.getAllAppointmentSchedulesUnderDepartment(vm.departmentId).subscribe(
             function (response: any) {
                 vm.appointmentsList = response;
+                vm.prepareGroupedPermissionList(vm.appointmentsList);
+
             },
             function (error: any) {
                 vm.toastr.error(error, '');
@@ -174,6 +182,8 @@ export class ClinicAppointmentsComponent implements OnInit {
         this.clinicService.getAllAppointmentSchedulesUnderDivision(vm.divisionId).subscribe(
             function (response: any) {
                 vm.appointmentsList = response;
+                vm.prepareGroupedPermissionList(vm.appointmentsList);
+
             },
             function (error: any) {
                 vm.toastr.error(error, '');
@@ -267,6 +277,7 @@ export class ClinicAppointmentsComponent implements OnInit {
                     var index = vm.appointmentsList.indexOf(selectedObject);
                     if (index > -1)
                         vm.appointmentsList.splice(index, 1);
+                    vm.prepareGroupedPermissionList(vm.appointmentsList);
 
                     // clear fields
                     //  vm.clear();
@@ -301,5 +312,51 @@ export class ClinicAppointmentsComponent implements OnInit {
         }
 
     }
+
+    prepareGroupedPermissionList(appointmentsList: any) {
+        debugger;
+        this.groupedAppointmentsList = [];
+        for (let item of appointmentsList) {
+            let exsitedItem = this.groupedAppointmentsList.find((x: any) => x.fullNameTranslation == item.fullNameTranslation);
+            let newItem = {
+                clinicId: item.clinicId,
+                description: item.description,
+                descriptionTranslation: item.descriptionTranslation,
+                endDate: item.endDate,
+                endDateString: item.endDateString,
+                fullName: item.fullName,
+                fullNameTranslation: item.fullNameTranslation,
+                id: item.id,
+                isActive: item.isActive,
+                lastModificationDate: item.lastModificationDate,
+                lastModificationDateString: item.lastModificationDateString,
+                lastModifierID: item.lastModifierID,
+                lastModifierName: item.lastModifierName,
+                name: item.name,
+                nameTranslation: item.nameTranslation,
+                oldEndDate: item.oldEndDate,
+                oldStartDate: item.oldStartDate,
+                securityUserFirstName: item.securityUserFirstName,
+                securityUserId: item.securityUserId,
+                securityUserLastName: item.securityUserLastName,
+                sessions: item.sessions,
+                slotDuration: item.slotDuration,
+                startDate: item.startDate,
+                startDateString: item.startDateString
+            };
+            if (!exsitedItem) {
+                exsitedItem = {
+                    fullNameTranslation: item.fullNameTranslation
+                };
+                exsitedItem.items = [];
+                exsitedItem.items.push(newItem);
+                this.groupedAppointmentsList.push(exsitedItem);
+            }
+            else {
+                exsitedItem.items.push(newItem);
+            }
+        }
+    }
+
 }
 

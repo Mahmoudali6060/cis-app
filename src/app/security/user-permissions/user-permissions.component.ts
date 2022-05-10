@@ -27,6 +27,7 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
     userGroupsList: any[] = [];
     usersList!: any;
     permissionsList!: any;
+    groupedPermissionsList: any = [];
 
     userGroupfilterString!:string;
     userListfilterString!:string;
@@ -67,6 +68,7 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
         this.userGroupsList = this.userGroupsWrapper.userGroups;
         this.usersList = this.userGroupsWrapper.users;
         this.permissionsList = this.userGroupsWrapper.permissions;
+        this.prepareGroupedPermissionList(this.permissionsList);
 
         if (this.userGroupsList == null || this.userGroupsList == undefined)
             this.userGroupsList = [];
@@ -78,6 +80,36 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
             this.permissionsList = [];
 
     }
+
+    prepareGroupedPermissionList(permissionsList: any) {
+        debugger;
+        for (let item of permissionsList) {
+            let exsitedItem = this.groupedPermissionsList.find((x: any) => x.categoryFriendlyName == item.categoryFriendlyName);
+            let newItem = {
+                id: item.id,
+                key: item.key,
+                isFullControlAvailable: item.isFullControlAvailable,
+                isViewAvailable: item.isViewAvailable,
+                isAddAvailable: item.isAddAvailable,
+                isEditAvailable: item.isEditAvailable,
+                isActivateAvailable: item.isActivateAvailable,
+                isAllowAvailable: item.isAllowAvailable,
+                categoryFriendlyName: item.categoryFriendlyName
+            };
+            if (!exsitedItem) {
+                exsitedItem = {
+                    categoryFriendlyName: item.categoryFriendlyName
+                };
+                exsitedItem.items = [];
+                exsitedItem.items.push(newItem);
+                this.groupedPermissionsList.push(exsitedItem);
+            }
+            else {
+                exsitedItem.items.push(newItem);
+            }
+        }
+    }
+
 
     editUser(id: string): void {
         this.isUserSelected = true;

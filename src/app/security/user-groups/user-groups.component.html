@@ -11,25 +11,22 @@
 
                 <div class="inner-addon left-addon">
                     <i class="glyphicon glyphicon-search"></i>
-                    <input type="text" class="inputSearch form-control" [placeholder]="'Search' | translate"
-                        [(ngModel)]='groupfilterString' />
+                    <input type="text" class="inputSearch form-control" [placeholder]="'Search' | translate" [(ngModel)]='groupfilterString' />
                 </div>
 
             </div>
             <div class="row">
-                <table class="table table-responsive table-bordered">
+                <table class="table table-responsive table-bobjected">
                     <thead class="alert alert-info">
                         <tr>
                             <th class="col-md-9" style="color:#c492ef;" colspan="2">{{ 'Groups' | translate}}</th>
                         </tr>
                     </thead>
-                    <tr *ngFor="let grp of userGroupsList | filterByName:groupfilterString"
-                        class="{{(grp.id == selectedGroupId) ? 'success' : ''}}">
+                    <tr *ngFor="let grp of userGroupsList | filterByName:groupfilterString" class="{{(grp.id == selectedGroupId) ? 'success' : ''}}">
                         <td class="col-md-9"><a (click)="editUserGroup(grp.id)" class="pointer">{{selectedLang === 'ar'
                                 ? grp.name : grp.nameTranslation}}</a></td>
                         <td class="col-md-3">
-                            <a data-toggle="modal" data-target="#deleteGroupConfirmation" class="pointer"
-                                (click)="selectGroupToDelete(grp.id)">
+                            <a data-toggle="modal" data-target="#deleteGroupConfirmation" class="pointer" (click)="selectGroupToDelete(grp.id)">
                                 <i *ngIf="!grp.isAdmin" class="glyphicon glyphicon-remove iconAd"></i>
                             </a>
 
@@ -39,15 +36,13 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 divBorders">
-        <form *ngIf="active" class="form-horizontal" name="userGroupsForm" (ngSubmit)="onSubmit()"
-            #userGroupsForm="ngForm">
+    <div class="col-md-8 divBobjects">
+        <form *ngIf="active" class="form-horizontal" name="userGroupsForm" (ngSubmit)="onSubmit()" #userGroupsForm="ngForm">
             <fieldset>
                 <div class="form-group ">
                     <button class="btn btn-primary" [disabled]="!userGroupsForm.form.valid || !isClinicAdmin">{{ 'Save'
                         | translate}}</button>
-                    <button type="button" class="btn btn-primary" (click)="clear()"
-                        disabled="{{ isClinicAdmin ? '' :'disabled'}}">{{ 'New' | translate}}</button>
+                    <button type="button" class="btn btn-primary" (click)="clear()" disabled="{{ isClinicAdmin ? '' :'disabled'}}">{{ 'New' | translate}}</button>
                 </div>
                 <div class="form-group">
                     <h3 class="h3Deco"></h3>
@@ -55,8 +50,7 @@
 
                     <label for="txtNameTranslation" class="control-label col-md-3">{{ 'NameArabic' | translate}}</label>
                     <div class="col-md-3 nopadding">
-                        <input type="text" class="form-control" name="txtGroupName" id="txtGroupName"
-                            [(ngModel)]='model.name' #txtGroupName="ngModel" required>
+                        <input type="text" class="form-control" name="txtGroupName" id="txtGroupName" [(ngModel)]='model.name' #txtGroupName="ngModel" required>
                         <div [hidden]="txtGroupName.valid || txtGroupName.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
@@ -64,10 +58,8 @@
                     <label for="txtGroupNameEnglish" class="control-label col-md-3"> {{ 'NameEnglish' |
                         translate}}</label>
                     <div class="col-md-3 nopadding">
-                        <input type="text" class="form-control" name="txtGroupNameEnglish" id="txtGroupNameEnglish"
-                            [(ngModel)]='model.nameTranslation' #txtGroupNameEnglish="ngModel" required>
-                        <div [hidden]="txtGroupNameEnglish.valid || txtGroupNameEnglish.pristine"
-                            class="alert alert-danger">
+                        <input type="text" class="form-control" name="txtGroupNameEnglish" id="txtGroupNameEnglish" [(ngModel)]='model.nameTranslation' #txtGroupNameEnglish="ngModel" required>
+                        <div [hidden]="txtGroupNameEnglish.valid || txtGroupNameEnglish.pristine" class="alert alert-danger">
                             {{ 'RequiredField' | translate}}
                         </div>
                     </div>
@@ -87,14 +79,12 @@
                     <label for="txtLastModifiedBy" class="control-label col-md-3">{{ 'LastModifierUser' |
                         translate}}</label>
                     <div class="col-md-3 nopadding">
-                        <input type="text" class="form-control" name="txtLastModifiedBy" id="txtLastModifiedBy"
-                            disabled>
+                        <input type="text" class="form-control" name="txtLastModifiedBy" id="txtLastModifiedBy" disabled>
                     </div>
                     <label for="txtLastModified" class="control-label col-md-3">{{ 'LastModificationDate' |
                         translate}}</label>
                     <div class="col-md-3 nopadding">
-                        <input type="text" class="form-control" name="txtLastModified" id="txtLastModified"
-                            [(ngModel)]='model.lastModificationDateString' disabled>
+                        <input type="text" class="form-control" name="txtLastModified" id="txtLastModified" [(ngModel)]='model.lastModificationDateString' disabled>
                     </div>
                 </div>
                 <div class="form-group">
@@ -114,18 +104,13 @@
 
                             <div class="inner-addon left-addon">
                                 <i class="glyphicon glyphicon-search"></i>
-                                <input type="search" [placeholder]="'Search' | translate"
-                                    class="inputSearch form-control" name="txtUserSearch" id="txtUserSearch"
-                                    [(ngModel)]='userfilterString' />
+                                <input type="search" [placeholder]="'Search' | translate" class="inputSearch form-control" name="txtUserSearch" id="txtUserSearch" [(ngModel)]='userfilterString' />
                             </div>
                             <div class="checkboxListScrollArea">
                                 <table>
                                     <tr *ngFor="let usr of usersList  | filterByName:userfilterString">
                                         <td>
-                                            <input type="checkbox" name="chkBoxUser" value="{{usr.id}}"
-                                                [checked]="selectedGroupUsersIDs.indexOf(usr.id) >= 0"
-                                                (change)="updateSelectedUsers(usr.id, $event)"
-                                                [disabled]="isAdminGroupSelected && usr.isAdmin" />
+                                            <input type="checkbox" name="chkBoxUser" value="{{usr.id}}" [checked]="selectedGroupUsersIDs.indexOf(usr.id) >= 0" (change)="updateSelectedUsers(usr.id, $event)" [disabled]="isAdminGroupSelected && usr.isAdmin" />
                                             <!--{{usr.name}}-->
                                             {{selectedLang === 'ar' ? usr.name : usr.nameTranslation}}
                                         </td>
@@ -149,129 +134,96 @@
                     <h4 class="h4Deco">{{ 'Permissions' | translate}}</h4>
                     <hr />
                     <div class="col-md-12">
-                           
-                    <!---New Table-->
-                     <p-table #dt [value]="permissionsList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-                        [rowsPerPageOptions]="[10,20,30,40,50,100]"  [paginator]="true"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [filterDelay]="0">
-                        
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th pSortableColumn="name">{{'Permissions' | translate}} <p-sortIcon field="name"></p-sortIcon></th>
-                                <th><span styleClass="text-center width70">{{'FullControl' | translate}}</span> </th>
-                                <th><span styleClass="text-center width70">{{'View' | translate}} </span></th>
-                                <th><span styleClass="text-center width70">{{'Add' | translate}} </span></th>
-                                <th><span styleClass="text-center width70">{{'Edit' | translate}} </span></th>
-                                <th><span styleClass="text-center width70">{{'ActivateDeactivate' | translate}} </span></th>
-                                <th><span styleClass="text-center width70">{{'Allow' | translate}} </span></th>
 
-                            </tr>
-        
-                        </ng-template>
-                        <ng-template pTemplate="body" let-object>
-                            <tr class="p-selectable-row">
-                                <td>
-                                    {{object.name}}
-                                </td>
-                                <td>
-                                        <input type="checkbox" name="chkFullControl"
-                                        [disabled]="!object.isFullControlAvailable"
-                                        [checked]="isPermissionChecked(object.id,'fullControl', object.isFullControlAvailable)"
-                                        (change)="updateSelectedPermissions(object.id,'fullControl', $event)" />
-                                </td>
-                                <td style="text-align: center">
-                                        <input type="checkbox" name="chkView" [disabled]="!object.isViewAvailable"
-                                        [checked]="isPermissionChecked(object.id,'view', object.isViewAvailable)"
-                                        (change)="updateSelectedPermissions(object.id,'view', $event)" />
-                               
-                                </td>
-                                <td style="text-align: center">
-                                        <input type="checkbox" name="chkAdd" [disabled]="!object.isAddAvailable"
-                                        [checked]="isPermissionChecked(object.id,'add', object.isAddAvailable)"
-                                        (change)="updateSelectedPermissions(object.id,'add', $event)" />
-                              
-                                </td>
-                                <td style="text-align: center">
-                                        <input type="checkbox" name="chkEdit" [disabled]="!object.isEditAvailable"
-                                        [checked]="isPermissionChecked(object.id,'edit', object.isEditAvailable)"
-                                        (change)="updateSelectedPermissions(object.id,'edit', $event)" />
-                                
-                                </td>
-                                <td style="text-align: center"><input type="checkbox" name="chkActivate"
-                                    [disabled]="!object.isActivateAvailable"
-                                    [checked]="isPermissionChecked(object.id,'activate', object.isActivateAvailable)"
-                                    (change)="updateSelectedPermissions(object.id,'activate', $event)" />
-                            </td>
-                                <td style="text-align: center">
-                                        <input type="checkbox" name="chkAllow" [disabled]="!object.isAllowAvailable"
-                                        [checked]="isPermissionChecked(object.id,'allow', object.isAllowAvailable)"
-                                        (change)="updateSelectedPermissions(object.id,'allow', $event)" />
-                                </td>
-                                
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="8">No data found.</td>
-                            </tr>
-                        </ng-template>
-                    </p-table> 
-                    <!--End Table-->
-        
-        
-                        <!-- <p-dataTable [value]="permissionsList" selectionMode="single" [paginator]="false" rows="10"
-                            [rowsPerPageOptions]="[5,10,20,30,40,50,100]" [responsive]="true" reorderableColumns="true"
-                            [globalFilter]="gb" rowGroupMode="subheader" groupField="categoryFriendlyName"
-                            expandableRowGroups="true" [sortableRowGroup]="false">
-                            <ng-template pTemplate="rowgroupheader" let-rowData>
-                                {{rowData['categoryFriendlyName']}}
+                        <!---New Table-->
+                        <p-table [value]="groupedPermissionsList" dataKey="categoryFriendlyName">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 3rem"></th>
+                                    <th pSortableColumn="categoryFriendlyName">{{'Permissions' | translate}}
+                                        <p-sortIcon field="categoryFriendlyName"></p-sortIcon>
+                                    </th>
+                                    <th><span styleClass="text-center width70">{{'FullControl' | translate}}</span>
+                                    </th>
+                                    <th><span styleClass="text-center width70">{{'View' | translate}} </span></th>
+                                    <th><span styleClass="text-center width70">{{'Add' | translate}} </span></th>
+                                    <th><span styleClass="text-center width70">{{'Edit' | translate}} </span></th>
+                                    <th><span styleClass="text-center width70">{{'ActivateDeactivate' | translate}}
+                                        </span></th>
+                                    <th><span styleClass="text-center width70">{{'Allow' | translate}} </span></th>
+                                </tr>
+
                             </ng-template>
-                            <p-column field="name" [header]="'Permissions' | translate" [sortable]="false"></p-column>
-                            <p-column [header]="'FullControl' | translate" styleClass="text-center width70">
-                                <ng-template let-permission="rowData" pTemplate="body">
-                                    <input type="checkbox" name="chkFullControl"
-                                        [disabled]="!permission.isFullControlAvailable"
-                                        [checked]="isPermissionChecked(permission.id,'fullControl', permission.isFullControlAvailable)"
-                                        (change)="updateSelectedPermissions(permission.id,'fullControl', $event)" />
-                                </ng-template>
-                            </p-column>
-                            <p-column [header]="'View' | translate" styleClass="text-center width50">
-                                <ng-template let-permission="rowData" pTemplate="body">
-                                    <input type="checkbox" name="chkView" [disabled]="!permission.isViewAvailable"
-                                        [checked]="isPermissionChecked(permission.id,'view', permission.isViewAvailable)"
-                                        (change)="updateSelectedPermissions(permission.id,'view', $event)" />
-                                </ng-template>
-                            </p-column>
-                            <p-column [header]="'Add' | translate" styleClass="text-center width50">
-                                <ng-template let-permission="rowData" pTemplate="body">
-                                    <input type="checkbox" name="chkAdd" [disabled]="!permission.isAddAvailable"
-                                        [checked]="isPermissionChecked(permission.id,'add', permission.isAddAvailable)"
-                                        (change)="updateSelectedPermissions(permission.id,'add', $event)" />
-                                </ng-template>
-                            </p-column>
-                            <p-column [header]="'Edit' | translate" styleClass="text-center width50">
-                                <ng-template let-permission="rowData" pTemplate="body">
-                                    <input type="checkbox" name="chkEdit" [disabled]="!permission.isEditAvailable"
-                                        [checked]="isPermissionChecked(permission.id,'edit', permission.isEditAvailable)"
-                                        (change)="updateSelectedPermissions(permission.id,'edit', $event)" />
-                                </ng-template>
-                            </p-column>
-                            <p-column [header]="'ActivateDeactivate' | translate" styleClass="text-center width80">
-                                <ng-template let-permission="rowData" pTemplate="body">
-                                    <input type="checkbox" name="chkActivate"
-                                        [disabled]="!permission.isActivateAvailable"
-                                        [checked]="isPermissionChecked(permission.id,'activate', permission.isActivateAvailable)"
-                                        (change)="updateSelectedPermissions(permission.id,'activate', $event)" />
-                                </ng-template>
-                            </p-column>
-                            <p-column [header]="'Allow' | translate" styleClass="text-center width50">
-                                <ng-template let-permission="rowData" pTemplate="body">
-                                    <input type="checkbox" name="chkAllow" [disabled]="!permission.isAllowAvailable"
-                                        [checked]="isPermissionChecked(permission.id,'allow', permission.isAllowAvailable)"
-                                        (change)="updateSelectedPermissions(permission.id,'allow', $event)" />
-                                </ng-template>
-                            </p-column>
-                        </p-dataTable> -->
+                            <ng-template pTemplate="body" let-permission let-expanded="expanded">
+                                <tr style="background-color: #c1cad1;">
+                                    <td>
+                                        <button type="button" pButton pRipple [pRowToggler]="permission" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                    </td>
+                                    <td colspan="7">
+                                        {{permission.categoryFriendlyName}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="rowexpansion" let-permission>
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="p-p-3">
+                                            <p-table [value]="permission.items" dataKey="id">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th pSortableColumn="name">Name
+                                                            <p-sortIcon field="name"></p-sortIcon>
+                                                        </th>
+                                                        <th><span styleClass="text-center width70">{{'FullControl' | translate}}</span>
+                                                        </th>
+                                                        <th><span styleClass="text-center width70">{{'View' | translate}} </span></th>
+                                                        <th><span styleClass="text-center width70">{{'Add' | translate}} </span></th>
+                                                        <th><span styleClass="text-center width70">{{'Edit' | translate}} </span></th>
+                                                        <th><span styleClass="text-center width70">{{'ActivateDeactivate' | translate}}
+                                                            </span></th>
+                                                        <th><span styleClass="text-center width70">{{'Allow' | translate}} </span></th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-object>
+                                                    <tr>
+                                                        <td translate> {{object.key}}</td>
+                                                        <td>
+                                                            <input type="checkbox" name="chkFullControl" [disabled]="!object.isFullControlAvailable" [checked]="isPermissionChecked(object.id,'fullControl', object.isFullControlAvailable)" (change)="updateSelectedPermissions(object.id,'fullControl', $event)" />
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            <input type="checkbox" name="chkView" [disabled]="!object.isViewAvailable" [checked]="isPermissionChecked(object.id,'view', object.isViewAvailable)" (change)="updateSelectedPermissions(object.id,'view', $event)" />
+
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            <input type="checkbox" name="chkAdd" [disabled]="!object.isAddAvailable" [checked]="isPermissionChecked(object.id,'add', object.isAddAvailable)" (change)="updateSelectedPermissions(object.id,'add', $event)" />
+
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            <input type="checkbox" name="chkEdit" [disabled]="!object.isEditAvailable" [checked]="isPermissionChecked(object.id,'edit', object.isEditAvailable)" (change)="updateSelectedPermissions(object.id,'edit', $event)" />
+
+                                                        </td>
+                                                        <td style="text-align: center"><input type="checkbox" name="chkActivate" [disabled]="!object.isActivateAvailable" [checked]="isPermissionChecked(object.id,'activate', object.isActivateAvailable)" (change)="updateSelectedPermissions(object.id,'activate', $event)"
+                                                            />
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            <input type="checkbox" name="chkAllow" [disabled]="!object.isAllowAvailable" [checked]="isPermissionChecked(object.id,'allow', object.isAllowAvailable)" (change)="updateSelectedPermissions(object.id,'allow', $event)" />
+                                                        </td>
+                                                    </tr>
+
+
+                                                </ng-template>
+                                                <ng-template pTemplate="emptymessage">
+                                                    <tr>
+                                                        <td colspan="6">There are no object for this permission yet.</td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <!--End Table-->
                     </div>
                 </div>
 
@@ -290,10 +242,10 @@
                         <p>{{ 'AreYouSureDelete' | translate}}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" (click)="deleteSelectedGroup()"
-                            data-dismiss="modal">{{ 'Yes' | translate}}</button>
+                        <button type="button" class="btn btn-danger" (click)="deleteSelectedGroup()" data-dismiss="modal">{{
+                        'Yes' | translate}}</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">{{ 'No' |
-                            translate}}</button>
+                        translate}}</button>
                     </div>
                 </div>
 

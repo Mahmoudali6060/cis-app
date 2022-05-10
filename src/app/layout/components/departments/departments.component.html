@@ -1,333 +1,235 @@
 <div class="departs">
-  <div class="container">
-    <h2 class="depart-head">{{ "departs.heading" | translate }}</h2>
-    <p class="depart-p">{{ "departs.p" | translate }}</p>
-    <div id="accordion">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link"
-              data-toggle="collapse"
-              data-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
+    <div class="container">
+        <h2 class="depart-head">{{ "departs.heading" | translate }}</h2>
+
+        <p class="depart-p">{{ "departs.p" | translate }}</p>
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(1)" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               {{ "departs.Neurology" | translate }}
             </button>
-          </h5>
-        </div>
+                    </h5>
+                </div>
 
-        <div
-          id="collapseOne"
-          class="collapse show"
-          aria-labelledby="headingOne"
-          data-parent="#accordion"
-        >
-          <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descNeurology" | translate }}
-                </p>
-                
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/neural.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                <div id="collapseOne" [class.show]="selectedCardIndex==1" [class.collapse]="selectedCardIndex!=1" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descNeurology" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/neural.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapseTwo"
-              aria-expanded="false"
-              aria-controls="collapseTwo"
-            >
+            <div class="card">
+                <div class="card-header" id="headingTwo">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(2)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             {{ "departs.dental" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapseTwo"
-          class="collapse"
-          aria-labelledby="headingTwo"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descDental" | translate }}
-                </p>
-               
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/dent.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div id="collapseTwo" [class.show]="selectedCardIndex==2" [class.collapse]="selectedCardIndex!=2" aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descDental" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/dent.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapseThree"
-              aria-expanded="false"
-              aria-controls="collapseThree"
-            >
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(3)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             {{ "departs.babyCare" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapseThree"
-          class="collapse"
-          aria-labelledby="headingThree"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descBabyCare" | translate }}
-                </p>
-                
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/4.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div id="collapseThree" [class.show]="selectedCardIndex==3" [class.collapse]="selectedCardIndex!=3" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descBabyCare" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/4.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingFour">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapseFour"
-              aria-expanded="false"
-              aria-controls="collapseFour"
-            >
+            <div class="card">
+                <div class="card-header" id="headingFour">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(4)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
             {{ "departs.eyeCare" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapseFour"
-          class="collapse"
-          aria-labelledby="headingFour"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descEyeCare" | translate }}
-                </p>
-               
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div id="collapseFour" [class.show]="selectedCardIndex==4" [class.collapse]="selectedCardIndex!=4" aria-labelledby="headingFour" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descEyeCare" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="heading5">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapse5"
-              aria-expanded="false"
-              aria-controls="collapse5"
-            >
+            <div class="card">
+                <div class="card-header" id="heading5">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(5)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
             {{ "departs.internalMedicine" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapse5"
-          class="collapse"
-          aria-labelledby="heading5"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descInternalMedicine" | translate }}
-                </p>
-               
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div (click)="selectedCardIndex==5" id="collapse5" [class.show]="selectedCardIndex==5" [class.collapse]="selectedCardIndex!=5" aria-labelledby="heading5" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descInternalMedicine" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="heading6">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapse6"
-              aria-expanded="false"
-              aria-controls="collapse6"
-            >
+            <div class="card">
+                <div class="card-header" id="heading6">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(6)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
             {{ "departs.cardiology" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapse6"
-          class="collapse"
-          aria-labelledby="heading6"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descCardiology" | translate }}
-                </p>
-               
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div id="collapse6" [class.show]="selectedCardIndex==6" [class.collapse]="selectedCardIndex!=6" aria-labelledby="heading6" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descCardiology" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="heading7">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapse7"
-              aria-expanded="false"
-              aria-controls="collapse7"
-            >
+            <div class="card">
+                <div class="card-header" id="heading7">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(7)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
             {{ "departs.orthopedicPhysician" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapse7"
-          class="collapse"
-          aria-labelledby="heading7"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descOrthopedicPhysician" | translate }}
-                </p>
-               
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div id="collapse7" [class.show]="selectedCardIndex==7" [class.collapse]="selectedCardIndex!=7" aria-labelledby="heading7" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descOrthopedicPhysician" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="heading8">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapse8"
-              aria-expanded="false"
-              aria-controls="collapse8"
-            >
+            <div class="card">
+                <div class="card-header" id="heading8">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(8)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
             {{ "departs.gynecologist" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapse8"
-          class="collapse"
-          aria-labelledby="heading8"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descGynecologist" | translate }}
-                </p>
-               
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div id="collapse8" [class.show]="selectedCardIndex==8" [class.collapse]="selectedCardIndex!=8" aria-labelledby="heading8" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descGynecologist" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="heading9">
-          <h5 class="mb-0">
-            <button
-              class="btn btn-link collapsed"
-              data-toggle="collapse"
-              data-target="#collapse9"
-              aria-expanded="false"
-              aria-controls="collapse9"
-            >
+            <div class="card">
+                <div class="card-header" id="heading9">
+                    <h5 class="mb-0">
+                        <button (click)="selectCard(9)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
             {{ "departs.otorhinolaryngology" | translate }}
             </button>
-          </h5>
-        </div>
-        <div
-          id="collapse9"
-          class="collapse"
-          aria-labelledby="heading9"
-          data-parent="#accordion"
-        >
-        <div class="card-body">
-            <div class="row align-items-center">
-              <div class="col-md-6  tab-info two">
-                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
-                <p>
-                    {{ "departs.descOtorhinolaryngology" | translate }}
-                </p>
-               
-              </div>
-              <div class="col-md-6 tab-image two">
-                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
-              </div>
+                    </h5>
+                </div>
+                <div id="collapse9" [class.show]="selectedCardIndex==9" [class.collapse]="selectedCardIndex!=9" aria-labelledby="heading9" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6  tab-info two">
+                                <!-- <h4>{{ "departs.h4" | translate }}</h4> -->
+                                <p>
+                                    {{ "departs.descOtorhinolaryngology" | translate }}
+                                </p>
+
+                            </div>
+                            <div class="col-md-6 tab-image two">
+                                <img src="assets/img/departs/3.jpg" alt="Medicinal" class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
