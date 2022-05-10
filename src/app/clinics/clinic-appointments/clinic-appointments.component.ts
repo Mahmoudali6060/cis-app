@@ -109,6 +109,7 @@ export class ClinicAppointmentsComponent implements OnInit {
         }
     }
     loadOrganizationStructureTree() {
+        debugger;
         let vm = this;
         vm.showProgress = true;
         //let userId = this.storage.retrieve("UserID");
@@ -118,7 +119,7 @@ export class ClinicAppointmentsComponent implements OnInit {
                     vm.organizationStructure = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.message, '');
                     vm.showProgress = false;
                 },
                 function () {

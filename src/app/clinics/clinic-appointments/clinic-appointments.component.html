@@ -40,71 +40,7 @@
                 <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" [placeholder]="'Search' | translate" />
             </div>
 
-            <!---New Table-->
-            <!-- <p-table #dt [value]="appointmentsList" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [filterDelay]="0" [globalFilterFields]="['startDateString','endDateString','slotDuration','description']">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th pSortableColumn="startDateString">{{'StartDate' | translate}}
-                            <p-sortIcon field="startDateString"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="endDateString">{{'EndDate' | translate}}
-                            <p-sortIcon field="endDateString">
-                            </p-sortIcon>
-                        </th>
-                        <th pSortableColumn="slotDuration">{{'SlotDuration' | translate}}
-                            <p-sortIcon field="slotDuration"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="description">{{'Remarks' | translate}}
-                            <p-sortIcon field="description">
-                            </p-sortIcon>
-                        </th>
-                        <th><span styleClass="text-center width70">{{'Active' | translate}} </span>
-                        </th>
-                        <th><span styleClass="text-center width70">{{'Edit' | translate}} </span>
-                        </th>
-                        <th><span styleClass="text-center width70">{{'Delete' | translate}} </span>
-                        </th>
-                    </tr>
 
-                </ng-template>
-                <ng-template pTemplate="body" let-item>
-                    <tr class="p-selectable-row">
-                        <td>
-                            {{item.startDateString}}
-                        </td>
-                        <td>
-                            <span>{{item.endDateString}}</span>
-                        </td>
-                        <td>
-                            <span>{{item.slotDuration}}</span>
-                        </td>
-                        <td>
-                            <span>{{item.description}}</span>
-                        </td>
-                        <td>
-                            <input id="ChkIsActiveInGrid" name="ChkIsActiveInGrid" class="ace ace-switch ace-switch-6" type="checkbox" [checked]="item.isActive" (click)="changeActivation(item.id , $event)" />
-                            <span class="lbl"></span>
-                        </td>
-                        <td style="text-align: center">
-                            <a class="pointer" (click)="showDetails(item.id)" [class.disabled]="!enableEditBtn && !isClinicAdmin ? true : null">
-                                <i class="fa fa-pencil fa-2x" style="color: #32bea6;"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a data-toggle="modal" data-target="#deleteAppointmentSchedule" class="pointer" (click)="selectAppointmentScheduleToDelete(item.id)" [class.disabled]="!enableDeleteBtn && !isClinicAdmin ? true : null">
-                                <i class="glyphicon glyphicon-remove iconAd"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <td colspan="8">No data found.</td>
-                    </tr>
-                </ng-template>
-            </p-table> -->
-            <!--End Table-->
 
             <!---New Table-->
             <p-table #dt [value]="groupedAppointmentsList" dataKey="fullNameTranslation" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20,30,40,50,100]" [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"

@@ -27,12 +27,10 @@
 
     <link href="assets/css/quill.snow.css" rel="stylesheet" />
     <link href="assets/css/app-style.css" rel="stylesheet" />
-    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,500italic" rel="stylesheet"
-        type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet"
-        type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,500italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
 
-       
+
     <link href="styles.css" rel="stylesheet" />
 
     <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
@@ -53,21 +51,17 @@
         System.import('app').catch(function (err) { console.error(err); });
     </script> -->
     <!-- GMap -->
-    <script type="text/javascript"
-        src="http://maps.google.com/maps/api/js?key=AIzaSyBXj7FPto_q0Cg1HM_kDYSAnvT4ZQumm0E&libraries=places" async
-        defer></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBXj7FPto_q0Cg1HM_kDYSAnvT4ZQumm0E&libraries=places" async defer></script>
     <!-- Facebook Accountkit -->
     <script src="https://sdk.accountkit.com/en_US/sdk.js"></script>
     <script type="text/javascript">
-        AccountKit_OnInteractive = function () {
-            AccountKit.init(
-                {
-                    appId: 1159907397464566,
-                    state: 'CIS.Horizonssoftware.com',
-                    version: 'v1.1',
-                    debug: true
-                }
-            );
+        AccountKit_OnInteractive = function() {
+            AccountKit.init({
+                appId: 1159907397464566,
+                state: 'CIS.Horizonssoftware.com',
+                version: 'v1.1',
+                debug: true
+            });
         };
     </script>
 </head>
@@ -115,9 +109,8 @@
             jQuery(element).find('.menuarrow').toggleClass("glyphicon-chevron-down");
             jQuery(element).find('.menuarrow').toggleClass("glyphicon-chevron-right");
             //apply style on the sub list 
-            jQuery(element).next().toggleClass("expandedAccordion");//, 100, "swing");
+            jQuery(element).next().toggleClass("expandedAccordion"); //, 100, "swing");
         }
-
     </script>
 </body>
 

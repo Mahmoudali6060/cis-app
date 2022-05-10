@@ -50,10 +50,15 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         let loggedUserId = localStorage.getItem("ng2-webstorage|userid");
-        if (loggedUserId)
+        if (loggedUserId) {
             this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap.min.css");
-        else
+            this.sharedService.loadCssToHTMlPage("assets/css/updatedAce.css");
+        }
+        else {
             this.sharedService.loadCssToHTMlPage("assets/css/bootstrap.min.css");
+            this.sharedService.removeCssFromHTMlPage("assets/css/updatedAce.css");
+
+        }
 
         let thisComponent = this;
         let userName = this.localStorage.retrieve("UserName");
@@ -67,49 +72,56 @@ export class AppComponent implements OnInit {
         let profileImagePath = this.localStorage.retrieve("ProfileImagePath");
         this.notificationService.start();
         this.showHeaderAndFooterForLogedinUser();
-
+        debugger;
         if (userName !== null) {
             this.accountService.changeLoginStatus(true, userName, userType, hasAdminPermission, profileImagePath);
-            //Sys Admin
-            if (userType == thisComponent.userTypeEnum.SysAdmin) {
-                thisComponent.router.navigate(['/systemAdmin/dashboard']);
+
+            if (location.hash == '#/layout-login/doctor') {
+
+                //Sys Admin
+                if (userType == thisComponent.userTypeEnum.SysAdmin) {
+                    thisComponent.router.navigate(['/systemAdmin/dashboard']);
+
+                }
+                //Clinic Admin
+                else if (userType == thisComponent.userTypeEnum.ClinicAdmin) {
+                    thisComponent.router.navigate(['/clinic/dashboard']);
+                }
+                //Receptionist
+                else if (userType == thisComponent.userTypeEnum.Receptionist) {
+                    thisComponent.router.navigate(['/receptionist/appointments']);
+
+                }
+                //Nurse
+                else if (userType == thisComponent.userTypeEnum.Nurse) {
+                    thisComponent.router.navigate(['/nurse/appointments/1']);
+
+                }
+                //Doctor
+                else if (userType == thisComponent.userTypeEnum.Doctor) {
+                    thisComponent.router.navigate(['/doctor/appointments']);
+
+                }
+                //Cashier
+                else if (userType == thisComponent.userTypeEnum.Cashier) {
+                    thisComponent.router.navigate(['/cashier/claims']);
+
+                }
+                //Patient
+                else if (userType == thisComponent.userTypeEnum.Patient) {
+                    thisComponent.router.navigate(['/home']);
+
+                }
+                //Insurance Specialist
+                else if (userType == thisComponent.userTypeEnum.InsuranceAdmin) {
+                    thisComponent.router.navigate(['/insurance/invoice']);
+
+                }
 
             }
-            //Clinic Admin
-            else if (userType == thisComponent.userTypeEnum.ClinicAdmin) {
-                thisComponent.router.navigate(['/clinic/dashboard']);
+            else {
+                thisComponent.router.navigate([location.hash.split("#")[1]]);
             }
-            //Receptionist
-            else if (userType == thisComponent.userTypeEnum.Receptionist) {
-                thisComponent.router.navigate(['/receptionist/appointments']);
-
-            }
-            //Nurse
-            else if (userType == thisComponent.userTypeEnum.Nurse) {
-                thisComponent.router.navigate(['/nurse/appointments/1']);
-
-            }
-            //Doctor
-            else if (userType == thisComponent.userTypeEnum.Doctor) {
-                thisComponent.router.navigate(['/doctor/appointments']);
-
-            }
-            //Cashier
-            else if (userType == thisComponent.userTypeEnum.Cashier) {
-                thisComponent.router.navigate(['/cashier/claims']);
-
-            }
-            //Patient
-            else if (userType == thisComponent.userTypeEnum.Patient) {
-                thisComponent.router.navigate(['/home']);
-
-            }
-            //Insurance Specialist
-            else if (userType == thisComponent.userTypeEnum.InsuranceAdmin) {
-                thisComponent.router.navigate(['/insurance/invoice']);
-
-            }
-
             //location.reload();
 
             //this code is added to return the permissions roles of the athenticated user
@@ -131,6 +143,7 @@ export class AppComponent implements OnInit {
                 this.getTopNotifications();
 
         }
+
 
     }
     showHeaderAndFooterForLogedinUser() {

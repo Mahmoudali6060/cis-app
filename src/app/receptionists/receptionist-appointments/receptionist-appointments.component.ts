@@ -261,7 +261,11 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleDateClick(arg: any) {
-        debugger;
+        if (!this.doctorId) {
+            let msg = this.translate.instant("NoDoctorSelected");
+            this.toastr.error(msg, '');
+            return;
+        }
         this.selectedStartTimeForOpenCloseSlot = null;
         this.selectedEndTimeForOpenCloseSlot = null;
 
