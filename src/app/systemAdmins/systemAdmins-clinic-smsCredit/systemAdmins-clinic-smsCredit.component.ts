@@ -59,7 +59,7 @@ export class SystemAdminClinicSMSCreditComponent implements OnChanges, OnInit {
                     else
                         return -1;
                 });
-
+            debugger;
             if (this.smsCreditsList.length > 0)
                 this.currentCredit = this.smsCreditsList[0];
 
@@ -91,26 +91,36 @@ export class SystemAdminClinicSMSCreditComponent implements OnChanges, OnInit {
                     thisComponent.closeSmsCreditModal();
                     let msg = thisComponent.translate.instant("SavedSuccessfully");
                     thisComponent.toastr.success(msg, '');
+                    thisComponent.updateSMSRemaining();
                 },
                 function (error: any) {
                     if (error.error == 'General Error: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.7.0 Authentication Required. Learn more at') {
                         thisComponent.raiseModelUpdated(thisComponent.clinicModel);
                         thisComponent.newCredit = { id: 0 };
                         thisComponent.newCreditToSave = { id: 0 };
-    
+
                         thisComponent.closeSmsCreditModal();
                         let msg = thisComponent.translate.instant("SavedSuccessfully");
                         thisComponent.toastr.success(msg, '');
+                        thisComponent.updateSMSRemaining();
+
                     }
                     else {
                         thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     }
-                   
+
                 },
                 function () {
                     thisComponent.showProgress = false;
                 });
+    }
+
+    updateSMSRemaining() {
+        this.currentCredit.remaining = 0;
+        for (let item of this.smsCreditsList) {
+            this.currentCredit.remaining += item.credit;
+        }
     }
 
     raiseModelUpdated(model: any) {

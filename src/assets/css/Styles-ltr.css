@@ -9,9 +9,10 @@
 }
 
 .list-menu-view .main-container {
-    margin-left:225px !important;
+    margin-left: 225px !important;
     margin-right: 0px !important;
 }
+
 .main-container {
     margin-top: 7px !important;
     margin-left: 64px !important;
@@ -28,20 +29,18 @@
     left: -225px;
 }
 
-    .hide-list-menu .left-aside {
-       left: -11px;
+.hide-list-menu .left-aside {
+    left: -11px;
     width: 70px !important;
-    }
-      .hide-list-menu  .nav-label {
-      display:none !important;
-    }
-       .hide-list-menu  .menuarrow {
-      display:none !important;
-    }
-   
-   
+}
 
+.hide-list-menu .nav-label {
+    display: none !important;
+}
 
+.hide-list-menu .menuarrow {
+    display: none !important;
+}
 
 .user-nav {
     float: right;
@@ -55,13 +54,16 @@
     margin-right: 10px;
 }
 
-.ng-valid[required], .ng-valid.required {
-    border-left: 5px solid #42A948 !important; /* green */
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 5px solid #42A948 !important;
+    /* green */
     border-right: 2px solid #dadfe6 !important;
 }
 
 .ng-invalid:not(form) {
-    border-left: 5px solid #a94442 !important; /* red */
+    border-left: 5px solid #a94442 !important;
+    /* red */
     border-right: 2px solid #dadfe6 !important;
 }
 
@@ -84,7 +86,6 @@
     content: "\f105";
 }
 
-
 .expandedAccordion {
     display: block !important;
 }
@@ -102,18 +103,18 @@
     content: "\e080";
 }
 
-.left-navigation > ul ul {
+.left-navigation>ul ul {
     margin: 0px 0px 0px 16px !important;
     border-right: none;
     border-left: rgba(255, 255, 255, 0.05) 1px solid;
 }
 
-.left-navigation > ul > li > a .nav-icon {
+.left-navigation>ul>li>a .nav-icon {
     padding-left: 0px;
     padding-right: 10px;
 }
 
-.left-navigation > ul ul li a .nav-icon {
+.left-navigation>ul ul li a .nav-icon {
     padding-right: 10px;
     padding-left: 0px;
 }
@@ -198,63 +199,79 @@
 .marginLeft {
     margin-left: 26px !important;
 }
+
 .inner-addon {
     position: relative;
 }
 
-    /* style icon */
-    .inner-addon .glyphicon {
-        position: absolute;
-        padding: 13px;
-        pointer-events: none;
-        color: #aaa;
-    }
+
+/* style icon */
+
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 13px;
+    pointer-events: none;
+    color: #aaa;
+}
+
 
 /* align icon */
+
 .left-addon .glyphicon {
     left: 0px;
 }
 
+
 /* add padding  */
+
 .left-addon input {
-    padding-left: 30px;
+    padding-left: 30px !important;
 }
 
 .float-right {
     float: right !important;
 }
+
 .btnMarginLeft {
-    margin-left:1px !important;
+    margin-left: 1px !important;
 }
+
 .btnMarginRight {
-    margin-right:2px !important;
+    margin-right: 2px !important;
 }
+
 .txtRight {
     text-align: right !important;
 }
+
 .modelDir {
-        text-align: left  !important;
+    text-align: left !important;
 }
 
 .menuDirection {
     direction: rtl;
 }
-.pageMarginStyle {
- margin-left:20px !important;
-}
-.controlSide {
-    width:62px !important;
-}
-.txtDire {
-        text-align: left !important;
 
+.pageMarginStyle {
+    margin-left: 20px !important;
 }
+
+.controlSide {
+    width: 62px !important;
+}
+
+.txtDire {
+    text-align: left !important;
+}
+
 .floatBtn {
-    float:right !important;
+    float: right !important;
 }
+
 .txtAlign {
-        text-align: right !important;
+    text-align: right !important;
 }
+
 .tableSpan {
     padding: 10px 20px !important;
     display: inline-block !important;

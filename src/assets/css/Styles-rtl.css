@@ -11,29 +11,35 @@
     margin-right: 225px !important;
     margin-left: 0px !important;
 }
+
 .main-container {
-  
     margin-right: 64px !important;
     margin-left: 0px !important;
-
 }
+
 .hide-list-menu {
     right: -225px;
 }
- /*style bar menu*/
-    .hide-list-menu .left-aside {
-          right: -11px;
-    width: 70px !important;
-    }
 
-      .hide-list-menu  .nav-label {
-      display:none !important;
-    }
-        .hide-list-menu  .menuarrow {
-      display:none !important;
-    }
- 
- /*style bar menu*/
+
+/*style bar menu*/
+
+.hide-list-menu .left-aside {
+    right: -11px;
+    width: 70px !important;
+}
+
+.hide-list-menu .nav-label {
+    display: none !important;
+}
+
+.hide-list-menu .menuarrow {
+    display: none !important;
+}
+
+
+/*style bar menu*/
+
 .user-nav {
     float: left;
 }
@@ -46,20 +52,22 @@
     margin-left: 10px;
 }
 
-.ng-valid[required], .ng-valid.required {
-    border-right: 5px solid #42A948 !important; /* green */
+.ng-valid[required],
+.ng-valid.required {
+    border-right: 5px solid #42A948 !important;
+    /* green */
     border-left: 2px solid #dadfe6 !important;
 }
 
 .ng-invalid:not(form) {
-    border-right: 5px solid #a94442 !important; /* red */
+    border-right: 5px solid #a94442 !important;
+    /* red */
     border-left: 2px solid #dadfe6 !important;
 }
 
 .text-right {
     float: left;
 }
-
 
 .dropdown-menu {
     left: 0px !important;
@@ -93,18 +101,18 @@
     content: "\e079";
 }
 
-.left-navigation > ul ul {
+.left-navigation>ul ul {
     margin: 0px 16px 0px 0px !important;
     border-right: rgba(255, 255, 255, 0.05) 1px solid;
     border-left: none;
 }
 
-.left-navigation > ul > li > a .nav-icon {
+.left-navigation>ul>li>a .nav-icon {
     padding-left: 10px;
     padding-right: 0px;
 }
 
-.left-navigation > ul ul li a .nav-icon {
+.left-navigation>ul ul li a .nav-icon {
     padding-left: 10px;
     padding-right: 0px;
 }
@@ -165,7 +173,6 @@
     text-align: left !important;
 }
 
-
 .activeDoc {
     text-align: right !important;
     font-family: Exo !important;
@@ -203,22 +210,28 @@
     position: relative;
 }
 
-    /* style icon */
-    .inner-addon .glyphicon {
-        position: absolute;
-        padding: 13px;
-        pointer-events: none;
-        color: #aaa;
-    }
+
+/* style icon */
+
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 13px;
+    pointer-events: none;
+    color: #aaa;
+}
+
 
 /* align icon */
+
 .left-addon .glyphicon {
     right: 0px;
 }
 
+
 /* add padding  */
+
 .left-addon input {
-    padding-left: 30px;
+    padding-left: 30px !important;
 }
 
 .inputSearch {
@@ -240,26 +253,31 @@
 .txtRight {
     text-align: left !important;
 }
+
 .modelDir {
-        text-align: left !important;
+    text-align: left !important;
 }
 
 .menuDirection {
     direction: ltr;
 }
-.pageMarginStyle {
-padding-left: 20px !important
-}
-.txtDire {
-        text-align: right !important;
 
+.pageMarginStyle {
+    padding-left: 20px !important
 }
+
+.txtDire {
+    text-align: right !important;
+}
+
 .floatBtn {
-    float:left !important;
+    float: left !important;
 }
+
 .txtAlign {
-        text-align: left !important;
+    text-align: left !important;
 }
+
 .tableSpan {
     padding: 10px 20px !important;
     display: inline-block !important;
