@@ -18,6 +18,7 @@ import { PermissionKeyEnum } from '../../shared/shared/permission-key.enum';
 
 import { TimeSlot } from '../../shared/shared/time-slot.model';
 import { CalendarOptions } from '@fullcalendar/angular';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
 
@@ -165,7 +166,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
         },
         editable: false,
-
+        //scrollTime: '1:00:00',
         displayEventTime: false,
         // eventColor: '#000000',
         // eventBackgroundColor: '#ffffff',
@@ -175,7 +176,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         slotDuration: calendarSlotDuration,
         slotLabelInterval: calendarSlotDuration,
         contentHeight: 500,
-        scrollTime: 12,
+
         allDayText: "",
         eventClick: this.handleEventClick.bind(this), // bind is important!
         navLinkDayClick: this.handleNavDayClick.bind(this),
@@ -356,7 +357,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
                     },
                     function (error: any) {
-                       thisComponent.toastr.error(error.error);
+                        thisComponent.toastr.error(error.error);
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -624,6 +625,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComp.initialView = true;
                     debugger;
                     //thisComp.fullCallendar.refreshSlotDuration(formattedSlotDuration, scrollTime);
+                    thisComp.calendarOptions.scrollTime = scrollTime;
                     thisComp.calendarOptions.slotDuration = formattedSlotDuration;
                     thisComp.calendarOptions.slotLabelInterval = formattedSlotDuration;
 
@@ -978,7 +980,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComponent.btnCloseBookOrCloseModal.nativeElement.click();
                 },
                 function (error: any) {
-                   thisComponent.toastr.error(error.error, '');
+                    thisComponent.toastr.error(error.error, '');
                     //thisComponent.showProgress = false;
                 },
                 function () {
@@ -1154,7 +1156,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComponent.btnCloseRestoreTimeSlotsModal.nativeElement.click();
                 },
                 function (error: any) {
-                   thisComponent.toastr.error(error.error, '');
+                    thisComponent.toastr.error(error.error, '');
                     //thisComponent.showProgress = false;
                 },
                 function () {
@@ -1639,6 +1641,12 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.GetSelectedDateAppointmentsToPrint();
     }
 
+
+    resetCallendarOptions(scrollTime: string) {
+        let temp = this.calendarOptions;
+        temp.scrollTime = scrollTime;
+        this.calendarOptions = temp;
+    }
 
 }
 
