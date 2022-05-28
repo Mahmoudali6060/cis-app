@@ -63,7 +63,7 @@ export class ClinicInventoryList implements OnInit, OnChanges {
                     thisComponent.onAmountUpdatedAfterAdjust.emit(false);
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                     thisComponent.loading = false;
                 },

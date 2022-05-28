@@ -50,7 +50,7 @@ export class SystemAdminClinicAddressComponent implements OnChanges, OnInit {
                 thisComponent.toastr.success(msg, '');
             },
             function (error:any) { 
-                thisComponent.toastr.error(error, '');
+               thisComponent.toastr.error(error.error, '');
                 thisComponent.showProgress = false;
             },
             function () {

@@ -79,7 +79,7 @@ export class InsuranceInvoiceComponent implements OnInit {
                     thisComponent.invoicesList = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -98,7 +98,7 @@ export class InsuranceInvoiceComponent implements OnInit {
                     thisComponent.companiesList = response.insuranceCompanies;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -123,7 +123,7 @@ export class InsuranceInvoiceComponent implements OnInit {
                     thisComponent.invoicesList = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally

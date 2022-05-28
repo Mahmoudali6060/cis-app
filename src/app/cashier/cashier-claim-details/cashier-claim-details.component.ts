@@ -77,7 +77,7 @@ export class CashierClaimDetailsComponent implements OnInit {
                     thisComponent.patient = { unifiedMRN: thisComponent.patientClaim.unifiedMRN, clinicMRN: thisComponent.patientClaim.patientMrn, name: thisComponent.patientClaim.patientName }
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -100,7 +100,7 @@ export class CashierClaimDetailsComponent implements OnInit {
                     thisComponent.patient = { unifiedMRN: thisComponent.patientClaim.unifiedMRN, clinicMRN: thisComponent.patientClaim.patientMrn, name: thisComponent.patientClaim.patientName }
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -143,7 +143,7 @@ export class CashierClaimDetailsComponent implements OnInit {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -168,7 +168,7 @@ export class CashierClaimDetailsComponent implements OnInit {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally

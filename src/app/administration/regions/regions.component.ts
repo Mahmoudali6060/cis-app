@@ -51,7 +51,7 @@ export class RegionsComponent implements OnChanges, OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                 },
                 function () { // finally
                     thisComponent.showProgress = false;

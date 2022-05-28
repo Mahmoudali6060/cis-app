@@ -169,7 +169,7 @@ export class ClinicProductsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -268,7 +268,7 @@ export class ClinicProductsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -340,7 +340,7 @@ export class ClinicProductsComponent implements OnInit {
                             }
                         },
                         function (error: any) {
-                            thisComponent.toastr.error(error, '');
+                           thisComponent.toastr.error(error.error, '');
                         },
                         function () {
                             thisComponent.showProgress = false;
@@ -384,7 +384,7 @@ export class ClinicProductsComponent implements OnInit {
                                 thisComponent.productGroupParentlabel = thisComponent.model.parentGroupNameTranslation;
                         },
                         function (error: any) {
-                            thisComponent.toastr.error(error, '');
+                           thisComponent.toastr.error(error.error, '');
                         },
                         function () {
                             thisComponent.showProgress = false;
@@ -460,7 +460,7 @@ export class ClinicProductsComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -481,7 +481,7 @@ export class ClinicProductsComponent implements OnInit {
                         }
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -549,7 +549,7 @@ export class ClinicProductsComponent implements OnInit {
                         thisComponent.clearProductGroupWithParent();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -571,7 +571,7 @@ export class ClinicProductsComponent implements OnInit {
                         thisComponent.clearProductGroupWithParent();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
 
                         thisComponent.clearProductGroupWithParent();
 
@@ -618,7 +618,7 @@ export class ClinicProductsComponent implements OnInit {
                         thisComponent.btnCloseProduct.nativeElement.click();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                         thisComponent.clearWithParent();
                         thisComponent.btnCloseProduct.nativeElement.click();
@@ -640,7 +640,7 @@ export class ClinicProductsComponent implements OnInit {
                         thisComponent.btnCloseProduct.nativeElement.click();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                         thisComponent.clearWithParent();
                         thisComponent.btnCloseProduct.nativeElement.click();

@@ -127,7 +127,7 @@ export class DocumentDetailsComponent implements OnChanges {
                     thisComponent.patientFiles = wrappe.attachmentType;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally

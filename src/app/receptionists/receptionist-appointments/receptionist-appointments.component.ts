@@ -356,7 +356,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error);
+                       thisComponent.toastr.error(error.error);
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -978,7 +978,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComponent.btnCloseBookOrCloseModal.nativeElement.click();
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     //thisComponent.showProgress = false;
                 },
                 function () {
@@ -1154,7 +1154,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComponent.btnCloseRestoreTimeSlotsModal.nativeElement.click();
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     //thisComponent.showProgress = false;
                 },
                 function () {

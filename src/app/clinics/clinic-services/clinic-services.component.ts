@@ -105,7 +105,7 @@ export class ClinicServicesComponent implements OnInit {
                     thisComponent.treeDataSourceItems = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -185,7 +185,7 @@ export class ClinicServicesComponent implements OnInit {
 
                         },
                         function (error: any) {
-                            thisComponent.toastr.error(error, '');
+                           thisComponent.toastr.error(error.error, '');
                         },
                         function () {
                             thisComponent.showProgress = false;
@@ -226,7 +226,7 @@ export class ClinicServicesComponent implements OnInit {
                             thisComponent.totalFees = thisComponent.model.resourceFee + thisComponent.model.clinicFee;
                         },
                         function (error: any) {
-                            thisComponent.toastr.error(error, '');
+                           thisComponent.toastr.error(error.error, '');
                         },
                         function () {
                             thisComponent.showProgress = false;
@@ -313,7 +313,7 @@ export class ClinicServicesComponent implements OnInit {
                         }
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -335,7 +335,7 @@ export class ClinicServicesComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -402,7 +402,7 @@ export class ClinicServicesComponent implements OnInit {
                         thisComponent.clearServiceGroupWithParent();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearServiceGroupWithParent();
                         thisComponent.showProgress = false;
                     },
@@ -432,7 +432,7 @@ export class ClinicServicesComponent implements OnInit {
                         thisComponent.clearServiceGroupWithParent();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearServiceGroupWithParent();
                         thisComponent.showProgress = false;
                     },
@@ -510,7 +510,7 @@ export class ClinicServicesComponent implements OnInit {
                         thisComponent.clearWithParent();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearWithParent();
                         thisComponent.showProgress = false;
                     },
@@ -534,7 +534,7 @@ export class ClinicServicesComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearWithParent();
                         thisComponent.showProgress = false;
                     },

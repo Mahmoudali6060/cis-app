@@ -87,7 +87,7 @@ export class PatientAccountComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error);
+                       thisComponent.toastr.error(error.error);
                         // thisComponent.clearWithParent();
 
                         thisComponent.showProgress = false;
@@ -111,7 +111,7 @@ export class PatientAccountComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error);
+                       thisComponent.toastr.error(error.error);
                         thisComponent.showProgress = false;
                     },
                     function () {

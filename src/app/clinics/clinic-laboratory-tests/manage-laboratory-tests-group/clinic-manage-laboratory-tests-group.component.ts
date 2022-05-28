@@ -55,7 +55,7 @@ export class ClinicManageLaboratoryTestsGroupComponent implements OnInit, OnChan
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -86,7 +86,7 @@ export class ClinicManageLaboratoryTestsGroupComponent implements OnInit, OnChan
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearControl();
                         thisComponent.showProgress = false;
                     },
@@ -108,7 +108,7 @@ export class ClinicManageLaboratoryTestsGroupComponent implements OnInit, OnChan
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearControl();
                         thisComponent.showProgress = false;
                     },

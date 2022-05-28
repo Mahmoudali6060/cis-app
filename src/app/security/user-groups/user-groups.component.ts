@@ -129,7 +129,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
                         thisComponent.selectedGroupPermissions = [];
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {
@@ -152,7 +152,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
                     thisComponent.clear();
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {
@@ -185,7 +185,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {

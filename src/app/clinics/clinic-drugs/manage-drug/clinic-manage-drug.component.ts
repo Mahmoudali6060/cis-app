@@ -48,7 +48,7 @@ export class ClinicManageDrugComponent implements OnChanges {
                             thisComponent.selectedParentGroupName = drug.parentGroupNameTranslation;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -79,7 +79,7 @@ export class ClinicManageDrugComponent implements OnChanges {
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                         thisComponent.clearControl();
                     },
@@ -102,7 +102,7 @@ export class ClinicManageDrugComponent implements OnChanges {
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                         thisComponent.clearControl();
                     },

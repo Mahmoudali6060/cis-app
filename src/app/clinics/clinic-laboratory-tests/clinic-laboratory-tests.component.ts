@@ -98,7 +98,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
                     thisComponent.treeDataSourceItems = laboratoryTestsGroups;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -235,7 +235,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
                         }
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -255,7 +255,7 @@ export class ClinicLaboratoryTestsComponent implements OnInit {
                         }
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally

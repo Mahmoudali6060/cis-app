@@ -64,7 +64,7 @@ export class AddNewsComponent {
                             thisComponent.selectedClinicNews.creationDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.selectedClinicNews.creationDate.toString());
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -104,7 +104,7 @@ export class AddNewsComponent {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -126,7 +126,7 @@ export class AddNewsComponent {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {

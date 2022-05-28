@@ -48,7 +48,7 @@ export class ResetPasswordComponent {
                     thisComponent.clear();
                 },
                 function (error:any) { 
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {

@@ -36,7 +36,7 @@ export class SystemAdminSettingsComponent implements OnInit {
                     thisComponent.model = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -62,7 +62,7 @@ export class SystemAdminSettingsComponent implements OnInit {
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {

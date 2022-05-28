@@ -86,7 +86,7 @@ export class ClinicHumanResourceServiceFeesComponent implements OnChanges {
                         },
                         function (error: any) {
                             //console.log("Error happened" + error)
-                            thisComponent.toastr.error(error, '');
+                           thisComponent.toastr.error(error.error, '');
                             thisComponent.showProgress = false;
                         },
                         function () {

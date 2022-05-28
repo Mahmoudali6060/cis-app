@@ -67,7 +67,7 @@ export class PatientMedicationComponent implements OnInit {
                         thisComponent.clinicNoteMedicationList = clinicNoteMedication;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -82,7 +82,7 @@ export class PatientMedicationComponent implements OnInit {
                         thisComponent.clinicNoteMedicationList = clinicNoteMedication;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -107,7 +107,7 @@ export class PatientMedicationComponent implements OnInit {
                         thisComponent.toSaveClinicNoteMedication.startDate = thisComponent.utilityClass.getDateTimeFromString(thisComponent.toSaveClinicNoteMedication.startDate);
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -147,7 +147,7 @@ export class PatientMedicationComponent implements OnInit {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -166,7 +166,7 @@ export class PatientMedicationComponent implements OnInit {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally

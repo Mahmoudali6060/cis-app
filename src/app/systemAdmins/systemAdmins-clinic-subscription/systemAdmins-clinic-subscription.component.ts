@@ -97,7 +97,7 @@ export class SystemAdminClinicSubscriptionComponent implements OnChanges, OnInit
             },
             function (error:any) { 
                 thisComponent.clinicModel.subscriptions.pop(thisComponent.newSubscriptionToSave);
-                thisComponent.toastr.error(error, '');
+               thisComponent.toastr.error(error.error, '');
                 thisComponent.showProgress = false;
             },
             function () {

@@ -54,7 +54,7 @@ export class ViewfeedbacksListComponent implements OnInit {
                     thisComponent.clinicFeedbacksList = feedbacksList;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                     thisComponent.loading = false;
                 },

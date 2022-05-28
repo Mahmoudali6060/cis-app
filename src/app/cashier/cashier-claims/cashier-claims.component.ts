@@ -82,7 +82,7 @@ export class CashierClaimsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                     thisComponent.loading = false;
                 },
@@ -104,7 +104,7 @@ export class CashierClaimsComponent implements OnInit {
                     thisComponent.doctorsList = response.doctors;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -125,7 +125,7 @@ export class CashierClaimsComponent implements OnInit {
                     thisComponent.claimsList = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
