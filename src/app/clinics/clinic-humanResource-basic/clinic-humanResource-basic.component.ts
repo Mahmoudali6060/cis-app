@@ -91,7 +91,7 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
                             thisComponent.showProgress = false;
                         }
                         else {
-                           thisComponent.toastr.error(error.error.error, '');
+                           thisComponent.toastr.error(error.error, '');
                             thisComponent.showProgress = false;
                         }
 

@@ -106,7 +106,7 @@ export class SystemAdminClinicSMSCreditComponent implements OnChanges, OnInit {
 
                     }
                     else {
-                       thisComponent.toastr.error(error.error.error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     }
 
