@@ -47,7 +47,7 @@ export class ClinicManageLaboratoryTestComponent implements OnChanges {
                             thisComponent.selectedParentGroupName = laboratoryTest.parentGroupNameTranslation;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -78,7 +78,7 @@ export class ClinicManageLaboratoryTestComponent implements OnChanges {
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearControl();
                         thisComponent.showProgress = false;
                     },
@@ -101,7 +101,7 @@ export class ClinicManageLaboratoryTestComponent implements OnChanges {
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearControl();
                         thisComponent.showProgress = false;
                     },

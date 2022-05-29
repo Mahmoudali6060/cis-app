@@ -65,7 +65,7 @@ export class SystemAdminClinicsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                     thisComponent.loading = false;
                 },
@@ -90,7 +90,7 @@ export class SystemAdminClinicsComponent implements OnInit {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -128,7 +128,7 @@ export class SystemAdminClinicsComponent implements OnInit {
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {
@@ -163,7 +163,7 @@ export class SystemAdminClinicsComponent implements OnInit {
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {

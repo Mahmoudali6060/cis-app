@@ -160,7 +160,7 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
                         thisComponent.model.endDate = thisComponent.utilityClass.getUtcDateFromString(thisComponent.model.endDate);
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                 },
                 function () {
                     thisComponent.showProgress = false;
@@ -216,7 +216,7 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -240,7 +240,7 @@ export class ClinicAppointmentDetailsComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
 
                         thisComponent.showProgress = false;
                     },

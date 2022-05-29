@@ -283,7 +283,7 @@ export class AppComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    // thisComponent.toastr.error(error, '');
+                    //thisComponent.toastr.error(error.error, '');
                 },
                 function () { // finally
                     //thisComponent.showProgress = false;
@@ -302,7 +302,7 @@ export class AppComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    // thisComponent.toastr.error(error, '');
+                    //thisComponent.toastr.error(error.error, '');
                 },
                 function () { // finally
                     //thisComponent.showProgress = false;

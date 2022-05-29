@@ -105,7 +105,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -130,7 +130,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
                         thisComponent.showOnHandQuantity = true;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {

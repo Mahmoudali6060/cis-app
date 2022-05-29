@@ -54,7 +54,7 @@ export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
                             thisComponent.selectedParentGroupName = diagnosisGroup.parentGroupNameTranslation;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -86,7 +86,7 @@ export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -108,7 +108,7 @@ export class ClinicManageDiagnosisGroupComponent implements OnInit, OnChanges {
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {

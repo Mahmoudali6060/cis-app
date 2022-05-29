@@ -87,7 +87,7 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
                     thisComponent.companiesList = response.insuranceCompanies;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -120,7 +120,7 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
                         thisComponent.isGenerateInvoiceActive = false;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -150,7 +150,7 @@ export class InsuranceGenerateInvoiceComponent implements OnInit {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally

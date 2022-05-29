@@ -131,7 +131,7 @@ export class SharedTabsComponent implements OnChanges {
                     thisComponent.handleUserInterfaceViews(thisComponent.accountService.userPermision);
                 },
                 function (error: any) {
-                    // thisComponent.toastr.error(error, '');
+                    //thisComponent.toastr.error(error.error, '');
                 },
                 function () { // finally
                     //thisComponent.showProgress = false;
@@ -267,7 +267,7 @@ export class SharedTabsComponent implements OnChanges {
                     thisComponent.handleUserInterfaceViews(thisComponent.accountService.modulesWrapper);
                 },
                 function (error: any) {
-                    // thisComponent.toastr.error(error, '');
+                    //thisComponent.toastr.error(error.error, '');
                 },
                 function () { // finally
                     //thisComponent.showProgress = false;

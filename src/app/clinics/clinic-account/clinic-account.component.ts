@@ -139,7 +139,7 @@ export class ClinicAccountComponent implements OnInit {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error:any) { 
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {

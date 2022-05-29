@@ -96,7 +96,7 @@ export class ClinicRadiologyTestsComponent implements OnInit {
                     thisComponent.treeDataSourceItems = radiologyTestsGroups;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -234,7 +234,7 @@ export class ClinicRadiologyTestsComponent implements OnInit {
                         }
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -254,7 +254,7 @@ export class ClinicRadiologyTestsComponent implements OnInit {
                         }
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally

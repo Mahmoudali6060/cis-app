@@ -54,7 +54,7 @@ export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChang
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -85,7 +85,7 @@ export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChang
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearControl();
                         thisComponent.showProgress = false;
                     },
@@ -107,7 +107,7 @@ export class ClinicManageRadiologyTestsGroupComponent implements OnInit, OnChang
                         thisComponent.clearControl();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.clearControl();
                         thisComponent.showProgress = false;
                     },

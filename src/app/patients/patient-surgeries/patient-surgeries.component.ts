@@ -48,7 +48,7 @@ export class PatientSurgeriesComponent implements OnInit {
                     thisComponent.surgeriesList = surgeries;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -73,7 +73,7 @@ export class PatientSurgeriesComponent implements OnInit {
                         thisComponent.toSaveSurgery.dateTime = thisComponent.utilityClass.getDateTimeFromString(thisComponent.toSaveSurgery.dateTime);
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -114,7 +114,7 @@ export class PatientSurgeriesComponent implements OnInit {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally

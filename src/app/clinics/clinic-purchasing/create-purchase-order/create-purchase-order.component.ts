@@ -96,7 +96,7 @@ export class CreatePurchaseOrder implements OnInit {
                     }
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error.error, '');
+                   thisComponent.toastr.error(error.error, '');
                 },
                 function () {
                     thisComponent.showProgress = false;
@@ -129,7 +129,7 @@ export class CreatePurchaseOrder implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error.error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -159,7 +159,7 @@ export class CreatePurchaseOrder implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error.error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -246,7 +246,7 @@ export class CreatePurchaseOrder implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error.error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -269,7 +269,7 @@ export class CreatePurchaseOrder implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error.error, '');
+                       thisComponent.toastr.error(error.error, '');
 
                         thisComponent.showProgress = false;
                     },
@@ -300,7 +300,7 @@ export class CreatePurchaseOrder implements OnInit {
                         thisComponent.navigateToOrdersList();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error.error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -322,7 +322,7 @@ export class CreatePurchaseOrder implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error.error, '');
+                       thisComponent.toastr.error(error.error, '');
 
                         thisComponent.showProgress = false;
                     },

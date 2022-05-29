@@ -45,7 +45,7 @@ export class ClinicInventoryAdjustmentHistory implements OnInit {
                     thisComponent.clinicInventoriesHistoryList = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                     thisComponent.loading = false;
                 },

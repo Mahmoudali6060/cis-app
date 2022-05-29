@@ -118,7 +118,7 @@ export class DateHijriGregorian implements OnInit, OnChanges {
                         thisComponent.setHijriValues();
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error);
+                   thisComponent.toastr.error(error.error);
                     thisComponent.showProgress = false;
                 },
                 function () {

@@ -73,7 +73,7 @@ export class PatienSearchComponent implements OnInit {
                     thisComponent.matchedPatients = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                     thisComponent.matchedPatients = [];
                 },
@@ -93,7 +93,7 @@ export class PatienSearchComponent implements OnInit {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -117,7 +117,7 @@ export class PatienSearchComponent implements OnInit {
                         thisComponent.showProgress = false;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {

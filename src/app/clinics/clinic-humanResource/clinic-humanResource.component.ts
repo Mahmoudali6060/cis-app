@@ -93,7 +93,7 @@ export class ClinicHumanResourceComponent implements OnInit {
                     thisComponent.humanResourceWrapper = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                    thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -114,7 +114,7 @@ export class ClinicHumanResourceComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                    thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -123,13 +123,14 @@ export class ClinicHumanResourceComponent implements OnInit {
     }
 
     updateModel(updatedModel: any) {
+        debugger;
         this.selectedUserToEdit = updatedModel;
 
         if (!this.isEditMode)//Add new node to the tree
         {
             let newNode = {
-                label: updatedModel.name,
-                labelTranslation: updatedModel.nameTranslation,
+                label: updatedModel.firstName + " " + updatedModel.lastName,
+                labelTranslation: updatedModel.firstNameTranslation + " " + updatedModel.lastNameTranslation,
                 data: updatedModel.id,
                 isActive: updatedModel.isActive,
                 type: 'SecurityUser'

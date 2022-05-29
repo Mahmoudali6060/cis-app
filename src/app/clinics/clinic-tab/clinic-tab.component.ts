@@ -94,7 +94,7 @@ export class ClinicTabComponent implements OnInit, OnChanges {
                     thisComponent.handleUserInterfaceViews(thisComponent.accountService.modulesWrapper);
                 },
                 function (error: any) {
-                    // thisComponent.toastr.error(error, '');
+                    //thisComponent.toastr.error(error.error, '');
                 },
                 function () { // finally
                     //thisComponent.showProgress = false;

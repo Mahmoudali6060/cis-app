@@ -60,7 +60,7 @@ export class LocationsComponent implements OnChanges, OnInit, AfterContentChecke
                 //thisComponent.citiesList = response.cities;
             },
             function (error:any) { 
-                thisComponent.toastr.error(error, '');
+               thisComponent.toastr.error(error.error, '');
             },
             function () { // finally
                 thisComponent.showProgress = false;

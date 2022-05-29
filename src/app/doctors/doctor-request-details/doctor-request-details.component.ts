@@ -126,7 +126,7 @@ export class DoctorRequestDetailsComponent implements OnInit {
                     thisComponent.translateObjects.transform(thisComponent.treeDataSourceItems, '', null, thisComponent.lstToTranslated);
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally

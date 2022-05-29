@@ -84,7 +84,7 @@ export class ClinicEMRWizardComponent implements OnInit {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {
@@ -108,7 +108,7 @@ export class ClinicEMRWizardComponent implements OnInit {
                     thisComponent.initializeModel();
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {

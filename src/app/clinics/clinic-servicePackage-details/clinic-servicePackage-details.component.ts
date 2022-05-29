@@ -95,7 +95,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
                     thisComponent.treeDataSourceItems = response;
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -132,7 +132,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
                         },
                         function (error: any) {
                             //console.log("Error happened" + error)
-                            thisComponent.toastr.error(error, '');
+                           thisComponent.toastr.error(error.error, '');
                             thisComponent.showProgress = false;
                         },
                         function () {
@@ -166,7 +166,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
                         },
                         function (error: any) {
                             //console.log("Error happened" + error)
-                            thisComponent.toastr.error(error, '');
+                           thisComponent.toastr.error(error.error, '');
                             thisComponent.showProgress = false;
                         },
                         function () {
@@ -209,7 +209,7 @@ export class ClinicServicePackageDetailsComponent implements OnInit {
                     }
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                 },
                 function () {
                     thisComponent.showProgress = false;

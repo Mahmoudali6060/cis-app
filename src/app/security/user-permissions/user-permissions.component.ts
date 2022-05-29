@@ -132,7 +132,7 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
                         thisComponent.selectedUserPermissions = [];
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {
@@ -157,7 +157,7 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
                     thisComponent.clear();
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {
@@ -179,7 +179,7 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () {

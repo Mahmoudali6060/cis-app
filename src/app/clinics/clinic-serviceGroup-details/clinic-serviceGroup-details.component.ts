@@ -38,7 +38,7 @@ export class ClinicServiceGroupDetailsComponent implements OnChanges {
                         }
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                     },
                     function () {
                         thisComponent.showProgress = false;
@@ -101,7 +101,7 @@ export class ClinicServiceGroupDetailsComponent implements OnChanges {
                         thisComponent.clear();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -122,7 +122,7 @@ export class ClinicServiceGroupDetailsComponent implements OnChanges {
                         thisComponent.clear();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {

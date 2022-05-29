@@ -38,7 +38,7 @@ export class SystemAdminVendorsComponent implements OnInit {
         this.systemAdminService.getVendors()
             .subscribe((vendors: any) => this.vendors = vendors,
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                     thisComponent.loading = false;
 
@@ -70,7 +70,7 @@ export class SystemAdminVendorsComponent implements OnInit {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally

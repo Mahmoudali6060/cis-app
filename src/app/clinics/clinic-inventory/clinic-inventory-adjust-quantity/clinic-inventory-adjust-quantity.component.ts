@@ -109,7 +109,7 @@ export class ClinicInventoryAdjustQuantity {
 
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally
@@ -135,7 +135,7 @@ export class ClinicInventoryAdjustQuantity {
                         thisComponent.clear();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {

@@ -53,7 +53,7 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
                         thisComponent.diagnosisList = clinicNoteDiagnosis;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -72,7 +72,7 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
                         thisComponent.diagnosisList = clinicNoteDiagnosis;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -101,7 +101,7 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
                         thisComponent.toSaveClinicNoteDiagnose = matchedClinicNoteDiagnose;
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -141,7 +141,7 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () { // finally
@@ -160,7 +160,7 @@ export class PatientDiagnosisComponent implements OnInit, OnChanges {
                     thisComponent.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComponent.toastr.error(error, '');
+                   thisComponent.toastr.error(error.error, '');
                     thisComponent.showProgress = false;
                 },
                 function () { // finally

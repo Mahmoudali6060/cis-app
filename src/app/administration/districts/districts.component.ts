@@ -50,7 +50,7 @@ export class DistrictsComponent implements OnChanges, OnInit, AfterContentChecke
                 thisComponent.regionsList = response.regions;
             },
             function (error:any) { 
-                thisComponent.toastr.error(error, '');
+               thisComponent.toastr.error(error.error, '');
             },
             function () { // finally
                 thisComponent.showProgress = false;

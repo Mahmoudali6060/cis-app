@@ -91,7 +91,7 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
                             thisComponent.showProgress = false;
                         }
                         else {
-                            thisComponent.toastr.error(error.error, '');
+                           thisComponent.toastr.error(error.error, '');
                             thisComponent.showProgress = false;
                         }
 
@@ -115,7 +115,7 @@ export class ClinicHumanResourceBasicComponent implements OnChanges {
                         thisComponent.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {

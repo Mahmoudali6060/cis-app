@@ -45,7 +45,7 @@ export class ClinicServiceDetailsComponent implements OnChanges {
                             thisComponent.displaySelectedParentGroupNode(thisComponent.parentId);
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                     },
                     function () {
                         thisComponent.showProgress = false;
@@ -92,7 +92,7 @@ export class ClinicServiceDetailsComponent implements OnChanges {
                         thisComponent.clear();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
@@ -113,7 +113,7 @@ export class ClinicServiceDetailsComponent implements OnChanges {
                         thisComponent.clear();
                     },
                     function (error: any) {
-                        thisComponent.toastr.error(error, '');
+                       thisComponent.toastr.error(error.error, '');
                         thisComponent.showProgress = false;
                     },
                     function () {
