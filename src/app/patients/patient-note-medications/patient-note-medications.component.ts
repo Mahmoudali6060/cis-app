@@ -69,7 +69,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
                     vm.durationUnitsList = response.durationUnits;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -86,7 +86,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
                     vm.translateObjects.transform(vm.departmentDrugs, '', null, vm.lstToTranslated);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -101,7 +101,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
                     vm.noteDiagnosis = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -118,7 +118,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
                     vm.noteDrugsList = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () { // finally
                     vm.showProgress = false;
@@ -146,7 +146,7 @@ export class PatientNoteMedicationsComponent implements OnInit, OnChanges {
                     vm.onMedicationSaved.emit();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

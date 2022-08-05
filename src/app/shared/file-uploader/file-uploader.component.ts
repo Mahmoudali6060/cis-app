@@ -51,7 +51,7 @@ export class FileUploaderComponent implements OnChanges {
                         }
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                     },
                     function () {
 
@@ -72,7 +72,7 @@ export class FileUploaderComponent implements OnChanges {
                     vm.hasFile = false;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

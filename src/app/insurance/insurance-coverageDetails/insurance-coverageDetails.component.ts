@@ -109,7 +109,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
                     vm.coverageTypes = response.coverageTypes;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     //vm.showProgress = false;
                 },
                 function () {
@@ -123,7 +123,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
                     vm.allServices = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -137,7 +137,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
                     vm.allDiagnosis = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -177,7 +177,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
                         vm.coverageDetailsList = response;
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -225,7 +225,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
                         vm.dymptService = true;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -321,7 +321,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
                 },
                 function (error: any) {
                     vm.clear;
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -366,7 +366,7 @@ export class InsuranceCoverageDetailsComponent implements OnInit {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

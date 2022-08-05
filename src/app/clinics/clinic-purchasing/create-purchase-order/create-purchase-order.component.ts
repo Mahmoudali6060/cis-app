@@ -199,7 +199,7 @@ export class CreatePurchaseOrder implements OnInit {
                     //  vm.clear();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

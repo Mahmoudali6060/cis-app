@@ -64,7 +64,7 @@ export class PatientRadiologyComponent implements OnInit {
                         vm.radTests.splice(index, 1);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -79,7 +79,7 @@ export class PatientRadiologyComponent implements OnInit {
                     vm.radTests = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () { // finally
                     vm.showProgress = false;

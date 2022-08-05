@@ -56,7 +56,7 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
                     //vm.translateObjects.transform(vm.departmentDiagnosis, null, null, vm.lstToTranslated);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -82,7 +82,7 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
                     vm.translateObjects.transform(vm.departmentDiagnosis, '', null, vm.lstToTranslated);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -115,7 +115,7 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
                     vm.noteDiagnosisList = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () { // finally
                     vm.showProgress = false;
@@ -135,7 +135,7 @@ export class PatientNoteDiagnosisComponent implements OnInit, OnChanges {
                     vm.onDiagnosisSaved.emit();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

@@ -63,7 +63,7 @@ export class ClinicEMRMasterRadiologyTestsComponent implements OnInit, OnChanges
                     vm.radiologyTestsTree = radiologyTestsGroups; //vm.treeHelper.getActiveNodesOnly(radiologyTestsGroups);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -76,7 +76,7 @@ export class ClinicEMRMasterRadiologyTestsComponent implements OnInit, OnChanges
                     vm.allRadiologyTests = Tests;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -118,7 +118,7 @@ export class ClinicEMRMasterRadiologyTestsComponent implements OnInit, OnChanges
                     node.isActive = event.target.checked;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -158,7 +158,7 @@ export class ClinicEMRMasterRadiologyTestsComponent implements OnInit, OnChanges
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

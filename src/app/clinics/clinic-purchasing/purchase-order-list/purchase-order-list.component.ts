@@ -88,7 +88,7 @@ export class PurchaseOrderList {
                 vm.ordersList = response;
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -112,7 +112,7 @@ export class PurchaseOrderList {
 
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () { // finally
@@ -176,7 +176,7 @@ export class PurchaseOrderList {
                     //  vm.clear();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -248,7 +248,7 @@ export class PurchaseOrderList {
 
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () { // finally

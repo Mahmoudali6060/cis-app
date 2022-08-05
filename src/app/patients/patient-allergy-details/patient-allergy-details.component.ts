@@ -63,7 +63,7 @@ export class PatientAllergyDetailsComponent implements OnInit {
                     }
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -88,7 +88,7 @@ export class PatientAllergyDetailsComponent implements OnInit {
                     }
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -201,7 +201,7 @@ export class PatientAllergyDetailsComponent implements OnInit {
                         vm.onBack.emit(response);
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -220,7 +220,7 @@ export class PatientAllergyDetailsComponent implements OnInit {
                         vm.onBack.emit(response);
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {

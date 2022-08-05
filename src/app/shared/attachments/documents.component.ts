@@ -97,7 +97,7 @@ export class DocumentsComponent implements OnInit, OnChanges {
                         vm.attachmentsList = response;
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                         vm.loading = false;
 
@@ -150,7 +150,7 @@ export class DocumentsComponent implements OnInit, OnChanges {
                             vm.model = response;
                         },
                         function (error: any) {
-                            vm.toastr.error(error, '');
+                            vm.toastr.error(error.error, '');
                             vm.showProgress = false;
                         },
                         function () {
@@ -203,7 +203,7 @@ export class DocumentsComponent implements OnInit, OnChanges {
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;

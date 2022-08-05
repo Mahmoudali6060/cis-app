@@ -93,7 +93,7 @@ export class DoctorAppointmentsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -138,7 +138,7 @@ export class DoctorAppointmentsComponent implements OnInit {
                     vm.updateSerialNumber(vm.doctorAppointmentsList);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -177,7 +177,7 @@ export class DoctorAppointmentsComponent implements OnInit {
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                     appointment.isSeen = false;
                 },

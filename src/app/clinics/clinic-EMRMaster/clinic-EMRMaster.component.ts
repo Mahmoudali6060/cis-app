@@ -52,7 +52,7 @@ export class ClinicEMRMasterComponent implements OnInit {
                     vm.medicalDepartments = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -85,7 +85,7 @@ export class ClinicEMRMasterComponent implements OnInit {
                         vm.lstDepartmentDivisions = response;
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -103,7 +103,7 @@ export class ClinicEMRMasterComponent implements OnInit {
                     vm.selectedDivision = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

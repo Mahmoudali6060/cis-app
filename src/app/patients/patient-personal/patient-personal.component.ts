@@ -62,7 +62,7 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
                     vm.maritalStatuses = response.maritalStatuses;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -125,7 +125,7 @@ export class PatientPersonalComponent implements OnInit, AfterContentChecked, On
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

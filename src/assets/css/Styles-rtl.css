@@ -284,3 +284,7 @@
     color: white !important;
     margin-right: 21px !important;
 }
+
+.expandedAccordion {
+    display: block !important;
+}

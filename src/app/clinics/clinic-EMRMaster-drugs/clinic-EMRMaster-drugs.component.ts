@@ -60,7 +60,7 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
                     vm.drugsTree = drugsGroups;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -73,7 +73,7 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
                     vm.allDrugs = drugs;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                 });
@@ -113,7 +113,7 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
                     node.isActive = event.target.checked;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -153,7 +153,7 @@ export class ClinicEMRMasterDrugsComponent implements OnInit, OnChanges {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

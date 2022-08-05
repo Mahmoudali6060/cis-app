@@ -50,7 +50,7 @@ export class ClinicSettingsComponent {
                         thisComp.showProgress = false;
                     },
                     function (error: any) {
-                        thisComp.toastr.error(error, '');
+                        thisComp.toastr.error(error.error, '');
                         thisComp.showProgress = false;
                     },
                     function () {

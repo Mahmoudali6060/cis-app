@@ -66,7 +66,7 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
                     }
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -88,7 +88,7 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -178,7 +178,7 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
                         vm.onBack.emit(response);
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -198,7 +198,7 @@ export class PatientDiagnoseDetailsComponent implements OnInit {
                     },
                     function (error: any) {
 
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {

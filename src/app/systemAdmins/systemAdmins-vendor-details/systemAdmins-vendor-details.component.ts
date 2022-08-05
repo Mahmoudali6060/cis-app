@@ -46,7 +46,7 @@ export class SystemAdminVendorDetailsComponent implements OnInit {
                         thisComp.model = response;
                     },
                     function (error: any) {
-                        thisComp.toastr.error(error, '');
+                        thisComp.toastr.error(error.error, '');
                         thisComp.showProgress = false;
                     },
                     function () {

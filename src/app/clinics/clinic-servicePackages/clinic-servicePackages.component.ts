@@ -99,7 +99,7 @@ export class ClinicServicePackagesComponent implements OnInit {
                     vm.loadServicePackages();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -113,7 +113,7 @@ export class ClinicServicePackagesComponent implements OnInit {
                 vm.servicePackagesList = response;
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;

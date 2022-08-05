@@ -102,7 +102,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
                     vm.companiesList = response.companiesList;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -223,7 +223,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
                         vm.toastr.warning(vm.translate.instant('NoResults'), '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -243,7 +243,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -264,7 +264,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
                         vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -297,7 +297,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
                     vm.refundModel = {};
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -320,7 +320,7 @@ export class InsuranceCompanyTransactionsComponent implements OnInit {
                     vm.net = discount;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

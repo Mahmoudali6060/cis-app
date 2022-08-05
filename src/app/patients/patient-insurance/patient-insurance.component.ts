@@ -79,7 +79,7 @@ export class PatientInsuranceComponent implements OnInit, OnChanges {
                     vm.patientModel.birthDate = vm.utilityClass.getUtcDateFromString(vm.patientModel.birthDate);
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -101,7 +101,7 @@ export class PatientInsuranceComponent implements OnInit, OnChanges {
                     vm.loadPatientInsurances();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -152,7 +152,7 @@ export class PatientInsuranceComponent implements OnInit, OnChanges {
                     //  vm.clear();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -183,7 +183,7 @@ export class PatientInsuranceComponent implements OnInit, OnChanges {
                     vm.raiseModelUpdated(vm.patientModel);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

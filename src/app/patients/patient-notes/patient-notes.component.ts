@@ -82,7 +82,7 @@ export class PatientNotesComponent implements OnChanges, OnInit {
                         vm.pateintMrfs = response;
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                     },
                     function () {
                         vm.showProgress = false;
@@ -125,7 +125,7 @@ export class PatientNotesComponent implements OnChanges, OnInit {
                     }
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally

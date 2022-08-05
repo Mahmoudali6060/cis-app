@@ -70,7 +70,7 @@ export class PatientNoteServicesComponent implements OnInit, OnChanges {
                     vm.translateObjects.transform(vm.departmentServices, '', null, vm.lstToTranslated);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -87,7 +87,7 @@ export class PatientNoteServicesComponent implements OnInit, OnChanges {
                     vm.translateObjects.transform(vm.departmentServicePackages, '', null, vm.lstToTranslated);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -101,7 +101,7 @@ export class PatientNoteServicesComponent implements OnInit, OnChanges {
                     vm.noteDiagnosis = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -118,7 +118,7 @@ export class PatientNoteServicesComponent implements OnInit, OnChanges {
                     vm.noteServicesList = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () { // finally
                     vm.showProgress = false;
@@ -139,7 +139,7 @@ export class PatientNoteServicesComponent implements OnInit, OnChanges {
                     vm.onServicesSaved.emit();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

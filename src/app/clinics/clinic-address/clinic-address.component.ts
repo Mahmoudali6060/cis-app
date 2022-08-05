@@ -48,7 +48,7 @@ export class ClinicAddressComponent implements OnInit {
                 vm.model = response;
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () {
@@ -68,7 +68,7 @@ export class ClinicAddressComponent implements OnInit {
                 vm.toastr.success(msg, '');
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () {

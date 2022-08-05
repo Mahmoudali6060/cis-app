@@ -78,7 +78,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
                     vm.paymentMethods = response.paymentMethod;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -159,7 +159,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
                     vm.raiseAmountUpdated(null)
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -185,7 +185,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -268,7 +268,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
                     vm.closeReleaseChargeWindow();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -310,7 +310,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
                     vm.closeRejectChargeWindow();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -351,7 +351,7 @@ export class InsuranceInvoiceServicesComponent implements OnInit {
                     vm.closeResubmitChargeWindow();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

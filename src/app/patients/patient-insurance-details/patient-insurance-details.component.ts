@@ -54,7 +54,7 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
                     // vm.policies = response.policies;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -74,7 +74,7 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
                             vm.model.endDate = vm.utilityClass.getUtcDateFromString(vm.model.endDate);
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -136,7 +136,7 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
                     },
                     function (error: any) {
                         //console.log("Error happened" + error)
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -158,7 +158,7 @@ export class PatientInsuranceDetailsComponent implements OnInit, AfterContentChe
                     },
                     function (error: any) {
                         //console.log("Error happened" + error)
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {

@@ -37,7 +37,7 @@ export class PatientRemarksComponent implements OnInit {
                     vm.clinicNote = response;
                 },
                 function (error:any) { 
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     //vm.showProgress = false;

@@ -54,7 +54,7 @@ export class ImageUploaderComponent implements OnChanges {
                         }
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                     },
                     function () {
 
@@ -75,7 +75,7 @@ export class ImageUploaderComponent implements OnChanges {
                     vm.imageChanged.emit(null);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

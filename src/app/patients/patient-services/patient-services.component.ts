@@ -72,7 +72,7 @@ export class PatientServicesComponent implements OnInit {
                     vm.noteServicesList = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () { // finally
                     vm.showProgress = false;
@@ -105,7 +105,7 @@ export class PatientServicesComponent implements OnInit {
                         vm.noteServicesList.splice(index, 1);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

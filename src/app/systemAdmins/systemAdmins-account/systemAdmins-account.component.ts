@@ -41,7 +41,7 @@ export class SystemAdminAccountComponent implements OnInit {
 
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () { // finally
@@ -69,7 +69,7 @@ export class SystemAdminAccountComponent implements OnInit {
                         vm.model.reachInfo = {};
                 },
                 function (error:any) { 
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -89,7 +89,7 @@ export class SystemAdminAccountComponent implements OnInit {
                 vm.toastr.success(msg, '');
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () {

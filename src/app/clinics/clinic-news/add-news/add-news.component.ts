@@ -176,7 +176,7 @@ export class AddNewsComponent {
                         }
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                     },
                     function () {
 

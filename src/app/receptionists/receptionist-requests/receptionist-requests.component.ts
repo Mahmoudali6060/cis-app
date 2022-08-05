@@ -75,7 +75,7 @@ export class ReceptionistRequestsComponent implements OnInit {
                 vm.patientRequestList = response;
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -92,7 +92,7 @@ export class ReceptionistRequestsComponent implements OnInit {
                     vm.updatePatientRequest(response);
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -134,7 +134,7 @@ export class ReceptionistRequestsComponent implements OnInit {
                     vm.updatePatientRequest(response);
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;

@@ -70,6 +70,7 @@ export class SystemAdminImportExportComponent implements OnInit {
 
     }
     onSubmit(): void {
+        debugger;
         let vm = this;
         vm.showProgress = true;
         //import
@@ -92,7 +93,7 @@ export class SystemAdminImportExportComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -115,7 +116,7 @@ export class SystemAdminImportExportComponent implements OnInit {
                         }
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -154,7 +155,7 @@ export class SystemAdminImportExportComponent implements OnInit {
                     vm.filesPathList = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -199,7 +200,7 @@ export class SystemAdminImportExportComponent implements OnInit {
                         vm.description = response;
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -241,7 +242,7 @@ export class SystemAdminImportExportComponent implements OnInit {
                     vm.filesPathList = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;

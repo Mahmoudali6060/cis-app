@@ -106,7 +106,7 @@ export class DocumentDetailsComponent implements OnChanges {
                         }
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                     },
                     function () {
 
@@ -184,7 +184,7 @@ export class DocumentDetailsComponent implements OnChanges {
                         vm.goBack();
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -203,7 +203,7 @@ export class DocumentDetailsComponent implements OnChanges {
                         vm.goBack();
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -246,7 +246,7 @@ export class DocumentDetailsComponent implements OnChanges {
                         vm.attachmentsList = response;
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {

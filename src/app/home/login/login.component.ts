@@ -82,7 +82,7 @@ export class LoginComponent {
                     }
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -191,7 +191,7 @@ export class LoginComponent {
                     thisComp.userEmail = null;
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {

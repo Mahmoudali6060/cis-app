@@ -69,7 +69,7 @@ export class PatientAddressComponent implements OnInit, OnChanges {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

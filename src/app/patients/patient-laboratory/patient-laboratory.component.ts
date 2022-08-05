@@ -54,7 +54,7 @@ export class PatientLaboratoryComponent implements OnInit {
                     vm.labTests = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () { // finally
                     vm.showProgress = false;
@@ -86,7 +86,7 @@ export class PatientLaboratoryComponent implements OnInit {
                         vm.labTests.splice(index, 1);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

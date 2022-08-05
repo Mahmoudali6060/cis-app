@@ -64,7 +64,7 @@ export class ClinicEMRMasterServicesComponent implements OnInit, OnChanges {
                     vm.servicesTree = servicesGroups;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     //vm.showProgress = false;
                 },
                 function () {
@@ -77,7 +77,7 @@ export class ClinicEMRMasterServicesComponent implements OnInit, OnChanges {
                     vm.allservices = services;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -119,7 +119,7 @@ export class ClinicEMRMasterServicesComponent implements OnInit, OnChanges {
                     node.isActive = event.target.checked;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -162,7 +162,7 @@ export class ClinicEMRMasterServicesComponent implements OnInit, OnChanges {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

@@ -40,7 +40,7 @@ export class ClinicTabComponent implements OnInit, OnChanges {
     @Input() isProductsSelected: boolean = false;
     @Input() isTemplatesSelected: boolean = false;
     clinicId: string = '';
-
+    showSettingsTabs: boolean = false;
     constructor(private storage: LocalStorageService
         , public accountService: AccountService) { }
 

@@ -82,7 +82,7 @@ export class PurchaseOrderViewDetails {
                 }
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;

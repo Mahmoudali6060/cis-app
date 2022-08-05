@@ -390,7 +390,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComp.organizationStructureTree = response;
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -653,7 +653,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -687,7 +687,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                         thisComp.selectedDivisionName = response.nameTranslation;
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -777,7 +777,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     thisComp.patientId = response.id;
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -798,7 +798,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 function (response: any) {
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -814,7 +814,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 function (response: any) {
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -883,7 +883,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                         },
                         function (error: any) {
                             thisComp.appointmentModel.dateTime = thisComp.appoitmentDateTimeBackup;
-                            thisComp.toastr.error(error, '');
+                            thisComp.toastr.error(error.error, '');
                             thisComp.showProgress = false;
                         },
                         function () {
@@ -911,7 +911,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                             thisComp.toastr.success(msg, '');
                         },
                         function (error: any) {
-                            thisComp.toastr.error(error, '');
+                            thisComp.toastr.error(error.error, '');
                             thisComp.appointmentModel.dateTime = thisComp.appoitmentDateTimeBackup;
                             thisComp.showProgress = false;
                         },
@@ -1211,7 +1211,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                         thisComp.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComp.toastr.error(error, '');
+                        thisComp.toastr.error(error.error, '');
                         thisComp.showProgress = false;
                     },
                     function () {
@@ -1333,7 +1333,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
                     },
                     function (error: any) {
-                        thisComp.toastr.error(error, '');
+                        thisComp.toastr.error(error.error, '');
                         thisComp.showLoading = false;
                     },
                     function () {

@@ -104,7 +104,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
                     vm.paymentMethods = response.paymentMethod;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -213,7 +213,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
                     vm.raiseAmountUpdated(null)
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -249,7 +249,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
                         vm.payment.date = vm.utilityClass.getDateTimeFromString(vm.payment.date);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -362,7 +362,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
                     vm.closeOverrideChargeModal();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -396,7 +396,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
                     vm.closeReleaseChargeModal();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -437,7 +437,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
                     vm.closeMarkSatisfiedModal();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -570,7 +570,7 @@ export class CashierClaimServicesComponent implements OnInit, OnChanges {
                     if (vm.selectedInstallment.date)
                         vm.selectedInstallment.date = vm.utilityClass.getDateTimeFromString(vm.selectedInstallment.date);
 
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally

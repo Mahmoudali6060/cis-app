@@ -157,7 +157,7 @@ export class DoctorInventoryRequestsComponent implements OnInit {
                     vm.doctorsList = response.doctors;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -230,7 +230,7 @@ export class DoctorInventoryRequestsComponent implements OnInit {
                     vm.doctorsRequestsList = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally

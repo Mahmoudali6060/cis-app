@@ -95,7 +95,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.organizationStructure = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -113,7 +113,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.PhysicalResourceTypes = response.physicalResourceTypes;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -144,7 +144,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.organizationStructure[0].expand;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -266,7 +266,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -284,7 +284,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.model = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -318,7 +318,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -337,7 +337,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.model.departmentName = node.parent.label;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -376,7 +376,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -403,7 +403,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -438,7 +438,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

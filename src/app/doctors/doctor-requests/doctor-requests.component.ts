@@ -74,7 +74,7 @@ export class DoctorRequestsComponent implements OnInit {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -112,7 +112,7 @@ export class DoctorRequestsComponent implements OnInit {
                     vm.allInventoryRequestObjects = response;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -148,7 +148,7 @@ export class DoctorRequestsComponent implements OnInit {
                 },
                 function (error: any) {
                     //console.log("Error happened" + error)
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;

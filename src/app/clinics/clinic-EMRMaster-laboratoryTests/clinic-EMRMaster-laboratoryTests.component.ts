@@ -65,7 +65,7 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
                     vm.laboratoryTestsTree = laboratoryTestsGroups; //vm.treeHelper.getActiveNodesOnly(laboratoryTestsGroups);
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -78,7 +78,7 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
                     vm.allLaboratoryTests = laboratoryTests;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -120,7 +120,7 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
                     node.isActive = event.target.checked;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -161,7 +161,7 @@ export class ClinicEMRMasterLaboratoryTestsComponent implements OnInit, OnChange
                     vm.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

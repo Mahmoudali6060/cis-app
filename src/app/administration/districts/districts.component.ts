@@ -89,7 +89,7 @@ export class DistrictsComponent implements OnChanges, OnInit, AfterContentChecke
                 vm.clear();
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () {
@@ -108,7 +108,7 @@ export class DistrictsComponent implements OnChanges, OnInit, AfterContentChecke
                 vm.allObjects = response;
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () {
@@ -154,7 +154,7 @@ export class DistrictsComponent implements OnChanges, OnInit, AfterContentChecke
                 vm.clear();
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.showProgress = false;
             },
             function () {

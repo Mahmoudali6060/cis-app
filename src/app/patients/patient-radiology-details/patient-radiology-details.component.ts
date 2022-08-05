@@ -65,7 +65,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
                             vm.displaySelectedParentGroupNode(vm.radTestToSave.radiologyTestId);
                         },
                         function (error: any) {
-                            vm.toastr.error(error, '');
+                            vm.toastr.error(error.error, '');
                             vm.showProgress = false;
                         },
                         function () {
@@ -82,7 +82,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
                             vm.radTestToSave = response;
                         },
                         function (error: any) {
-                            vm.toastr.error(error, '');
+                            vm.toastr.error(error.error, '');
                             vm.showProgress = false;
                         },
                         function () {
@@ -110,7 +110,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -141,7 +141,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
 
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -171,7 +171,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
                     }
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;
@@ -236,7 +236,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
                     },
                     function (error: any) {
                         //console.log("Error happened" + error)
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {
@@ -257,7 +257,7 @@ export class PatientRadiologyDetailsComponent implements OnInit, OnChanges {
                     },
                     function (error: any) {
                         //console.log("Error happened" + error)
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {

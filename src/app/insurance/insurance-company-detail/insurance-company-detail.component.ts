@@ -44,7 +44,7 @@ export class InsuranceCompanyDetailComponent implements OnInit {
                         vm.insurancePolicies = response.insurancePolicies;
                     },
                     function (error: any) {
-                        vm.toastr.error(error, '');
+                        vm.toastr.error(error.error, '');
                         vm.showProgress = false;
                     },
                     function () {

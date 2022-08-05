@@ -97,7 +97,7 @@ export class PatientMrfComponent implements OnInit {
                 vm.selectedPatient = response;
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -143,7 +143,7 @@ export class PatientMrfComponent implements OnInit {
                     thisComp.appointementsList = response.appointments;
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -210,7 +210,7 @@ export class PatientMrfComponent implements OnInit {
                         thisComp.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComp.toastr.error(error, '');
+                        thisComp.toastr.error(error.error, '');
                         thisComp.showProgress = false;
                     },
                     function () {
@@ -235,7 +235,7 @@ export class PatientMrfComponent implements OnInit {
                     vm.pateintMrfs = response;
                 },
                 function (error:any) { 
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                 },
                 function () {
                     vm.showProgress = false;

@@ -90,7 +90,7 @@ export class ClinicAppointmentsComponent implements OnInit {
                     vm.daysList = response.days;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     //  vm.showProgress = false;
                 },
                 function () { // finally
@@ -136,7 +136,7 @@ export class ClinicAppointmentsComponent implements OnInit {
 
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
                 vm.loading = false;
             },
             function () { // finally
@@ -155,7 +155,7 @@ export class ClinicAppointmentsComponent implements OnInit {
 
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -171,7 +171,7 @@ export class ClinicAppointmentsComponent implements OnInit {
 
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -187,7 +187,7 @@ export class ClinicAppointmentsComponent implements OnInit {
 
             },
             function (error: any) {
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () { // finally
                 vm.showProgress = false;
@@ -247,7 +247,7 @@ export class ClinicAppointmentsComponent implements OnInit {
                     //   vm.loadServicePackages();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -284,7 +284,7 @@ export class ClinicAppointmentsComponent implements OnInit {
                     //  vm.clear();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

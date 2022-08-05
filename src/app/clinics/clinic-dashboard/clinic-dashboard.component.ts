@@ -152,7 +152,7 @@ export class ClinicDashboardComponent implements OnInit {
                     vm.visitsBarChart.reinit();
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

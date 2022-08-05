@@ -122,7 +122,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
                     vm.doctorsList = response.doctors;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -254,7 +254,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
                         vm.toastr.warning(vm.translate.instant('NoResults'), '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                     vm.loading = false;
 
@@ -275,7 +275,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
                     vm.toastr.success(vm.translate.instant('SavedSuccessfully'), '');
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () { // finally
@@ -329,7 +329,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
                     vm.refundModel = {};
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -350,7 +350,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
                     //vm.netAmount = response.netAmount;
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {
@@ -393,7 +393,7 @@ export class CashierPatientTransactionsComponent implements OnInit {
                     vm.prepaidAmount = '';
                 },
                 function (error: any) {
-                    vm.toastr.error(error, '');
+                    vm.toastr.error(error.error, '');
                     vm.showProgress = false;
                 },
                 function () {

@@ -61,7 +61,7 @@ export class PatientSnapshotComponent implements OnChanges, OnInit {
 
             },
             function (error:any) { 
-                vm.toastr.error(error, '');
+                vm.toastr.error(error.error, '');
             },
             function () {
                 // vm.showProgress = false;

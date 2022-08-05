@@ -218,7 +218,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
                     thisComp.createPatientInsurance(response);
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
@@ -246,7 +246,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
                         thisComp.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComp.toastr.error(error, '');
+                        thisComp.toastr.error(error.error, '');
                         thisComp.showProgress = false;
                     },
                     function () {
@@ -265,7 +265,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
                         thisComp.toastr.success(msg, '');
                     },
                     function (error: any) {
-                        thisComp.toastr.error(error, '');
+                        thisComp.toastr.error(error.error, '');
                         thisComp.showProgress = false;
                     },
                     function () {
@@ -310,7 +310,7 @@ export class InsurancePolicyDetailsComponent implements OnInit, OnChanges {
                     thisComp.toastr.success(msg, '');
                 },
                 function (error: any) {
-                    thisComp.toastr.error(error, '');
+                    thisComp.toastr.error(error.error, '');
                     thisComp.showProgress = false;
                 },
                 function () {
