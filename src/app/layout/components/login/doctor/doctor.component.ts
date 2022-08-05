@@ -120,6 +120,7 @@ export class DoctorComponent implements OnInit {
           //thisComponent.displayLoggedInUserLanguage();
 
           thisComponent.removeNewDesignFiles();
+          thisComponent.translate.currentLang=='ar'?thisComponent.adjustUIForArabic():thisComponent.adjustUIForEnglish();[]
           //Sys Admin
           if (authenticatedUser.type == thisComponent.userTypeEnum.SysAdmin) {
             thisComponent.router.navigate(['/systemAdmin/dashboard']);
@@ -183,4 +184,37 @@ export class DoctorComponent implements OnInit {
     this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap.min.css");
     this.sharedService.loadCssToHTMlPage("assets/css/updatedAce.css");
   }
+
+  adjustUIForArabic() {
+    debugger;
+
+    this.localStorage.store('selectedLanguage', 'ar');
+
+    this.sharedService.removeCssFromHTMlPage("assets/css/styles-ltr.css");
+    this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap-ltr.min.css");
+
+    this.sharedService.removeCssFromHTMlPage('styles-ltr.css');
+    this.sharedService.removeCssFromHTMlPage('bootstrap-ltr.min.css');
+
+    this.sharedService.loadCssToHTMlPage("assets/css/bootstrap-rtl.min.css");
+    this.sharedService.loadCssToHTMlPage("assets/css/styles-rtl.css");
+
+    window.document.body.style.direction = "rtl";
+}
+
+adjustUIForEnglish() {
+    debugger;
+    this.localStorage.store('selectedLanguage', 'en');
+
+    // this.RemoveCssToHTMlPage("acss/styles-rtl.css");
+    // this.RemoveCssToHTMlPage("css/bootstrap-rtl.min.css");
+
+    this.sharedService.removeCssFromHTMlPage('styles-rtl.css');
+    this.sharedService.removeCssFromHTMlPage('bootstrap-rtl.min.css');
+
+
+    this.sharedService.loadCssToHTMlPage("assets/css/styles-ltr.css");
+    window.document.body.style.direction = "ltr";
+}
+
 }
