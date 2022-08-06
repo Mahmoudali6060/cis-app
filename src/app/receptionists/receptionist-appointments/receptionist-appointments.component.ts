@@ -425,7 +425,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleEventClick(e: any) {
-        debugger;
+        
         let eventId = e.event._def.publicId;
         this.fillAppointmentinfo(eventId);
 
@@ -623,7 +623,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                     }
 
                     thisComp.initialView = true;
-                    debugger;
+                    
                     //thisComp.fullCallendar.refreshSlotDuration(formattedSlotDuration, scrollTime);
                     thisComp.calendarOptions.scrollTime = scrollTime;
                     thisComp.calendarOptions.slotDuration = formattedSlotDuration;
@@ -718,7 +718,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
                 if (endMintues == "00:00:00")
                     endMintues = "23:59:59";
 
-                debugger;
+                
                 let bgEvent: CalendarEvent = new CalendarEvent();
                 let startDateTime = this.utilityClass.getISODateFormat(day) + "T" + startMinutes;
                 let endDateTime = this.utilityClass.getISODateFormat(day) + "T" + endMintues;
@@ -749,7 +749,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     onOpneCloseSlotDateSelect(dateValue: Date) {
-        debugger;
+        
         this.entireDayTimeSlotsListForStartTime = [];
         this.entireDayTimeSlotsListForEndTime = [];
         if (dateValue != undefined) {
@@ -970,7 +970,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
         this.receptionistService.saveNewSessionExtension(this.sessionExtension)
             .subscribe(
                 function (response: any) {
-                    debugger;
+                    
                     thisComponent.sessionExtension = response;
                     thisComponent.clearSessionExtensionControls();
                     thisComponent.getAppointmentDetailsWrapper(thisComponent.doctorId);
@@ -990,7 +990,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
 
 
     updateCalendarEvents(appointment: any, isNewAppointment: boolean) {
-        debugger;
+        
         let evnt: CalendarEvent = new CalendarEvent();
         this.updateEvent(evnt, appointment);
 
@@ -1273,7 +1273,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleloadEvents(doctorId: any) {
-        debugger;
+        
         let event: any = {};
         event.view = {};
         event.view.intervalStart = {};
@@ -1633,7 +1633,7 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     }
 
     handleNavDayClick(event: any) {
-        debugger;
+        
         this.isDayView = true;
         this.dayViewSelectedDate = event.date._d;
         this.selectedDateAsString = this.utilityClass.getUtcDateAsString(this.dayViewSelectedDate);

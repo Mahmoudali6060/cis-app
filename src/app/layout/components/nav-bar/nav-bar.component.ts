@@ -23,7 +23,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void { }
 
   showNavbarSupportedContent() {
-    debugger;
+    
     var element: any = document.getElementById("navbarSupportedContent");
     if (element && !element.classList.contains("collapseing"))
       element.className = "collapseing";

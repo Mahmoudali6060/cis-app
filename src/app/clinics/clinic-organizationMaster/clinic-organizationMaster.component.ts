@@ -479,7 +479,7 @@ export class ClinicOrganizationMasterComponent implements OnInit {
     }
 
     updateModel(newNode: any) {
-        debugger;
+        
         this.isEditMode = true;
         this.selectedNode = newNode;
 

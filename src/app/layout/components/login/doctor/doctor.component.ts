@@ -42,7 +42,7 @@ export class DoctorComponent implements OnInit {
 
 
   login(): void {
-    debugger;
+    
     let thisComp = this;
     this.model.userName = this.doctorForm.controls['Email'].value;
     this.model.password = this.doctorForm.controls['Password'].value;
@@ -94,7 +94,7 @@ export class DoctorComponent implements OnInit {
   }
 
   generateAccessToken(authenticatedUser: any): void {
-    debugger;
+    
     let thisComponent = this;
     this.accountService.generateAccessToken(this.model)
       .subscribe(
@@ -180,13 +180,13 @@ export class DoctorComponent implements OnInit {
   }
 
   removeNewDesignFiles() {
-    debugger;
+    
     this.sharedService.removeCssFromHTMlPage("assets/css/bootstrap.min.css");
     this.sharedService.loadCssToHTMlPage("assets/css/updatedAce.css");
   }
 
   adjustUIForArabic() {
-    debugger;
+    
 
     this.localStorage.store('selectedLanguage', 'ar');
 
@@ -203,7 +203,7 @@ export class DoctorComponent implements OnInit {
 }
 
 adjustUIForEnglish() {
-    debugger;
+    
     this.localStorage.store('selectedLanguage', 'en');
 
     // this.RemoveCssToHTMlPage("acss/styles-rtl.css");

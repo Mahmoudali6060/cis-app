@@ -191,7 +191,7 @@ export class ClinicDrugsComponent implements OnInit {
     }
 
     passParentGroupInfo(node: any) {
-        debugger;
+        
         this.parentDrugsGroupId = node.data;
         if (this.selectedLang == 'ar')
             this.parentDrugsGroupName = node.label;

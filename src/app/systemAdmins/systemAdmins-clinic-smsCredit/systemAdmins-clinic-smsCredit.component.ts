@@ -59,7 +59,7 @@ export class SystemAdminClinicSMSCreditComponent implements OnChanges, OnInit {
                     else
                         return -1;
                 });
-            debugger;
+            
             if (this.smsCreditsList.length > 0)
                 this.currentCredit = this.smsCreditsList[0];
 

@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
         let profileImagePath = this.localStorage.retrieve("ProfileImagePath");
         this.notificationService.start();
         this.showHeaderAndFooterForLogedinUser();
-        debugger;
+        
         if (userName !== null) {
             this.accountService.changeLoginStatus(true, userName, userType, hasAdminPermission, profileImagePath);
 

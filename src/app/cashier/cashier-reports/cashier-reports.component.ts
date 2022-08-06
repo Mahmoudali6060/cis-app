@@ -27,7 +27,7 @@ export class CashierReportsComponent {
     }
 
     openReport(reportName: string) {
-        debugger;
+        
 
         let lang = this.storage.retrieve("SelectedLanguage");
 

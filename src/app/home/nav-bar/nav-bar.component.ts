@@ -318,7 +318,7 @@ export class NavBarComponent implements OnInit, OnChanges {
     }
 
     adjustUIForArabic() {
-        debugger;
+        
 
         this.localStorage.store('selectedLanguage', 'ar');
 
@@ -335,7 +335,7 @@ export class NavBarComponent implements OnInit, OnChanges {
     }
 
     adjustUIForEnglish() {
-        debugger;
+        
         this.localStorage.store('selectedLanguage', 'en');
 
         // this.RemoveCssToHTMlPage("acss/styles-rtl.css");

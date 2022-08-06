@@ -93,7 +93,7 @@ export class LoginComponent {
     }
 
     generateAccessToken(authenticatedUser: any): void {
-        debugger;
+        
         let thisComponent = this;
         this.accountService.generateAccessToken(this.model)
             .subscribe(
@@ -231,7 +231,7 @@ export class LoginComponent {
     }
 
     adjustUIForEnglish() {
-        debugger;
+        
         this.localStorage.store('selectedLanguage', 'en');
         this.RemoveCssToHTMlPage("assets/css/bootstrap-rtl.min.css");
         this.RemoveCssToHTMlPage("assets/css/styles-rtl.css");

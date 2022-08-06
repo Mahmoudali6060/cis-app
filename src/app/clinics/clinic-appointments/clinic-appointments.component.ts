@@ -109,7 +109,7 @@ export class ClinicAppointmentsComponent implements OnInit {
         }
     }
     loadOrganizationStructureTree() {
-        debugger;
+        
         let vm = this;
         vm.showProgress = true;
         //let userId = this.storage.retrieve("UserID");
@@ -130,7 +130,7 @@ export class ClinicAppointmentsComponent implements OnInit {
         let vm = this;
         this.clinicService.getAllAppointmentSchedules(vm.doctorId).subscribe(
             function (response: any) {
-                debugger;
+                
                 vm.appointmentsList = response;
                 vm.prepareGroupedPermissionList(vm.appointmentsList);
 
@@ -315,7 +315,7 @@ export class ClinicAppointmentsComponent implements OnInit {
     }
 
     prepareGroupedPermissionList(appointmentsList: any) {
-        debugger;
+        
         this.groupedAppointmentsList = [];
         for (let item of appointmentsList) {
             let exsitedItem = this.groupedAppointmentsList.find((x: any) => x.fullNameTranslation == item.fullNameTranslation);

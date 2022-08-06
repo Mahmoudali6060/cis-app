@@ -66,7 +66,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
 
         this.userGroupsList = this.userGroupsWrapper.userGroups;
         this.usersList = this.userGroupsWrapper.users;
-        debugger;
+        
         this.permissionsList = this.userGroupsWrapper.permissions;
         this.prepareGroupedPermissionList(this.permissionsList);
         if (this.userGroupsList == null || this.userGroupsList == undefined)
@@ -80,7 +80,7 @@ export class UserGroupsComponent implements OnInit, OnChanges {
 
     }
     prepareGroupedPermissionList(permissionsList: any) {
-        debugger;
+        
         for (let item of permissionsList) {
             let exsitedItem = this.groupedPermissionsList.find((x: any) => x.categoryFriendlyName == item.categoryFriendlyName);
             let newItem = {

@@ -90,7 +90,7 @@ export class VisitorComponent implements OnInit {
   }
 
   generateAccessToken(authenticatedUser: any): void {
-    debugger;
+    
     let thisComponent = this;
     this.accountService.generateAccessToken(this.model)
       .subscribe(

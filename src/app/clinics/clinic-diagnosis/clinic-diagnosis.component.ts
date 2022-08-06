@@ -197,7 +197,7 @@ export class ClinicDiagnosisComponent implements OnInit {
     }
 
     passParentGroupInfo(node?: any) {
-        debugger;
+        
         this.parentDiagnosisGroupId = node.data;
 
         if (this.selectedLang == 'ar')

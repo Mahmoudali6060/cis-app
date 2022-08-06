@@ -186,7 +186,7 @@ export class PurchaseOrderList {
 
     ///
     checkProductsInItemsList(id: any) {
-        debugger;
+        
         let vm = this;
         let itemsList = [];
         let order = vm.ordersList.find(o => o.id == id);

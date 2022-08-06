@@ -82,7 +82,7 @@ export class UserPermissionsComponent implements OnInit, OnChanges {
     }
 
     prepareGroupedPermissionList(permissionsList: any) {
-        debugger;
+        
         for (let item of permissionsList) {
             let exsitedItem = this.groupedPermissionsList.find((x: any) => x.categoryFriendlyName == item.categoryFriendlyName);
             let newItem = {

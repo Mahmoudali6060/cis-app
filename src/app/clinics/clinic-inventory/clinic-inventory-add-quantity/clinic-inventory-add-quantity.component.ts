@@ -90,7 +90,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
 
                     thisComponent.Medical.children = [];
                     thisComponent.NonMedical.children = [];
-                    debugger;
+                    
                     for (let product of response) {
                         if (product.parent == undefined && product.productGroupType == "Medical") {
                             thisComponent.Medical.children.push(product);
@@ -190,7 +190,7 @@ export class ClinicInventoryAddQuantity implements OnInit {
     }
 
     filterTree(event: any) {
-        debugger
+        
         let query = event.target.value;
             this.tree.onFilter(query, "global", "contains");
       

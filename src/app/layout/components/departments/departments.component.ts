@@ -14,7 +14,7 @@ export class DepartmentsComponent implements OnInit {
   }
 
   selectCard(cardIndex: number) {
-    debugger;
+    
     this.selectedCardIndex = cardIndex;
   }
 

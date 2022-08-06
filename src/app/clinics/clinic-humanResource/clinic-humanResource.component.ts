@@ -123,7 +123,7 @@ export class ClinicHumanResourceComponent implements OnInit {
     }
 
     updateModel(updatedModel: any) {
-        debugger;
+        
         this.selectedUserToEdit = updatedModel;
 
         if (!this.isEditMode)//Add new node to the tree

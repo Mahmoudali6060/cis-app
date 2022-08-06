@@ -70,7 +70,7 @@ export class SystemAdminImportExportComponent implements OnInit {
 
     }
     onSubmit(): void {
-        debugger;
+        
         let vm = this;
         vm.showProgress = true;
         //import
